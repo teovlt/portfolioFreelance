@@ -13,8 +13,8 @@ const config = {
       fontFamily: {},
       colors: {
         primary: {
-          DEFAULT: "hsl(var(--primary))",
-          foreground: "hsl(var(--primary-foreground))",
+          DEFAULT: "var(--primary)",
+          foreground: "var(--primary-foreground)",
         },
       },
     },

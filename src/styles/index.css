@@ -4,6 +4,6 @@
 
 @layer base {
   :root {
-    --primary: 211, 100%, 50%;
+    --primary: #007ea7;
   }
 }
