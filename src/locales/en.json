@@ -1,3 +1,9 @@
 {
-  "home": "Home"
+  "home": "Home",
+  "navbar": {
+    "about": "About",
+    "projects": "Projects",
+    "services": "Services",
+    "contact": "Contact"
+  }
 }

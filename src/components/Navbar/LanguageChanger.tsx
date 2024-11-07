@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
 import { Button } from "../ui/button";
 import { useState } from "react";
-import { FR, US } from "country-flag-icons/react/3x2";
+import { FR, GB, US } from "country-flag-icons/react/3x2";
 
 export const LanguageChanger = () => {
   const {
@@ -24,7 +24,7 @@ export const LanguageChanger = () => {
           currentLanguage === "fr" ? "rotate-0 scale-100" : "rotate-90 scale-0"
         }`}
       />
-      <US
+      <GB
         className={`absolute h-[1.2rem] w-[1.2rem] transition-all duration-300 ${
           currentLanguage === "en" ? "rotate-0 scale-100" : "rotate-90 scale-0"
         }`}
