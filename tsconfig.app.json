@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    },
+    "composite": true,
+    "jsx": "react-jsx" // Utilise la transformation JSX pour React 17+
+  }
+}

@@ -1,5 +1,18 @@
 {
+  "files": [],
+  "references": [
+    {
+      "path": "./tsconfig.app.json"
+    },
+    {
+      "path": "./tsconfig.node.json"
+    }
+  ],
   "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    },
     "target": "es5", // Définit la version JavaScript de sortie
     "lib": ["dom", "dom.iterable", "esnext"], // Bibliothèques utilisées
     "allowJs": true, // Permet de compiler des fichiers JavaScript
