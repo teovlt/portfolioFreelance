@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { ThemeChanger } from "./ThemeChanger";
 import { LanguageChanger } from "./LanguageChanger";
 import { useTranslation } from "react-i18next";
+import { Separator } from "../ui/separator";
 
 export const Navbar = () => {
   const { t } = useTranslation();
@@ -18,7 +19,7 @@ export const Navbar = () => {
           <Link to="/projects">{t("navbar.projects")}</Link>
           <Link to="/contact">{t("navbar.contact")}</Link>
         </div>
-        |
+        <Separator orientation="vertical" className="h-6" />
         <div className="flex gap-4 items-center justify-between">
           <LanguageChanger />
           <ThemeChanger />
