@@ -6,6 +6,7 @@
     },
     "resolveJsonModule": true,
     "composite": true,
-    "jsx": "react-jsx" // Utilise la transformation JSX pour React 17+
+    "jsx": "react-jsx",
+    "esModuleInterop": true // Meilleure compatibilité avec CommonJS et ES Modules
   }
 }
