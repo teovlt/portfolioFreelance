@@ -4,7 +4,7 @@ import { LanguageChanger } from "./LanguageChanger";
 
 export const Navbar = () => {
   return (
-    <div className="flex items-center justify-between p-4 bg-primary text-secondary px-8 select-none">
+    <div className="flex items-center justify-between p-4 text-primary px-8 select-none">
       <div className="font-extrabold text-3xl">
         <Link to="/">VILLET</Link>
       </div>
