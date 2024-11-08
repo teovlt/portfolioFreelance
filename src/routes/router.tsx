@@ -1,10 +1,7 @@
-import { Home } from "../pages/Home";
+import { Base } from "../pages/Base";
 import { ErrorPage } from "../pages/ErrorPage";
 import { createBrowserRouter, Outlet } from "react-router-dom";
-import { About } from "../pages/About";
 import { Navbar } from "../components/Navbar";
-import { PreviewProject } from "../components/PreviewProject";
-import { Projects } from "../pages/Projects";
 
 const RootLayout = () => (
   <>
@@ -21,18 +18,7 @@ export const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: (
-          <>
-            <Home />
-            <About />
-            <PreviewProject />
-          </>
-        ),
-      },
-      {
-        path: "/projects",
-        element: <Projects />,
-        errorElement: <ErrorPage />,
+        element: <Base />,
       },
     ],
   },
