@@ -3,13 +3,26 @@ import { ThemeChanger } from "./ThemeChanger";
 import { LanguageChanger } from "./LanguageChanger";
 import { useTranslation } from "react-i18next";
 import { Separator } from "../ui/separator";
-import { CircleX, Cross, CrossIcon, Menu, X } from "lucide-react";
-import { useState } from "react";
+import { Menu, X } from "lucide-react";
+import { useState, useEffect, useRef } from "react";
 import { cn } from "@/lib/utils";
 
 export const Navbar = () => {
   const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
+  const menuRef = useRef(null);
+
+  // Handle clicks outside of the menu
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (menuRef.current && !menuRef.current.contains(event.target) && isOpen) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [isOpen]);
 
   return (
     <>
@@ -43,9 +56,10 @@ export const Navbar = () => {
 
       {/* Hamburger Menu Dropdown */}
       <div
+        ref={menuRef}
         className={cn(
-          "fixed top-0 left-0 w-full h-screen overflow-hidden7 dark:bg-black bg-white text-primary transition-transform duration-300 ease-in-out",
-          isOpen ? "translate-x-full" : "translate-x-0",
+          "fixed top-0 right-0 w-4/5 h-screen overflow-hidden dark:bg-black bg-white text-primary transition-transform duration-300 ease-in-out z-20",
+          isOpen ? "translate-x-0" : "translate-x-full",
         )}
       >
         <X onClick={() => setIsOpen(!isOpen)} className="m-4 cursor-pointer" />
