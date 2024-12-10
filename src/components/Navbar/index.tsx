@@ -50,7 +50,7 @@ export const Navbar = () => {
     <>
       <div className="navbar sticky top-0 left-0 dark:bg-black bg-white right-0 z-50 shadow-md">
         {/* Display only on screens larger than 'sm' */}
-        <div className="hidden sm:flex items-center justify-between p-4 text-primary px-8 select-none">
+        <div className="hidden md:flex items-center justify-between p-4 text-primary px-8 select-none">
           <div className="font-extrabold text-3xl">
             <Link to="/" onClick={() => scrollToSection("home-section")}>
               VILLET
@@ -83,7 +83,7 @@ export const Navbar = () => {
         </div>
 
         {/* Mobile Navbar with Hamburger Menu */}
-        <div className="flex sm:hidden justify-between items-center p-4">
+        <div className="flex md:hidden justify-between items-center p-4">
           <div className="font-extrabold text-3xl">
             <Link to="/">VILLET</Link>
           </div>
