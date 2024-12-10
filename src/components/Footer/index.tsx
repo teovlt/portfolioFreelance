@@ -1,4 +1,4 @@
-import { FacebookIcon, GithubIcon, InstagramIcon, TwitterIcon, YoutubeIcon } from "lucide-react";
+import { ArrowUpIcon, FacebookIcon, GithubIcon, InstagramIcon, TwitterIcon, YoutubeIcon } from "lucide-react";
 import { Separator } from "../ui/separator";
 import { Link } from "react-router-dom";
 
@@ -90,6 +90,7 @@ export const Footer = () => {
         <Separator />
         <div className="flex justify-between p-4 px-16 ">
           <p>© {new Date().getFullYear()} VILLET Téo | Tout droit reservés</p>
+          <ArrowUpIcon className="h-6 w-6 cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} />
         </div>
       </div>
     </div>
