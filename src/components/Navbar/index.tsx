@@ -98,7 +98,9 @@ export const Navbar = () => {
             isOpen ? "translate-x-0" : "translate-x-full",
           )}
         >
-          <X onClick={() => setIsOpen(!isOpen)} className="m-4 cursor-pointer" />
+          <div className="flex justify-end">
+            <X onClick={() => setIsOpen(!isOpen)} className="m-4 cursor-pointer" />
+          </div>
 
           <div className="flex flex-col gap-4 p-8 pt-2">
             <Button onClick={() => scrollToSection("home-section")} variant="link" className="flex gap-4 items-center justify-start">
