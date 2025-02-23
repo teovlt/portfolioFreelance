@@ -48,7 +48,7 @@ export const Navbar = () => {
 
   return (
     <>
-      <div className="navbar sticky top-0 left-0 bg-primary-background dark:bg-background right-0 z-50 shadow-md">
+      <div className="navbar sticky top-0 left-0 bg-background dark:bg-background right-0 z-50 shadow-md shadow-primary">
         {/* Display only on screens larger than 'sm' */}
         <div className="hidden md:flex items-center justify-between p-4 text-primary px-8 select-none">
           <div className="font-extrabold text-3xl">
