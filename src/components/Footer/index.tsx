@@ -1,4 +1,4 @@
-import { ArrowUpIcon, FacebookIcon, GithubIcon, InstagramIcon, TwitterIcon, YoutubeIcon } from "lucide-react";
+import { ArrowUpIcon, FacebookIcon, GithubIcon, InstagramIcon, Linkedin, LinkedinIcon, TwitterIcon, YoutubeIcon } from "lucide-react";
 import { Separator } from "../ui/separator";
 import { Link } from "react-router-dom";
 
@@ -12,7 +12,7 @@ export const Footer = () => {
           <FacebookIcon className="h-5 w-5" />
           <GithubIcon className="h-5 w-5" />
           <InstagramIcon className="h-5 w-5" />
-          <TwitterIcon className="h-5 w-5" />
+          <LinkedinIcon className="h-5 w-5" />
           <YoutubeIcon className="h-5 w-5" />
         </div>
         <div className="flex flex-col gap-4">
@@ -45,20 +45,9 @@ export const Footer = () => {
                 </Link>
               </div>
               <div className="flex gap-2 items-center">
-                <InstagramIcon className="h-4 w-4" />
-                <Link target="_blank" className="hover:underline" to="https://www.instagram.com/teo_vlt/">
-                  Instagram
-                </Link>
-              </div>
-            </ul>
-          </div>
-          <div>
-            <h2 className="font-bold pb-4">Réseaux sociaux</h2>
-            <ul className="flex flex-col gap-2 pl-4">
-              <div className="flex gap-2 items-center">
-                <GithubIcon className="h-4 w-4" />
-                <Link target="_blank" className="hover:underline" to="https://github.com/teovlt">
-                  Github
+                <LinkedinIcon className="h-4 w-4" />
+                <Link target="_blank" className="hover:underline" to="https://www.linkedin.com/in/teo-villet/">
+                  Linkedin
                 </Link>
               </div>
               <div className="flex gap-2 items-center">
@@ -76,6 +65,35 @@ export const Footer = () => {
                 <GithubIcon className="h-4 w-4" />
                 <Link target="_blank" className="hover:underline" to="https://github.com/teovlt">
                   Github
+                </Link>
+              </div>
+              <div className="flex gap-2 items-center">
+                <LinkedinIcon className="h-4 w-4" />
+                <Link target="_blank" className="hover:underline" to="https://www.linkedin.com/in/teo-villet/">
+                  Linkedin
+                </Link>
+              </div>
+              <div className="flex gap-2 items-center">
+                <InstagramIcon className="h-4 w-4" />
+                <Link target="_blank" className="hover:underline" to="https://www.instagram.com/teo_vlt/">
+                  Instagram
+                </Link>
+              </div>
+            </ul>
+          </div>
+          <div>
+            <h2 className="font-bold pb-4">Réseaux sociaux</h2>
+            <ul className="flex flex-col gap-2 pl-4">
+              <div className="flex gap-2 items-center">
+                <GithubIcon className="h-4 w-4" />
+                <Link target="_blank" className="hover:underline" to="https://github.com/teovlt">
+                  Github
+                </Link>
+              </div>
+              <div className="flex gap-2 items-center">
+                <LinkedinIcon className="h-4 w-4" />
+                <Link target="_blank" className="hover:underline" to="https://www.linkedin.com/in/teo-villet/">
+                  Linkedin
                 </Link>
               </div>
               <div className="flex gap-2 items-center">
