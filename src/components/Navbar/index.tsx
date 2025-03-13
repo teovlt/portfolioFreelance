@@ -48,7 +48,7 @@ export const Navbar = () => {
 
   return (
     <>
-      <div className="navbar sticky top-0 left-0 bg-background dark:bg-background right-0 z-50 shadow-md shadow-primary">
+      <div className="navbar sticky top-0 left-0 bg-background right-0 z-50">
         {/* Display only on screens larger than 'sm' */}
         <div className="hidden md:flex items-center justify-between p-4 text-primary px-8 select-none">
           <div className="font-extrabold text-3xl">
@@ -94,7 +94,7 @@ export const Navbar = () => {
         <div
           ref={menuRef}
           className={cn(
-            "fixed top-0 right-0 w-4/5 h-screen overflow-hidden bg-primary-background dark:bg-background text-primary transition-transform duration-300 ease-in-out z-20",
+            "fixed top-0 right-0 w-4/5 h-screen overflow-hidden bg-background text-primary transition-transform duration-300 ease-in-out z-20",
             isOpen ? "translate-x-0" : "translate-x-full",
           )}
         >
