@@ -6,12 +6,12 @@ import { Projects } from "./Projects";
 
 export const Base = () => {
   return (
-    <div className="flex flex-col w-3/5 mx-auto">
+    <>
       <Home />
       <About />
       <Services />
       <Projects />
       <Contact />
-    </div>
+    </>
   );
 };

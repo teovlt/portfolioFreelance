@@ -1,4 +1,4 @@
-import FuzzyText from "@/components/ui/reactBits/textAnimations/FuzzyText/FuzzyText";
+import FuzzyText from "@/components/ui/reactBits/textAnimations/FuzzyText";
 import { useTheme } from "@/providers/theme-provider";
 import { ArrowBigLeftDash } from "lucide-react";
 import { useNavigate } from "react-router-dom";
