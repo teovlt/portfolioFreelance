@@ -57,14 +57,7 @@ const Ribbons: React.FC<RibbonsProps> = ({
     container.appendChild(gl.canvas);
 
     const scene = new Transform();
-    const lines: {
-      spring: number;
-      friction: number;
-      mouseVelocity: Vec3;
-      mouseOffset: Vec3;
-      points: Vec3[];
-      polyline: Polyline;
-    }[] = [];
+    const lines: { spring: number; friction: number; mouseVelocity: Vec3; mouseOffset: Vec3; points: Vec3[]; polyline: Polyline }[] = [];
 
     const vertex = `
       precision highp float;
@@ -144,14 +137,7 @@ const Ribbons: React.FC<RibbonsProps> = ({
       const thickness = baseThickness + (Math.random() - 0.5) * 3;
       const mouseOffset = new Vec3((index - center) * offsetFactor + (Math.random() - 0.5) * 0.01, (Math.random() - 0.5) * 0.1, 0);
 
-      const line = {
-        spring,
-        friction,
-        mouseVelocity: new Vec3(),
-        mouseOffset,
-        points: [] as Vec3[],
-        polyline: {} as Polyline,
-      };
+      const line = { spring, friction, mouseVelocity: new Vec3(), mouseOffset, points: [] as Vec3[], polyline: {} as Polyline };
 
       const count = pointCount;
       const points: Vec3[] = [];

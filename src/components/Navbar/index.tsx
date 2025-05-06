@@ -36,10 +36,7 @@ export const Navbar = () => {
       const position = section.offsetTop - navbarHeight;
 
       // Faire défiler la page avec le défilement ajusté
-      window.scrollTo({
-        top: position,
-        behavior: "smooth",
-      });
+      window.scrollTo({ top: position, behavior: "smooth" });
 
       // Fermer le menu après avoir effectué le défilement
       setIsOpen(false);
@@ -77,7 +74,7 @@ export const Navbar = () => {
             <Separator orientation="vertical" className="h-6" />
             <div className="flex gap-4 items-center justify-between">
               <LanguageChanger />
-              <ThemeChanger />
+              {/* <ThemeChanger /> */}
             </div>
           </div>
         </div>
@@ -126,7 +123,7 @@ export const Navbar = () => {
             <Separator />
             <div className="flex gap-4 justify-center items-center ">
               <LanguageChanger />
-              <ThemeChanger />
+              {/* <ThemeChanger /> */}
             </div>
           </div>
         </div>

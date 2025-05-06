@@ -9,7 +9,7 @@ const RootLayout = () => (
   <>
     <Ribbons
       baseThickness={10}
-      colors={["#00d8ff"]}
+      colors={["#3b82f6"]}
       speedMultiplier={0.42}
       maxAge={500}
       enableFade={true}
@@ -30,11 +30,6 @@ export const router = createBrowserRouter([
         <ErrorPage />
       </>
     ),
-    children: [
-      {
-        path: "/",
-        element: <Base />,
-      },
-    ],
+    children: [{ path: "/", element: <Base /> }],
   },
 ]);
