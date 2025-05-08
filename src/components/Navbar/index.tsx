@@ -3,9 +3,10 @@ import { ThemeChanger } from "./ThemeChanger";
 import { LanguageChanger } from "./LanguageChanger";
 import { useTranslation } from "react-i18next";
 import { Separator } from "../ui/separator";
-import { Briefcase, FileText, House, Info, Mail, Menu, X } from "lucide-react";
+import { Briefcase, Download, FileText, House, Info, Mail, Menu, X } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
 import { cn } from "@/lib/utils";
+import { Button } from "../ui/button";
 
 export const Navbar = () => {
   const { t } = useTranslation();
@@ -107,7 +108,15 @@ export const Navbar = () => {
               <Separator orientation="vertical" className="h-6" />
               <div className="flex gap-4 items-center justify-between">
                 <LanguageChanger />
-                {/* <ThemeChanger /> */}
+                <ThemeChanger />
+              </div>
+              <Separator orientation="vertical" className="h-6" />
+              <div className="flex gap-4 items-center justify-between">
+                <Button asChild>
+                  <a href="/documents/Portfolio.pdf" target="_blank" rel="noopener noreferrer" download className="w-full">
+                    Resume
+                  </a>
+                </Button>
               </div>
             </div>
           </div>
