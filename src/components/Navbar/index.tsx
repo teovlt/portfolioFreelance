@@ -6,12 +6,22 @@ import { Separator } from "../ui/separator";
 import { Briefcase, FileText, House, Info, Mail, Menu, X } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
 import { cn } from "@/lib/utils";
-import { Button } from "../ui/button";
 
 export const Navbar = () => {
   const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState("home-section");
+  const [isScrolled, setIsScrolled] = useState(false);
   const menuRef = useRef(null);
+
+  // Navigation items array
+  const navItems = [
+    { id: "home-section", label: t("navbar.home"), icon: <House className="w-4 h-4" /> },
+    { id: "about-section", label: t("navbar.about"), icon: <Info className="w-4 h-4" /> },
+    { id: "services-section", label: t("navbar.services"), icon: <Briefcase className="w-4 h-4" /> },
+    { id: "projects-section", label: t("navbar.projects"), icon: <FileText className="w-4 h-4" /> },
+    { id: "contact-section", label: t("navbar.contact"), icon: <Mail className="w-4 h-4" /> },
+  ];
 
   // Handle clicks outside of the menu
   useEffect(() => {
@@ -25,73 +35,97 @@ export const Navbar = () => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [isOpen]);
 
+  // Handle scroll effects
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 50) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+
+      const sections = navItems.map((item) => item.id);
+      let currentSection = "home-section";
+
+      sections.forEach((section) => {
+        const element = document.getElementById(section);
+        if (element) {
+          const rect = element.getBoundingClientRect();
+          if (rect.top <= 100 && rect.bottom >= 100) {
+            currentSection = section;
+          }
+        }
+      });
+
+      setActiveSection(currentSection);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   // Scroll to specific section with navbar height compensation
-  const scrollToSection = (id: string) => {
+  const scrollToSection = (id, event) => {
+    event.preventDefault(); // Prevent the default anchor behavior
     const section = document.getElementById(id);
     if (section) {
-      // Récupérer la hauteur de la navbar
-      const navbarHeight = document.querySelector(".navbar")?.clientHeight;
-
-      // Calculer la position de la section avec la compensation
+      const navbarHeight = document.querySelector("header")?.clientHeight;
       const position = section.offsetTop - navbarHeight;
-
-      // Faire défiler la page avec le défilement ajusté
       window.scrollTo({ top: position, behavior: "smooth" });
-
-      // Fermer le menu après avoir effectué le défilement
       setIsOpen(false);
     }
   };
 
   return (
     <>
-      <div className="navbar sticky top-0 left-0 bg-background right-0 z-50">
-        {/* Display only on screens larger than 'sm' */}
-        <div className="hidden md:flex items-center justify-between p-4 text-primary px-8 select-none">
-          <div className="font-extrabold text-3xl">
-            <Link to="/" onClick={() => scrollToSection("home-section")}>
-              VILLET
-            </Link>
-          </div>
-          <div className="flex gap-4 items-center">
-            <div className="flex gap-2">
-              <Button onClick={() => scrollToSection("home-section")} variant="link">
-                {t("navbar.home")}
-              </Button>
-              <Button onClick={() => scrollToSection("about-section")} variant="link">
-                {t("navbar.about")}
-              </Button>
-              <Button onClick={() => scrollToSection("services-section")} variant="link">
-                {t("navbar.services")}
-              </Button>
-              <Button onClick={() => scrollToSection("projects-section")} variant="link">
-                {t("navbar.projects")}
-              </Button>
-              <Button onClick={() => scrollToSection("contact-section")} variant="link">
-                {t("navbar.contact")}
-              </Button>
+      <header
+        className={`fixed top-0 w-full z-50 transition-all duration-200 ${
+          isScrolled ? "bg-background/80 backdrop-blur-md shadow-sm py-4" : "bg-transparent py-4"
+        }`}
+      >
+        <div className="container mx-auto px-4">
+          {/* Display only on screens larger than 'sm' */}
+          <div className="hidden md:flex items-center justify-between select-none">
+            <div className="font-extrabold text-3xl">
+              <Link to="/" onClick={(e) => scrollToSection("home-section", e)}>
+                VILLET
+              </Link>
             </div>
-            <Separator orientation="vertical" className="h-6" />
-            <div className="flex gap-4 items-center justify-between">
-              <LanguageChanger />
-              {/* <ThemeChanger /> */}
+            <div className="flex gap-4 items-center">
+              <div className="flex gap-8 font-light">
+                {navItems.map((item) => (
+                  <Link
+                    key={item.id}
+                    to={`#${item.id}`}
+                    onClick={(e) => scrollToSection(item.id, e)}
+                    className={activeSection === item.id ? "text-primary" : "hover:text-primary"}
+                  >
+                    {item.label}
+                  </Link>
+                ))}
+              </div>
+              <Separator orientation="vertical" className="h-6" />
+              <div className="flex gap-4 items-center justify-between">
+                <LanguageChanger />
+                {/* <ThemeChanger /> */}
+              </div>
             </div>
           </div>
-        </div>
 
-        {/* Mobile Navbar with Hamburger Menu */}
-        <div className="flex md:hidden justify-between items-center p-4">
-          <div className="font-extrabold text-3xl">
-            <Link to="/">VILLET</Link>
+          {/* Mobile Navbar with Hamburger Menu */}
+          <div className="flex md:hidden justify-between items-center p-4">
+            <div className="font-extrabold text-3xl">
+              <Link to="/">VILLET</Link>
+            </div>
+            <Menu onClick={() => setIsOpen(!isOpen)} className="cursor-pointer" />
           </div>
-          <Menu onClick={() => setIsOpen(!isOpen)} className="cursor-pointer" />
         </div>
 
         {/* Hamburger Menu Dropdown */}
         <div
           ref={menuRef}
           className={cn(
-            "fixed top-0 right-0 w-4/5 h-screen overflow-hidden bg-background text-primary transition-transform duration-300 ease-in-out z-20",
+            "fixed top-0 right-0 w-4/5 h-screen overflow-hidden bg-background transition-transform duration-300 ease-in-out z-20",
             isOpen ? "translate-x-0" : "translate-x-full",
           )}
         >
@@ -100,34 +134,25 @@ export const Navbar = () => {
           </div>
 
           <div className="flex flex-col gap-4 p-8 pt-2">
-            <Button onClick={() => scrollToSection("home-section")} variant="link" className="flex gap-4 items-center justify-start">
-              <House className="w-4 h-4" />
-              {t("navbar.home")}
-            </Button>
-            <Button onClick={() => scrollToSection("about-section")} variant="link" className="flex gap-4 items-center justify-start">
-              <Info className="w-4 h-4" />
-              {t("navbar.about")}
-            </Button>
-            <Button onClick={() => scrollToSection("services-section")} variant="link" className="flex gap-4 items-center justify-start">
-              <Briefcase className="w-4 h-4" />
-              {t("navbar.services")}
-            </Button>
-            <Button onClick={() => scrollToSection("projects-section")} variant="link" className="flex gap-4 items-center justify-start">
-              <FileText className="w-4 h-4" />
-              {t("navbar.projects")}
-            </Button>
-            <Button onClick={() => scrollToSection("contact-section")} variant="link" className="flex gap-4 items-center justify-start">
-              <Mail className="w-4 h-4" />
-              {t("navbar.contact")}
-            </Button>
+            {navItems.map((item) => (
+              <Link
+                key={item.id}
+                to={`#${item.id}`}
+                onClick={(e) => scrollToSection(item.id, e)}
+                className={`flex gap-4 items-center justify-start ${activeSection === item.id ? "text-primary" : "hover:text-primary"}`}
+              >
+                {item.icon}
+                {item.label}
+              </Link>
+            ))}
             <Separator />
-            <div className="flex gap-4 justify-center items-center ">
+            <div className="flex gap-4 justify-center items-center">
               <LanguageChanger />
               {/* <ThemeChanger /> */}
             </div>
           </div>
         </div>
-      </div>
+      </header>
     </>
   );
 };
