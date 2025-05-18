@@ -75,9 +75,7 @@ export const Projects = () => {
                   <img
                     src={"images/" + project.image}
                     alt={project.title}
-                    width={500}
-                    height={500}
-                    className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    className="object-cover group-hover:scale-105 transition-transform duration-500"
                   />
                 </div>
                 <CardHeader>
