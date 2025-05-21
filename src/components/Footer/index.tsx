@@ -1,137 +1,71 @@
-import {
-  ArrowUp,
-  ArrowUpIcon,
-  FacebookIcon,
-  GithubIcon,
-  InstagramIcon,
-  Linkedin,
-  LinkedinIcon,
-  TwitterIcon,
-  YoutubeIcon,
-} from "lucide-react";
-import { Separator } from "../ui/separator";
+"use client";
+
+import { Button } from "@/components/ui/button";
+import { Github, Linkedin, Mail, Twitter } from "lucide-react";
+import { Separator } from "@/components/ui/separator";
 import { Link } from "react-router-dom";
-import { Button } from "../ui/button";
-import { motion } from "framer-motion";
+import { scrollToSection } from "@/utils/scrollToSection";
 
-export const Footer = () => {
+export function Footer() {
+  const navItems = [
+    { label: "Home", sectionId: "home-section" },
+    { label: "About", sectionId: "about-section" },
+    { label: "Services", sectionId: "services-section" },
+    { label: "Projects", sectionId: "projects-section" },
+    { label: "Contact", sectionId: "contact-section" },
+  ];
+
+  const currentYear = new Date().getFullYear();
+
   return (
-    <div className="bg-muted/30">
-      {/* Section pour mobile */}
-      <div className="sm:hidden flex p-8 flex-col gap-8">
-        <Separator />
-        {/* <div className="flex gap-2">
-          <FacebookIcon className="h-5 w-5" />
-          <GithubIcon className="h-5 w-5" />
-          <InstagramIcon className="h-5 w-5" />
-          <LinkedinIcon className="h-5 w-5" />
-          <YoutubeIcon className="h-5 w-5" />
+    <footer className="bg-muted/30 py-12 flex items-center justify-center">
+      <div className="container space-y-8">
+        <div className="flex flex-col md:flex-row justify-between items-center">
+          <div className="mb-6 md:mb-0">
+            <Link to="/" className="font-bold text-xl">
+              <span className="text-primary">Dev</span>Portfolio
+            </Link>
+            <p className="text-muted-foreground mt-2 text-sm">Fullstack developer crafting beautiful and functional web experiences.</p>
+          </div>
+          <div className="flex items-center gap-4">
+            <Button variant="ghost" size="icon" asChild aria-label="GitHub">
+              <Link to="https://github.com/teovlt" target="_blank" rel="noopener noreferrer">
+                <Github className="h-5 w-5" />
+              </Link>
+            </Button>
+            <Button variant="ghost" size="icon" asChild aria-label="LinkedIn">
+              <Link to="https://www.linkedin.com/in/teo-villet/" target="_blank" rel="noopener noreferrer">
+                <Linkedin className="h-5 w-5" />
+              </Link>
+            </Button>
+            <Button variant="ghost" size="icon" asChild aria-label="Email">
+              <Link to="mailto:teo.villet2@gmail.com">
+                <Mail className="h-5 w-5" />
+              </Link>
+            </Button>
+          </div>
         </div>
-        <div className="flex flex-col gap-4">
-          <Link className="underline" to="/">
-            Mentions légales
-          </Link>
-          <Link className="underline" to="/">
-            Politique de confidentialité
-          </Link>
-          <Link className="underline" to="/">
-            Politique de cookies
-          </Link>
-        </div> */}
-        <div>
-          <p>Copyright © {new Date().getFullYear()} par VILLET Téo</p>
-          <p>Tout droit réservés</p>
-        </div>
-      </div>
 
-      {/* Section pour écrans plus grands */}
-      <div className="hidden sm:block ">
-        {/* <div className="flex items-start justify-between p-8 px-16">
-          <h1 className="font-bold text-xl">VILLET</h1>
-          <div>
-            <h2 className="font-bold pb-4">Réseaux sociaux</h2>
-            <ul className="flex flex-col gap-2 pl-4">
-              <div className="flex gap-2 items-center">
-                <GithubIcon className="h-4 w-4" />
-                <Link target="_blank" className="hover:underline" to="https://github.com/teovlt">
-                  Github
-                </Link>
-              </div>
-              <div className="flex gap-2 items-center">
-                <LinkedinIcon className="h-4 w-4" />
-                <Link target="_blank" className="hover:underline" to="https://www.linkedin.com/in/teo-villet/">
-                  Linkedin
-                </Link>
-              </div>
-              <div className="flex gap-2 items-center">
-                <InstagramIcon className="h-4 w-4" />
-                <Link target="_blank" className="hover:underline" to="https://www.instagram.com/teo_vlt/">
-                  Instagram
-                </Link>
-              </div>
-            </ul>
-          </div>
-          <div>
-            <h2 className="font-bold pb-4">Réseaux sociaux</h2>
-            <ul className="flex flex-col gap-2 pl-4">
-              <div className="flex gap-2 items-center">
-                <GithubIcon className="h-4 w-4" />
-                <Link target="_blank" className="hover:underline" to="https://github.com/teovlt">
-                  Github
-                </Link>
-              </div>
-              <div className="flex gap-2 items-center">
-                <LinkedinIcon className="h-4 w-4" />
-                <Link target="_blank" className="hover:underline" to="https://www.linkedin.com/in/teo-villet/">
-                  Linkedin
-                </Link>
-              </div>
-              <div className="flex gap-2 items-center">
-                <InstagramIcon className="h-4 w-4" />
-                <Link target="_blank" className="hover:underline" to="https://www.instagram.com/teo_vlt/">
-                  Instagram
-                </Link>
-              </div>
-            </ul>
-          </div>
-          <div>
-            <h2 className="font-bold pb-4">Réseaux sociaux</h2>
-            <ul className="flex flex-col gap-2 pl-4">
-              <div className="flex gap-2 items-center">
-                <GithubIcon className="h-4 w-4" />
-                <Link target="_blank" className="hover:underline" to="https://github.com/teovlt">
-                  Github
-                </Link>
-              </div>
-              <div className="flex gap-2 items-center">
-                <LinkedinIcon className="h-4 w-4" />
-                <Link target="_blank" className="hover:underline" to="https://www.linkedin.com/in/teo-villet/">
-                  Linkedin
-                </Link>
-              </div>
-              <div className="flex gap-2 items-center">
-                <InstagramIcon className="h-4 w-4" />
-                <Link target="_blank" className="hover:underline" to="https://www.instagram.com/teo_vlt/">
-                  Instagram
-                </Link>
-              </div>
-            </ul>
-          </div>
-        </div> */}
         <Separator />
-        <div className="flex justify-between items-center px-16 py-6">
-          <p>© {new Date().getFullYear()} VILLET Téo | Tout droit reservés</p>
-          {/* <ArrowUpIcon className="h-6 w-6 cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} /> */}
-          <Button
-            variant="ghost"
-            className="flex items-center justify-center"
-            size="icon"
-            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-          >
-            <ArrowUp className="h-6 w-6 animate-bounce" />
-          </Button>
+
+        <div className="flex flex-col md:flex-row justify-between items-center">
+          <div className="mb-4 md:mb-0">
+            <p className="text-sm text-muted-foreground">© {currentYear} Téo Villet. All rights reserved.</p>
+          </div>
+          <nav className="flex gap-6">
+            {navItems.map(({ label, sectionId }) => (
+              <Link
+                key={sectionId}
+                to={`#${sectionId}`}
+                className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                onClick={(e) => scrollToSection(sectionId, e)}
+              >
+                {label}
+              </Link>
+            ))}
+          </nav>
         </div>
       </div>
-    </div>
+    </footer>
   );
-};
+}
