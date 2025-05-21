@@ -26,6 +26,14 @@ const projects = [
     tags: ["MERN", "Socket.io", "Mongoose", "TailwindCSS"],
     githubLink: "https://github.com/TrioGrenobleImt/MERN-BoilerPlate",
   },
+  {
+    id: "project3",
+    title: "Portfolio",
+    description: "My personal portfolio showcasing my skills and projects.",
+    image: "/portfolio.png",
+    tags: ["React", "TailwindCSS", "Framer Motion"],
+    githubLink: "https://github.com/teovlt/portfolioFreelance",
+  },
 ];
 
 const container = {
