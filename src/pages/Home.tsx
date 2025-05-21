@@ -6,10 +6,11 @@ import { Suspense } from "react";
 import { Link } from "react-router-dom";
 
 export const Home = () => {
-  const scrollToSection = (id) => {
+  const scrollToSection = (id: string, event: any) => {
+    event.preventDefault();
     const section = document.getElementById(id);
     if (section) {
-      const navbarHeight = document.querySelector("header")?.clientHeight;
+      const navbarHeight = document.querySelector("header").getBoundingClientRect().height;
       const position = section.offsetTop - navbarHeight;
       window.scrollTo({ top: position, behavior: "smooth" });
     }
@@ -50,8 +51,8 @@ export const Home = () => {
               asChild
               size="lg"
               aria-label="Get in Touch"
-              onClick={() => {
-                document.getElementById("contact-section")?.scrollIntoView({ behavior: "smooth" });
+              onClick={(e) => {
+                scrollToSection("contact-section", e);
               }}
               className="cursor-pointer"
             >
@@ -61,8 +62,8 @@ export const Home = () => {
               variant="outline"
               size="lg"
               asChild
-              onClick={() => {
-                document.getElementById("projects-section")?.scrollIntoView({ behavior: "smooth" });
+              onClick={(e) => {
+                scrollToSection("projects-section", e);
               }}
               className="cursor-pointer"
             >
@@ -118,8 +119,8 @@ export const Home = () => {
           variant="ghost"
           className="flex items-center justify-center"
           size="icon"
-          onClick={() => {
-            scrollToSection("about-section");
+          onClick={(e) => {
+            scrollToSection("about-section", e);
           }}
         >
           <ArrowDown className="h-6 w-6 animate-bounce" />

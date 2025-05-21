@@ -66,7 +66,7 @@ export const Navbar = () => {
   }, []);
 
   // Scroll to specific section with navbar height compensation
-  const scrollToSection = (id, event) => {
+  const scrollToSection = (id: string, event: any) => {
     event.preventDefault(); // Prevent the default anchor behavior
     const section = document.getElementById(id);
     if (section) {
@@ -157,7 +157,7 @@ export const Navbar = () => {
             <Separator />
             <div className="flex gap-4 justify-center items-center">
               <LanguageChanger />
-              {/* <ThemeChanger /> */}
+              <ThemeChanger />
             </div>
           </div>
         </div>
