@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next";
-import { Button } from "../ui/button";
+import { Button } from "./ui/button";
 import { useState } from "react";
 import { FR, GB, US } from "country-flag-icons/react/3x2";
 

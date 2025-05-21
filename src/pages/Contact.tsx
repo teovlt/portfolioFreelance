@@ -21,20 +21,33 @@ export const Contact = () => {
     },
   });
 
-  function onSubmit(values: z.infer<typeof contactSchema>) {
-    // In a real app, you would send the form data to your backend or a service like Formspree
-    console.log(values);
+  async function onSubmit(values: z.infer<typeof contactSchema>) {
+    try {
+      const response = await fetch("https://formspree.io/f/mdkgvoeq", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: values.email,
+          subject: values.subject,
+          message: values.message,
+        }),
+      });
 
-    // Show success message
-    toast.success("Thank you! I'll get back to you soon.");
-
-    // Reset form
-    form.reset();
+      if (response.ok) {
+        toast.success("Merci ! Je reviendrai vers vous rapidement.");
+        form.reset();
+      } else {
+        toast.error("Une erreur est survenue. Veuillez réessayer.");
+      }
+    } catch (error) {
+      toast.error("Échec de l'envoi du message.");
+      console.error(error);
+    }
   }
 
   return (
-    <section className="h-screen flex items-center justify-center py-20" id="contact-section">
-      <div className="container">
+    <section className="h-screen flex items-center justify-center " id="contact-section">
+      <div className="container p-20 ">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -49,7 +62,7 @@ export const Contact = () => {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-[2fr_1fr] gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-[2fr_1fr] gap-24">
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -134,7 +147,13 @@ export const Contact = () => {
                     <MapPin className="h-5 w-5 mr-3 text-primary mt-0.5" />
                     <div>
                       <h4 className="font-medium">Location</h4>
-                      <p className="text-muted-foreground">San Francisco, CA</p>
+                      <a
+                        className="text-muted-foreground hover:underline"
+                        href="https://www.google.fr/search?q=grenoble&sca_esv=c040be438cc12ffb&source=hp&ei=Gw0uaIeQG8rhkdUPq_WB-AE&iflsig=ACkRmUkAAAAAaC4bK73XIqGGSGT5iGNchimet6mir0NG&gs_ssp=eJzj4tDP1TdISYtPNmD04kgvSs3LT8pJBQA-vgZr&oq=grenoble&gs_lp=Egdnd3Mtd2l6IghncmVub2JsZSoCCAAyCBAuGIAEGLEDMggQABiABBixAzIOEC4YgAQYsQMYxwEYrwEyBRAAGIAEMggQLhiABBixAzIFEAAYgAQyCBAAGIAEGLEDMggQLhiABBixAzIUEC4YgAQYsQMYgwEYxwEYigUYrwEyBRAAGIAESL8WUPgBWIkRcAJ4AJABAJgBW6ABpQSqAQE5uAEByAEA-AEBmAILoALUBKgCCsICChAuGAMY6gIYjwHCAgoQABgDGOoCGI8BwgIMEC4YAxjqAhgKGI8BwgILEAAYgAQYsQMYgwHCAg4QABiABBixAxiDARiKBcICERAuGIAEGLEDGIMBGNQCGIoFwgILEC4YgAQYsQMYgwHCAhEQLhiABBixAxjRAxiDARjHAcICBRAuGIAEwgIOEC4YgAQYsQMYgwEYigXCAgQQABgDwgILEC4YgAQYxwEYrwGYAwfxBdv02H_0fFKvkgcCMTGgB9aBAbIHATm4B8kE&sclient=gws-wiz&sei=IA0uaL72H_eekdUPn62SsQE"
+                        target="_blank"
+                      >
+                        Grenoble, FR
+                      </a>
                     </div>
                   </div>
                   <div className="flex items-start">
@@ -143,7 +162,7 @@ export const Contact = () => {
                       <h4 className="font-medium">Email</h4>
                       <p className="text-muted-foreground">
                         <a href="mailto:contact@example.com" className="hover:underline">
-                          contact@example.com
+                          teo.villet2@gmail.com
                         </a>
                       </p>
                     </div>
@@ -154,7 +173,7 @@ export const Contact = () => {
                       <h4 className="font-medium">Phone</h4>
                       <p className="text-muted-foreground">
                         <a href="tel:+12345678901" className="hover:underline">
-                          +1 (234) 567-8901
+                          +33 618215637
                         </a>
                       </p>
                     </div>

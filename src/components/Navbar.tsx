@@ -2,11 +2,11 @@ import { Link } from "react-router-dom";
 import { ThemeChanger } from "./ThemeChanger";
 import { LanguageChanger } from "./LanguageChanger";
 import { useTranslation } from "react-i18next";
-import { Separator } from "../ui/separator";
+import { Separator } from "./ui/separator";
 import { Briefcase, Download, FileText, House, Info, Mail, Menu, X } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
 import { cn } from "@/lib/utils";
-import { Button } from "../ui/button";
+import { Button } from "./ui/button";
 import { scrollToSection } from "@/utils/scrollToSection";
 
 export const Navbar = () => {

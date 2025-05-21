@@ -1,13 +1,13 @@
 import { ErrorPage } from "../pages/ErrorPage";
 import { createBrowserRouter, Outlet } from "react-router-dom";
-import { Navbar } from "../components/Navbar";
-import { Footer } from "@/components/Footer";
 import Ribbons from "@/components/ui/reactBits/animations/Ribbons";
 import { Home } from "@/pages/Home";
 import { About } from "@/pages/About";
 import { Services } from "@/pages/Services";
 import { Projects } from "@/pages/Projects";
 import { Contact } from "@/pages/Contact";
+import { Navbar } from "@/components/Navbar";
+import { Footer } from "@/components/Footer";
 
 const RootLayout = () => (
   <>
