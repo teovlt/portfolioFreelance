@@ -7,6 +7,7 @@ import { Briefcase, Download, FileText, House, Info, Mail, Menu, X } from "lucid
 import { useState, useEffect, useRef } from "react";
 import { cn } from "@/lib/utils";
 import { Button } from "../ui/button";
+import { scrollToSection } from "@/utils/scrollToSection";
 
 export const Navbar = () => {
   const { t } = useTranslation();
@@ -64,18 +65,6 @@ export const Navbar = () => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
-  // Scroll to specific section with navbar height compensation
-  const scrollToSection = (id: string, event: any) => {
-    event.preventDefault(); // Prevent the default anchor behavior
-    const section = document.getElementById(id);
-    if (section) {
-      const navbarHeight = document.querySelector("header")?.clientHeight;
-      const position = section.offsetTop - navbarHeight;
-      window.scrollTo({ top: position, behavior: "smooth" });
-      setIsOpen(false);
-    }
-  };
 
   return (
     <>

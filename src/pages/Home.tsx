@@ -4,18 +4,9 @@ import { motion } from "framer-motion";
 import { Hero3DFigure } from "@/components/hero-3d-figure";
 import { Suspense } from "react";
 import { Link } from "react-router-dom";
+import { scrollToSection } from "@/utils/scrollToSection";
 
 export const Home = () => {
-  const scrollToSection = (id: string, event: any) => {
-    event.preventDefault();
-    const section = document.getElementById(id);
-    if (section) {
-      const navbarHeight = document.querySelector("header").getBoundingClientRect().height;
-      const position = section.offsetTop - navbarHeight;
-      window.scrollTo({ top: position, behavior: "smooth" });
-    }
-  };
-
   return (
     <section id="home-section" className="h-screen flex items-center justify-center">
       <div className="container grid grid-cols-1 md:grid-cols-2 gap-12 items-center justify-items-center px-4">
