@@ -53,7 +53,7 @@ const item = {
 
 export const Projects = () => {
   return (
-    <section className="h-screen flex items-center justify-center bg-muted/30 p-4" id="projects-section">
+    <section className="h-screen flex items-center justify-center bg-gradient-to-br from-muted/30 to-muted/50 p-4" id="projects-section">
       <div className="container">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -62,8 +62,15 @@ export const Projects = () => {
           transition={{ duration: 0.5 }}
           className="text-center mb-12"
         >
-          <h2 className="text-3xl font-bold mb-4">Featured Projects</h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
+          <motion.h2
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.7, duration: 0.7 }}
+            className="text-4xl md:text-5xl font-bold "
+          >
+            My Recent <span className="text-primary">Projects</span>
+          </motion.h2>
+          <p className="text-muted-foreground max-w-2xl mx-auto mt-4">
             A selection of my recent work. Each project showcases different skills and technologies that I've acquired over the years.
           </p>
         </motion.div>
