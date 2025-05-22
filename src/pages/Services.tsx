@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { Palette, Globe, Smartphone } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ServiceCard } from "@/components/ServiceCard";
+import { SkillsMarquee } from "@/components/SkillsMarquee";
 
 export const Services = () => {
   return (
@@ -42,7 +43,9 @@ export const Services = () => {
             </TabsList>
 
             {/* Skills Tab Content */}
-            <TabsContent value="skills" className="mt-0"></TabsContent>
+            <TabsContent value="skills" className="mt-0">
+              <SkillsMarquee />
+            </TabsContent>
 
             {/* Services Tab Content */}
             <TabsContent value="services" className="mt-0">

@@ -56,11 +56,16 @@ const config = {
       },
       animation: {
         "bounce-slow": "bounceSlow 2s infinite ease-in-out",
+        marquee: "marquee var(--duration) linear infinite",
       },
       keyframes: {
         bounceSlow: {
           "0%, 100%": { transform: "translateY(0)" },
           "50%": { transform: "translateY(-6px)" },
+        },
+        marquee: {
+          from: { transform: "translateX()" },
+          to: { transform: "translateX(calc(-100% - var(--gap)))" },
         },
       },
     },
