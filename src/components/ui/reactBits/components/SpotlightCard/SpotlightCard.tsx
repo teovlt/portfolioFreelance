@@ -14,7 +14,7 @@ interface SpotlightCardProps extends React.PropsWithChildren {
   spotlightColor?: `rgba(${number}, ${number}, ${number}, ${number})`;
 }
 
-const SpotlightCard: React.FC<SpotlightCardProps> = ({ children, className = "", spotlightColor = "rgba(59, 130, 246, 1)" }) => {
+const SpotlightCard: React.FC<SpotlightCardProps> = ({ children, className = "", spotlightColor = "rgba(59, 130, 246, 0.25)" }) => {
   const divRef = useRef<HTMLDivElement>(null);
   const [isFocused, setIsFocused] = useState<boolean>(false);
   const [position, setPosition] = useState<Position>({ x: 0, y: 0 });
@@ -53,7 +53,7 @@ const SpotlightCard: React.FC<SpotlightCardProps> = ({ children, className = "",
       onBlur={handleBlur}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      className={`relative rounded-3xl bg-secondary/5 border-secondary/10 backdrop-blur-sm h-full p-8 ${className}`}
+      className={`relative rounded-3xl bg-secondary/25 border-secondary/30 backdrop-blur-sm h-full p-8 ${className}`}
     >
       <div
         className="pointer-events-none rounded-3xl absolute inset-0 opacity-0 transition-opacity duration-500 ease-in-out"

@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { ArrowDown, Github, Linkedin, Mail } from "lucide-react";
 import { motion } from "framer-motion";
-import { Hero3DFigure } from "@/components/hero-3d-figure";
+import { Hero3DFigure } from "@/components/Homefigure";
 import { Suspense } from "react";
 import { Link } from "react-router-dom";
 import { scrollToSection } from "@/utils/scrollToSection";
