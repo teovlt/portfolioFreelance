@@ -21,7 +21,7 @@ export function Footer() {
     <footer className="bg-muted/30 py-12 flex items-center justify-center">
       <div className="container space-y-8">
         <div className="flex flex-col md:flex-row justify-between items-center">
-          <div className="mb-6 md:mb-0">
+          <div className="mb-6 md:mb-0 flex-col text-center md:text-left px-4">
             <Link to="/" className="font-bold text-xl">
               <span className="text-primary">Dev</span>Portfolio
             </Link>

@@ -46,8 +46,8 @@ export const Contact = () => {
   }
 
   return (
-    <section className="h-screen flex items-center justify-center " id="contact-section">
-      <div className="container p-20 ">
+    <section className="min-h-screen flex items-center justify-center " id="contact-section">
+      <div className="container p-4 sm:p-20">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -55,7 +55,9 @@ export const Contact = () => {
           transition={{ duration: 0.5 }}
           className="text-center mb-12"
         >
-          <h2 className="text-3xl font-bold mb-4">Get In Touch</h2>
+          <h2 className="text-3xl font-bold mb-4">
+            Get In <span className="text-primary">Touch</span>
+          </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
             Have a project in mind or want to discuss potential opportunities? Feel free to reach out. I'm always open to new ideas and
             collaborations.
@@ -137,46 +139,44 @@ export const Contact = () => {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="flex flex-col justify-center"
+            className="flex flex-col justify-center items-center"
           >
-            <div className="space-y-8">
-              <div>
-                <h3 className="text-xl font-semibold mb-4">Contact Information</h3>
-                <div className="space-y-4">
-                  <div className="flex items-start">
-                    <MapPin className="h-5 w-5 mr-3 text-primary mt-0.5" />
-                    <div>
-                      <h4 className="font-medium">Location</h4>
-                      <a
-                        className="text-muted-foreground hover:underline"
-                        href="https://www.google.fr/search?q=grenoble&sca_esv=c040be438cc12ffb&source=hp&ei=Gw0uaIeQG8rhkdUPq_WB-AE&iflsig=ACkRmUkAAAAAaC4bK73XIqGGSGT5iGNchimet6mir0NG&gs_ssp=eJzj4tDP1TdISYtPNmD04kgvSs3LT8pJBQA-vgZr&oq=grenoble&gs_lp=Egdnd3Mtd2l6IghncmVub2JsZSoCCAAyCBAuGIAEGLEDMggQABiABBixAzIOEC4YgAQYsQMYxwEYrwEyBRAAGIAEMggQLhiABBixAzIFEAAYgAQyCBAAGIAEGLEDMggQLhiABBixAzIUEC4YgAQYsQMYgwEYxwEYigUYrwEyBRAAGIAESL8WUPgBWIkRcAJ4AJABAJgBW6ABpQSqAQE5uAEByAEA-AEBmAILoALUBKgCCsICChAuGAMY6gIYjwHCAgoQABgDGOoCGI8BwgIMEC4YAxjqAhgKGI8BwgILEAAYgAQYsQMYgwHCAg4QABiABBixAxiDARiKBcICERAuGIAEGLEDGIMBGNQCGIoFwgILEC4YgAQYsQMYgwHCAhEQLhiABBixAxjRAxiDARjHAcICBRAuGIAEwgIOEC4YgAQYsQMYgwEYigXCAgQQABgDwgILEC4YgAQYxwEYrwGYAwfxBdv02H_0fFKvkgcCMTGgB9aBAbIHATm4B8kE&sclient=gws-wiz&sei=IA0uaL72H_eekdUPn62SsQE"
-                        target="_blank"
-                      >
-                        Grenoble, FR
+            <div className="space-y-8 flex-col justify-center items-center">
+              <h3 className="text-xl font-semibold mb-4">Contact Information</h3>
+              <div className="space-y-4">
+                <div className="flex items-start">
+                  <MapPin className="h-5 w-5 mr-3 text-primary mt-0.5" />
+                  <div>
+                    <h4 className="font-medium">Location</h4>
+                    <a
+                      className="text-muted-foreground hover:underline"
+                      href="https://www.google.fr/search?q=grenoble&sca_esv=c040be438cc12ffb&source=hp&ei=Gw0uaIeQG8rhkdUPq_WB-AE&iflsig=ACkRmUkAAAAAaC4bK73XIqGGSGT5iGNchimet6mir0NG&gs_ssp=eJzj4tDP1TdISYtPNmD04kgvSs3LT8pJBQA-vgZr&oq=grenoble&gs_lp=Egdnd3Mtd2l6IghncmVub2JsZSoCCAAyCBAuGIAEGLEDMggQABiABBixAzIOEC4YgAQYsQMYxwEYrwEyBRAAGIAEMggQLhiABBixAzIFEAAYgAQyCBAAGIAEGLEDMggQLhiABBixAzIUEC4YgAQYsQMYgwEYxwEYigUYrwEyBRAAGIAESL8WUPgBWIkRcAJ4AJABAJgBW6ABpQSqAQE5uAEByAEA-AEBmAILoALUBKgCCsICChAuGAMY6gIYjwHCAgoQABgDGOoCGI8BwgIMEC4YAxjqAhgKGI8BwgILEAAYgAQYsQMYgwHCAg4QABiABBixAxiDARiKBcICERAuGIAEGLEDGIMBGNQCGIoFwgILEC4YgAQYsQMYgwHCAhEQLhiABBixAxjRAxiDARjHAcICBRAuGIAEwgIOEC4YgAQYsQMYgwEYigXCAgQQABgDwgILEC4YgAQYxwEYrwGYAwfxBdv02H_0fFKvkgcCMTGgB9aBAbIHATm4B8kE&sclient=gws-wiz&sei=IA0uaL72H_eekdUPn62SsQE"
+                      target="_blank"
+                    >
+                      Grenoble, FR
+                    </a>
+                  </div>
+                </div>
+                <div className="flex items-start">
+                  <Mail className="h-5 w-5 mr-3 text-primary mt-0.5" />
+                  <div>
+                    <h4 className="font-medium">Email</h4>
+                    <p className="text-muted-foreground">
+                      <a href="mailto:contact@example.com" className="hover:underline">
+                        teo.villet2@gmail.com
                       </a>
-                    </div>
+                    </p>
                   </div>
-                  <div className="flex items-start">
-                    <Mail className="h-5 w-5 mr-3 text-primary mt-0.5" />
-                    <div>
-                      <h4 className="font-medium">Email</h4>
-                      <p className="text-muted-foreground">
-                        <a href="mailto:contact@example.com" className="hover:underline">
-                          teo.villet2@gmail.com
-                        </a>
-                      </p>
-                    </div>
-                  </div>
-                  <div className="flex items-start">
-                    <Phone className="h-5 w-5 mr-3 text-primary mt-0.5" />
-                    <div>
-                      <h4 className="font-medium">Phone</h4>
-                      <p className="text-muted-foreground">
-                        <a href="tel:+12345678901" className="hover:underline">
-                          +33 618215637
-                        </a>
-                      </p>
-                    </div>
+                </div>
+                <div className="flex items-start">
+                  <Phone className="h-5 w-5 mr-3 text-primary mt-0.5" />
+                  <div>
+                    <h4 className="font-medium">Phone</h4>
+                    <p className="text-muted-foreground">
+                      <a href="tel:+12345678901" className="hover:underline">
+                        +33 618215637
+                      </a>
+                    </p>
                   </div>
                 </div>
               </div>
