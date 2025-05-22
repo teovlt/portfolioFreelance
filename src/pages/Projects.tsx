@@ -53,7 +53,10 @@ const item = {
 
 export const Projects = () => {
   return (
-    <section className="h-screen flex items-center justify-center bg-gradient-to-br from-muted/30 to-muted/50 p-4" id="projects-section">
+    <section
+      className="min-h-screen flex items-center justify-center bg-gradient-to-br from-muted/30 to-muted/50 p-4"
+      id="projects-section"
+    >
       <div className="container">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
