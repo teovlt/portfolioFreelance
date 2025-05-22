@@ -10,7 +10,9 @@ export function Footer() {
   const navItems = [
     { label: "Home", sectionId: "home-section" },
     { label: "About", sectionId: "about-section" },
+    { label: "Experiences", sectionId: "experiences-section" },
     { label: "Services", sectionId: "services-section" },
+    { label: "Skills", sectionId: "skills-section" },
     { label: "Projects", sectionId: "projects-section" },
     { label: "Contact", sectionId: "contact-section" },
   ];
