@@ -1,18 +1,46 @@
 import { cn } from "@/lib/utils";
 import { Marquee } from "./magicui/marquee";
 
-const techSlugs = ["typescript", "react", "flutter", "firebase", "nodedotjs", "nextdotjs", "docker", "git", "tailwindcss"];
-
+const techSlugs = ["typescript", "react", "flutter", "nodedotjs", "nextdotjs", "docker", "git", "tailwindcss"];
 const databaseSlugs = ["postgresql", "mysql", "mongodb", "sqlite", "mariadb", "neo4j", "firebase"];
-
 const softwareSlugs = ["vercel", "figma", "androidstudio", "vscodium", "intellijidea", "postman", "notion", "github", "gitlab", "redmine"];
 
-// Génère des objets "review" à partir d’un tableau de slugs
+const bodies = {
+  typescript: "The type system keeps my brain sane.",
+  react: "Love the component-based mindset.",
+  flutter: "Write once, run anywhere. It's magic.",
+  nodedotjs: "JavaScript everywhere. Node is powerful.",
+  nextdotjs: "Fullstack React never felt so good.",
+  docker: "Because it works on my machine™.",
+  git: "Version control or time travel?",
+  tailwindcss: "Utility-first and fast. Never going back.",
+
+  postgresql: "Robust, reliable, and relational. My go-to DB.",
+  firebase: "Backend without pain. Sometimes.",
+  mysql: "Classic. Been around forever.",
+  mongodb: "JSON all the way. Feels natural.",
+  sqlite: "Lightweight and handy for small stuff.",
+  mariadb: "A drop-in replacement with some cool extras.",
+  neo4j: "I don't even know what this is.",
+
+  vercel: "Deploy in seconds. Just magic.",
+  figma: "Designing never felt this collaborative.",
+  androidstudio: "Heavy, but it gets the job done.",
+  vscodium: "Open source VS Code? Yes please.",
+  intellijidea: "Ultimate power for Java devs.",
+  postman: "API testing made (too) easy.",
+  notion: "Docs, tasks, life planner — all in one.",
+  github: "Home of all my bugs.",
+  gitlab: "GitHub but more DevOps-y.",
+  redmine: "Still surviving in some enterprise corners.",
+};
+
+// Génère des reviews avec des messages personnalisés
 const generateReviews = (slugs) =>
   slugs.map((slug) => ({
     name: slug.charAt(0).toUpperCase() + slug.slice(1),
     username: `@${slug}`,
-    body: "This language/tool is amazing. I love working with it!",
+    body: bodies[slug] || "I'm experimenting with it.",
     img: `https://cdn.simpleicons.org/${slug}/${slug}`,
   }));
 
@@ -44,22 +72,27 @@ export function SkillsMarquee() {
 
   return (
     <div className="relative flex w-full flex-col items-center justify-center overflow-hidden">
-      <h2 className="text-3xl font-semibold text-center text-gray-800 tracking-tight mb-4">Languages & frameworks</h2>
+      {/* <h2 className="text-3xl font-extrabold text-center mb-6 bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent">
+        Logiciels & IDE
+      </h2> */}
+
       <Marquee pauseOnHover className="[--duration:150s]">
         {techReviews.map((review) => (
           <ReviewCard key={review.username} {...review} />
         ))}
       </Marquee>
 
-      <h2 className="text-3xl font-semibold text-center text-gray-800 tracking-tight mb-4">Databases</h2>
+      {/* <h2 className="text-3xl font-semibold text-gray-800 text-center mb-8 pb-2 border-b-2 border-gray-300 w-fit mx-auto">Databases</h2> */}
       <Marquee reverse pauseOnHover className="[--duration:150s]">
         {osReviews.map((review) => (
           <ReviewCard key={review.username} {...review} />
         ))}
       </Marquee>
-
-      <h2 className="text-3xl font-semibold text-gray-800 tracking-tight mb-4">Logiciels & IDE</h2>
-      <Marquee reverse pauseOnHover className="[--duration:150s]">
+      {/* 
+      <h2 className="text-xl font-semibold text-gray-700 bg-gray-100 dark:bg-gray-800 px-4 py-2 rounded-full w-fit mx-auto shadow-sm mb-6">
+        Logiciels & IDE
+      </h2> */}
+      <Marquee pauseOnHover className="[--duration:150s]">
         {softwareReviews.map((review) => (
           <ReviewCard key={review.username} {...review} />
         ))}
