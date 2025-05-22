@@ -46,7 +46,7 @@ export const Contact = () => {
   }
 
   return (
-    <section className="min-h-screen flex items-center justify-center " id="contact-section">
+    <section className="min-h-screen flex items-center justify-center" id="contact-section">
       <div className="container p-4 sm:p-20">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

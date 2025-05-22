@@ -8,6 +8,8 @@ import { Projects } from "@/pages/Projects";
 import { Contact } from "@/pages/Contact";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
+import { Skills } from "@/pages/Skills";
+import { Experiences } from "@/pages/Experiences";
 
 const RootLayout = () => (
   <>
@@ -34,8 +36,11 @@ export const router = createBrowserRouter([
           <>
             <Home />
             <About />
+            <Experiences />
             <Services />
+            <Skills />
             <Projects />
+            {/* <Testimonials /> */}
             <Contact />
           </>
         ),
