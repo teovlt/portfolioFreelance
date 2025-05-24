@@ -35,14 +35,25 @@ const bodies = {
   redmine: "Still surviving in some enterprise corners.",
 };
 
-// Génère des reviews avec des messages personnalisés
 const generateReviews = (slugs) =>
-  slugs.map((slug) => ({
-    name: slug.charAt(0).toUpperCase() + slug.slice(1),
-    username: `@${slug}`,
-    body: bodies[slug] || "I'm experimenting with it.",
-    img: `https://cdn.simpleicons.org/${slug}/${slug}`,
-  }));
+  slugs.map((slug) => {
+    const name = slug
+      .split("dot")
+      .map((part) =>
+        part
+          .split("-")
+          .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+          .join(" "),
+      )
+      .join(".");
+
+    return {
+      name,
+      username: `@${slug}`,
+      body: bodies[slug] || "I'm experimenting with it.",
+      img: `https://cdn.simpleicons.org/${slug}/${slug}`,
+    };
+  });
 
 const ReviewCard = ({ img, name, username, body }) => {
   return (
@@ -72,26 +83,17 @@ export function SkillsMarquee() {
 
   return (
     <div className="relative flex w-full flex-col items-center justify-center overflow-hidden">
-      {/* <h2 className="text-3xl font-extrabold text-center mb-6 bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent">
-        Logiciels & IDE
-      </h2> */}
-
       <Marquee pauseOnHover className="[--duration:150s]">
         {techReviews.map((review) => (
           <ReviewCard key={review.username} {...review} />
         ))}
       </Marquee>
 
-      {/* <h2 className="text-3xl font-semibold text-gray-800 text-center mb-8 pb-2 border-b-2 border-gray-300 w-fit mx-auto">Databases</h2> */}
       <Marquee reverse pauseOnHover className="[--duration:150s]">
         {osReviews.map((review) => (
           <ReviewCard key={review.username} {...review} />
         ))}
       </Marquee>
-      {/* 
-      <h2 className="text-xl font-semibold text-gray-700 bg-gray-100 dark:bg-gray-800 px-4 py-2 rounded-full w-fit mx-auto shadow-sm mb-6">
-        Logiciels & IDE
-      </h2> */}
       <Marquee pauseOnHover className="[--duration:150s]">
         {softwareReviews.map((review) => (
           <ReviewCard key={review.username} {...review} />
