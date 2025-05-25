@@ -12,7 +12,7 @@ const timelineData = [
     description:
       "Specializing in software engineering, focusing on full-stack development and system design. In apprenticeship at GIPSA-Lab.",
     icon: <SchoolIcon />,
-    bgColor: "rgb(233, 30, 99)",
+    bgColor: "rgb(0, 0,100)",
   },
   {
     type: "work",
@@ -40,7 +40,7 @@ const timelineData = [
     subtitle: "Grenoble, France",
     description: "Focus on software development, algorithms, and data structures.",
     icon: <SchoolIcon />,
-    bgColor: "rgb(233,30,99)",
+    bgColor: "rgb(0, 0,100)",
   },
 ];
 
@@ -56,7 +56,7 @@ export const Experiences = () => {
         >
           My <span className="text-primary">Experiences</span>
         </motion.h2>
-        <VerticalTimeline>
+        <VerticalTimeline lineColor="var(--timeline-line-color)">
           {timelineData.map((item, index) => (
             <VerticalTimelineElement
               key={index}
