@@ -1,6 +1,5 @@
 import { ErrorPage } from "../pages/ErrorPage";
 import { createBrowserRouter, Outlet } from "react-router-dom";
-import Ribbons from "@/components/ui/reactBits/animations/Ribbons";
 import { Home } from "@/pages/Home";
 import { About } from "@/pages/About";
 import { Services } from "@/pages/Services";
@@ -13,7 +12,6 @@ import { Experiences } from "@/pages/Experiences";
 
 const RootLayout = () => (
   <>
-    {/* <Ribbons baseThickness={10} colors={["#3b82f6"]} speedMultiplier={0.42} maxAge={500} enableFade={true} enableShaderEffect={true} /> */}
     <Navbar />
     <Outlet />
     <Footer />
