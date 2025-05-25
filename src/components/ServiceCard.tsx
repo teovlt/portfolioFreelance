@@ -1,7 +1,8 @@
 import { motion } from "framer-motion";
 import SpotlightCard from "./ui/reactBits/components/SpotlightCard/SpotlightCard";
 import { CardContent } from "./ui/card";
-import { ArrowRight, CheckCircle, Rocket } from "lucide-react";
+import { Rocket } from "lucide-react";
+
 interface ServiceCardProps {
   icon: React.ReactNode;
   title: string;
@@ -20,16 +21,16 @@ export function ServiceCard({ icon, title, description, points, delay }: Service
       whileHover={{ y: -5 }}
     >
       <SpotlightCard className="custom-spotlight-card rounded-3xl">
-        <CardContent className="p-8 rounded-2xl ">
-          <div className="text-primary mb-5 text-3xl">{icon}</div>
-          <h3 className="text-2xl font-bold mb-3 text-foreground">{title}</h3>
-          <p className="text-base text-muted-foreground mb-6">{description}</p>
-          <h4 className="text-primary/80 font-semibold tracking-wide uppercase mb-4">What I Offer</h4>
-          <ul className="space-y-3">
+        <CardContent className="p-5 sm:p-6 md:p-8 rounded-2xl">
+          <div className="text-primary mb-4 sm:mb-5 text-2xl sm:text-3xl">{icon}</div>
+          <h3 className="text-xl sm:text-2xl font-bold mb-2 sm:mb-3 text-foreground">{title}</h3>
+          <p className="text-sm sm:text-base text-muted-foreground mb-4 sm:mb-6">{description}</p>
+          <h4 className="text-primary/80 text-xs sm:text-sm font-semibold tracking-wide uppercase mb-3 sm:mb-4">What I Offer</h4>
+          <ul className="space-y-2 sm:space-y-3">
             {points.map((point, index) => (
-              <li key={index} className="flex items-center gap-3">
-                <Rocket className="h-5 w-5 text-primary/60" />
-                <span className="text-sm leading-relaxed">{point}</span>
+              <li key={index} className="flex items-start sm:items-center gap-2 sm:gap-3">
+                <Rocket className="h-4 w-4 sm:h-5 sm:w-5 text-primary/60 mt-[2px] sm:mt-0" />
+                <span className="text-xs sm:text-sm leading-relaxed">{point}</span>
               </li>
             ))}
           </ul>

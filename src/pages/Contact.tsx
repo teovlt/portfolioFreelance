@@ -144,7 +144,7 @@ export const Contact = () => {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="flex flex-col justify-center items-center"
+            className="hidden lg:flex flex-col justify-center items-center"
           >
             <div className="space-y-8 flex-col justify-center items-center">
               <h3 className="text-xl font-semibold mb-4">Contact Information</h3>

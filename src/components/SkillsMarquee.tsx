@@ -1,39 +1,6 @@
 import { cn } from "@/lib/utils";
 import { Marquee } from "./magicui/marquee";
-
-const techSlugs = ["typescript", "react", "flutter", "nodedotjs", "nextdotjs", "docker", "git", "tailwindcss"];
-const databaseSlugs = ["postgresql", "mysql", "mongodb", "sqlite", "mariadb", "neo4j", "firebase"];
-const softwareSlugs = ["vercel", "figma", "androidstudio", "vscodium", "intellijidea", "postman", "notion", "github", "gitlab", "redmine"];
-
-const bodies = {
-  typescript: "The type system keeps my brain sane.",
-  react: "Love the component-based mindset.",
-  flutter: "Write once, run anywhere. It's magic.",
-  nodedotjs: "JavaScript everywhere. Node is powerful.",
-  nextdotjs: "Fullstack React never felt so good.",
-  docker: "Because it works on my machine™.",
-  git: "Version control or time travel?",
-  tailwindcss: "Utility-first and fast. Never going back.",
-
-  postgresql: "Robust, reliable, and relational. My go-to DB.",
-  firebase: "Backend without pain. Sometimes.",
-  mysql: "Classic. Been around forever.",
-  mongodb: "JSON all the way. Feels natural.",
-  sqlite: "Lightweight and handy for small stuff.",
-  mariadb: "A drop-in replacement with some cool extras.",
-  neo4j: "I don't even know what this is.",
-
-  vercel: "Deploy in seconds. Just magic.",
-  figma: "Designing never felt this collaborative.",
-  androidstudio: "Heavy, but it gets the job done.",
-  vscodium: "Open source VS Code? Yes please.",
-  intellijidea: "Ultimate power for Java devs.",
-  postman: "API testing made (too) easy.",
-  notion: "Docs, tasks, life planner — all in one.",
-  github: "Home of all my bugs.",
-  gitlab: "GitHub but more DevOps-y.",
-  redmine: "Still surviving in some enterprise corners.",
-};
+import { databaseSlugs, skillsBodies, softwareSlugs, techSlugs } from "@/pages/Skills";
 
 const generateReviews = (slugs) =>
   slugs.map((slug) => {
@@ -50,7 +17,7 @@ const generateReviews = (slugs) =>
     return {
       name,
       username: `@${slug}`,
-      body: bodies[slug] || "I'm experimenting with it.",
+      body: skillsBodies[slug] || "I'm experimenting with it.",
       img: `https://cdn.simpleicons.org/${slug}/${slug}`,
     };
   });
