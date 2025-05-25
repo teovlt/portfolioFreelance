@@ -83,18 +83,18 @@ export function SkillsMarquee() {
 
   return (
     <div className="relative flex w-full flex-col items-center justify-center overflow-hidden">
-      <Marquee pauseOnHover className="[--duration:150s]">
+      <Marquee pauseOnHover className="[--duration:100s]">
         {techReviews.map((review) => (
           <ReviewCard key={review.username} {...review} />
         ))}
       </Marquee>
 
-      <Marquee reverse pauseOnHover className="[--duration:150s]">
+      <Marquee reverse pauseOnHover className="[--duration:100s]">
         {osReviews.map((review) => (
           <ReviewCard key={review.username} {...review} />
         ))}
       </Marquee>
-      <Marquee pauseOnHover className="[--duration:150s]">
+      <Marquee pauseOnHover className="[--duration:100s]">
         {softwareReviews.map((review) => (
           <ReviewCard key={review.username} {...review} />
         ))}
