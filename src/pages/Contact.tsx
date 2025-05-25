@@ -55,10 +55,15 @@ export const Contact = () => {
           transition={{ duration: 0.5 }}
           className="text-center mb-12"
         >
-          <h2 className="text-3xl font-bold mb-4">
-            Get In <span className="text-primary">Touch</span>
-          </h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
+          <motion.h2
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.7, duration: 0.7 }}
+            className="text-4xl md:text-5xl font-bold "
+          >
+            Get in <span className="text-primary">Touch</span>
+          </motion.h2>
+          <p className="text-muted-foreground max-w-2xl mx-auto mt-4">
             Have a project in mind or want to discuss potential opportunities? Feel free to reach out. I'm always open to new ideas and
             collaborations.
           </p>
