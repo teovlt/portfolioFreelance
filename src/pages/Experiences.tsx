@@ -12,7 +12,7 @@ const timelineData = [
     description:
       "Specializing in software engineering, focusing on full-stack development and system design. In apprenticeship at GIPSA-Lab.",
     icon: <SchoolIcon />,
-    bgColor: "rgb(0, 0,100)",
+    bgColor: "rgb(0, 45,100)",
   },
   {
     type: "work",
@@ -40,7 +40,7 @@ const timelineData = [
     subtitle: "Grenoble, France",
     description: "Focus on software development, algorithms, and data structures.",
     icon: <SchoolIcon />,
-    bgColor: "rgb(0, 0,100)",
+    bgColor: "rgb(0, 45,100)",
   },
 ];
 
