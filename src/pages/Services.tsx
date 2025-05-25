@@ -1,7 +1,6 @@
 import { motion } from "framer-motion";
 import { Palette, Globe, Smartphone } from "lucide-react";
 import { ServiceCard } from "@/components/ServiceCard";
-import { SkillsMarquee } from "@/components/SkillsMarquee";
 
 export const Services = () => {
   return (
