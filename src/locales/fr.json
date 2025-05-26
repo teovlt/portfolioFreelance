@@ -148,45 +148,46 @@
     }
   },
   "contact": {
-    "title": "Get in",
-    "highlight": "Touch",
-    "description": "Have a project in mind or want to discuss potential opportunities? Feel free to reach out. I'm always open to new ideas and collaborations.",
+    "title": "Prenez",
+    "highlight": "Contact",
+    "description": "Un projet en tête ou envie de discuter d’opportunités ? N’hésitez pas à me contacter. Je suis toujours ouvert aux nouvelles idées et collaborations.",
     "form": {
       "name": {
-        "label": "Name",
-        "placeholder": "Your name"
+        "label": "Nom",
+        "placeholder": "Votre nom"
       },
       "email": {
         "label": "Email",
-        "placeholder": "Your email"
+        "placeholder": "Votre adresse email"
       },
       "subject": {
-        "label": "Subject",
-        "placeholder": "Subject of your message"
+        "label": "Sujet",
+        "placeholder": "Sujet de votre message"
       },
       "message": {
         "label": "Message",
-        "placeholder": "Write your message here..."
+        "placeholder": "Écrivez votre message ici..."
       },
-      "submit": "Send Message"
+      "submit": "Envoyer le message"
     },
-    "success": "Thank you! I will get back to you shortly.",
-    "error": "An error occurred. Please try again.",
-    "failure": "Failed to send message.",
+    "success": "Merci ! Je reviendrai vers vous rapidement.",
+    "error": "Une erreur est survenue. Veuillez réessayer.",
+    "failure": "Échec de l'envoi du message.",
     "info": {
-      "title": "Contact Information",
+      "title": "Informations de contact",
       "location": {
-        "label": "Location",
+        "label": "Localisation",
         "value": "Grenoble, FR"
       },
       "email": {
         "label": "Email"
       },
       "phone": {
-        "label": "Phone"
+        "label": "Téléphone"
       }
     }
   },
+
   "footer": {
     "brand": {
       "primary": "Mon",
