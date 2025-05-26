@@ -138,7 +138,9 @@ export const Navbar = () => {
               <Link
                 key={item.id}
                 to={`#${item.id}`}
-                onClick={(e) => scrollToSection(item.id, e)}
+                onClick={(e) => {
+                  scrollToSection(item.id, e), setIsOpen(false);
+                }}
                 className={`flex gap-4 items-center justify-start ${activeSection === item.id ? "text-primary" : "hover:text-primary"}`}
               >
                 {item.icon}
