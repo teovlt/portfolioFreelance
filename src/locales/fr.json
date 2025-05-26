@@ -9,5 +9,15 @@
     "experiences": "Expérience",
     "resume": "Télécharger mon CV",
     "languageChanged": "Langage changé avec succès"
+  },
+  "home": {
+    "developer": "Développeur Full Stack",
+    "hello": "Salut, je suis",
+    "title": "Conception de produits, marques et expériences numériques",
+    "subtitle": "Je développe des applications web réactives et performantes avec des technologies modernes. Spécialisé en React, Node.js et tout ce qu’il y a entre les deux.",
+    "action1": "Me contacter",
+    "action2": "Voir mes projets",
+    "figure1": "Génial",
+    "figure2": "Code en cours..."
   }
 }

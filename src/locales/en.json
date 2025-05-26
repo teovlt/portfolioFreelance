@@ -9,5 +9,15 @@
     "experiences": "Experience",
     "resume": "Resume",
     "languageChanged": "Language changed successfully"
+  },
+  "home": {
+    "developer": "Full Stack Developer",
+    "hello": "Hi, I'm",
+    "title": "Building digital products, brands, and experiences",
+    "subtitle": "I build responsive and performant web applications with modern technologies. Specialized in React, Node.js, and everything in between.",
+    "action1": "Get in Touch",
+    "action2": "View My Work",
+    "figure1": "Awesome",
+    "figure2": "Coding..."
   }
 }

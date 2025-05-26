@@ -5,8 +5,10 @@ import { Hero3DFigure } from "@/components/Homefigure";
 import { Suspense } from "react";
 import { Link } from "react-router-dom";
 import { scrollToSection } from "@/utils/scrollToSection";
+import { useTranslation } from "react-i18next";
 
 export const Home = () => {
+  const { t } = useTranslation();
   return (
     <section id="home-section" className="h-screen flex items-center justify-center">
       <div className="container grid grid-cols-1 md:grid-cols-2 gap-12 items-center justify-items-center px-4">
@@ -14,12 +16,12 @@ export const Home = () => {
         <div className="flex flex-col items-start text-left gap-6 w-full max-w-md">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="space-y-4">
             <span className="inline-block text-sm md:text-base text-primary font-medium px-3 py-1 rounded-full border border-primary/30 bg-primary/10">
-              Full Stack Developer
+              {t("home.developer")}
             </span>
             <h1 className="text-4xl md:text-5xl xl:text-6xl font-bold tracking-tight leading-tight">
-              Hi, I'm <span className="text-primary">Téo Villet</span>
+              {t("home.hello")} <span className="text-primary">Téo Villet</span>
             </h1>
-            <h2 className="text-xl text-muted-foreground">Building digital products, brands, and experiences</h2>
+            <h2 className="text-xl text-muted-foreground">{t("home.title")}</h2>
           </motion.div>
 
           <motion.p
@@ -28,8 +30,7 @@ export const Home = () => {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="text-muted-foreground text-lg"
           >
-            I build responsive and performant web applications with modern technologies. Specialized in React, Node.js, and everything in
-            between.
+            {t("home.subtitle")}
           </motion.p>
 
           <motion.div
@@ -47,7 +48,7 @@ export const Home = () => {
               }}
               className="cursor-pointer"
             >
-              <span>Get in Touch</span>
+              <span>{t("home.action1")}</span>
             </Button>
             <Button
               variant="outline"
@@ -58,7 +59,7 @@ export const Home = () => {
               }}
               className="cursor-pointer"
             >
-              <span>View My Work</span>
+              <span>{t("home.action2")}</span>
             </Button>
           </motion.div>
 

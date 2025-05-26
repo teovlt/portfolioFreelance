@@ -5,7 +5,7 @@ import * as fr from "../locales/fr.json";
 
 i18n
   .use(initReactI18next)
-  .init({ resources: { en: { translation: en }, fr: { translation: fr } }, lng: localStorage.getItem("i18nextLng") || "fr" });
+  .init({ resources: { en: { translation: en }, fr: { translation: fr } }, lng: localStorage.getItem("i18nextLng") || "en" });
 
 export const listOfLocales = ["en", "fr"];
 

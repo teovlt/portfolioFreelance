@@ -3,8 +3,11 @@
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import { useTheme } from "@/providers/theme-provider";
+import { useTranslation } from "react-i18next";
 
 export function Hero3DFigure() {
+  const { t } = useTranslation();
+
   const { theme } = useTheme();
   const isDark = theme === "dark";
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -64,9 +67,9 @@ export function Hero3DFigure() {
 
   // Code blocks with coding syntax styling
   const codeBlocks = [
-    { code: "const Portfolio = () => {\n  return <Awesome />;\n};", top: "10%", left: "15%", rotate: -8 },
+    { code: `const Portfolio = () => {\n  return < ${t("home.figure1")} />;\n};`, top: "10%", left: "15%", rotate: -8 },
     { code: "function createValue() {\n  return 'Hello World';\n}", top: "35%", left: "25%", rotate: 5 },
-    { code: '<div className="dev">\n  <p>Coding...</p>\n</div>', top: "65%", left: "20%", rotate: -5 },
+    { code: `<div className="dev">\n  <p>${t("home.figure2")}</p>\n</div>`, top: "65%", left: "20%", rotate: -5 },
   ];
 
   return (
