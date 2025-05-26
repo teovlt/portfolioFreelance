@@ -144,6 +144,10 @@
       "project3": {
         "title": "Portfolio",
         "description": "My personal portfolio showcasing my skills and projects."
+      },
+      "project4": {
+        "title": "Paperlive",
+        "description": "Une application MERN permettant aux doctorants de suivre le cycle de vie de leurs contributions et d’étudier les statistiques de leurs soumissions."
       }
     }
   },

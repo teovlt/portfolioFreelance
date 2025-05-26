@@ -144,6 +144,10 @@
       "project3": {
         "title": "Portfolio",
         "description": "Mon portfolio personnel présentant mes compétences et projets."
+      },
+      "project4": {
+        "title": "Application de gestion de doctorat",
+        "description": "Une application web complète pour aider les doctorants à gérer leurs projets de recherche, développée pour le Laboratoire d'Informatique de Grenoble."
       }
     }
   },

@@ -36,6 +36,15 @@ const projects = [
     githubLink: "https://github.com/teovlt/portfolioFreelance",
     liveLink: "https://www.teovillet.fr/",
   },
+  {
+    id: "project4",
+    title: "Paperlive",
+    description:
+      "A MERN application allowing doctorants to follow the life cycle of their contributions and study the statistics of their submissions ",
+    image: "/paperlive.png",
+    tags: ["React", "Node.js", "Express", "MongoDB", "Styled Components"],
+    githubLink: "https://github.com/BerriatMagasin/Paperlive",
+  },
 ];
 
 const container = {
