@@ -70,5 +70,26 @@
         "description": "Focus on software development, algorithms, and data structures."
       }
     ]
+  },
+  "services": {
+    "titleStart": "Let’s build",
+    "titleHighlight": "together",
+    "cards": [
+      {
+        "title": "Web Development",
+        "description": "Custom website development with focus on performance, SEO, and responsive design. From simple landing pages to complex web applications.",
+        "points": ["Responsive Design", "E-commerce Solutions", "CMS Integration", "API Development"]
+      },
+      {
+        "title": "Mobile App Development",
+        "description": "Native and cross-platform mobile app development for iOS and Android with focus on user experience and performance.",
+        "points": ["Native iOS/Android", "Cross-platform Solutions", "App Store Optimization", "Maintenance & Support"]
+      },
+      {
+        "title": "UI/UX Design",
+        "description": "User-centered design solutions that enhance customer satisfaction and retention through intuitive and engaging interfaces.",
+        "points": ["User Research", "Wireframing & Prototyping", "Visual Design", "Usability Testing"]
+      }
+    ]
   }
 }

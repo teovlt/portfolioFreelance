@@ -1,8 +1,11 @@
 import { motion } from "framer-motion";
 import { Palette, Globe, Smartphone } from "lucide-react";
 import { ServiceCard } from "@/components/ServiceCard";
+import { useTranslation } from "react-i18next";
 
 export const Services = () => {
+  const { t } = useTranslation();
+
   return (
     <section
       className="min-h-screen flex items-center justify-center p-4 bg-gradient-to-br from-muted/30 to-muted/50"
@@ -22,7 +25,7 @@ export const Services = () => {
             transition={{ delay: 0.7, duration: 0.7 }}
             className="text-4xl md:text-5xl font-bold "
           >
-            Let’s build <span className="text-primary">together</span>
+            {t("services.titleStart")} <span className="text-primary">{t("services.titleHighlight")}</span>
           </motion.h2>
         </motion.div>
 
@@ -30,23 +33,23 @@ export const Services = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <ServiceCard
               icon={<Globe className="h-12 w-12 text-primary" />}
-              title="Web Development"
-              description="Custom website development with focus on performance, SEO, and responsive design. From simple landing pages to complex web applications."
-              points={["Responsive Design", "E-commerce Solutions", "CMS Integration", "API Development"]}
+              title={t("services.cards.0.title")}
+              description={t("services.cards.0.description")}
+              points={t("services.cards.0.points", { returnObjects: true }) as string[]}
               delay={0.1}
             />
             <ServiceCard
               icon={<Smartphone className="h-12 w-12 text-primary" />}
-              title="Mobile App Development"
-              description="Native and cross-platform mobile app development for iOS and Android with focus on user experience and performance."
-              points={["Native iOS/Android", "Cross-platform Solutions", "App Store Optimization", "Maintenance & Support"]}
+              title={t("services.cards.1.title")}
+              description={t("services.cards.1.description")}
+              points={t("services.cards.1.points", { returnObjects: true }) as string[]}
               delay={0.2}
             />
             <ServiceCard
               icon={<Palette className="h-12 w-12 text-primary" />}
-              title="UI/UX Design"
-              description="User-centered design solutions that enhance customer satisfaction and retention through intuitive and engaging interfaces."
-              points={["User Research", "Wireframing & Prototyping", "Visual Design", "Usability Testing"]}
+              title={t("services.cards.2.title")}
+              description={t("services.cards.2.description")}
+              points={t("services.cards.2.points", { returnObjects: true }) as string[]}
               delay={0.3}
             />
           </div>

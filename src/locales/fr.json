@@ -70,5 +70,26 @@
         "description": "Formation axée sur le développement logiciel, les algorithmes et les structures de données."
       }
     ]
+  },
+  "services": {
+    "titleStart": "Construisons",
+    "titleHighlight": "ensemble",
+    "cards": [
+      {
+        "title": "Développement Web",
+        "description": "Création de sites web sur mesure avec un accent sur la performance, le SEO et le design responsive. De la landing page simple aux applications complexes.",
+        "points": ["Design Responsive", "Solutions E-commerce", "Intégration CMS", "Développement d'API"]
+      },
+      {
+        "title": "Développement Mobile",
+        "description": "Développement d'applications mobiles natives et multiplateformes pour iOS et Android, avec un souci constant de l'expérience utilisateur et de la performance.",
+        "points": ["iOS/Android natif", "Solutions multiplateformes", "Optimisation pour les stores", "Maintenance et support"]
+      },
+      {
+        "title": "Conception UI/UX",
+        "description": "Conception centrée utilisateur visant à améliorer la satisfaction et la fidélisation grâce à des interfaces intuitives et engageantes.",
+        "points": ["Recherche utilisateur", "Wireframing & Prototypage", "Design Visuel", "Tests d'utilisabilité"]
+      }
+    ]
   }
 }
