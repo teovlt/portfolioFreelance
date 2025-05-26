@@ -123,5 +123,28 @@
       "gitlab": "GitHub but more DevOps-y.",
       "redmine": "Still surviving in some enterprise corners."
     }
+  },
+  "projects": {
+    "title": "My",
+    "highlight": "Recent Projects",
+    "description": "A selection of my recent work. Each project showcases different skills and technologies that I've acquired over the years.",
+    "code": "Code",
+    "demo": "Live Demo",
+    "noCode": "Code not available",
+    "noDemo": "Demo not available",
+    "items": {
+      "project1": {
+        "title": "Achanfut",
+        "description": "A full-featured e-commerce platform with EA accounts management, shopping cart, payment integration, and user authentication."
+      },
+      "project2": {
+        "title": "MERN Boilerplate",
+        "description": "A boilerplate for building full-stack applications using the MERN stack, with auth, real-time status, admin panel, and more."
+      },
+      "project3": {
+        "title": "Portfolio",
+        "description": "My personal portfolio showcasing my skills and projects."
+      }
+    }
   }
 }

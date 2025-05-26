@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ExternalLink, Github } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const projects = [
   {
@@ -33,6 +34,7 @@ const projects = [
     image: "/portfolio.png",
     tags: ["React", "TailwindCSS", "Framer Motion"],
     githubLink: "https://github.com/teovlt/portfolioFreelance",
+    liveLink: "https://www.teovillet.fr/",
   },
 ];
 
@@ -52,6 +54,8 @@ const item = {
 };
 
 export const Projects = () => {
+  const { t } = useTranslation();
+
   return (
     <section
       className="min-h-screen flex items-center justify-center bg-gradient-to-br from-muted/30 to-muted/50 p-4"
@@ -71,11 +75,9 @@ export const Projects = () => {
             transition={{ delay: 0.7, duration: 0.7 }}
             className="text-4xl md:text-5xl font-bold "
           >
-            My Recent <span className="text-primary">Projects</span>
+            {t("projects.title")} <span className="text-primary">{t("projects.highlight")}</span>
           </motion.h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto mt-4">
-            A selection of my recent work. Each project showcases different skills and technologies that I've acquired over the years.
-          </p>
+          <p className="text-muted-foreground max-w-2xl mx-auto mt-4">{t("projects.description")}</p>
         </motion.div>
 
         <motion.div
@@ -97,8 +99,8 @@ export const Projects = () => {
                   />
                 </div>
                 <CardHeader>
-                  <CardTitle>{project.title}</CardTitle>
-                  <CardDescription>{project.description}</CardDescription>
+                  <CardTitle>{t(`projects.items.${project.id}.title`)}</CardTitle>
+                  <CardDescription>{t(`projects.items.${project.id}.description`)}</CardDescription>
                 </CardHeader>
                 <CardContent className="flex-grow">
                   <div className="flex flex-wrap gap-2">
@@ -114,24 +116,24 @@ export const Projects = () => {
                     <Button asChild variant="ghost" size="sm">
                       <Link to={project.githubLink} target="_blank" rel="noopener noreferrer">
                         <Github className="h-4 w-4 mr-2" />
-                        Code
+                        {t("projects.code")}
                       </Link>
                     </Button>
                   ) : (
                     <Button asChild variant="ghost" size="sm" className="hover:cursor-not-allowed">
-                      <span className="text-muted-foreground">Code not available</span>
+                      <span className="text-muted-foreground">{t("projects.noCode")}</span>
                     </Button>
                   )}
                   {project.liveLink ? (
                     <Button asChild size="sm">
                       <Link to={project.liveLink} target="_blank" rel="noopener noreferrer">
                         <ExternalLink className="h-4 w-4 mr-2" />
-                        Live Demo
+                        {t("projects.demo")}
                       </Link>
                     </Button>
                   ) : (
                     <Button asChild variant="ghost" size="sm" className="hover:cursor-not-allowed">
-                      <span className="text-muted-foreground">Demo not available</span>
+                      <span className="text-muted-foreground">{t("projects.noDemo")}</span>
                     </Button>
                   )}
                 </CardFooter>

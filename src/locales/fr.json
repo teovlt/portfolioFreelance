@@ -123,5 +123,28 @@
       "gitlab": "GitHub, mais avec une touche DevOps.",
       "redmine": "Toujours vivant dans certains coins d’entreprise."
     }
+  },
+  "projects": {
+    "title": "Mes",
+    "highlight": "Projets Récents",
+    "description": "Une sélection de mes travaux récents. Chaque projet met en valeur différentes compétences et technologies que j’ai acquises au fil du temps.",
+    "code": "Code source",
+    "demo": "Démo en ligne",
+    "noCode": "Code non disponible",
+    "noDemo": "Démo non disponible",
+    "items": {
+      "project1": {
+        "title": "Achanfut",
+        "description": "Une plateforme e-commerce complète avec gestion de comptes EA, panier, intégration de paiement et authentification utilisateur."
+      },
+      "project2": {
+        "title": "MERN Boilerplate",
+        "description": "Un modèle de base pour créer des applications full-stack avec MERN, incluant l'authentification, statut en temps réel, panneau admin, et plus."
+      },
+      "project3": {
+        "title": "Portfolio",
+        "description": "Mon portfolio personnel présentant mes compétences et projets."
+      }
+    }
   }
 }
