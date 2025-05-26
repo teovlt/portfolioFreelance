@@ -6,6 +6,8 @@
     "services": "Services",
     "contact": "Contact",
     "skills": "Skills",
-    "experiences": "Experience"
+    "experiences": "Experience",
+    "resume": "Resume",
+    "languageChanged": "Language changed successfully"
   }
 }

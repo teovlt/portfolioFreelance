@@ -2,10 +2,12 @@ import { useTranslation } from "react-i18next";
 import { Button } from "./ui/button";
 import { useState } from "react";
 import { FR, GB, US } from "country-flag-icons/react/3x2";
+import { toast } from "sonner";
 
 export const LanguageChanger = () => {
   const {
     i18n: { changeLanguage, language },
+    t,
   } = useTranslation();
 
   const [currentLanguage, setCurrentLanguage] = useState(language);
@@ -15,6 +17,7 @@ export const LanguageChanger = () => {
     localStorage.setItem("i18nextLng", newLanguage);
     setCurrentLanguage(newLanguage);
     changeLanguage(newLanguage);
+    toast.success(t("navbar.languageChanged"));
   };
 
   return (

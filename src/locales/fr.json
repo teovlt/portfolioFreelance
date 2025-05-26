@@ -6,6 +6,8 @@
     "services": "Services",
     "contact": "Contact",
     "skills": "Compétences",
-    "experiences": "Expérience"
+    "experiences": "Expérience",
+    "resume": "Télécharger mon CV",
+    "languageChanged": "Langage changé avec succès"
   }
 }

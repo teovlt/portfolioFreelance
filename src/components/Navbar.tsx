@@ -3,7 +3,7 @@ import { ThemeChanger } from "./ThemeChanger";
 import { LanguageChanger } from "./LanguageChanger";
 import { useTranslation } from "react-i18next";
 import { Separator } from "./ui/separator";
-import { Briefcase, Code, Download, FileText, House, Info, Mail, Menu, X } from "lucide-react";
+import { Briefcase, Code, FileText, House, Info, Mail, Menu, Palette, X } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
 import { cn } from "@/lib/utils";
 import { Button } from "./ui/button";
@@ -21,7 +21,7 @@ export const Navbar = () => {
     { id: "home-section", label: t("navbar.home"), icon: <House className="w-4 h-4" /> },
     { id: "about-section", label: t("navbar.about"), icon: <Info className="w-4 h-4" /> },
     { id: "experiences-section", label: t("navbar.experiences"), icon: <Briefcase className="w-4 h-4" /> },
-    { id: "services-section", label: t("navbar.services"), icon: <Briefcase className="w-4 h-4" /> },
+    { id: "services-section", label: t("navbar.services"), icon: <Palette className="w-4 h-4" /> },
     { id: "skills-section", label: t("navbar.skills"), icon: <Code className="w-4 h-4" /> },
     { id: "projects-section", label: t("navbar.projects"), icon: <FileText className="w-4 h-4" /> },
     { id: "contact-section", label: t("navbar.contact"), icon: <Mail className="w-4 h-4" /> },
@@ -105,7 +105,7 @@ export const Navbar = () => {
               <div className="flex gap-4 items-center justify-between">
                 <Button asChild>
                   <a href="/documents/Portfolio.pdf" target="_blank" rel="noopener noreferrer" download className="w-full">
-                    Resume
+                    {t("navbar.resume")}
                   </a>
                 </Button>
               </div>
@@ -133,7 +133,7 @@ export const Navbar = () => {
             <X onClick={() => setIsOpen(!isOpen)} className="m-4 cursor-pointer" />
           </div>
 
-          <div className="flex flex-col gap-4 p-8 pt-2">
+          <div className="flex flex-col gap-8 p-8 pt-2">
             {navItems.map((item) => (
               <Link
                 key={item.id}
@@ -146,7 +146,7 @@ export const Navbar = () => {
               </Link>
             ))}
             <Separator />
-            <div className="flex gap-4 justify-center items-center">
+            <div className="flex gap-8 justify-center items-center">
               <LanguageChanger />
               <ThemeChanger />
             </div>
