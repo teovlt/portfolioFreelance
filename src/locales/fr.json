@@ -19,5 +19,28 @@
     "action2": "Voir mes projets",
     "figure1": "Génial",
     "figure2": "Code en cours..."
+  },
+  "about": {
+    "vibes": "Ambiance détendue uniquement",
+    "title": "Voici quelques infos sur",
+    "me": "moi",
+    "description": "Je suis un développeur fullstack passionné basé à Grenoble, actuellement étudiant en ingénierie à l’IMT Nord Europe en alternance. J’aime mêler créativité et logique pour concevoir des expériences numériques élégantes et conviviales. Quand je ne code pas ou n’imagine pas de nouveaux projets, tu me trouveras en pleine nature, à écouter de la musique ou à savourer un bon café. Je suis toujours motivé pour relever de nouveaux défis — n’hésite pas à me contacter !",
+    "factsTitle": "Quelques fun facts sur moi",
+    "fact1": {
+      "title": "Passionné de muscu",
+      "desc": "À mon meilleur niveau, je faisais 110 kg au développé couché"
+    },
+    "fact2": {
+      "title": "Joueur d’échecs amateur",
+      "desc": "Je me suis récemment mis à apprendre les échecs"
+    },
+    "fact3": {
+      "title": "Fan d’Eiichiro Oda",
+      "desc": "Je suis un grand fan de One Piece"
+    },
+    "fact4": {
+      "title": "Adepte du running",
+      "desc": "J’ai couru mon premier semi-marathon récemment"
+    }
   }
 }

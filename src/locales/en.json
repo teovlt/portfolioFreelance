@@ -19,5 +19,28 @@
     "action2": "View My Work",
     "figure1": "Awesome",
     "figure2": "Coding..."
+  },
+  "about": {
+    "vibes": "Chill Vibes Only",
+    "title": "Here's a little about",
+    "me": "me",
+    "description": "I'm a passionate fullstack developer based in Grenoble, currently studying engineering at IMT Nord Europe while doing an apprenticeship. I love mixing creativity and logic to build elegant, user-friendly digital experiences. When I'm not coding or dreaming up new projects, you'll find me exploring the outdoors, jamming to music, or enjoying a good coffee. I'm always open and motivated to take on new external projects — so feel free to reach out!",
+    "factsTitle": "Fun Facts About Me",
+    "fact1": {
+      "title": "Gym enthusiast",
+      "desc": "At my prime, I had a 110kg bench"
+    },
+    "fact2": {
+      "title": "Amateur chess player",
+      "desc": "I've been trying to learn chess recently"
+    },
+    "fact3": {
+      "title": "Echiro Oda supporter",
+      "desc": "I am a huge fan of One Piece"
+    },
+    "fact4": {
+      "title": "Runner enjoyer",
+      "desc": "I did my first half marathon recently"
+    }
   }
 }

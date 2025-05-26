@@ -2,8 +2,10 @@ import { motion } from "framer-motion";
 import { Dumbbell, Crown, Award, Ship } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { FunFactCard } from "@/components/FunCard";
-
+import { useTranslation } from "react-i18next";
 export const About = () => {
+  const { t } = useTranslation();
+
   return (
     <section id="about-section" className="min-h-screen flex items-center justify-center bg-gradient-to-br from-muted/30 to-muted/50">
       <div className="container grid grid-cols-1 md:grid-cols-2 gap-12 items-center justify-items-center p-4">
@@ -23,7 +25,7 @@ export const About = () => {
             >
               <Avatar className="w-full h-full">
                 <AvatarImage src="images/me.jpg" alt="Profile Photo" className="object-cover w-full h-full" />
-                <AvatarFallback className="text-6xl">JD</AvatarFallback>
+                <AvatarFallback className="text-6xl">TV</AvatarFallback>
               </Avatar>
               <div className="absolute inset-0 border-4 border-primary/20 rounded-full -rotate-6"></div>
             </motion.div>
@@ -34,7 +36,7 @@ export const About = () => {
               transition={{ delay: 0.9, duration: 0.6 }}
               className="bg-gradient-to-r from-primary to-primary-dark py-3 px-6 rounded-full shadow-lg"
             >
-              <h1 className="text-2xl font-bold">Chill Vibes Only</h1>
+              <h1 className="text-2xl font-bold">{t("about.vibes")}</h1>
             </motion.div>
           </div>
         </motion.div>
@@ -50,35 +52,27 @@ export const About = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.7, duration: 0.7 }}
-            className="text-4xl md:text-5xl font-bold "
+            className="text-4xl md:text-5xl font-bold"
           >
-            Here's a little about <span className="text-primary">me</span>
+            {t("about.title")} <span className="text-primary">{t("about.me")}</span>
           </motion.h2>
 
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.8, duration: 0.7 }}
-            className=" text-lg leading-relaxed text-justify"
+            className="text-lg leading-relaxed text-justify"
           >
-            I'm a passionate fullstack developer based in Grenoble, currently studying engineering at IMT Nord Europe while doing an
-            apprenticeship. I love mixing creativity and logic to build elegant, user-friendly digital experiences. When I'm not coding or
-            dreaming up new projects, you'll find me exploring the outdoors, jamming to music, or enjoying a good coffee. I'm always open
-            and motivated to take on new external projects — so feel free to reach out!
+            {t("about.description")}
           </motion.p>
 
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.9, duration: 0.7 }}>
-            <h3 className="text-xl font-semibold mb-4 text-primary">Fun Facts About Me</h3>
+            <h3 className="text-xl font-semibold mb-4 text-primary">{t("about.factsTitle")}</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <FunFactCard icon={<Dumbbell />} title="Gym enthusiast" description="At my prime, i had a 110kg bench" delay={1.0} />
-              <FunFactCard
-                icon={<Crown />}
-                title="Amateur chess player"
-                description="I've been trying to learn chess recently"
-                delay={1.1}
-              />
-              <FunFactCard icon={<Ship />} title="Echiro Oda supporter" description="I am a huge fan of One Piece " delay={1.2} />
-              <FunFactCard icon={<Award />} title="Runner enjoyer" description="I did my first half marathon recently" delay={1.3} />
+              <FunFactCard icon={<Dumbbell />} title={t("about.fact1.title")} description={t("about.fact1.desc")} delay={1.0} />
+              <FunFactCard icon={<Crown />} title={t("about.fact2.title")} description={t("about.fact2.desc")} delay={1.1} />
+              <FunFactCard icon={<Ship />} title={t("about.fact3.title")} description={t("about.fact3.desc")} delay={1.2} />
+              <FunFactCard icon={<Award />} title={t("about.fact4.title")} description={t("about.fact4.desc")} delay={1.3} />
             </div>
           </motion.div>
         </motion.div>
