@@ -1,26 +1,8 @@
 import { cn } from "@/lib/utils";
 import { Marquee } from "./magicui/marquee";
 import { databaseSlugs, skillsBodies, softwareSlugs, techSlugs } from "@/pages/Skills";
-
-const generateReviews = (slugs) =>
-  slugs.map((slug) => {
-    const name = slug
-      .split("dot")
-      .map((part) =>
-        part
-          .split("-")
-          .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-          .join(" "),
-      )
-      .join(".");
-
-    return {
-      name,
-      username: `@${slug}`,
-      body: skillsBodies[slug] || "I'm experimenting with it.",
-      img: `https://cdn.simpleicons.org/${slug}/${slug}`,
-    };
-  });
+import { t } from "i18next";
+import { useTranslation } from "react-i18next";
 
 const ReviewCard = ({ img, name, username, body }) => {
   return (
@@ -44,9 +26,10 @@ const ReviewCard = ({ img, name, username, body }) => {
 };
 
 export function SkillsMarquee() {
-  const techReviews = generateReviews(techSlugs);
-  const osReviews = generateReviews(databaseSlugs);
-  const softwareReviews = generateReviews(softwareSlugs);
+  const { t } = useTranslation();
+  const techReviews = generateReviews(techSlugs, t);
+  const osReviews = generateReviews(databaseSlugs, t);
+  const softwareReviews = generateReviews(softwareSlugs, t);
 
   return (
     <div className="relative flex w-full flex-col items-center justify-center overflow-hidden">
@@ -71,4 +54,25 @@ export function SkillsMarquee() {
       <div className="pointer-events-none absolute inset-y-0 right-0 w-1/3 bg-gradient-to-l from-background"></div>
     </div>
   );
+}
+
+function generateReviews(slugs: string[], t: any) {
+  return slugs.map((slug) => {
+    const name = slug
+      .split("dot")
+      .map((part) =>
+        part
+          .split("-")
+          .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+          .join(" "),
+      )
+      .join(".");
+
+    return {
+      name,
+      username: `@${slug}`,
+      body: t(`skills.bodies.${slug}`),
+      img: `https://cdn.simpleicons.org/${slug}/${slug}`,
+    };
+  });
 }

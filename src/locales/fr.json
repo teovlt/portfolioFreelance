@@ -91,5 +91,37 @@
         "points": ["Recherche utilisateur", "Wireframing & Prototypage", "Design Visuel", "Tests d'utilisabilité"]
       }
     ]
+  },
+  "skills": {
+    "defaultReview": "Je suis encore en expérimentation",
+    "title1": "Compétences &",
+    "title2": "Superpouvoirs",
+    "bodies": {
+      "typescript": "Le typage m'évite de devenir fou.",
+      "react": "J'adore le modèle basé sur les composants.",
+      "flutter": "Écris une fois, déploie partout. C'est magique.",
+      "nodedotjs": "Du JavaScript partout. Node est puissant.",
+      "nextdotjs": "React fullstack comme jamais auparavant.",
+      "docker": "Parce que « ça marche chez moi ».",
+      "git": "Contrôle de version ou voyage dans le temps ?",
+      "tailwindcss": "Utility-first et rapide. Impossible de revenir en arrière.",
+      "postgresql": "Robuste, fiable et relationnel. Ma base de données préférée.",
+      "firebase": "Backend sans douleur. Parfois.",
+      "mysql": "Classique. Présente depuis toujours.",
+      "mongodb": "JSON à fond. Naturel à utiliser.",
+      "sqlite": "Léger et pratique pour les petites applications.",
+      "mariadb": "Un remplaçant avec quelques extras sympas.",
+      "neo4j": "Je ne sais même pas ce que c’est.",
+      "vercel": "Déploiement en secondes. Juste magique.",
+      "figma": "Le design n’a jamais été aussi collaboratif.",
+      "androidstudio": "Lourd, mais efficace.",
+      "vscodium": "VS Code open source ? Oui, merci.",
+      "intellijidea": "Le top pour les développeurs Java.",
+      "postman": "Tester les APIs devient (trop) facile.",
+      "notion": "Docs, tâches, agenda — tout en un.",
+      "github": "Le repaire de tous mes bugs.",
+      "gitlab": "GitHub, mais avec une touche DevOps.",
+      "redmine": "Toujours vivant dans certains coins d’entreprise."
+    }
   }
 }

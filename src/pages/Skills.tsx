@@ -1,6 +1,7 @@
 import { SkillCard, SkillCardProps } from "@/components/SkillCard";
 import { SkillsMarquee } from "@/components/SkillsMarquee";
 import { motion } from "framer-motion";
+import { useTranslation } from "react-i18next";
 
 export const techSlugs = ["typescript", "react", "flutter", "nodedotjs", "nextdotjs", "docker", "git", "tailwindcss"];
 export const databaseSlugs = ["postgresql", "mysql", "mongodb", "sqlite", "mariadb", "neo4j", "firebase"];
@@ -46,7 +47,7 @@ export const skillsBodies = {
   redmine: "Still surviving in some enterprise corners.",
 };
 
-function generateSkillData(slug: string): SkillCardProps {
+function generateSkillData(slug: string, t: any): SkillCardProps {
   const name = slug
     .split("dot")
     .map((part) =>
@@ -60,29 +61,30 @@ function generateSkillData(slug: string): SkillCardProps {
   return {
     iconUrl: `https://cdn.simpleicons.org/${slug}/${slug}`,
     name,
-    body: skillsBodies[slug] ?? "I'm experimenting with it.",
+    body: t(`skills.bodies.${slug}`),
   };
 }
 
 export const Skills = () => {
+  const { t } = useTranslation();
   return (
     <section className="min-h-screen flex items-center justify-center p-4" id="skills-section">
-      <div className="container ">
+      <div className="container">
         <motion.h2
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.7, duration: 0.7 }}
           className="text-4xl md:text-5xl font-bold text-center mb-12"
         >
-          Skills & <span className="text-primary">Superpowers</span>
+          {t("skills.title1")} <span className="text-primary">{t("skills.title2")}</span>
         </motion.h2>
-        <div className="hidden sm:block ">
+        <div className="hidden sm:block">
           <SkillsMarquee />
         </div>
         <div className="block sm:hidden">
           <div className="grid grid-cols-1 w-full sm:grid-cols-3 md:grid-cols-4 gap-4">
             {techSlugs.map((slug) => {
-              const skill = generateSkillData(slug);
+              const skill = generateSkillData(slug, t);
               return <SkillCard key={slug} {...skill} />;
             })}
           </div>
