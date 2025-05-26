@@ -113,7 +113,7 @@ export const Navbar = () => {
           </div>
 
           {/* Mobile Navbar with Hamburger Menu */}
-          <div className="flex md:hidden justify-between items-center p-4">
+          <div className="flex md:hidden justify-between items-center p-2">
             <div className="font-extrabold text-3xl">
               <Link to="/">VILLET</Link>
             </div>
@@ -149,6 +149,14 @@ export const Navbar = () => {
             <div className="flex gap-8 justify-center items-center">
               <LanguageChanger />
               <ThemeChanger />
+            </div>
+            <Separator />
+            <div className="flex justify-center items-center">
+              <Button asChild>
+                <a href="/documents/Portfolio.pdf" target="_blank" rel="noopener noreferrer" download className="w-full">
+                  {t("navbar.resume")}
+                </a>
+              </Button>
             </div>
           </div>
         </div>

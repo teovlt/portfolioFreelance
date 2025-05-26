@@ -51,10 +51,10 @@ export function Footer() {
         <Separator />
 
         <div className="flex flex-col md:flex-row justify-between items-center">
-          <div className="mb-4 md:mb-0">
+          <div className="mb-4 md:mb-0 sm:mb-0">
             <p className="text-sm text-muted-foreground">© {currentYear} Téo Villet. All rights reserved.</p>
           </div>
-          <nav className="flex gap-6">
+          <nav className="hidden sm:flex gap-6">
             {navItems.map(({ label, sectionId }) => (
               <Link
                 key={sectionId}
