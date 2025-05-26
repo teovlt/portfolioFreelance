@@ -7,7 +7,7 @@
     "contact": "Contact",
     "skills": "Compétences",
     "experiences": "Expérience",
-    "resume": "Télécharger mon CV",
+    "resume": "Mon CV",
     "languageChanged": "Langage changé avec succès"
   },
   "home": {
@@ -185,6 +185,23 @@
       "phone": {
         "label": "Phone"
       }
+    }
+  },
+  "footer": {
+    "brand": {
+      "primary": "Mon",
+      "secondary": "Portfolio"
+    },
+    "tagline": "Développeur fullstack créant des expériences web belles et fonctionnelles.",
+    "rights": "Tous droits réservés.",
+    "nav": {
+      "home": "Accueil",
+      "about": "À propos",
+      "experiences": "Expériences",
+      "services": "Services",
+      "skills": "Compétences",
+      "projects": "Projets",
+      "contact": "Contact"
     }
   }
 }

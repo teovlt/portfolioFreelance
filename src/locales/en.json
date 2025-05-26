@@ -186,5 +186,22 @@
         "label": "Téléphone"
       }
     }
+  },
+  "footer": {
+    "brand": {
+      "primary": "My",
+      "secondary": "Portfolio"
+    },
+    "tagline": "Fullstack developer crafting beautiful and functional web experiences.",
+    "rights": "All rights reserved.",
+    "nav": {
+      "home": "Home",
+      "about": "About",
+      "experiences": "Experiences",
+      "services": "Services",
+      "skills": "Skills",
+      "projects": "Projects",
+      "contact": "Contact"
+    }
   }
 }

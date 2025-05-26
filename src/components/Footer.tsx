@@ -1,33 +1,37 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { Github, Linkedin, Mail, Twitter } from "lucide-react";
+import { Github, Linkedin, Mail } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import { Link } from "react-router-dom";
 import { scrollToSection } from "@/utils/scrollToSection";
+import { useTranslation } from "react-i18next";
 
 export function Footer() {
+  const { t } = useTranslation();
+
   const navItems = [
-    { label: "Home", sectionId: "home-section" },
-    { label: "About", sectionId: "about-section" },
-    { label: "Experiences", sectionId: "experiences-section" },
-    { label: "Services", sectionId: "services-section" },
-    { label: "Skills", sectionId: "skills-section" },
-    { label: "Projects", sectionId: "projects-section" },
-    { label: "Contact", sectionId: "contact-section" },
+    { label: t("footer.nav.home"), sectionId: "home-section" },
+    { label: t("footer.nav.about"), sectionId: "about-section" },
+    { label: t("footer.nav.experiences"), sectionId: "experiences-section" },
+    { label: t("footer.nav.services"), sectionId: "services-section" },
+    { label: t("footer.nav.skills"), sectionId: "skills-section" },
+    { label: t("footer.nav.projects"), sectionId: "projects-section" },
+    { label: t("footer.nav.contact"), sectionId: "contact-section" },
   ];
 
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-muted/30 py-12 flex items-center justify-center">
+    <footer className="bg-muted/30 py-4 md:py-12 flex items-center justify-center">
       <div className="container space-y-8">
         <div className="flex flex-col md:flex-row justify-between items-center">
           <div className="mb-6 md:mb-0 flex-col text-center md:text-left px-4">
             <Link to="/" className="font-bold text-xl">
-              <span className="text-primary">Dev</span>Portfolio
+              <span className="text-primary">{t("footer.brand.primary")} </span>
+              {t("footer.brand.secondary")}
             </Link>
-            <p className="text-muted-foreground mt-2 text-sm">Fullstack developer crafting beautiful and functional web experiences.</p>
+            <p className="text-muted-foreground mt-2 text-sm">{t("footer.tagline")}</p>
           </div>
           <div className="flex items-center gap-4">
             <Button variant="ghost" size="icon" asChild aria-label="GitHub">
@@ -52,7 +56,9 @@ export function Footer() {
 
         <div className="flex flex-col md:flex-row justify-between items-center">
           <div className="mb-4 md:mb-0 sm:mb-0">
-            <p className="text-sm text-muted-foreground">© {currentYear} Téo Villet. All rights reserved.</p>
+            <p className="text-sm text-muted-foreground">
+              © {currentYear} Téo Villet. {t("footer.rights")}
+            </p>
           </div>
           <nav className="hidden sm:flex gap-6">
             {navItems.map(({ label, sectionId }) => (
