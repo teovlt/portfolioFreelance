@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
@@ -11,6 +12,7 @@ import { toast } from "sonner";
 import { contactSchema } from "@/lib/zod";
 
 export const Contact = () => {
+  const { t } = useTranslation();
   const form = useForm<z.infer<typeof contactSchema>>({
     resolver: zodResolver(contactSchema),
     defaultValues: {
@@ -34,13 +36,13 @@ export const Contact = () => {
       });
 
       if (response.ok) {
-        toast.success("Merci ! Je reviendrai vers vous rapidement.");
+        toast.success(t("contact.success"));
         form.reset();
       } else {
-        toast.error("Une erreur est survenue. Veuillez réessayer.");
+        toast.error(t("contact.error"));
       }
     } catch (error) {
-      toast.error("Échec de l'envoi du message.");
+      toast.error(t("contact.failure"));
       console.error(error);
     }
   }
@@ -61,12 +63,9 @@ export const Contact = () => {
             transition={{ delay: 0.7, duration: 0.7 }}
             className="text-4xl md:text-5xl font-bold "
           >
-            Get in <span className="text-primary">Touch</span>
+            {t("contact.title")} <span className="text-primary">{t("contact.highlight")}</span>
           </motion.h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto mt-4">
-            Have a project in mind or want to discuss potential opportunities? Feel free to reach out. I'm always open to new ideas and
-            collaborations.
-          </p>
+          <p className="text-muted-foreground max-w-2xl mx-auto mt-4">{t("contact.description")}</p>
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-[2fr_1fr] gap-24">
@@ -84,9 +83,9 @@ export const Contact = () => {
                     name="name"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Name</FormLabel>
+                        <FormLabel>{t("contact.form.name.label")}</FormLabel>
                         <FormControl>
-                          <Input placeholder="Your name" {...field} />
+                          <Input placeholder={t("contact.form.name.placeholder")} {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -97,9 +96,9 @@ export const Contact = () => {
                     name="email"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Email</FormLabel>
+                        <FormLabel>{t("contact.form.email.label")}</FormLabel>
                         <FormControl>
-                          <Input placeholder="Your email" {...field} />
+                          <Input placeholder={t("contact.form.email.placeholder")} {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -111,9 +110,9 @@ export const Contact = () => {
                   name="subject"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Subject</FormLabel>
+                      <FormLabel>{t("contact.form.subject.label")}</FormLabel>
                       <FormControl>
-                        <Input placeholder="Subject of your message" {...field} />
+                        <Input placeholder={t("contact.form.subject.placeholder")} {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -124,16 +123,16 @@ export const Contact = () => {
                   name="message"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Message</FormLabel>
+                      <FormLabel>{t("contact.form.message.label")}</FormLabel>
                       <FormControl>
-                        <Textarea placeholder="Write your message here..." className="min-h-32 resize-none" {...field} />
+                        <Textarea placeholder={t("contact.form.message.placeholder")} className="min-h-32 resize-none" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
                   )}
                 />
                 <Button type="submit" size="lg" className="w-full sm:w-auto">
-                  Send Message
+                  {t("contact.form.submit")}
                 </Button>
               </form>
             </Form>
@@ -147,25 +146,21 @@ export const Contact = () => {
             className="hidden lg:flex flex-col justify-center items-center"
           >
             <div className="space-y-8 flex-col justify-center items-center">
-              <h3 className="text-xl font-semibold mb-4">Contact Information</h3>
+              <h3 className="text-xl font-semibold mb-4">{t("contact.info.title")}</h3>
               <div className="space-y-4">
                 <div className="flex items-start">
                   <MapPin className="h-5 w-5 mr-3 text-primary mt-0.5" />
                   <div>
-                    <h4 className="font-medium">Location</h4>
-                    <a
-                      className="text-muted-foreground hover:underline"
-                      href="https://www.google.fr/search?q=grenoble&sca_esv=c040be438cc12ffb&source=hp&ei=Gw0uaIeQG8rhkdUPq_WB-AE&iflsig=ACkRmUkAAAAAaC4bK73XIqGGSGT5iGNchimet6mir0NG&gs_ssp=eJzj4tDP1TdISYtPNmD04kgvSs3LT8pJBQA-vgZr&oq=grenoble&gs_lp=Egdnd3Mtd2l6IghncmVub2JsZSoCCAAyCBAuGIAEGLEDMggQABiABBixAzIOEC4YgAQYsQMYxwEYrwEyBRAAGIAEMggQLhiABBixAzIFEAAYgAQyCBAAGIAEGLEDMggQLhiABBixAzIUEC4YgAQYsQMYgwEYxwEYigUYrwEyBRAAGIAESL8WUPgBWIkRcAJ4AJABAJgBW6ABpQSqAQE5uAEByAEA-AEBmAILoALUBKgCCsICChAuGAMY6gIYjwHCAgoQABgDGOoCGI8BwgIMEC4YAxjqAhgKGI8BwgILEAAYgAQYsQMYgwHCAg4QABiABBixAxiDARiKBcICERAuGIAEGLEDGIMBGNQCGIoFwgILEC4YgAQYsQMYgwHCAhEQLhiABBixAxjRAxiDARjHAcICBRAuGIAEwgIOEC4YgAQYsQMYgwEYigXCAgQQABgDwgILEC4YgAQYxwEYrwGYAwfxBdv02H_0fFKvkgcCMTGgB9aBAbIHATm4B8kE&sclient=gws-wiz&sei=IA0uaL72H_eekdUPn62SsQE"
-                      target="_blank"
-                    >
-                      Grenoble, FR
+                    <h4 className="font-medium">{t("contact.info.location.label")}</h4>
+                    <a className="text-muted-foreground hover:underline" href="https://www.google.fr/search?q=grenoble" target="_blank">
+                      {t("contact.info.location.value")}
                     </a>
                   </div>
                 </div>
                 <div className="flex items-start">
                   <Mail className="h-5 w-5 mr-3 text-primary mt-0.5" />
                   <div>
-                    <h4 className="font-medium">Email</h4>
+                    <h4 className="font-medium">{t("contact.info.email.label")}</h4>
                     <p className="text-muted-foreground">
                       <a href="mailto:contact@example.com" className="hover:underline">
                         teo.villet2@gmail.com
@@ -176,7 +171,7 @@ export const Contact = () => {
                 <div className="flex items-start">
                   <Phone className="h-5 w-5 mr-3 text-primary mt-0.5" />
                   <div>
-                    <h4 className="font-medium">Phone</h4>
+                    <h4 className="font-medium">{t("contact.info.phone.label")}</h4>
                     <p className="text-muted-foreground">
                       <a href="tel:+12345678901" className="hover:underline">
                         +33 618215637

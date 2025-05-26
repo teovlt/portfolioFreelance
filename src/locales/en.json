@@ -146,5 +146,45 @@
         "description": "My personal portfolio showcasing my skills and projects."
       }
     }
+  },
+  "contact": {
+    "title": "Prenez",
+    "highlight": "Contact",
+    "description": "Un projet en tête ou envie de discuter d’opportunités ? N’hésitez pas à me contacter. Je suis toujours ouvert aux nouvelles idées et collaborations.",
+    "form": {
+      "name": {
+        "label": "Nom",
+        "placeholder": "Votre nom"
+      },
+      "email": {
+        "label": "Email",
+        "placeholder": "Votre adresse email"
+      },
+      "subject": {
+        "label": "Sujet",
+        "placeholder": "Sujet de votre message"
+      },
+      "message": {
+        "label": "Message",
+        "placeholder": "Écrivez votre message ici..."
+      },
+      "submit": "Envoyer le message"
+    },
+    "success": "Merci ! Je reviendrai vers vous rapidement.",
+    "error": "Une erreur est survenue. Veuillez réessayer.",
+    "failure": "Échec de l'envoi du message.",
+    "info": {
+      "title": "Informations de contact",
+      "location": {
+        "label": "Localisation",
+        "value": "Grenoble, FR"
+      },
+      "email": {
+        "label": "Email"
+      },
+      "phone": {
+        "label": "Téléphone"
+      }
+    }
   }
 }

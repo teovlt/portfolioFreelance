@@ -146,5 +146,45 @@
         "description": "Mon portfolio personnel présentant mes compétences et projets."
       }
     }
+  },
+  "contact": {
+    "title": "Get in",
+    "highlight": "Touch",
+    "description": "Have a project in mind or want to discuss potential opportunities? Feel free to reach out. I'm always open to new ideas and collaborations.",
+    "form": {
+      "name": {
+        "label": "Name",
+        "placeholder": "Your name"
+      },
+      "email": {
+        "label": "Email",
+        "placeholder": "Your email"
+      },
+      "subject": {
+        "label": "Subject",
+        "placeholder": "Subject of your message"
+      },
+      "message": {
+        "label": "Message",
+        "placeholder": "Write your message here..."
+      },
+      "submit": "Send Message"
+    },
+    "success": "Thank you! I will get back to you shortly.",
+    "error": "An error occurred. Please try again.",
+    "failure": "Failed to send message.",
+    "info": {
+      "title": "Contact Information",
+      "location": {
+        "label": "Location",
+        "value": "Grenoble, FR"
+      },
+      "email": {
+        "label": "Email"
+      },
+      "phone": {
+        "label": "Phone"
+      }
+    }
   }
 }
