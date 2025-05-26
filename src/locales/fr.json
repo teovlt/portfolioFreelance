@@ -42,5 +42,33 @@
       "title": "Adepte du running",
       "desc": "J’ai couru mon premier semi-marathon récemment"
     }
+  },
+  "experiences": {
+    "titleStart": "Mes",
+    "titleHighlight": "Expériences",
+    "timeline": [
+      {
+        "title": "Diplôme d'ingénieur en informatique - IMT Nord Europe",
+        "subtitle": "Villeneuve d'Ascq, France",
+        "description": "Spécialisation en ingénierie logicielle, avec un accent sur le développement full-stack et la conception de systèmes. En alternance au GIPSA-Lab."
+      },
+      {
+        "date": "2023 - aujourd'hui",
+        "title": "Développeur FullStack - GIPSA-Lab",
+        "subtitle": "Grenoble, France",
+        "description": "Développement et maintenance d'applications web, avec une attention particulière à l'expérience utilisateur et à la performance."
+      },
+      {
+        "date": "Juin 2023",
+        "title": "Développeur FullStack - Laboratoire d'Informatique de Grenoble",
+        "subtitle": "Grenoble, France",
+        "description": "Création d'une application web complète pour aider les doctorants à gérer leurs projets de recherche."
+      },
+      {
+        "title": "BUT Informatique",
+        "subtitle": "Grenoble, France",
+        "description": "Formation axée sur le développement logiciel, les algorithmes et les structures de données."
+      }
+    ]
   }
 }

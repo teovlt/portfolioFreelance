@@ -42,5 +42,33 @@
       "title": "Runner enjoyer",
       "desc": "I did my first half marathon recently"
     }
+  },
+  "experiences": {
+    "titleStart": "My",
+    "titleHighlight": "Experiences",
+    "timeline": [
+      {
+        "title": "Engineering Degree in Computer Science - IMT Nord Europe",
+        "subtitle": "Villeneuve d'Ascq, France",
+        "description": "Specializing in software engineering, focusing on full-stack development and system design. In apprenticeship at GIPSA-Lab."
+      },
+      {
+        "date": "2023 - present",
+        "title": "FullStack Developer - GIPSA-Lab",
+        "subtitle": "Grenoble, France",
+        "description": "Developing and maintaining web applications, focusing on user experience and performance."
+      },
+      {
+        "date": "June 2023",
+        "title": "FullStack Developer - Laboratoire d'Informatique de Grenoble",
+        "subtitle": "Grenoble, France",
+        "description": "Created a web application from scratch to help doctorants manage their research projects."
+      },
+      {
+        "title": "Bachelor of Technology in Computer Science",
+        "subtitle": "Grenoble, France",
+        "description": "Focus on software development, algorithms, and data structures."
+      }
+    ]
   }
 }
