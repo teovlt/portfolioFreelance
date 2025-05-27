@@ -7,7 +7,10 @@ export const About = () => {
   const { t } = useTranslation();
 
   return (
-    <section id="about-section" className="min-h-screen flex items-center justify-center bg-gradient-to-br from-muted/30 to-muted/50">
+    <section
+      id="about-section"
+      className="min-h-screen flex items-center justify-center bg-gradient-to-br dark:from-muted/30 dark:to-muted/50 from-muted/80 to-muted/90"
+    >
       <div className="container grid grid-cols-1 md:grid-cols-2 gap-12 items-center justify-items-center p-4">
         {/* Photo Section */}
         <motion.div

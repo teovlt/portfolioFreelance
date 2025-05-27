@@ -74,7 +74,7 @@ export const Skills = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.7, duration: 0.7 }}
-          className="text-4xl md:text-5xl font-bold text-center mb-12"
+          className="text-4xl md:text-5xl font-bold text-center sm:mb-24 mb-12"
         >
           {t("skills.title1")} <span className="text-primary">{t("skills.title2")}</span>
         </motion.h2>

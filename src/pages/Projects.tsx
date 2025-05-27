@@ -67,7 +67,7 @@ export const Projects = () => {
 
   return (
     <section
-      className="min-h-screen flex items-center justify-center bg-gradient-to-br from-muted/30 to-muted/50 p-4"
+      className="min-h-screen flex sm:py-20 items-center justify-center bg-gradient-to-br dark:from-muted/30 dark:to-muted/50 from-muted/80 to-muted/90 p-4"
       id="projects-section"
     >
       <div className="container">

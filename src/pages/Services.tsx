@@ -8,7 +8,7 @@ export const Services = () => {
 
   return (
     <section
-      className="min-h-screen flex items-center justify-center p-4 bg-gradient-to-br from-muted/30 to-muted/50"
+      className="min-h-screen flex items-center justify-center p-4 bg-gradient-to-br dark:from-muted/30 dark:to-muted/50 from-muted/80 to-muted/90"
       id="services-section"
     >
       <div className="container">
