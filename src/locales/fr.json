@@ -148,6 +148,10 @@
       "project4": {
         "title": "Paperlive",
         "description": "Une application web complète pour aider les doctorants à gérer leurs projets de recherche, développée pour le Laboratoire d'Informatique de Grenoble."
+      },
+      "project5": {
+        "title": "YapNet",
+        "description": "Une plateforme de médias sociaux pour partager et discuter des idées, avec des fonctionnalités telles que des publications, des commentaires et des profils utilisateurs."
       }
     }
   },

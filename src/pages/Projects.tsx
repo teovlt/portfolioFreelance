@@ -40,10 +40,18 @@ const projects = [
     id: "project4",
     title: "Paperlive",
     description:
-      "A MERN application allowing doctorants to follow the life cycle of their contributions and study the statistics of their submissions ",
+      "A modern application allowing doctorants to follow the life cycle of their contributions and study the statistics of their submissions ",
     image: "/paperlive.png",
     tags: ["React", "Node.js", "Express", "MongoDB", "Styled Components"],
     githubLink: "https://github.com/BerriatMagasin/Paperlive",
+  },
+  {
+    id: "project5",
+    title: "YapNet",
+    description: "A social media platform for sharing and discussing ideas, with features like posts, comments, and user profiles.",
+    image: "/yapnet.png",
+    tags: ["Flutter", "Dart", "Firebase"],
+    githubLink: "https://github.com/teovlt/YapNet",
   },
 ];
 
