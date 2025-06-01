@@ -152,6 +152,10 @@
       "project5": {
         "title": "YapNet",
         "description": "A social media platform for sharing and discussing ideas, with features like posts, comments, and user profiles."
+      },
+      "project6": {
+        "title": "Lets-go lego",
+        "description": "Online auction platform for Lego enthusiasts to buy, sell, and bid on unique Lego products."
       }
     }
   },

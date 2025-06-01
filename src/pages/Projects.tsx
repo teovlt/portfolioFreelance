@@ -15,7 +15,7 @@ const projects = [
     description:
       "A full-featured e-commerce platform with EA accounts management, shopping cart, payment integration, and user authentication.",
     image: "/ahcanfut.png",
-    tags: ["NextJS", "Prisma", "MongoDB", "Stripe"],
+    tags: ["NextJS", "Prisma", "MongoDB", "Stripe", "TailwindCSS"],
     liveLink: "https://ahcanfut.com",
   },
   {
@@ -24,7 +24,7 @@ const projects = [
     description:
       "A boilerplate for building full-stack applications using the MERN stack, with auth, real-time status, admin panel, and more.",
     image: "/mern-boilerplate.png",
-    tags: ["MERN", "Socket.io", "Mongoose", "TailwindCSS"],
+    tags: ["MongoDB", "Express", "React", "Node.js", "Socket.io"],
     githubLink: "https://github.com/TrioGrenobleImt/MERN-BoilerPlate",
   },
   {
@@ -52,6 +52,14 @@ const projects = [
     image: "/yapnet.png",
     tags: ["Flutter", "Dart", "Firebase"],
     githubLink: "https://github.com/teovlt/YapNet",
+  },
+  {
+    id: "project6",
+    title: "Lets-go lego",
+    description: "Online auction platform for Lego enthusiasts to buy, sell, and bid on unique Lego products.",
+    image: "/lets-go-lego.png",
+    tags: ["MongoDB", "Express", "React", "Node.js", "Styled Components"],
+    githubLink: "https://github.com/BerriatMagasin/letsgo-lego",
   },
 ];
 
