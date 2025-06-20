@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Dumbbell, Crown, Ship, MapPin, Calendar, Heart, Footprints } from "lucide-react";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { FunFactCard } from "@/components/FunCard";
 import { useTranslation } from "react-i18next";
 import { Card, CardContent } from "@/components/ui/card";
