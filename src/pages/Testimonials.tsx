@@ -12,7 +12,7 @@ export function ReviewsSection() {
   return (
     <section
       id="reviews-section"
-      className="py-20 bg-gradient-to-br from-blue-50/50 via-white to-purple-50/50 dark:from-gray-900 dark:via-blue-950/30 dark:to-purple-950/30"
+      className="py-20 bg-gradient-to-br from-blue-50/50 via-white to-purple-50/50 dark:from-gray-900 dark:via-blue-950/30 dark:to-purple-950/30 bg-muted/50"
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
