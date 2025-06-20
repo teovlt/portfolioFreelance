@@ -9,6 +9,7 @@ import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { Skills } from "@/pages/Skills";
 import { Experiences } from "@/pages/Experiences";
+import { ReviewsSection } from "@/pages/Testimonials";
 
 const RootLayout = () => (
   <>
@@ -36,9 +37,9 @@ export const router = createBrowserRouter([
             <About />
             <Experiences />
             <Services />
-            <Skills />
+            {/* <Skills /> */}
             <Projects />
-            {/* <Testimonials /> */}
+            <ReviewsSection />
             <Contact />
           </>
         ),
