@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback } from "react";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Star, Quote, ChevronLeft, ChevronRight, Play, Pause } from "lucide-react";
+import { Avatar, AvatarFallback } from "../ui/avatar";
 
 interface Review {
   id: number;
@@ -28,7 +29,7 @@ export function TestimonialCarousel() {
       rating: 5,
       comment:
         "Téo transformed our vision into an exceptional e-commerce platform. His professionalism and attention to detail are remarkable. I highly recommend!",
-      avatar: "/placeholder.svg?height=80&width=80",
+      avatar: "MD",
       project: "E-commerce Website",
     },
     {
@@ -38,7 +39,7 @@ export function TestimonialCarousel() {
       rating: 5,
       comment:
         "Fantastic collaboration! Téo delivered our SaaS application on time with impeccable quality. Perfect communication throughout the project.",
-      avatar: "/placeholder.svg?height=80&width=80",
+      avatar: "JM",
       project: "SaaS Application",
     },
     {
@@ -48,7 +49,7 @@ export function TestimonialCarousel() {
       rating: 5,
       comment:
         "Téo perfectly understands client needs. Our new website exceeds our expectations. Technical expertise and creativity delivered!",
-      avatar: "/placeholder.svg?height=80&width=80",
+      avatar: "SL",
       project: "Business Website",
     },
     {
@@ -57,7 +58,7 @@ export function TestimonialCarousel() {
       company: "Restaurant Le Gourmet",
       rating: 5,
       comment: "Thanks to Téo, we now have an online reservation system that works perfectly. Our customers love how easy it is to use!",
-      avatar: "/placeholder.svg?height=80&width=80",
+      avatar: "TR",
       project: "Reservation System",
     },
     {
@@ -67,7 +68,7 @@ export function TestimonialCarousel() {
       rating: 5,
       comment:
         "Beautiful personal portfolio optimized for SEO. Téo captured my professional identity perfectly. Visible results from the first weeks!",
-      avatar: "/placeholder.svg?height=80&width=80",
+      avatar: "AM",
       project: "Personal Portfolio",
     },
     {
@@ -76,7 +77,7 @@ export function TestimonialCarousel() {
       company: "Tech Solutions",
       rating: 5,
       comment: "Exceptional developer! Robust API and clear documentation. Téo perfectly masters modern technologies. Trusted partner.",
-      avatar: "/placeholder.svg?height=80&width=80",
+      avatar: "DC",
       project: "Backend API",
     },
   ];
@@ -160,15 +161,18 @@ export function TestimonialCarousel() {
                 <CardHeader className="relative z-10 pb-4">
                   <div className="flex items-start gap-4">
                     <div className="relative">
-                      <div className="w-16 h-16 rounded-full overflow-hidden ring-4 ring-blue-100 dark:ring-blue-900 group-hover:ring-blue-200 dark:group-hover:ring-blue-800 transition-all duration-300">
-                        <img
+                      {/* <div className="w-16 h-16 rounded-full overflow-hidden ring-4 ring-blue-100 dark:ring-blue-900 group-hover:ring-blue-200 dark:group-hover:ring-blue-800 transition-all duration-300"> */}
+                      {/* <img
                           src={review.avatar || "/placeholder.svg"}
                           alt={review.name}
                           width={64}
                           height={64}
                           className="object-cover w-full h-full"
-                        />
-                      </div>
+                        /> */}
+                      <Avatar className="w-16 h-16 rounded-full overflow-hidden ring-4 ring-blue-100 dark:ring-blue-900 group-hover:ring-blue-200 dark:group-hover:ring-blue-800 transition-all duration-300">
+                        <AvatarFallback className="object-cover w-full h-full">{review.avatar}</AvatarFallback>
+                      </Avatar>
+                      {/* </div> */}
                       <div className="absolute -bottom-1 -right-1 bg-green-500 w-5 h-5 rounded-full border-2 border-white dark:border-gray-800" />
                     </div>
                     <div className="flex-1">
