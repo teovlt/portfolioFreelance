@@ -6,6 +6,7 @@
     "services": "Services",
     "contact": "Contact",
     "skills": "Skills",
+    "reviews": "Reviews",
     "experiences": "Experience",
     "resume": "Resume",
     "languageChanged": "Language changed successfully"
@@ -213,7 +214,8 @@
       "services": "Services",
       "skills": "Skills",
       "projects": "Projects",
-      "contact": "Contact"
+      "contact": "Contact",
+      "reviews": "Reviews"
     }
   }
 }

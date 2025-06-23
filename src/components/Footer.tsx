@@ -15,8 +15,8 @@ export function Footer() {
     { label: t("footer.nav.about"), sectionId: "about-section" },
     { label: t("footer.nav.experiences"), sectionId: "experiences-section" },
     { label: t("footer.nav.services"), sectionId: "services-section" },
-    { label: t("footer.nav.skills"), sectionId: "skills-section" },
     { label: t("footer.nav.projects"), sectionId: "projects-section" },
+    { label: t("footer.nav.reviews"), sectionId: "reviews-section" },
     { label: t("footer.nav.contact"), sectionId: "contact-section" },
   ];
 

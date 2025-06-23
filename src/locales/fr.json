@@ -7,6 +7,7 @@
     "contact": "Contact",
     "skills": "Compétences",
     "experiences": "Expérience",
+    "reviews": "Avis",
     "resume": "Mon CV",
     "languageChanged": "Langage changé avec succès"
   },
@@ -214,6 +215,7 @@
       "services": "Services",
       "skills": "Compétences",
       "projects": "Projets",
+      "reviews": "Avis",
       "contact": "Contact"
     }
   }

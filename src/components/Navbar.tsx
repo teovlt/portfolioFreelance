@@ -3,7 +3,7 @@ import { ThemeChanger } from "./ThemeChanger";
 import { LanguageChanger } from "./LanguageChanger";
 import { useTranslation } from "react-i18next";
 import { Separator } from "./ui/separator";
-import { Briefcase, Code, FileText, House, Info, Mail, Menu, Palette, X } from "lucide-react";
+import { Briefcase, Code, FileText, House, Info, Mail, Menu, Palette, Star, X } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
 import { cn } from "@/lib/utils";
 import { Button } from "./ui/button";
@@ -22,8 +22,8 @@ export const Navbar = () => {
     { id: "about-section", label: t("navbar.about"), icon: <Info className="w-4 h-4" /> },
     { id: "experiences-section", label: t("navbar.experiences"), icon: <Briefcase className="w-4 h-4" /> },
     { id: "services-section", label: t("navbar.services"), icon: <Palette className="w-4 h-4" /> },
-    { id: "skills-section", label: t("navbar.skills"), icon: <Code className="w-4 h-4" /> },
     { id: "projects-section", label: t("navbar.projects"), icon: <FileText className="w-4 h-4" /> },
+    { id: "reviews-section", label: t("navbar.reviews"), icon: <Star className="w-4 h-4" /> },
     { id: "contact-section", label: t("navbar.contact"), icon: <Mail className="w-4 h-4" /> },
   ];
 
