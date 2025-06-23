@@ -1,64 +1,3 @@
-// import { motion } from "framer-motion";
-// import { Palette, Globe, Smartphone } from "lucide-react";
-// import { ServiceCard } from "@/components/ServiceCard";
-// import { useTranslation } from "react-i18next";
-
-// export const Services = () => {
-//   const { t } = useTranslation();
-
-//   return (
-//     <section
-//       className="min-h-screen flex items-center justify-center p-4 bg-gradient-to-br dark:from-muted/30 dark:to-muted/50 from-muted/80 to-muted/90"
-//       id="services-section"
-//     >
-//       <div className="container">
-//         <motion.div
-//           initial={{ opacity: 0, y: 30 }}
-//           whileInView={{ opacity: 1, y: 0 }}
-//           transition={{ duration: 0.7 }}
-//           viewport={{ once: true }}
-//           className="text-center mb-16"
-//         >
-//           <motion.h2
-//             initial={{ opacity: 0 }}
-//             animate={{ opacity: 1 }}
-//             transition={{ delay: 0.7, duration: 0.7 }}
-//             className="text-4xl md:text-5xl font-bold "
-//           >
-//             {t("services.titleStart")} <span className="text-primary">{t("services.titleHighlight")}</span>
-//           </motion.h2>
-//         </motion.div>
-
-//         <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} transition={{ duration: 0.5 }} viewport={{ once: true }}>
-//           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-//             <ServiceCard
-//               icon={<Globe className="h-12 w-12 text-primary" />}
-//               title={t("services.cards.0.title")}
-//               description={t("services.cards.0.description")}
-//               points={t("services.cards.0.points", { returnObjects: true }) as string[]}
-//               delay={0.1}
-//             />
-//             <ServiceCard
-//               icon={<Smartphone className="h-12 w-12 text-primary" />}
-//               title={t("services.cards.1.title")}
-//               description={t("services.cards.1.description")}
-//               points={t("services.cards.1.points", { returnObjects: true }) as string[]}
-//               delay={0.2}
-//             />
-//             <ServiceCard
-//               icon={<Palette className="h-12 w-12 text-primary" />}
-//               title={t("services.cards.2.title")}
-//               description={t("services.cards.2.description")}
-//               points={t("services.cards.2.points", { returnObjects: true }) as string[]}
-//               delay={0.3}
-//             />
-//           </div>
-//         </motion.div>
-//       </div>
-//     </section>
-//   );
-// };
-
 "use client";
 
 import { useState } from "react";
@@ -66,6 +5,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Code, Server, Layers, ArrowRight, CheckCircle, Clock, Users } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import { scrollToSection } from "@/utils/scrollToSection";
 
 export function Services() {
   const { t, i18n } = useTranslation();
@@ -75,24 +15,25 @@ export function Services() {
   const services = [
     {
       icon: Code,
-      title: t("services.frontend.title"),
-      description: t("services.frontend.desc"),
-      price: language === "fr" ? "À partir de 2000€" : "Starting from €2000",
-      duration: language === "fr" ? "2-4 semaines" : "2-4 weeks",
+      title: t("Frontend"),
+      description: t("Interfaces utilisateur modernes et responsives avec React, Next.js et TypeScript"),
+      price: language === "fr" ? "À partir de 600€" : "Starting from €600",
+      duration: language === "fr" ? "1-2 semaines" : "1-2 weeks",
       deliverables: [
         language === "fr" ? "Interface responsive" : "Responsive interface",
         language === "fr" ? "Code optimisé" : "Optimized code",
         language === "fr" ? "Documentation" : "Documentation",
         language === "fr" ? "Support 30 jours" : "30-day support",
       ],
-      popular: false,
+      popular: true,
+      projects: 12,
     },
     {
       icon: Server,
-      title: t("services.backend.title"),
-      description: t("services.backend.desc"),
-      price: language === "fr" ? "À partir de 2500€" : "Starting from €2500",
-      duration: language === "fr" ? "3-5 semaines" : "3-5 weeks",
+      title: t("Backend"),
+      description: t("APIs robustes et bases de données optimisées avec Node.js et technologies cloud"),
+      price: language === "fr" ? "À partir de 1500€" : "Starting from €1500",
+      duration: language === "fr" ? "2-5 semaines" : "2-5 weeks",
       deliverables: [
         language === "fr" ? "API sécurisée" : "Secure API",
         language === "fr" ? "Base de données" : "Database setup",
@@ -100,12 +41,13 @@ export function Services() {
         language === "fr" ? "Déploiement cloud" : "Cloud deployment",
       ],
       popular: false,
+      projects: 6,
     },
     {
       icon: Layers,
-      title: t("services.fullstack.title"),
-      description: t("services.fullstack.desc"),
-      price: language === "fr" ? "À partir de 4000€" : "Starting from €4000",
+      title: t("Fullstack"),
+      description: t("Applications web complètes de A à Z, du concept au déploiement"),
+      price: language === "fr" ? "À partir de 3000€" : "Starting from €3000",
       duration: language === "fr" ? "4-8 semaines" : "4-8 weeks",
       deliverables: [
         language === "fr" ? "Application complète" : "Complete application",
@@ -113,18 +55,21 @@ export function Services() {
         language === "fr" ? "CI/CD pipeline" : "CI/CD pipeline",
         language === "fr" ? "Support 60 jours" : "60-day support",
       ],
-      popular: true,
+      popular: false,
+      projects: 9,
     },
   ];
 
   return (
     <section
-      className="min-h-screen flex items-center justify-center p-4 bg-gradient-to-br dark:from-muted/30 dark:to-muted/50 from-muted/80 to-muted/90"
+      className="min-h-screen flex items-center justify-center py-20 p-4 bg-gradient-to-br dark:from-muted/30 dark:to-muted/50 from-muted/80 to-muted/90"
       id="services-section"
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-3xl sm:text-4xl font-bold mb-4">Packages Professionnels</h2>
+          <h2 className="text-4xl md:text-5xl font-bold items-center justify-center text-center mb-4">
+            Packages<span className="text-primary"> Professionnels</span>
+          </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             Choisissez le package qui correspond à vos besoins avec des prix transparents
           </p>
@@ -186,6 +131,7 @@ export function Services() {
                       ? "bg-blue-500 hover:bg-blue-600 text-white"
                       : "bg-white dark:bg-gray-800 border-2 border-blue-500 text-blue-500 hover:bg-blue-50 dark:hover:bg-blue-950"
                   }`}
+                  onClick={(e) => scrollToSection("contact-section", e)}
                 >
                   {language === "fr" ? "Choisir ce package" : "Choose this package"}
                   <ArrowRight className="ml-2 h-4 w-4" />
@@ -196,7 +142,7 @@ export function Services() {
                   <div className="flex items-center gap-1 text-xs text-muted-foreground">
                     <Users className="h-3 w-3" />
                     <span>
-                      {Math.floor(Math.random() * 20) + 10}+ {language === "fr" ? "projets" : "projects"}
+                      {service.projects}+ {language === "fr" ? "projets" : "projects"}
                     </span>
                   </div>
                   <div className="flex items-center gap-1 text-xs text-muted-foreground">
@@ -218,7 +164,11 @@ export function Services() {
                 ? "Chaque projet est unique. Discutons de vos besoins spécifiques pour un devis sur mesure."
                 : "Every project is unique. Let's discuss your specific needs for a tailored quote."}
             </p>
-            <Button size="lg" className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white">
+            <Button
+              size="lg"
+              onClick={(e) => scrollToSection("contact-section", e)}
+              className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white"
+            >
               {language === "fr" ? "Demander un devis" : "Request a quote"}
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
