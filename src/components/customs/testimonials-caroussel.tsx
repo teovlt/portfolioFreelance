@@ -24,61 +24,43 @@ export function TestimonialCarousel() {
   const reviews: Review[] = [
     {
       id: 1,
-      name: "Marie Dubois",
-      company: "Boutique en Ligne",
+      name: "Mayeul Deries",
+      company: "Freelance Developer",
       rating: 5,
       comment:
-        "Téo transformed our vision into an exceptional e-commerce platform. His professionalism and attention to detail are remarkable. I highly recommend!",
+        "Téo transformed my vision into an exceptional website. His professionalism and attention to detail are remarkable. I highly recommend!",
       avatar: "MD",
-      project: "E-commerce Website",
+      project: "Job tracking platform",
     },
     {
       id: 2,
-      name: "Jean-Pierre Martin",
-      company: "StartUp Tech",
+      name: "Gabriel Halus",
+      company: "Dev - Achanfut",
       rating: 5,
       comment:
-        "Fantastic collaboration! Téo delivered our SaaS application on time with impeccable quality. Perfect communication throughout the project.",
-      avatar: "JM",
-      project: "SaaS Application",
+        "Working with Téo was a game-changer for Achanfut. He brought clarity, structure, and clean code to the project. Highly efficient and always proactive — a true tech partner.",
+      avatar: "GH",
+      project: "Achanfut platform",
     },
     {
       id: 3,
-      name: "Sophie Laurent",
-      company: "Agence Créative",
+      name: "Félix Picon",
+      company: "System Administrator",
       rating: 5,
       comment:
-        "Téo perfectly understands client needs. Our new website exceeds our expectations. Technical expertise and creativity delivered!",
-      avatar: "SL",
-      project: "Business Website",
+        "Téo’s boilerplate saved me hours of setup. His guidance was sharp, clear, and super useful. It was great to collaborate with someone so precise and passionate.",
+      avatar: "FP",
+      project: "Boilerplate integration support",
     },
     {
       id: 4,
-      name: "Thomas Rousseau",
-      company: "Restaurant Le Gourmet",
-      rating: 5,
-      comment: "Thanks to Téo, we now have an online reservation system that works perfectly. Our customers love how easy it is to use!",
-      avatar: "TR",
-      project: "Reservation System",
-    },
-    {
-      id: 5,
-      name: "Amélie Moreau",
-      company: "Consultant Freelance",
+      name: "Jean-Louis Clément",
+      company: "Psychologist",
       rating: 5,
       comment:
-        "Beautiful personal portfolio optimized for SEO. Téo captured my professional identity perfectly. Visible results from the first weeks!",
-      avatar: "AM",
-      project: "Personal Portfolio",
-    },
-    {
-      id: 6,
-      name: "David Chen",
-      company: "Tech Solutions",
-      rating: 5,
-      comment: "Exceptional developer! Robust API and clear documentation. Téo perfectly masters modern technologies. Trusted partner.",
-      avatar: "DC",
-      project: "Backend API",
+        "Téo created a website that truly reflects who I am and the values of my practice. His empathy and ability to translate ideas into a calming digital experience were impressive.",
+      avatar: "JLC",
+      project: "Psychologist portfolio site",
     },
   ];
 
@@ -161,18 +143,9 @@ export function TestimonialCarousel() {
                 <CardHeader className="relative z-10 pb-4">
                   <div className="flex items-start gap-4">
                     <div className="relative">
-                      {/* <div className="w-16 h-16 rounded-full overflow-hidden ring-4 ring-blue-100 dark:ring-blue-900 group-hover:ring-blue-200 dark:group-hover:ring-blue-800 transition-all duration-300"> */}
-                      {/* <img
-                          src={review.avatar || "/placeholder.svg"}
-                          alt={review.name}
-                          width={64}
-                          height={64}
-                          className="object-cover w-full h-full"
-                        /> */}
                       <Avatar className="w-16 h-16 rounded-full overflow-hidden ring-4 ring-blue-100 dark:ring-blue-900 group-hover:ring-blue-200 dark:group-hover:ring-blue-800 transition-all duration-300">
                         <AvatarFallback className="object-cover w-full h-full">{review.avatar}</AvatarFallback>
                       </Avatar>
-                      {/* </div> */}
                       <div className="absolute -bottom-1 -right-1 bg-green-500 w-5 h-5 rounded-full border-2 border-white dark:border-gray-800" />
                     </div>
                     <div className="flex-1">
