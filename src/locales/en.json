@@ -179,7 +179,41 @@
     "title2": "say",
     "reviews": "reviews",
     "subtitle": "Discover authentic testimonials from clients who trusted my expertise for their web projects",
-    "badge": "100% satisfied clients"
+    "badge": "100% satisfied clients",
+    "list": [
+      {
+        "name": "Mayeul Deries",
+        "company": "Freelance Developer",
+        "rating": 5,
+        "comment": "Téo transformed my vision into an exceptional website. His professionalism and attention to detail are remarkable. I highly recommend!",
+        "project": "Job tracking platform",
+        "avatar": "MD"
+      },
+      {
+        "name": "Gabriel Halus",
+        "company": "Dev - Achanfut",
+        "rating": 5,
+        "comment": "Working with Téo was a game-changer for Achanfut. He brought clarity, structure, and clean code to the project. Highly efficient and always proactive — a true tech partner.",
+        "project": "Achanfut platform",
+        "avatar": "GH"
+      },
+      {
+        "name": "Félix Picon",
+        "company": "System Administrator",
+        "rating": 5,
+        "comment": "Téo’s boilerplate saved me hours of setup. His guidance was sharp, clear, and super useful. It was great to collaborate with someone so precise and passionate.",
+        "project": "Boilerplate integration support",
+        "avatar": "FP"
+      },
+      {
+        "name": "Jean-Louis Clément",
+        "company": "Psychologist",
+        "rating": 5,
+        "comment": "Téo created a website that truly reflects who I am and the values of my practice. His empathy and ability to translate ideas into a calming digital experience were impressive.",
+        "project": "Psychologist portfolio site",
+        "avatar": "JLC"
+      }
+    ]
   },
   "contact": {
     "title": "Get in",

@@ -179,7 +179,41 @@
     "title2": "disent",
     "reviews": "Avis",
     "subtitle": "Découvrez des témoignages authentiques de clients qui ont fait confiance à mon expertise pour leurs projets web",
-    "badge": "100% de clients satisfaits"
+    "badge": "100% de clients satisfaits",
+    "list": [
+      {
+        "name": "Mayeul Deries",
+        "company": "Développeur Freelance",
+        "rating": 5,
+        "comment": "Téo a transformé ma vision en un site web exceptionnel. Son professionnalisme et son attention aux détails sont remarquables. Je recommande chaudement !",
+        "project": "Plateforme de suivi d’emploi",
+        "avatar": "MD"
+      },
+      {
+        "name": "Gabriel Halus",
+        "company": "Développeur - Achanfut",
+        "rating": 5,
+        "comment": "Travailler avec Téo a changé la donne pour Achanfut. Il a apporté clarté, structure et un code propre au projet. Très efficace et toujours proactif — un vrai partenaire tech.",
+        "project": "Plateforme Achanfut",
+        "avatar": "GH"
+      },
+      {
+        "name": "Félix Picon",
+        "company": "Administrateur Système",
+        "rating": 5,
+        "comment": "Le boilerplate de Téo m’a fait gagner des heures d’installation. Ses conseils étaient précis, clairs et super utiles. Ce fut top de collaborer avec quelqu’un d’aussi passionné et rigoureux.",
+        "project": "Support intégration boilerplate",
+        "avatar": "FP"
+      },
+      {
+        "name": "Jean-Louis Clément",
+        "company": "Psychologue",
+        "rating": 5,
+        "comment": "Téo a créé un site qui reflète vraiment qui je suis et les valeurs de mon cabinet. Son empathie et sa capacité à traduire les idées en une expérience digitale apaisante sont impressionnantes.",
+        "project": "Site portfolio psychologue",
+        "avatar": "JLC"
+      }
+    ]
   },
   "contact": {
     "title": "Prenez",
