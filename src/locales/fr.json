@@ -14,12 +14,22 @@
   "home": {
     "developer": "Développeur Full Stack",
     "hello": "Salut, je suis",
-    "title": "Conception de produits, marques et expériences numériques",
-    "subtitle": "Je développe des applications web réactives et performantes avec des technologies modernes. Spécialisé en React, Node.js et tout ce qu’il y a entre les deux.",
+    "title": "Je conçois des produits, des marques et des expériences numériques",
+    "subtitle": "Je développe des applications web performantes et responsives avec des technologies modernes.",
     "action1": "Me contacter",
     "action2": "Voir mes projets",
     "figure1": "Génial",
-    "figure2": "Code en cours..."
+    "figure2": "En train de coder...",
+    "badge": "Disponible pour de nouveaux projets",
+    "rating": "Note moyenne",
+    "clients": "Clients satisfaits",
+    "experience": "Années d'expérience",
+    "typing1": "Plateformes web modernes",
+    "typing2": "Expériences utilisateur intuitives",
+    "typing3": "Sites rapides et fiables",
+    "typing4": "Interfaces adaptées au mobile",
+    "typing5": "Solutions numériques sur mesure",
+    "icreate": "Je crée des"
   },
   "about": {
     "vibes": "Ambiance détendue uniquement",
