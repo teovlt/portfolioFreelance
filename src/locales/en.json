@@ -19,7 +19,17 @@
     "action1": "Get in Touch",
     "action2": "View My Work",
     "figure1": "Awesome",
-    "figure2": "Coding..."
+    "figure2": "Coding...",
+    "badge": "Available for new projects",
+    "rating": "Average rating",
+    "clients": "Happy clients",
+    "experience": "Years experience",
+    "typing1": "Modern Web Platforms",
+    "typing2": "Intuitive User Experiences",
+    "typing3": "Fast and Reliable Websites",
+    "typing4": "Mobile-Ready Interfaces",
+    "typing5": "Custom Digital Solutions",
+    "icreate": "I create"
   },
   "about": {
     "vibes": "Chill Vibes Only",
