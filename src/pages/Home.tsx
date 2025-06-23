@@ -12,7 +12,7 @@ export const Home = () => {
   const typingTexts = [t("home.typing1"), t("home.typing2"), t("home.typing3"), t("home.typing4"), t("home.typing5")];
 
   return (
-    <section id="home-section" className="min-h-screen py-20 flex items-center justify-center">
+    <section id="home-section" className="min-h-screen py-28 flex items-center justify-center">
       <ParticleBackground />
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center max-w-5xl mx-auto">
@@ -81,15 +81,17 @@ export const Home = () => {
               <span>{t("home.action2")}</span>
               <Download className="ml-2 h-5 w-5 group-hover:animate-bounce" />
             </Button>
-            <Button
-              variant="ghost"
-              className="flex items-center justify-center"
-              size="icon"
-              onClick={(e) => scrollToSection("about-section", e)}
-            >
-              <ArrowDown className="h-6 w-6 animate-bounce" />
-            </Button>
           </div>
+        </div>
+        <div className="flex items-center justify-center lg:mt-24 sm:mt-16 mt-12">
+          <Button
+            variant="ghost"
+            className="flex items-center justify-center"
+            size="icon"
+            onClick={(e) => scrollToSection("about-section", e)}
+          >
+            <ArrowDown className="h-6 w-6 animate-bounce" />
+          </Button>
         </div>
       </div>
     </section>
