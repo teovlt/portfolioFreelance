@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
 
 export function ReviewsSection() {
-  const totalReviews = 6;
+  const totalReviews = 4;
   const { t } = useTranslation();
 
   return (

@@ -95,7 +95,7 @@ export function TestimonialCarousel() {
             transform: `translateX(-${(currentIndex * 100) / currentItemsPerView}%)`,
           }}
         >
-          {visibleReviews.map((review, index) => (
+          {reviews.map((review, index) => (
             <div key={`${review.id}-${index}`} className="flex-shrink-0 px-3" style={{ width: `${100 / currentItemsPerView}%` }}>
               <Card className="h-full relative overflow-hidden group hover:shadow-2xl transition-all duration-300 border-2 hover:border-blue-200 dark:hover:border-blue-800 transform hover:scale-105">
                 {/* Gradient overlay */}
