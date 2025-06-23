@@ -52,7 +52,11 @@
     "fact4": {
       "title": "Runner enjoyer",
       "desc": "I did my first half marathon recently"
-    }
+    },
+    "techTitle": "Technologies I love",
+    "location": "Based in France",
+    "availability": "Available for new projects",
+    "quote": "My goal is not just to code, but to create experiences that make a mark and bring real value to your business."
   },
   "experiences": {
     "titleStart": "My",

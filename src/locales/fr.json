@@ -32,27 +32,31 @@
     "icreate": "Je crée des"
   },
   "about": {
-    "vibes": "Ambiance détendue uniquement",
-    "title": "Voici quelques infos sur",
+    "vibes": "Ambiance chill garantie",
+    "title": "Voici un aperçu de",
     "me": "moi",
-    "description": "Je suis un développeur fullstack passionné basé à Grenoble, actuellement étudiant en ingénierie à l’IMT Nord Europe en alternance. J’aime mêler créativité et logique pour concevoir des expériences numériques élégantes et conviviales. Quand je ne code pas ou n’imagine pas de nouveaux projets, tu me trouveras en pleine nature, à écouter de la musique ou à savourer un bon café. Je suis toujours motivé pour relever de nouveaux défis — n’hésite pas à me contacter !",
+    "description": "Développeur fullstack passionné basé à Grenoble, je poursuis actuellement mes études d'ingénieur à l'IMT Nord Europe tout en étant en alternance. J’aime mélanger créativité et logique pour créer des expériences numériques élégantes et intuitives. Quand je ne code pas ou que je n’imagine pas de nouveaux projets, je suis sûrement en pleine nature, en train d’écouter du son ou de savourer un bon café. Je suis toujours motivé à relever de nouveaux défis — alors n’hésitez pas à me contacter !",
     "factsTitle": "Quelques fun facts sur moi",
     "fact1": {
-      "title": "Passionné de muscu",
-      "desc": "À mon meilleur niveau, je faisais 110 kg au développé couché"
+      "title": "Accro à la muscu",
+      "desc": "À mon top, je faisais 110kg au développé couché"
     },
     "fact2": {
-      "title": "Joueur d’échecs amateur",
-      "desc": "Je me suis récemment mis à apprendre les échecs"
+      "title": "Joueur d'échecs amateur",
+      "desc": "J'essaie d'apprendre les échecs en ce moment"
     },
     "fact3": {
-      "title": "Fan de One piece",
+      "title": "Fan de One Piece",
       "desc": "Je suis un grand fan de One Piece"
     },
     "fact4": {
-      "title": "Adepte du running",
-      "desc": "J’ai couru mon premier semi-marathon récemment"
-    }
+      "title": "Runner dans l’âme",
+      "desc": "J’ai fait mon premier semi-marathon récemment"
+    },
+    "techTitle": "Technologies que j'aime",
+    "location": "Basé en France",
+    "availability": "Disponible pour de nouveaux projets",
+    "quote": "Mon objectif n’est pas juste de coder, mais de créer des expériences qui marquent et apportent une vraie valeur à votre business."
   },
   "experiences": {
     "titleStart": "Mes",
