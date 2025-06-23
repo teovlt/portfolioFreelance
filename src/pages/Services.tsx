@@ -16,7 +16,10 @@ export function Services() {
     {
       icon: Code,
       title: t("Frontend"),
-      description: t("Interfaces utilisateur modernes et responsives avec React, Next.js et TypeScript"),
+      description:
+        language === "fr"
+          ? "Interfaces utilisateur réactives et performantes avec React, Next.js et Tailwind CSS"
+          : "Responsive and performant user interfaces with React, Next.js, and Tailwind CSS",
       price: language === "fr" ? "À partir de 600€" : "Starting from €600",
       duration: language === "fr" ? "1-2 semaines" : "1-2 weeks",
       deliverables: [
@@ -31,7 +34,10 @@ export function Services() {
     {
       icon: Server,
       title: t("Backend"),
-      description: t("APIs robustes et bases de données optimisées avec Node.js et technologies cloud"),
+      description:
+        language === "fr"
+          ? "Services backend robustes avec Node.js, Express et bases de données SQL/NoSQL"
+          : "Robust backend services with Node.js, Express, and SQL/NoSQL databases",
       price: language === "fr" ? "À partir de 1500€" : "Starting from €1500",
       duration: language === "fr" ? "2-5 semaines" : "2-5 weeks",
       deliverables: [
@@ -46,7 +52,10 @@ export function Services() {
     {
       icon: Layers,
       title: t("Fullstack"),
-      description: t("Applications web complètes de A à Z, du concept au déploiement"),
+      description:
+        language === "fr"
+          ? "Solutions complètes avec intégration frontend et backend, CI/CD et architecture scalable"
+          : "Complete solutions with frontend and backend integration, CI/CD, and scalable architecture",
       price: language === "fr" ? "À partir de 3000€" : "Starting from €3000",
       duration: language === "fr" ? "4-8 semaines" : "4-8 weeks",
       deliverables: [
@@ -68,10 +77,20 @@ export function Services() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold items-center justify-center text-center mb-4">
-            Packages<span className="text-primary"> Professionnels</span>
+            {language === "fr" ? (
+              <>
+                Packages<span className="text-primary"> Professionnels</span>
+              </>
+            ) : (
+              <>
+                <span className="text-primary">Professional</span> Packages
+              </>
+            )}
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Choisissez le package qui correspond à vos besoins avec des prix transparents
+            {language === "fr"
+              ? "Choisissez le package qui correspond à vos besoins avec des prix transparents"
+              : "Choose the package that fits your needs with transparent pricing"}
           </p>
         </div>
 
