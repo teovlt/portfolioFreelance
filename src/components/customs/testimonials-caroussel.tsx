@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Star, Quote, ChevronLeft, ChevronRight, Play, Pause } from "lucide-react";
 import { Avatar, AvatarFallback } from "../ui/avatar";
+import { useTranslation } from "react-i18next";
 
 interface Review {
   id: number;
@@ -20,49 +21,9 @@ export function TestimonialCarousel() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
   const [isHovered, setIsHovered] = useState(false);
+  const { t } = useTranslation();
 
-  const reviews: Review[] = [
-    {
-      id: 1,
-      name: "Mayeul Deries",
-      company: "Freelance Developer",
-      rating: 5,
-      comment:
-        "Téo transformed my vision into an exceptional website. His professionalism and attention to detail are remarkable. I highly recommend!",
-      avatar: "MD",
-      project: "Job tracking platform",
-    },
-    {
-      id: 2,
-      name: "Gabriel Halus",
-      company: "Dev - Achanfut",
-      rating: 5,
-      comment:
-        "Working with Téo was a game-changer for Achanfut. He brought clarity, structure, and clean code to the project. Highly efficient and always proactive — a true tech partner.",
-      avatar: "GH",
-      project: "Achanfut platform",
-    },
-    {
-      id: 3,
-      name: "Félix Picon",
-      company: "System Administrator",
-      rating: 5,
-      comment:
-        "Téo’s boilerplate saved me hours of setup. His guidance was sharp, clear, and super useful. It was great to collaborate with someone so precise and passionate.",
-      avatar: "FP",
-      project: "Boilerplate integration support",
-    },
-    {
-      id: 4,
-      name: "Jean-Louis Clément",
-      company: "Psychologist",
-      rating: 5,
-      comment:
-        "Téo created a website that truly reflects who I am and the values of my practice. His empathy and ability to translate ideas into a calming digital experience were impressive.",
-      avatar: "JLC",
-      project: "Psychologist portfolio site",
-    },
-  ];
+  const reviews = t("reviews.list", { returnObjects: true }) as unknown as Review[];
 
   const itemsPerView = {
     mobile: 1,
@@ -134,8 +95,8 @@ export function TestimonialCarousel() {
             transform: `translateX(-${(currentIndex * 100) / currentItemsPerView}%)`,
           }}
         >
-          {reviews.map((review, index) => (
-            <div key={review.id} className="flex-shrink-0 px-3" style={{ width: `${100 / currentItemsPerView}%` }}>
+          {visibleReviews.map((review, index) => (
+            <div key={`${review.id}-${index}`} className="flex-shrink-0 px-3" style={{ width: `${100 / currentItemsPerView}%` }}>
               <Card className="h-full relative overflow-hidden group hover:shadow-2xl transition-all duration-300 border-2 hover:border-blue-200 dark:hover:border-blue-800 transform hover:scale-105">
                 {/* Gradient overlay */}
                 <div className="absolute inset-0 bg-gradient-to-br from-blue-50/50 to-purple-50/50 dark:from-blue-950/50 dark:to-purple-950/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
