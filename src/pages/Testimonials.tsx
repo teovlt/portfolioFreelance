@@ -20,7 +20,7 @@ export function ReviewsSection() {
               transition={{ delay: 0.7, duration: 0.7 }}
               className="text-4xl md:text-5xl font-bold"
             >
-              {t("What my clients")} <span className="text-primary">{t("say")}</span>
+              {t("reviews.title1")} <span className="text-primary">{t("reviews.title2")}</span>
             </motion.h2>
           </div>
 
@@ -32,25 +32,18 @@ export function ReviewsSection() {
             </div>
             <span className="text-3xl font-bold text-blue-600">5.0</span>
             <span className="text-muted-foreground text-lg">
-              ({totalReviews} {"reviews"})
+              ({totalReviews} {t("reviews.reviews")})
             </span>
           </div>
 
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-            {"Discover authentic testimonials from clients who trusted my expertise for their web projects"}
-          </p>
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">{t("reviews.subtitle")}</p>
         </div>
 
         <TestimonialCarousel />
 
         <div className="text-center mt-12">
           <div className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-green-50 to-blue-50 dark:from-green-950 dark:to-blue-950 rounded-full border border-green-200 dark:border-green-800">
-            {/* <div className="flex">
-              {Array.from({ length: 5 }, (_, i) => (
-                <Star key={i} className="h-5 w-5 fill-yellow-400 text-yellow-400" />
-              ))}
-            </div> */}
-            <span className="font-bold text-green-800 dark:text-green-200 text-lg">{"100% satisfied clients"}</span>
+            <span className="font-bold text-green-800 dark:text-green-200 text-lg">{t("reviews.badge")}</span>
             <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse" />
           </div>
         </div>

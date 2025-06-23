@@ -50,12 +50,12 @@ export const Home = () => {
           <div className="flex flex-wrap justify-center gap-8 mb-12 animate-fade-in-up animation-delay-800">
             <div className="flex items-center gap-2 text-muted-foreground">
               <Star className="h-5 w-5 text-yellow-500 fill-yellow-500" />
-              <span className="font-semibold">4.9</span>
+              <span className="font-semibold">5.0</span>
               <span>{t("home.rating")}</span>
             </div>
             <div className="flex items-center gap-2 text-muted-foreground">
               <Users className="h-5 w-5 text-blue-500" />
-              <span className="font-semibold">50+</span>
+              <span className="font-semibold">20+</span>
               <span>{t("home.clients")}</span>
             </div>
             <div className="flex items-center gap-2 text-muted-foreground">
