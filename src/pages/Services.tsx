@@ -134,7 +134,7 @@ export function Services() {
           {services.map((service, index) => (
             <Card
               key={index}
-              className={`relative overflow-hidden transition-all duration-300 ${
+              className={`relative transition-all duration-300 ${
                 service.popular
                   ? "border-2 border-blue-500 shadow-xl scale-105"
                   : "border hover:border-blue-300 dark:hover:border-blue-700 hover:shadow-lg"
