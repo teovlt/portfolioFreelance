@@ -41,18 +41,6 @@ export default function NotFound() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:from-gray-900 dark:via-blue-950 dark:to-purple-950 flex flex-col">
-      {/* Header */}
-      <header className="p-6 flex justify-between items-center">
-        <Link to="/" className="flex items-center space-x-2">
-          <Code2 className="h-8 w-8 text-blue-600" />
-          <span className="font-bold text-xl">VILLET Téo</span>
-        </Link>
-        <div className="flex items-center space-x-2">
-          <LanguageChanger />
-          <ThemeChanger />
-        </div>
-      </header>
-
       {/* Main Content */}
       <div className="flex-1 flex items-center justify-center px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto text-center">
