@@ -31,7 +31,11 @@ export const About = () => {
               <div className="relative inline-block mb-8">
                 <div className="relative lg:w-96 lg:h-96 sm:w-80 sm:h-80 mx-auto lg:mx-0">
                   <Avatar className="w-full h-full">
-                    <AvatarImage src="images/me.jpg" alt="Profile Photo" className="object-cover w-full h-full" />
+                    <AvatarImage
+                      src="images/me.jpg"
+                      alt="Photo de Téo Villet, développeur web à Grenoble"
+                      className="object-cover w-full h-full"
+                    />
                     <AvatarFallback className="text-6xl">TV</AvatarFallback>
                   </Avatar>
                 </div>
