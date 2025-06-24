@@ -22,11 +22,6 @@ export const router = createBrowserRouter([
   {
     path: "/",
     element: <RootLayout />,
-    errorElement: (
-      <>
-        <NotFound />
-      </>
-    ),
     children: [
       {
         path: "/",
@@ -41,6 +36,10 @@ export const router = createBrowserRouter([
             <Contact />
           </>
         ),
+      },
+      {
+        path: "/*",
+        element: <NotFound />,
       },
     ],
   },
