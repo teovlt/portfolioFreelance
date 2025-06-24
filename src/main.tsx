@@ -6,6 +6,7 @@ import { router } from "./routes/router";
 import { ThemeProvider } from "./providers/theme-provider";
 import "./lib/i18n";
 import { Toaster } from "./components/ui/sonner";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
