@@ -1,4 +1,4 @@
-import { ErrorPage } from "../pages/ErrorPage";
+import NotFound from "../pages/ErrorPage";
 import { createBrowserRouter, Outlet } from "react-router-dom";
 import { Home } from "@/pages/Home";
 import { About } from "@/pages/About";
@@ -7,7 +7,6 @@ import { Projects } from "@/pages/Projects";
 import { Contact } from "@/pages/Contact";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
-import { Skills } from "@/pages/Skills";
 import { Experiences } from "@/pages/Experiences";
 import { ReviewsSection } from "@/pages/Testimonials";
 
@@ -25,7 +24,7 @@ export const router = createBrowserRouter([
     element: <RootLayout />,
     errorElement: (
       <>
-        <ErrorPage />
+        <NotFound />
       </>
     ),
     children: [
@@ -36,9 +35,8 @@ export const router = createBrowserRouter([
             <Home />
             <About />
             <Experiences />
-            <Services />
-            {/* <Skills /> */}
             <Projects />
+            <Services />
             <ReviewsSection />
             <Contact />
           </>
