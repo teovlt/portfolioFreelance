@@ -13,9 +13,9 @@
   },
   "home": {
     "developer": "Développeur Full Stack",
-    "hello": "Salut, je suis",
+    "hello": "Bonjour, je suis",
     "title": "Je conçois des produits, des marques et des expériences numériques",
-    "subtitle": "Je développe et design des sites webs sur mersure, pensés pour votre activité et vos utilisateurs.",
+    "subtitle": "Je développe et conçois des sites web sur mesure, pensés pour votre activité et vos utilisateurs.",
     "action1": "Me contacter",
     "action2": "Voir mes projets",
     "figure1": "Génial",
@@ -54,7 +54,7 @@
       "desc": "J’ai fait mon premier semi-marathon récemment"
     },
     "techTitle": "Technologies que j'aime",
-    "location": "Basé en France",
+    "location": "Basé à Grenoble, France",
     "availability": "Disponible pour de nouveaux projets",
     "quote": "Mon objectif n’est pas juste de coder, mais de créer des expériences qui marquent et apportent une vraie valeur à votre business."
   },

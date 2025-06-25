@@ -21,8 +21,8 @@ export const Navbar = () => {
     { id: "home-section", label: t("navbar.home"), icon: <House className="w-4 h-4" /> },
     { id: "about-section", label: t("navbar.about"), icon: <Info className="w-4 h-4" /> },
     { id: "experiences-section", label: t("navbar.experiences"), icon: <Briefcase className="w-4 h-4" /> },
-    { id: "services-section", label: t("navbar.services"), icon: <Palette className="w-4 h-4" /> },
     { id: "projects-section", label: t("navbar.projects"), icon: <FileText className="w-4 h-4" /> },
+    { id: "services-section", label: t("navbar.services"), icon: <Palette className="w-4 h-4" /> },
     { id: "reviews-section", label: t("navbar.reviews"), icon: <Star className="w-4 h-4" /> },
     { id: "contact-section", label: t("navbar.contact"), icon: <Mail className="w-4 h-4" /> },
   ];

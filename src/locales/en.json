@@ -13,7 +13,7 @@
   },
   "home": {
     "developer": "Full Stack Developer",
-    "hello": "Hi, I'm",
+    "hello": "Hello, I'm",
     "title": "Building digital products, brands, and experiences",
     "subtitle": "I create and design custom websites, built for your business and your audience.",
     "action1": "Get in Touch",
@@ -54,7 +54,7 @@
       "desc": "I did my first half marathon recently"
     },
     "techTitle": "Technologies I love",
-    "location": "Based in France",
+    "location": "Based in Grenoble, France",
     "availability": "Available for new projects",
     "quote": "My goal is not just to code, but to create experiences that make a mark and bring real value to your business."
   },
