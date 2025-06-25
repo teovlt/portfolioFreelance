@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Code, Server, Layers, ArrowRight, CheckCircle, Clock, Users, Paintbrush } from "lucide-react";
+import { Code, Server, Layers, ArrowRight, CheckCircle, Clock, Users, Paintbrush, Palette } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { scrollToSection } from "@/utils/scrollToSection";
 
@@ -14,7 +14,7 @@ export function Services() {
 
   const services = [
     {
-      icon: Paintbrush,
+      icon: Palette,
       title: language === "fr" ? "Design personnalisé" : "Custom Design",
       description:
         language === "fr"
