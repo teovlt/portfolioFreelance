@@ -77,7 +77,7 @@ export const Navbar = () => {
       >
         <div className="container mx-auto px-4">
           {/* Display only on screens larger than 'sm' */}
-          <div className="hidden md:flex items-center justify-between select-none">
+          <div className="hidden lg:flex items-center justify-between select-none">
             <div className="font-extrabold text-3xl">
               <Link to="/" onClick={(e) => scrollToSection("home-section", e)}>
                 VILLET
@@ -113,7 +113,7 @@ export const Navbar = () => {
           </div>
 
           {/* Mobile Navbar with Hamburger Menu */}
-          <div className="flex md:hidden justify-between items-center p-2">
+          <div className="flex lg:hidden justify-between items-center p-2">
             <div className="font-extrabold text-3xl">
               <Link to="/">VILLET</Link>
             </div>
