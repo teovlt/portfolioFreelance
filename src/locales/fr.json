@@ -182,6 +182,14 @@
     "badge": "100% de clients satisfaits",
     "list": [
       {
+        "name": "Jean-Louis Clément",
+        "company": "Psychologue",
+        "rating": 5,
+        "comment": "Téo a créé un site qui reflète vraiment qui je suis et les valeurs de mon cabinet. Son empathie et sa capacité à traduire les idées en une expérience digitale apaisante sont impressionnantes.",
+        "project": "Site portfolio psychologue",
+        "avatar": "JLC"
+      },
+      {
         "name": "Mayeul Deries",
         "company": "Développeur Freelance",
         "rating": 5,
@@ -204,14 +212,6 @@
         "comment": "Le boilerplate de Téo m’a fait gagner des heures d’installation. Ses conseils étaient précis, clairs et super utiles. Ce fut top de collaborer avec quelqu’un d’aussi passionné et rigoureux.",
         "project": "Support intégration boilerplate",
         "avatar": "FP"
-      },
-      {
-        "name": "Jean-Louis Clément",
-        "company": "Psychologue",
-        "rating": 5,
-        "comment": "Téo a créé un site qui reflète vraiment qui je suis et les valeurs de mon cabinet. Son empathie et sa capacité à traduire les idées en une expérience digitale apaisante sont impressionnantes.",
-        "project": "Site portfolio psychologue",
-        "avatar": "JLC"
       }
     ]
   },
