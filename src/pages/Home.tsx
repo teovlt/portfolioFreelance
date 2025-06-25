@@ -5,7 +5,6 @@ import { useTranslation } from "react-i18next";
 import { Badge } from "@/components/ui/badge";
 import { ParticleBackground } from "@/components/customs/particle-background";
 import { TypingAnimation } from "@/components/customs/typing-animations";
-import { Helmet } from "react-helmet-async";
 
 export const Home = () => {
   const { t } = useTranslation();
