@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Code, Server, Layers, ArrowRight, CheckCircle, Clock, Users } from "lucide-react";
+import { Code, Server, Layers, ArrowRight, CheckCircle, Clock, Users, Paintbrush } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { scrollToSection } from "@/utils/scrollToSection";
 
@@ -14,55 +14,73 @@ export function Services() {
 
   const services = [
     {
-      icon: Code,
-      title: t("Frontend"),
+      icon: Paintbrush,
+      title: language === "fr" ? "Design personnalisé" : "Custom Design",
       description:
         language === "fr"
-          ? "Interfaces utilisateur réactives et performantes avec React, Next.js et Tailwind CSS"
-          : "Responsive and performant user interfaces with React, Next.js, and Tailwind CSS",
-      price: language === "fr" ? "À partir de 600€" : "Starting from €600",
-      duration: language === "fr" ? "1-2 semaines" : "1-2 weeks",
+          ? "Création de maquettes modernes et cohérentes avec ton image. Idéal avant de passer au développement."
+          : "Modern mockups that match your brand. Perfect before starting development.",
+      price: language === "fr" ? "À partir de 400€" : "Starting from €400",
+      duration: language === "fr" ? "1 à 2 semaines" : "1 to 2 weeks",
       deliverables: [
-        language === "fr" ? "Interface responsive" : "Responsive interface",
-        language === "fr" ? "Code optimisé" : "Optimized code",
-        language === "fr" ? "Documentation" : "Documentation",
-        language === "fr" ? "Support 30 jours" : "30-day support",
+        language === "fr" ? "Maquettes visuelles (ex : Figma)" : "Visual mockups (e.g. Figma)",
+        language === "fr" ? "Design mobile et ordinateur" : "Mobile & desktop design",
+        language === "fr" ? "Couleurs & typographies pro" : "Professional colors & fonts",
+        language === "fr" ? "Conseils personnalisés" : "Personalized advice",
+      ],
+      popular: false,
+      projects: 5,
+    },
+    {
+      icon: Code,
+      title: language === "fr" ? "Site vitrine" : "Showcase Website",
+      description:
+        language === "fr"
+          ? "Un site clair et rapide pour présenter ton activité ou projet (ex : restaurant, portfolio, artisan)"
+          : "A clean and fast website to showcase your activity or project (e.g. restaurant, portfolio, craftsman)",
+      price: language === "fr" ? "À partir de 600€" : "Starting from €600",
+      duration: language === "fr" ? "1 à 2 semaines" : "1 to 2 weeks",
+      deliverables: [
+        language === "fr" ? "Site visible sur ordi & mobile" : "Mobile & desktop ready",
+        language === "fr" ? "Pages rapides à charger" : "Fast loading pages",
+        language === "fr" ? "Design moderne" : "Modern design",
+        language === "fr" ? "Assistance 30 jours" : "30-day support",
       ],
       popular: true,
       projects: 12,
     },
     {
       icon: Server,
-      title: t("Backend"),
+      title: language === "fr" ? "Site avec fonctionnalités" : "Website with Features",
       description:
         language === "fr"
-          ? "Services backend robustes avec Node.js, Express et bases de données SQL/NoSQL"
-          : "Robust backend services with Node.js, Express, and SQL/NoSQL databases",
-      price: language === "fr" ? "À partir de 1500€" : "Starting from €1500",
-      duration: language === "fr" ? "2-5 semaines" : "2-5 weeks",
+          ? "Ajout de fonctionnalités : espace membre, formulaire de contact, réservation..."
+          : "Add features like member area, contact form, booking...",
+      price: language === "fr" ? "À partir de 1200€" : "Starting from €1200",
+      duration: language === "fr" ? "2 à 5 semaines" : "2 to 5 weeks",
       deliverables: [
-        language === "fr" ? "API sécurisée" : "Secure API",
-        language === "fr" ? "Base de données" : "Database setup",
-        language === "fr" ? "Tests automatisés" : "Automated tests",
-        language === "fr" ? "Déploiement cloud" : "Cloud deployment",
+        language === "fr" ? "Espace personnel sécurisé" : "Secure personal space",
+        language === "fr" ? "Formulaires simples à utiliser" : "Easy-to-use forms",
+        language === "fr" ? "Connexion avec identifiants" : "Login system",
+        language === "fr" ? "Hébergement en ligne inclus" : "Online hosting included",
       ],
       popular: false,
       projects: 6,
     },
     {
       icon: Layers,
-      title: t("Fullstack"),
+      title: language === "fr" ? "Site complet" : "Complete Website",
       description:
         language === "fr"
-          ? "Solutions complètes avec intégration frontend et backend, CI/CD et architecture scalable"
-          : "Complete solutions with frontend and backend integration, CI/CD, and scalable architecture",
-      price: language === "fr" ? "À partir de 3000€" : "Starting from €3000",
-      duration: language === "fr" ? "4-8 semaines" : "4-8 weeks",
+          ? "Création d’un site avec plusieurs pages, fonctionnalités personnalisées, base de données, et tout ce qu’il faut"
+          : "A complete website with multiple pages, custom features, database, and everything needed",
+      price: language === "fr" ? "À partir de 2500€" : "Starting from €2500",
+      duration: language === "fr" ? "4 à 8 semaines" : "4 to 8 weeks",
       deliverables: [
-        language === "fr" ? "Application complète" : "Complete application",
-        language === "fr" ? "Architecture scalable" : "Scalable architecture",
-        language === "fr" ? "CI/CD pipeline" : "CI/CD pipeline",
-        language === "fr" ? "Support 60 jours" : "60-day support",
+        language === "fr" ? "Site sur mesure" : "Custom website",
+        language === "fr" ? "Fonctionnalités avancées" : "Advanced features",
+        language === "fr" ? "Stockage des données" : "Data storage",
+        language === "fr" ? "Assistance 60 jours" : "60-day support",
       ],
       popular: false,
       projects: 9,
@@ -94,7 +112,7 @@ export function Services() {
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+        <div className="grid lg:grid-cols-4 gap-8 max-w-8xl mx-auto">
           {services.map((service, index) => (
             <Card
               key={index}
