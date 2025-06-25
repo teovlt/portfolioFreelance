@@ -12,17 +12,9 @@ import { ReviewsSection } from "@/pages/Testimonials";
 
 const RootLayout = () => (
   <>
-    <title>Téo VILLET | Portfolio</title>
-    <meta
-      name="description"
-      content="Je suis Téo, développeur fullstack basé à Grenoble. Voici mon portfolio : projets, stack technique, expériences pro et contact rapide.
-          N'hésitez pas à me contacter pour toute question ou proposition de collaboration !"
-    />
-    <main>
-      <Navbar />
-      <Outlet />
-      <Footer />
-    </main>
+    <Navbar />
+    <Outlet />
+    <Footer />
   </>
 );
 
