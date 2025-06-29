@@ -44,6 +44,7 @@ const projects = [
     image: "/paperlive.png",
     tags: ["React", "Node.js", "Express", "MongoDB", "Styled Components"],
     githubLink: "https://github.com/BerriatMagasin/Paperlive",
+    liveLink: "https://paperlive.vercel.app",
   },
   {
     id: "project5",
