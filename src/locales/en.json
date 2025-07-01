@@ -272,5 +272,43 @@
       "contact": "Contact",
       "reviews": "Reviews"
     }
+  },
+  "faq": {
+    "work_hours": {
+      "question": "What are your working hours?",
+      "answer": "I’m generally available Monday to Friday but I adapt to my clients’ needs."
+    },
+    "contact": {
+      "question": "How can I contact you?",
+      "answer": "You can reach me by email at teo.villet2@gmail.com or via the contact form on my website."
+    },
+    "long_term_projects": {
+      "question": "Are you available for long-term projects?",
+      "answer": "Yes, I’m open to long-term collaborations and a variety of projects."
+    },
+    "work_process": {
+      "question": "What is your work process?",
+      "answer": "My process includes a consultation phase to understand your needs, followed by design, development, and thorough testing before delivery."
+    },
+    "post_delivery_support": {
+      "question": "Do you offer support after project delivery?",
+      "answer": "Yes, I offer support for 30 to 60 days after delivery, depending on the project type."
+    },
+    "technologies": {
+      "question": "What types of technologies do you use?",
+      "answer": "I use modern technologies like React, Node.js, TypeScript, and MongoDB to build high-performance web applications."
+    },
+    "custom_quote": {
+      "question": "How can I request a custom quote?",
+      "answer": "You can request a custom quote by contacting me directly via the form on my website or by email."
+    },
+    "pricing_showcase": {
+      "question": "What are your rates for a showcase website?",
+      "answer": "Rates for a showcase website start from €600 (negotiable), with a delivery time of 1 to 2 weeks."
+    },
+    "services_offered": {
+      "question": "What types of services do you offer?",
+      "answer": "I offer custom web development services, including showcase websites, full web applications, and personalized designs."
+    }
   }
 }

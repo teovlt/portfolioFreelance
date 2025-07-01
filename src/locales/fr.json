@@ -272,5 +272,43 @@
       "reviews": "Avis",
       "contact": "Contact"
     }
+  },
+  "faq": {
+    "work_hours": {
+      "question": "Quels sont vos horaires de travail ?",
+      "answer": "Je suis généralement disponible du lundi au vendredi, mais je m'adapte aux besoins de mes clients."
+    },
+    "contact": {
+      "question": "Comment puis-je vous contacter ?",
+      "answer": "Vous pouvez me contacter par email à teo.villet2@gmail.com ou via le formulaire de contact sur mon site."
+    },
+    "long_term_projects": {
+      "question": "Êtes-vous disponible pour des projets à long terme ?",
+      "answer": "Oui, je suis ouvert à des collaborations à long terme et à des projets variés."
+    },
+    "work_process": {
+      "question": "Quel est votre processus de travail ?",
+      "answer": "Mon processus inclut une phase de consultation pour comprendre vos besoins, suivie de la conception, du développement, et enfin des tests avant la livraison."
+    },
+    "post_delivery_support": {
+      "question": "Offrez-vous un support après la livraison du projet ?",
+      "answer": "Oui, j'offre un support de 30 à 60 jours après la livraison, selon le type de projet."
+    },
+    "technologies": {
+      "question": "Quels types de technologies utilisez-vous ?",
+      "answer": "J'utilise des technologies modernes comme React, Node.js, TypeScript, et MongoDB pour créer des applications web performantes."
+    },
+    "custom_quote": {
+      "question": "Comment puis-je demander un devis personnalisé ?",
+      "answer": "Vous pouvez demander un devis personnalisé en me contactant directement via le formulaire sur mon site ou par email."
+    },
+    "pricing_showcase": {
+      "question": "Quels sont vos tarifs pour un site vitrine ?",
+      "answer": "Les tarifs pour un site vitrine commencent à partir de 600€ (négociable), avec un délai de réalisation de 1 à 2 semaines."
+    },
+    "services_offered": {
+      "question": "Quels types de services proposez-vous ?",
+      "answer": "Je propose des services de développement web sur mesure, y compris des sites vitrines, des applications web complètes, et des designs personnalisés."
+    }
   }
 }
