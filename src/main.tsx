@@ -9,6 +9,7 @@ import { Toaster } from "./components/ui/sonner";
 import { SpeedInsights } from "@vercel/speed-insights/react";
 import { Analytics } from "@vercel/analytics/react";
 import { Helmet } from "react-helmet";
+import ChatBot from "./components/customs/chat-bot";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
@@ -22,6 +23,7 @@ createRoot(document.getElementById("root")!).render(
       </Helmet>
       <RouterProvider router={router} />
       <Toaster />
+      <ChatBot />
       <SpeedInsights />
       <Analytics />
     </ThemeProvider>
