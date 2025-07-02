@@ -29,8 +29,8 @@ export const Home = () => {
             <p className="text-lg text-muted-foreground mb-4 animate-fade-in-up">{t("home.hello")}</p>
 
             <h1 className="text-5xl sm:text-7xl lg:text-8xl font-bold mb-6 animate-fade-in-up animation-delay-200">
-              <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-blue-800 bg-clip-text text-transparent">VILLET</span>{" "}
-              <span className="text-foreground">Téo</span>
+              <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-blue-800 bg-clip-text text-transparent">Téo</span>{" "}
+              <span className="text-foreground">VILLET</span>
             </h1>
 
             <div className="hidden sm:flex text-2xl sm:text-3xl lg:text-4xl font-semibold text-muted-foreground mb-8 min-h-16 flex-col sm:flex-row items-center justify-center text-center animate-fade-in-up animation-delay-400 px-4 sm:px-8 space-y-2 sm:space-y-0 sm:space-x-3">
