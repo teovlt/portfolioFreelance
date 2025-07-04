@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet";
 import { Button } from "@/components/ui/button";
 import { ArrowDown, ArrowRight, Code2, Download, Sparkles, Star, Users } from "lucide-react";
 import { scrollToSection } from "@/utils/scrollToSection";
@@ -13,6 +14,14 @@ export const Home = () => {
 
   return (
     <section id="home-section" className="min-h-screen py-28 flex items-center justify-center">
+      <Helmet>
+        <title>Téo Villet - Développeur Fullstack Freelance à Grenoble</title>
+        <meta
+          name="description"
+          content="Téo Villet, développeur web fullstack freelance basé à Grenoble. Découvrez mon portfolio, mes projets, mon expérience et contactez-moi pour concrétiser vos idées web !"
+        />
+      </Helmet>
+
       <ParticleBackground />
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center max-w-5xl mx-auto">
@@ -29,14 +38,15 @@ export const Home = () => {
             <p className="text-lg text-muted-foreground mb-4 animate-fade-in-up">{t("home.hello")}</p>
 
             <h1 className="text-5xl sm:text-7xl lg:text-8xl font-bold mb-6 animate-fade-in-up animation-delay-200">
+              <span className="sr-only">Développeur Fullstack Freelance - </span>
               <span className="text-foreground">Téo</span>{" "}
               <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-blue-800 bg-clip-text text-transparent">VILLET</span>
             </h1>
 
-            <div className="hidden sm:flex text-2xl sm:text-3xl lg:text-4xl font-semibold text-muted-foreground mb-8 min-h-16 flex-col sm:flex-row items-center justify-center text-center animate-fade-in-up animation-delay-400 px-4 sm:px-8 space-y-2 sm:space-y-0 sm:space-x-3">
+            <h2 className="hidden sm:flex text-2xl sm:text-3xl lg:text-4xl font-semibold text-muted-foreground mb-8 min-h-16 flex-col sm:flex-row items-center justify-center text-center animate-fade-in-up animation-delay-400 px-4 sm:px-8 space-y-2 sm:space-y-0 sm:space-x-3">
               <span className="whitespace-nowrap">{t("home.icreate")}</span>
               <TypingAnimation texts={typingTexts} className="text-blue-600 dark:text-blue-400 break-words max-w-full" />
-            </div>
+            </h2>
           </div>
 
           <p className="text-xl sm:text-2xl text-muted-foreground mb-12 max-w-3xl mx-auto leading-relaxed animate-fade-in-up animation-delay-600">
@@ -88,6 +98,7 @@ export const Home = () => {
             variant="ghost"
             className="flex items-center justify-center"
             size="icon"
+            aria-label="Voir la section À propos"
             onClick={(e) => scrollToSection("about-section", e)}
           >
             <ArrowDown className="h-6 w-6 animate-bounce" />

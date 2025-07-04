@@ -15,11 +15,8 @@ createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
       <Helmet>
-        <meta
-          title="Téo Villet - Développeur Freelance à Grenoble - Portfolio"
-          name="description"
-          content="Je suis Téo, développeur fullstack basé à Grenoble. Voici mon portfolio : projets, stack technique, expériences pro et contact rapide. N'hésitez pas à me contacter pour toute question ou proposition de collaboration !"
-        />
+        <title>Téo Villet</title>
+        <meta name="description" content="Portfolio Téo Villet" />
       </Helmet>
       <RouterProvider router={router} />
       <Toaster />
