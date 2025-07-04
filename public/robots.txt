@@ -1,0 +1,6 @@
+# robots.txt pour Téo Villet 🚀
+
+User-agent: *
+Allow: /
+
+Sitemap: https://teovillet.fr/sitemap.xml

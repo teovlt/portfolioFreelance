@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="https://www.sitemaps.org/schemas/sitemap/0.9">
+
+  <!-- Page principale -->
+  <url>
+    <loc>https://teovillet.fr/</loc>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- Sections internes -->
+  <url>
+    <loc>https://teovillet.fr/#home-section</loc>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://teovillet.fr/#about-section</loc>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://teovillet.fr/#experiences-section</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://teovillet.fr/#services-section</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://teovillet.fr/#projects-section</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://teovillet.fr/#reviews-section</loc>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://teovillet.fr/#contact-section</loc>
+    <priority>0.9</priority>
+  </url>
+
+</urlset>
