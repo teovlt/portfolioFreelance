@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet";
 import { motion } from "framer-motion";
 import { Dumbbell, Crown, Ship, MapPin, Calendar, Heart, Footprints } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -5,6 +6,7 @@ import { FunFactCard } from "@/components/FunCard";
 import { useTranslation } from "react-i18next";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+
 export const About = () => {
   const { t } = useTranslation();
 
@@ -12,8 +14,20 @@ export const About = () => {
 
   return (
     <section id="about-section" className="min-h-screen flex items-center justify-center bg-muted/50 py-20">
+      {/* SEO Helmet spécifique */}
+      <Helmet>
+        <title>À propos - Téo Villet | Développeur Fullstack Freelance à Grenoble</title>
+        <meta
+          name="description"
+          content="Découvrez qui est Téo Villet, développeur web fullstack freelance basé à Grenoble. Compétences, fun facts, parcours et plus encore."
+        />
+      </Helmet>
+
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-6xl mx-auto">
+          {/* H1 SEO invisible */}
+          <h1 className="sr-only">À propos de Téo Villet, Développeur Web Fullstack Freelance à Grenoble</h1>
+
           <div className="text-center mb-16">
             <motion.h2
               initial={{ opacity: 0 }}
@@ -26,14 +40,14 @@ export const About = () => {
           </div>
 
           <div className="grid lg:grid-cols-2 gap-12 items-center">
-            {/* Photo and Personal Info */}
+            {/* Photo et infos */}
             <div className="text-center lg:text-left">
               <div className="relative inline-block mb-8">
                 <div className="relative lg:w-96 lg:h-96 sm:w-80 sm:h-80 mx-auto lg:mx-0">
                   <Avatar className="w-full h-full">
                     <AvatarImage
                       src="images/me.png"
-                      alt="Photo de Téo Villet, développeur web à Grenoble"
+                      alt="Photo de Téo Villet, développeur web freelance à Grenoble"
                       className="object-cover w-full h-full"
                     />
                     <AvatarFallback className="text-6xl">TV</AvatarFallback>
@@ -53,10 +67,14 @@ export const About = () => {
               </div>
             </div>
 
-            {/* Description and Details */}
+            {/* Description et détails */}
             <div className="space-y-8">
               <div>
                 <p className="text-lg text-muted-foreground leading-relaxed mb-6">{t("about.description")}</p>
+                {/* SR-ONLY pour booster mot-clé */}
+                <span className="sr-only">
+                  Téo Villet est développeur web fullstack freelance, passionné par React, Node.js et basé à Grenoble.
+                </span>
               </div>
 
               {/* Fun facts */}
@@ -89,7 +107,7 @@ export const About = () => {
                 </div>
               </div>
 
-              {/* Personal Touch */}
+              {/* Citation perso */}
               <Card className="bg-blue-50 dark:bg-blue-950 border-blue-200 dark:border-blue-800">
                 <CardContent className="p-6">
                   <p className="text-blue-800 dark:text-blue-200 italic">{`"${t("about.quote")}"`}</p>
