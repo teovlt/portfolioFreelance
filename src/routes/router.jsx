@@ -30,8 +30,8 @@ export const router = createBrowserRouter([
             <Home />
             <About />
             <Experiences />
-            <Projects />
             <Services />
+            <Projects />
             <ReviewsSection />
             <Contact />
           </>
