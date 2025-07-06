@@ -48,11 +48,12 @@ const projects = [
   },
   {
     id: "project5",
-    title: "YapNet",
-    description: "A social media platform for sharing and discussing ideas, with features like posts, comments, and user profiles.",
-    image: "/yapnet.png",
-    tags: ["Flutter", "Dart", "Firebase"],
-    githubLink: "https://github.com/teovlt/YapNet",
+    title: "Insight-hub",
+    description: "Your own dashboard to track all the data you want, with a focus on simplicity and ease of use.",
+    image: "/insight-hub.png",
+    tags: ["Firebase", "MongoDB", "Express", "React", "Node.js"],
+    githubLink: "https://github.com/teovlt/InsightHub",
+    liveLink: "https://insight-hub-murex.vercel.app/",
   },
   {
     id: "project6",
