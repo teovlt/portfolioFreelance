@@ -25,7 +25,7 @@ const projects = [
       "A boilerplate for building full-stack applications using the MERN stack, with auth, real-time status, admin panel, and more.",
     image: "/mern-boilerplate.png",
     tags: ["MongoDB", "Express", "React", "Node.js", "Socket.io"],
-    githubLink: "https://github.com/TrioGrenobleImt/MERN-BoilerPlate",
+    githubLink: "https://github.com/teovlt/MERN-BoilerPlate",
   },
   {
     id: "project5",
