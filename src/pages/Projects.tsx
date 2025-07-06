@@ -43,7 +43,7 @@ const projects = [
       "A modern application allowing doctorants to follow the life cycle of their contributions and study the statistics of their submissions ",
     image: "/paperlive.png",
     tags: ["React", "Node.js", "Express", "MongoDB", "Styled Components"],
-    githubLink: "https://github.com/BerriatMagasin/Paperlive",
+    githubLink: "https://github.com/teovlt/Paperlive",
     liveLink: "https://paperlive.vercel.app",
   },
   {
