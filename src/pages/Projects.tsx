@@ -34,7 +34,7 @@ const projects = [
     image: "/insight-hub.png",
     tags: ["Firebase", "MongoDB", "Express", "React", "Node.js"],
     githubLink: "https://github.com/teovlt/InsightHub",
-    liveLink: "https://insight-hub-murex.vercel.app/",
+    liveLink: "https://insight-hub-prod.vercel.app/",
   },
   {
     id: "project4",
