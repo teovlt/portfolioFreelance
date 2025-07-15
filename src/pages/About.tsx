@@ -16,7 +16,7 @@ export const About = () => {
     <section id="about-section" className="min-h-screen flex items-center justify-center bg-muted/50 py-20">
       {/* SEO Helmet spécifique */}
       <Helmet>
-        <title>À propos - Téo Villet | Développeur Fullstack Freelance à Grenoble</title>
+        <title>Téo Villet - Développeur Fullstack Freelance à Grenoble</title>
         <meta
           name="description"
           content="Découvrez qui est Téo Villet, développeur web fullstack freelance basé à Grenoble. Compétences, fun facts, parcours et plus encore."
