@@ -1,12 +1,17 @@
 {
   "redirects": [
     {
-      "source": "/sitemap.xml",
-      "destination": "/sitemap.xml",
-      "permanent": false
-    },
-    {
       "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "teovillet.fr"
+        },
+        {
+          "type": "scheme",
+          "value": "http"
+        }
+      ],
       "destination": "https://teovillet.fr/$1",
       "permanent": true
     }
