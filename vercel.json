@@ -1,3 +1,9 @@
 {
-  "rewrites": [{ "source": "/(.*)", "destination": "https://teovillet.fr/" }]
+  "redirects": [
+    {
+      "source": "/(.*)",
+      "destination": "https://teovillet.fr/$1",
+      "permanent": true
+    }
+  ]
 }
