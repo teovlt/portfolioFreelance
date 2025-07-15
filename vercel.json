@@ -1,6 +1,11 @@
 {
   "redirects": [
     {
+      "source": "/sitemap.xml",
+      "destination": "/sitemap.xml",
+      "permanent": false
+    },
+    {
       "source": "/(.*)",
       "destination": "https://teovillet.fr/$1",
       "permanent": true
