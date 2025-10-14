@@ -5,7 +5,6 @@ interface FunFactCardProps {
   icon: React.ReactNode;
   title: string;
   description: string;
-  delay: number;
 }
 
 export function FunFactCard({ icon, title }: FunFactCardProps) {
