@@ -85,7 +85,7 @@ export const About = () => {
                 >
                   <Avatar className="w-full h-full shadow-lg">
                     <AvatarImage
-                      src="images/me.jpg"
+                      src="images/gemini.png"
                       alt="Photo de Téo Villet, développeur web freelance à Grenoble"
                       className="object-cover w-full h-full"
                     />
