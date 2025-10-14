@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Code, Server, Layers, ArrowRight, CheckCircle, Clock, Users, Paintbrush, Palette } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { scrollToSection } from "@/utils/scrollToSection";
+import { motion } from "framer-motion";
 
 export function Services() {
   const { t, i18n } = useTranslation();
@@ -86,14 +87,30 @@ export function Services() {
       projects: 9,
     },
   ];
+  const sectionVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.2, delayChildren: 0.2 },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
+  };
 
   return (
-    <section
+    <motion.section
       className="min-h-screen flex items-center justify-center py-20 p-4 bg-gradient-to-br dark:from-muted/30 dark:to-muted/50 from-muted/80 to-muted/90"
       id="services-section"
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.1 }}
+      variants={sectionVariants}
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
+        <motion.div className="text-center mb-16" variants={itemVariants}>
           <h2 className="text-4xl md:text-5xl font-bold items-center justify-center text-center mb-4">
             {language === "fr" ? (
               <>
@@ -110,90 +127,95 @@ export function Services() {
               ? "Choisissez le package qui correspond à vos besoins avec des prix transparents"
               : "Choose the package that fits your needs with transparent pricing"}
           </p>
-        </div>
+        </motion.div>
 
-        <div className="grid lg:grid-cols-4 gap-8 max-w-8xl mx-auto">
+        <motion.div className="grid lg:grid-cols-4 gap-8 max-w-8xl mx-auto" variants={sectionVariants}>
           {services.map((service, index) => (
-            <Card
+            <motion.div
               key={index}
-              className={`relative transition-all duration-300 ${
-                service.popular
-                  ? "border-2 border-blue-500 shadow-xl scale-105"
-                  : "border hover:border-blue-300 dark:hover:border-blue-700 hover:shadow-lg"
-              } ${hoveredService === index ? "transform scale-105" : ""}`}
-              onMouseEnter={() => setHoveredService(index)}
-              onMouseLeave={() => setHoveredService(null)}
+              variants={itemVariants}
+              initial={{ scale: service.popular ? 1.05 : 1 }}
+              whileHover={{ scale: service.popular ? 1.1 : 1.05, y: -8 }}
+              transition={{ type: "spring", stiffness: 300, damping: 15 }}
             >
-              {service.popular && (
-                <div className="absolute left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                  <div className="bg-blue-500 text-white px-4 py-1 rounded-full text-sm font-medium">
-                    {language === "fr" ? "Plus Populaire" : "Most Popular"}
-                  </div>
-                </div>
-              )}
-
-              <CardContent className="p-8">
-                {/* Header */}
-                <div className="text-center mb-6">
-                  <div
-                    className={`w-16 h-16 mx-auto mb-4 rounded-2xl flex items-center justify-center ${
-                      service.popular ? "bg-blue-500 text-white" : "bg-blue-100 dark:bg-blue-900 text-blue-600"
-                    }`}
-                  >
-                    <service.icon className="h-8 w-8" />
-                  </div>
-                  <h3 className="text-xl font-bold mb-2">{service.title}</h3>
-                  <p className="text-muted-foreground text-sm mb-4">{service.description}</p>
-                  <div className="text-3xl font-bold text-blue-600 mb-1">{service.price}</div>
-                  <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
-                    <Clock className="h-4 w-4" />
-                    {service.duration}
-                  </div>
-                </div>
-
-                {/* Deliverables */}
-                <div className="space-y-3 mb-8">
-                  {service.deliverables.map((deliverable, deliverableIndex) => (
-                    <div key={deliverableIndex} className="flex items-center gap-3">
-                      <CheckCircle className="h-5 w-5 text-green-500 flex-shrink-0" />
-                      <span className="text-sm">{deliverable}</span>
+              <Card
+                className={`h-full flex flex-col transition-all duration-300 ${
+                  service.popular
+                    ? "border-2 border-blue-500 shadow-xl"
+                    : "border hover:border-blue-300 dark:hover:border-blue-700 hover:shadow-lg"
+                }`}
+              >
+                {service.popular && (
+                  <div className="absolute left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10">
+                    <div className="bg-blue-500 text-white px-4 py-1 rounded-full text-sm font-medium">
+                      {language === "fr" ? "Plus Populaire" : "Most Popular"}
                     </div>
-                  ))}
-                </div>
-
-                {/* CTA Button */}
-                <Button
-                  className={`w-full ${
-                    service.popular
-                      ? "bg-blue-500 hover:bg-blue-600 text-white"
-                      : "bg-white dark:bg-gray-800 border-2 border-blue-500 text-blue-500 hover:bg-blue-50 dark:hover:bg-blue-950"
-                  }`}
-                  onClick={(e) => scrollToSection("contact-section", e)}
-                >
-                  {language === "fr" ? "Choisir ce package" : "Choose this package"}
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </Button>
-
-                {/* Stats */}
-                <div className="flex items-center justify-center gap-4 mt-6 pt-6 border-t">
-                  <div className="flex items-center gap-1 text-xs text-muted-foreground">
-                    <Users className="h-3 w-3" />
-                    <span>
-                      {service.projects}+ {language === "fr" ? "projets" : "projects"}
-                    </span>
                   </div>
-                  <div className="flex items-center gap-1 text-xs text-muted-foreground">
-                    <CheckCircle className="h-3 w-3" />
-                    <span>100% {language === "fr" ? "satisfait" : "satisfied"}</span>
+                )}
+
+                <CardContent className="p-8 flex flex-col flex-grow">
+                  {/* Header */}
+                  <div className="text-center mb-6">
+                    <div
+                      className={`w-16 h-16 mx-auto mb-4 rounded-2xl flex items-center justify-center ${
+                        service.popular ? "bg-blue-500 text-white" : "bg-blue-100 dark:bg-blue-900 text-blue-600"
+                      }`}
+                    >
+                      <service.icon className="h-8 w-8" />
+                    </div>
+                    <h3 className="text-xl font-bold mb-2">{service.title}</h3>
+                    <p className="text-muted-foreground text-sm mb-4 h-12">{service.description}</p>
+                    <div className="text-3xl font-bold text-blue-600 mb-1">{service.price}</div>
+                    <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
+                      <Clock className="h-4 w-4" />
+                      {service.duration}
+                    </div>
                   </div>
-                </div>
-              </CardContent>
-            </Card>
+
+                  {/* Deliverables */}
+                  <div className="space-y-3 mb-8 flex-grow">
+                    {service.deliverables.map((deliverable, deliverableIndex) => (
+                      <div key={deliverableIndex} className="flex items-center gap-3">
+                        <CheckCircle className="h-5 w-5 text-green-500 flex-shrink-0" />
+                        <span className="text-sm">{deliverable}</span>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* CTA Button */}
+                  <Button
+                    className={`w-full mt-auto ${
+                      service.popular
+                        ? "bg-blue-500 hover:bg-blue-600 text-white"
+                        : "bg-white dark:bg-gray-800 border-2 border-blue-500 text-blue-500 hover:bg-blue-50 dark:hover:bg-blue-950"
+                    }`}
+                    onClick={(e) => scrollToSection("contact-section", e)}
+                  >
+                    {language === "fr" ? "Choisir ce package" : "Choose this package"}
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </Button>
+
+                  {/* Stats */}
+                  <div className="flex items-center justify-center gap-4 mt-6 pt-6 border-t">
+                    <div className="flex items-center gap-1 text-xs text-muted-foreground">
+                      <Users className="h-3 w-3" />
+                      <span>
+                        {service.projects}+ {language === "fr" ? "projets" : "projects"}
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-1 text-xs text-muted-foreground">
+                      <CheckCircle className="h-3 w-3" />
+                      <span>100% {language === "fr" ? "satisfait" : "satisfied"}</span>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
 
         {/* Bottom CTA */}
-        <div className="text-center mt-16">
+        <motion.div className="text-center mt-24" variants={itemVariants}>
           <div className="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg border max-w-2xl mx-auto">
             <h3 className="text-2xl font-bold mb-4">{language === "fr" ? "Besoin d'un devis personnalisé ?" : "Need a custom quote?"}</h3>
             <p className="text-muted-foreground mb-6">
@@ -210,8 +232,8 @@ export function Services() {
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
           </div>
-        </div>
+        </motion.div>
       </div>
-    </section>
+    </motion.section>
   );
 }

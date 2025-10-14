@@ -8,9 +8,9 @@ interface FunFactCardProps {
   delay: number;
 }
 
-export function FunFactCard({ icon, title, description, delay }: FunFactCardProps) {
+export function FunFactCard({ icon, title }: FunFactCardProps) {
   return (
-    <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay, duration: 0.5 }}>
+    <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
       <Card className="bg-white/5 border-white/10 backdrop-blur-sm hover:bg-white/10 transition-all duration-300 hover:scale-105">
         {/* align items vertically with items-center and drop the stray `items` keyword */}
         <CardContent className="p-4 flex  space-x-3">
