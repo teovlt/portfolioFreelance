@@ -20,7 +20,7 @@ export function Services() {
         language === "fr"
           ? "Création de maquettes modernes et cohérentes avec votre image. Idéal avant de passer au développement."
           : "Modern mockups that match your brand. Perfect before starting development.",
-      price: language === "fr" ? "À partir de 800€" : "Starting from €800",
+      price: language === "fr" ? "À partir de 500€" : "Starting from €500",
       duration: language === "fr" ? "1 à 2 semaines" : "1 to 2 weeks",
       deliverables: [
         language === "fr" ? "Maquettes visuelles (ex : Figma)" : "Visual mockups (e.g. Figma)",
@@ -38,7 +38,7 @@ export function Services() {
         language === "fr"
           ? "Un site clair et rapide pour présenter votre activité ou projet (ex : restaurant, portfolio, artisan)"
           : "A clean and fast website to showcase your activity or project (e.g. restaurant, portfolio, craftsman)",
-      price: language === "fr" ? "À partir de 1500€" : "Starting from €1500",
+      price: language === "fr" ? "À partir de 1000€" : "Starting from €1000",
       duration: language === "fr" ? "1 à 2 semaines" : "1 to 2 weeks",
       deliverables: [
         language === "fr" ? "Site visible sur ordi & mobile" : "Mobile & desktop ready",
@@ -56,7 +56,7 @@ export function Services() {
         language === "fr"
           ? "Ajout de fonctionnalités : Avis, formulaire de contact, réservation..."
           : "Add features like reviews, contact form, booking...",
-      price: language === "fr" ? "À partir de 2500€" : "Starting from €2500",
+      price: language === "fr" ? "À partir de 1800€" : "Starting from €1800",
       duration: language === "fr" ? "2 à 5 semaines" : "2 to 5 weeks",
       deliverables: [
         language === "fr" ? "Espace personnel sécurisé" : "Secure personal space",
@@ -74,7 +74,7 @@ export function Services() {
         language === "fr"
           ? "Création d’un site avec plusieurs pages, fonctionnalités personnalisées, base de données, et tout ce qu’il faut"
           : "A complete website with multiple pages, custom features, database, and everything needed",
-      price: language === "fr" ? "À partir de 5000€" : "Starting from €5000",
+      price: language === "fr" ? "À partir de 3000€" : "Starting from €3000",
       duration: language === "fr" ? "4 à 8 semaines" : "4 to 8 weeks",
       deliverables: [
         language === "fr" ? "Site sur mesure" : "Custom website",
