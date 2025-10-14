@@ -46,7 +46,7 @@ export const About = () => {
                 <div className="relative lg:w-96 lg:h-96 sm:w-80 sm:h-80 mx-auto lg:mx-0">
                   <Avatar className="w-full h-full">
                     <AvatarImage
-                      src="images/me.png"
+                      src="images/me.jpg"
                       alt="Photo de Téo Villet, développeur web freelance à Grenoble"
                       className="object-cover w-full h-full"
                     />
