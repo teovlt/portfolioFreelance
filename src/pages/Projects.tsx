@@ -16,7 +16,6 @@ const projects = [
       "A full-featured e-commerce platform with EA accounts management, shopping cart, payment integration, and user authentication.",
     image: "/ahcanfut.png",
     tags: ["NextJS", "Prisma", "MongoDB", "Stripe", "TailwindCSS"],
-    liveLink: "https://ahcanfut.com",
   },
   {
     id: "project2",
