@@ -171,7 +171,24 @@
       "project6": {
         "title": "Lets-go lego",
         "description": "Online auction platform for Lego enthusiasts to buy, sell, and bid on unique Lego products."
+      },
+      "project7": {
+        "title": "Ciel Avenue",
+        "description": "Prototype for a platform that makes real estate simpler, faster, and more accessible for everyone."
+      },
+      "project8": {
+        "title": "Couverto",
+        "description": "A SaaS software dedicated to independent restaurant owners, providing essential tools for managing reservations, tables, services, and customer information."
+      },
+      "project9": {
+        "title": "Job Tracker",
+        "description": "A platform to track your job and internship applications, monitor their status, and organize your job search effectively."
       }
+    },
+    "status": {
+      "ongoing": "Ongoing",
+      "done": "Done",
+      "started": "Started"
     }
   },
   "reviews": {
@@ -182,36 +199,54 @@
     "badge": "100% satisfied clients",
     "list": [
       {
-        "name": "Jean-Louis Clément",
-        "company": "Psychologist",
+        "name": "Timon Guillotin",
+        "company": "Freelancer & CEO",
         "rating": 5,
-        "comment": "Téo created a website that truly reflects who I am and the values of my practice. His empathy and ability to translate ideas into a calming digital experience were impressive.",
-        "project": "Psychologist portfolio site",
-        "avatar": "JLC"
+        "comment": "Téo brought Ciel Avenue to life with incredible attention to detail. His technical skills and creative vision helped us build a platform that truly simplifies real estate. Working with him was an absolute pleasure!",
+        "project": "Ciel Avenue platform",
+        "avatar": "TG",
+        "image": "/images/reviews/timon.jpeg",
+        "website": "https://www.linkedin.com/in/timon-guillotin/?originalSubdomain=fr"
+      },
+      {
+        "name": "Axel Elias",
+        "company": "Co-founder - Couverto",
+        "rating": 5,
+        "comment": "Couverto started as my idea, and Téo helped me turn it into reality. We share this project 50/50, and his technical expertise combined with his dedication made all the difference. A true partner in every sense!",
+        "project": "Couverto platform",
+        "avatar": "AP",
+        "image": "/images/reviews/axel.jpeg",
+        "website": "https://www.linkedin.com/in/axel-elias/"
       },
       {
         "name": "Mayeul Deries",
         "company": "Freelance Developer",
         "rating": 5,
-        "comment": "Téo transformed my vision into an exceptional website. His professionalism and attention to detail are remarkable. I highly recommend!",
-        "project": "Job tracking platform",
-        "avatar": "MD"
+        "comment": "Téo helped me build an exceptional website to track job applications. His professionalism and attention to detail are remarkable. I highly recommend!",
+        "project": "Job tracker platform",
+        "avatar": "MD",
+        "image": "/images/reviews/mayeul.jpeg",
+        "website": "https://mayeulderies.fr/"
       },
       {
         "name": "Gabriel Halus",
-        "company": "Dev - Achanfut",
+        "company": "Freelance Developer",
         "rating": 5,
-        "comment": "Working with Téo was a game-changer for Achanfut. He brought clarity, structure, and clean code to the project. Highly efficient and always proactive — a true tech partner.",
-        "project": "Achanfut platform",
-        "avatar": "GH"
+        "comment": "I had the pleasure of working with Téo on the Let’sgo Lego, Paperlive, and Ahcanfut projects. It was a great experience every time. Téo naturally brings innovative ideas and always finds relevant solutions to challenges. It is a genuine pleasure collaborating with him.",
+        "project": "Let’sgo Lego, Paperlive, and Ahcanfut",
+        "avatar": "GH",
+        "image": "/images/reviews/gabriel.jpeg",
+        "website": "https://gabrielhalus.com"
       },
       {
         "name": "Félix Picon",
         "company": "System Administrator",
         "rating": 5,
-        "comment": "Téo’s boilerplate saved me hours of setup. His guidance was sharp, clear, and super useful. It was great to collaborate with someone so precise and passionate.",
+        "comment": "Téo’s boilerplate saved me hours of setup. His guidance was sharp, clear, and very useful. It was great to collaborate with someone so precise and passionate.",
         "project": "Boilerplate integration support",
-        "avatar": "FP"
+        "avatar": "FP",
+        "image": "/images/reviews/felix.jpeg",
+        "website": "https://www.linkedin.com/in/f%C3%A9lix-picon-519231317/"
       }
     ]
   },

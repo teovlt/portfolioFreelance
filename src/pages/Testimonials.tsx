@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
 
 export function ReviewsSection() {
-  const totalReviews = 4;
+  const totalReviews = 5;
   const { t } = useTranslation();
 
   // Variante pour le conteneur principal qui orchestre l'animation des enfants

@@ -3,8 +3,8 @@
 import { useState, useEffect, useCallback } from "react";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Star, Quote, ChevronLeft, ChevronRight, Play, Pause } from "lucide-react";
-import { Avatar, AvatarFallback } from "../ui/avatar";
+import { Star, Quote, ChevronLeft, ChevronRight, Play, Pause, ExternalLink } from "lucide-react";
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { useTranslation } from "react-i18next";
 
 interface Review {
@@ -15,6 +15,8 @@ interface Review {
   comment: string;
   avatar: string;
   project: string;
+  image?: string;
+  website?: string;
 }
 
 export function TestimonialCarousel() {
@@ -105,13 +107,26 @@ export function TestimonialCarousel() {
                   <div className="flex items-start gap-4">
                     <div className="relative">
                       <Avatar className="w-16 h-16 rounded-full overflow-hidden ring-4 ring-blue-100 dark:ring-blue-900 group-hover:ring-blue-200 dark:group-hover:ring-blue-800 transition-all duration-300">
+                        {review.image && <AvatarImage src={review.image} alt={review.name} className="object-cover" />}
                         <AvatarFallback className="object-cover w-full h-full">{review.avatar}</AvatarFallback>
                       </Avatar>
                       <div className="absolute -bottom-1 -right-1 bg-green-500 w-5 h-5 rounded-full border-2 border-white dark:border-gray-800" />
                     </div>
                     <div className="flex-1">
                       <h4 className="font-bold text-lg group-hover:text-blue-600 transition-colors">{review.name}</h4>
-                      <p className="text-sm text-muted-foreground font-medium">{review.company}</p>
+                      {review.website ? (
+                        <a
+                          href={review.website}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-sm text-blue-600 dark:text-blue-400 font-medium hover:underline transition-colors flex items-center gap-1.5"
+                        >
+                          {review.company}
+                          <ExternalLink className="w-3 h-3" />
+                        </a>
+                      ) : (
+                        <p className="text-sm text-muted-foreground font-medium">{review.company}</p>
+                      )}
                       <div className="inline-block px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-full text-xs font-medium mt-2">
                         {review.project}
                       </div>

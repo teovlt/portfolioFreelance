@@ -171,7 +171,24 @@
       "project6": {
         "title": "Lets-go lego",
         "description": "Plateforme de vente aux enchères en ligne dédiée aux passionnés de Lego pour acheter, vendre et enchérir sur des produits Lego uniques."
+      },
+      "project7": {
+        "title": "Ciel Avenue",
+        "description": "Prototype d'une plateforme qui rend l'immobilier plus simple, plus rapide et plus accessible pour tous."
+      },
+      "project8": {
+        "title": "Couverto",
+        "description": "Un logiciel SaaS dédié aux restaurateurs indépendants, offrant des outils essentiels pour gérer les réservations, les tables, les services et les informations clients."
+      },
+      "project9": {
+        "title": "Job Tracker",
+        "description": "Une plateforme pour suivre vos demandes d'emploi et de stage, surveiller leur statut et organiser efficacement votre recherche d'emploi."
       }
+    },
+    "status": {
+      "ongoing": "En cours",
+      "done": "Terminé",
+      "started": "Démarré"
     }
   },
   "reviews": {
@@ -182,36 +199,54 @@
     "badge": "100% de clients satisfaits",
     "list": [
       {
-        "name": "Jean-Louis Clément",
-        "company": "Psychologue",
+        "name": "Timon Guillotin",
+        "company": "Auto entrepreneur & CEO",
         "rating": 5,
-        "comment": "Téo a créé un site qui reflète vraiment qui je suis et les valeurs de mon cabinet. Son empathie et sa capacité à traduire les idées en une expérience digitale apaisante sont impressionnantes.",
-        "project": "Site portfolio psychologue",
-        "avatar": "JLC"
+        "comment": "Téo a donné vie à Ciel Avenue avec une attention incroyable aux détails. Ses compétences techniques et sa vision créative nous ont aidés à construire une plateforme qui simplifie vraiment l'immobilier. Travailler avec lui a été un vrai plaisir !",
+        "project": "Plateforme Ciel Avenue",
+        "avatar": "TG",
+        "image": "/images/reviews/timon.jpeg",
+        "website": "https://www.linkedin.com/in/timon-guillotin/?originalSubdomain=fr"
+      },
+      {
+        "name": "Axel Elias",
+        "company": "Co-fondateur - Couverto",
+        "rating": 5,
+        "comment": "Couverto est parti de mon idée, et Téo m'a aidé à la concrétisée. Nous partageons ce projet à 50/50, et son expertise technique combinée à son engagement ont fait toute la différence. Un vrai partenaire à tous les niveaux !",
+        "project": "Plateforme Couverto",
+        "avatar": "AP",
+        "image": "/images/reviews/axel.jpeg",
+        "website": "https://www.linkedin.com/in/axel-elias/"
       },
       {
         "name": "Mayeul Deries",
         "company": "Développeur Freelance",
         "rating": 5,
-        "comment": "Téo a transformé ma vision en un site web exceptionnel. Son professionnalisme et son attention aux détails sont remarquables. Je recommande chaudement !",
+        "comment": "Téo m'a aidé à créer un site exceptionnel pour suivre mes candidatures. Son professionnalisme et son souci du détail sont remarquables. Je recommande vivement !",
         "project": "Plateforme de suivi d’emploi",
-        "avatar": "MD"
+        "avatar": "MD",
+        "image": "/images/reviews/mayeul.jpeg",
+        "website": "https://mayeulderies.fr/"
       },
       {
         "name": "Gabriel Halus",
-        "company": "Développeur - Achanfut",
+        "company": "Développeur Freelance",
         "rating": 5,
-        "comment": "Travailler avec Téo a changé la donne pour Achanfut. Il a apporté clarté, structure et un code propre au projet. Très efficace et toujours proactif — un vrai partenaire tech.",
-        "project": "Plateforme Achanfut",
-        "avatar": "GH"
+        "comment": "J’ai eu le plaisir de travailler avec Téo sur les projets Let’sgo Lego, Paperlive et Ahcanfut. Ce fut à chaque fois une très belle expérience. Téo apporte naturellement des idées innovantes et sait toujours trouver des solutions pertinentes face aux défis rencontrés. C’est un vrai plaisir de collaborer avec lui.",
+        "project": "Let’sgo Lego, Paperlive, et Ahcanfut",
+        "avatar": "GH",
+        "image": "/images/reviews/gabriel.jpeg",
+        "website": "https://gabrielhalus.com"
       },
       {
         "name": "Félix Picon",
         "company": "Administrateur Système",
         "rating": 5,
-        "comment": "Le boilerplate de Téo m’a fait gagner des heures d’installation. Ses conseils étaient précis, clairs et super utiles. Ce fut top de collaborer avec quelqu’un d’aussi passionné et rigoureux.",
+        "comment": "Le boilerplate de Téo m’a fait gagner des heures d’installation. Ses conseils étaient précis, clairs et vraiment utiles. Ce fut un plaisir de collaborer avec quelqu’un d’aussi passionné et rigoureux.",
         "project": "Support intégration boilerplate",
-        "avatar": "FP"
+        "avatar": "FP",
+        "image": "/images/reviews/felix.jpeg",
+        "website": "https://www.linkedin.com/in/f%C3%A9lix-picon-519231317/"
       }
     ]
   },

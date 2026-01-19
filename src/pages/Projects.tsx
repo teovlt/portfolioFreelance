@@ -8,59 +8,109 @@ import { ExternalLink, Github } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
+// Project status enum
+enum ProjectStatus {
+  STARTED = "started",
+  ONGOING = "ongoing",
+  DONE = "done",
+}
+
+// Status badge colors
+const statusColors: Record<ProjectStatus, string> = {
+  [ProjectStatus.STARTED]: "bg-yellow-500/15 text-yellow-500 border-yellow-500/30",
+  [ProjectStatus.ONGOING]: "bg-blue-500/15 text-blue-500 border-blue-500/30",
+  [ProjectStatus.DONE]: "bg-green-500/15 text-green-500 border-green-500/30",
+};
+
 const projects = [
   {
     id: "project1",
     title: "Achanfut",
     description:
       "A full-featured e-commerce platform with EA accounts management, shopping cart, payment integration, and user authentication.",
-    image: "/ahcanfut.png",
+    image: "/images/projects/ahcanfut.png",
     tags: ["NextJS", "Prisma", "MongoDB", "Stripe", "TailwindCSS"],
+    status: ProjectStatus.DONE,
   },
   {
     id: "project2",
     title: "MERN Boilerplate",
     description:
       "A boilerplate for building full-stack applications using the MERN stack, with auth, real-time status, admin panel, and more.",
-    image: "/mern-boilerplate.png",
+    image: "/images/projects/mern-boilerplate.png",
     tags: ["MongoDB", "Express", "React", "Node.js", "Socket.io"],
     githubLink: "https://github.com/teovlt/MERN-BoilerPlate",
+    status: ProjectStatus.DONE,
   },
   {
     id: "project5",
     title: "Insight-hub",
     description: "Your own dashboard to track all the data you want, with a focus on simplicity and ease of use.",
-    image: "/insight-hub.png",
+    image: "/images/projects/insight-hub.png",
     tags: ["Firebase", "MongoDB", "Express", "React", "Node.js"],
     githubLink: "https://github.com/teovlt/InsightHub",
     liveLink: "https://insight-hub-prod.vercel.app/",
+    status: ProjectStatus.ONGOING,
   },
   {
     id: "project4",
     title: "Paperlive",
     description:
       "A modern application allowing doctorants to follow the life cycle of their contributions and study the statistics of their submissions ",
-    image: "/paperlive.png",
+    image: "/images/projects/paperlive.png",
     tags: ["React", "Node.js", "Express", "MongoDB", "Styled Components"],
     githubLink: "https://github.com/teovlt/Paperlive",
     liveLink: "https://paperlive.vercel.app",
+    status: ProjectStatus.DONE,
   },
   {
     id: "project3",
     title: "Portfolio",
     description: "My personal portfolio showcasing my skills and projects.",
-    image: "/portfolio.png",
+    image: "/images/projects/portfolio.png",
     tags: ["React", "TailwindCSS", "Framer Motion"],
     githubLink: "https://github.com/teovlt/portfolioFreelance",
     liveLink: "https://www.teovillet.fr/",
+    status: ProjectStatus.DONE,
   },
   {
     id: "project6",
     title: "Lets-go lego",
     description: "Online auction platform for Lego enthusiasts to buy, sell, and bid on unique Lego products.",
-    image: "/lets-go-lego.png",
+    image: "/images/projects/lets-go-lego.png",
     tags: ["MongoDB", "Express", "React", "Node.js", "Styled Components"],
     githubLink: "https://github.com/BerriatMagasin/letsgo-lego",
+    status: ProjectStatus.DONE,
+  },
+  {
+    id: "project7",
+    title: "Ciel avenue",
+    description: "Prototype for a platform that makes real estate simpler, faster, and more accessible for everyone.",
+    image: "/images/projects/cielavenue.png",
+    tags: ["React", "AI chatbot", "Roles management", "TailwindCSS"],
+    githubLink: "https://github.com/teovlt/Ciel-Avenue",
+    liveLink: "https://www.cielavenue.fr",
+    status: ProjectStatus.ONGOING,
+  },
+  {
+    id: "project8",
+    title: "Couverto",
+    description:
+      "Couverto is a SaaS software dedicated to independent restaurant owners. It provides essential tools for managing reservations, tables, services, and basic customer information.",
+    image: "/images/projects/couverto.png",
+    tags: ["Socket.io", "TailwindCSS", "MongoDB", "Express", "React", "Node.js"],
+    liveLink: "https://couverto.vercel.app",
+    status: ProjectStatus.ONGOING,
+  },
+  {
+    id: "project9",
+    title: "Job trackr",
+    description: "",
+    image: "/images/projects/job-tracker.png",
+    tags: ["React", "TailwindCSS", "Framer Motion", "Node.js", "MongoDB", "Express"],
+    liveLink: "https://jobtracker-pro.vercel.app/",
+    githubLink: "https://github.com/Mayeul-Deries/job-tracker",
+    status: ProjectStatus.DONE,
   },
 ];
 
@@ -116,13 +166,18 @@ export const Projects = () => {
                 <div className="relative h-48 overflow-hidden">
                   <div className="absolute inset-0 bg-black/30 z-10 opacity-0 group-hover:opacity-100 transition-opacity" />
                   <img
-                    src={"images/" + project.image}
+                    src={project.image}
                     alt={project.title}
                     className="object-cover group-hover:scale-105 transition-transform duration-500"
                   />
                 </div>
                 <CardHeader>
-                  <CardTitle>{t(`projects.items.${project.id}.title`)}</CardTitle>
+                  <div className="flex items-center justify-between pb-4">
+                    <CardTitle>{t(`projects.items.${project.id}.title`)}</CardTitle>
+                    <Badge className={`${statusColors[project.status]} text-xs font-medium`}>
+                      {t(`projects.status.${project.status}`)}
+                    </Badge>
+                  </div>
                   <CardDescription>{t(`projects.items.${project.id}.description`)}</CardDescription>
                 </CardHeader>
                 <CardContent className="flex-grow">
