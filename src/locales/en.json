@@ -337,13 +337,28 @@
       "question": "How can I request a custom quote?",
       "answer": "You can request a custom quote by contacting me directly via the form on my website or by email."
     },
+    "pricing_design": {
+      "question": "How much for a custom design?",
+      "answer": "The Custom Design package starts at €800. It includes modern mockups (Figma), mobile/desktop responsive design, and professional font/color selection."
+    },
     "pricing_showcase": {
       "question": "What are your rates for a showcase website?",
-      "answer": "Rates for a showcase website start from €600 (negotiable), with a delivery time of 1 to 2 weeks."
+      "answer": "Showcase websites start from €1200. Perfect for presenting your activity with a fast, modern, and SEO-optimized site."
+    },
+    "pricing_features": {
+      "question": "How much for a website with features?",
+      "answer": "Prices start at €2500. This includes features like reviews, contact forms, booking systems, and a secure personal dashboard."
+    },
+    "pricing_complete": {
+      "question": "What is the price for a complete website?",
+      "answer": "For a complete website with database and custom advanced features, prices start from €4800."
     },
     "services_offered": {
       "question": "What types of services do you offer?",
-      "answer": "I offer custom web development services, including showcase websites, full web applications, and personalized designs."
+      "answer": "I offer UI/UX design, showcase websites, feature-rich sites, and custom full-stack web applications."
     }
+  },
+  "chat": {
+    "welcome": "Hello! I'm Téo's virtual assistant. How can I help you today? 👇"
   }
 }

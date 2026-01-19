@@ -337,13 +337,28 @@
       "question": "Comment puis-je demander un devis personnalisé ?",
       "answer": "Vous pouvez demander un devis personnalisé en me contactant directement via le formulaire sur mon site ou par email."
     },
+    "pricing_design": {
+      "question": "Quel est le tarif pour un design personnalisé ?",
+      "answer": "Le package Design personnalisé commence à 800€. Il inclut des maquettes modernes (Figma), un design adapté mobile/bureau, et le choix des couleurs/typographies."
+    },
     "pricing_showcase": {
-      "question": "Quels sont vos tarifs pour un site vitrine ?",
-      "answer": "Les tarifs pour un site vitrine commencent à partir de 600€ (négociable), avec un délai de réalisation de 1 à 2 semaines."
+      "question": "Quel est le tarif pour un site vitrine ?",
+      "answer": "Le site vitrine commence à 1200€. C'est idéal pour présenter votre activité avec un site rapide, moderne et optimisé pour le référencement."
+    },
+    "pricing_features": {
+      "question": "Combien coûte un site avec fonctionnalités ?",
+      "answer": "Le tarif commence à 2500€. Cela inclut des fonctionnalités comme des avis, formulaires de contact, systèmes de réservation et un espace personnel sécurisé."
+    },
+    "pricing_complete": {
+      "question": "Quel est le prix pour un site complet ?",
+      "answer": "Pour un site complet avec base de données et fonctionnalités avancées sur mesure, les tarifs commencent à 4800€."
     },
     "services_offered": {
-      "question": "Quels types de services proposez-vous ?",
-      "answer": "Je propose des services de développement web sur mesure, y compris des sites vitrines, des applications web complètes, et des designs personnalisés."
+      "question": "Quel est le tarif pour un design personnalisé ?",
+      "answer": "Le package Design personnalisé commence à 800€. Il inclut des maquettes modernes (Figma), un design adapté mobile/bureau, et le choix des couleurs/typographies."
     }
+  },
+  "chat": {
+    "welcome": "Bonjour ! Je suis l'assistant virtuel de Téo. Comment puis-je vous aider aujourd'hui ? 👇"
   }
 }
