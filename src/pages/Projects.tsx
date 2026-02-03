@@ -99,7 +99,7 @@ const projects = [
       "Couverto is a SaaS software dedicated to independent restaurant owners. It provides essential tools for managing reservations, tables, services, and basic customer information.",
     image: "/images/projects/couverto.png",
     tags: ["Socket.io", "TailwindCSS", "MongoDB", "Express", "React", "Node.js"],
-    liveLink: "https://couverto.vercel.app",
+    liveLink: "https://www.couverto.fr",
     status: ProjectStatus.ONGOING,
   },
   {
