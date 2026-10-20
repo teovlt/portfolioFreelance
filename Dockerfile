@@ -3,8 +3,8 @@ FROM node:20-alpine AS builder
 
 WORKDIR /app
 
-# Enable pnpm via corepack
-RUN corepack enable && corepack prepare pnpm@latest --activate
+# Enable pnpm via corepack, pinned to the version the lockfile was generated with
+RUN corepack enable && corepack prepare pnpm@10.11.1 --activate
 
 # Copy package files
 COPY package.json pnpm-lock.yaml ./
