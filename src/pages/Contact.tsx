@@ -195,7 +195,11 @@ export const Contact = () => {
                   </span>
                   <div>
                     <h4 className="font-medium">{t("contact.info.location.label")}</h4>
-                    <a className="text-muted-foreground hover:text-foreground transition-colors" href="https://www.google.fr/search?q=grenoble" target="_blank">
+                    <a
+                      className="text-muted-foreground hover:text-foreground transition-colors"
+                      href="https://www.google.fr/search?q=lille+grenoble"
+                      target="_blank"
+                    >
                       {t("contact.info.location.value")}
                     </a>
                   </div>

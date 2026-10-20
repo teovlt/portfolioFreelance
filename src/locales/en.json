@@ -15,7 +15,7 @@
     "titleHighlight": "grow",
     "titleEnd": "your business.",
     "icreate": "I craft",
-    "subtitle": "Freelance fullstack developer based in Grenoble. I design and build custom websites and applications, built for your business and your users — from the first brief to production.",
+    "subtitle": "Freelance fullstack developer based between Lille and Grenoble. I design and build custom websites and applications, built for your business and your users — from the first brief to production.",
     "action1": "Get in Touch",
     "action2": "View My Work",
     "rating": "average rating",
@@ -36,7 +36,7 @@
     "eyebrow": "About",
     "title": "Here's a little about",
     "me": "me",
-    "description": "I'm a freelance fullstack developer based in Grenoble, currently finishing an engineering degree at IMT Nord Europe through an apprenticeship. For over 4 years I've been helping research labs, independents and small businesses design their digital tools — with the same care from the first brief to production. I like combining technical rigor with attention to detail to ship products that are reliable, fast, and built to last.",
+    "description": "I'm a freelance fullstack developer, splitting my time between Lille and Grenoble during my engineering apprenticeship at IMT Nord Europe. For over 4 years I've been building digital tools for research labs, independents and small businesses — from the first call to going live, never leaving a project half-finished. What matters to me isn't just that it works: it's that it's clean, fast, and that you can run it without me six months from now.",
     "quick": {
       "experience": "years experience",
       "projects": "projects delivered",
@@ -44,9 +44,9 @@
       "response": "response time"
     },
     "techTitle": "Stack & tools",
-    "location": "Based in Grenoble, France",
+    "location": "Based in Lille & Grenoble, France",
     "availability": "Available for new projects",
-    "quote": "I code a bit like I hike: at my own pace, but I never give up before reaching the summit.",
+    "quote": "I like projects where we end up being more than just client and freelancer.",
     "cta": "Let's work together"
   },
   "experiences": {
@@ -95,7 +95,7 @@
         ]
       },
       {
-        "org": "IUT1 Grenoble",
+        "org": "IUT2 Grenoble",
         "title": "Bachelor of Technology in Computer Science",
         "subtitle": "Grenoble, France",
         "description": "Focus on software development, algorithms, and data structures.",
@@ -133,11 +133,6 @@
     "title": "My",
     "highlight": "Recent Projects",
     "description": "A selection of my recent work. Each project showcases different skills and technologies that I've acquired over the years.",
-    "code": "Code",
-    "demo": "Live Demo",
-    "noCode": "Code not available",
-    "noDemo": "Demo not available",
-    "caseStudy": "full case study",
     "items": {
       "project1": {
         "title": "Achanfut",
@@ -288,7 +283,7 @@
       "title": "Contact Information",
       "location": {
         "label": "Location",
-        "value": "Grenoble, FR"
+        "value": "Lille & Grenoble, FR"
       },
       "email": {
         "label": "Email"

@@ -1,6 +1,7 @@
 import { Helmet } from "react-helmet";
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { ArrowDown, ArrowRight, Star } from "lucide-react";
+import { ArrowDown, ArrowRight, Github, Linkedin, Mail, Star } from "lucide-react";
 import { scrollToSection } from "@/utils/scrollToSection";
 import { useTranslation } from "react-i18next";
 import { TypingAnimation } from "@/components/customs/typing-animations";
@@ -32,10 +33,10 @@ export const Home = () => {
   return (
     <section id="home-section" className="relative min-h-screen pt-40 pb-24 flex items-center overflow-hidden">
       <Helmet>
-        <title>Téo Villet - Développeur Fullstack Freelance à Grenoble</title>
+        <title>Téo Villet - Développeur Fullstack Freelance à Lille & Grenoble</title>
         <meta
           name="description"
-          content="Téo Villet, développeur web fullstack freelance basé à Grenoble. Découvrez mon portfolio, mes projets, mon expérience et contactez-moi pour concrétiser vos idées web !"
+          content="Téo Villet, développeur web fullstack freelance basé à Lille et Grenoble. Découvrez mon portfolio, mes projets, mon expérience et contactez-moi pour concrétiser vos idées web !"
         />
       </Helmet>
 
@@ -71,7 +72,7 @@ export const Home = () => {
               {t("home.subtitle")}
             </motion.p>
 
-            <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-4 mb-16">
+            <motion.div variants={itemVariants} className="flex flex-wrap items-center gap-4 mb-16">
               <Button size="lg" onClick={(e) => scrollToSection("contact-section", e)} className="group">
                 {t("home.action1")}
                 <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
@@ -79,6 +80,34 @@ export const Home = () => {
               <Button variant="outline" size="lg" onClick={(e) => scrollToSection("projects-section", e)}>
                 {t("home.action2")}
               </Button>
+
+              <div className="flex items-center gap-2 sm:ml-2">
+                <Link
+                  to="https://github.com/teovlt"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="GitHub"
+                  className="w-11 h-11 rounded-full border border-border flex items-center justify-center hover:border-foreground hover:bg-accent hover:text-accent-foreground transition-colors"
+                >
+                  <Github className="h-4 w-4" />
+                </Link>
+                <Link
+                  to="https://www.linkedin.com/in/teo-villet/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="LinkedIn"
+                  className="w-11 h-11 rounded-full border border-border flex items-center justify-center hover:border-foreground hover:bg-accent hover:text-accent-foreground transition-colors"
+                >
+                  <Linkedin className="h-4 w-4" />
+                </Link>
+                <Link
+                  to="mailto:teo.villet2@gmail.com"
+                  aria-label="Email"
+                  className="w-11 h-11 rounded-full border border-border flex items-center justify-center hover:border-foreground hover:bg-accent hover:text-accent-foreground transition-colors"
+                >
+                  <Mail className="h-4 w-4" />
+                </Link>
+              </div>
             </motion.div>
 
             <motion.div variants={itemVariants} className="flex flex-wrap items-center gap-x-12 gap-y-6 border-t border-border pt-10">

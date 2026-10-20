@@ -15,7 +15,7 @@
     "titleHighlight": "grandir",
     "titleEnd": "votre activité.",
     "icreate": "Des",
-    "subtitle": "Développeur fullstack freelance basé à Grenoble. Je conçois et développe des sites et applications sur mesure, pensés pour votre activité et vos utilisateurs — du premier brief à la mise en production.",
+    "subtitle": "Développeur fullstack freelance basé entre Lille et Grenoble. Je conçois et développe des sites et applications sur mesure, pensés pour votre activité et vos utilisateurs — du premier brief à la mise en production.",
     "action1": "Me contacter",
     "action2": "Voir mes projets",
     "rating": "note moyenne",
@@ -36,7 +36,7 @@
     "eyebrow": "À propos",
     "title": "Voici un aperçu de",
     "me": "moi",
-    "description": "Développeur fullstack freelance basé à Grenoble, je poursuis actuellement mes études d'ingénieur à l'IMT Nord Europe en alternance. Depuis plus de 4 ans, j'accompagne laboratoires de recherche, indépendants et petites structures dans la conception de leurs outils numériques — avec la même exigence du premier brief à la mise en production. J'aime mélanger rigueur technique et sens du détail pour livrer des produits fiables, rapides, et pensés pour durer.",
+    "description": "Développeur fullstack freelance, partagé entre Lille et Grenoble le temps de mon alternance d'ingénieur à l'IMT Nord Europe. Depuis plus de 4 ans, je conçois des outils numériques pour des laboratoires de recherche, des indépendants et de petites structures — du premier appel jusqu'à la mise en ligne, sans jamais lâcher un projet à mi-chemin. Ce qui m'intéresse, ce n'est pas juste que ça marche : c'est que ce soit propre, rapide, et que vous puissiez vous en servir sans moi dans six mois.",
     "quick": {
       "experience": "ans d'expérience",
       "projects": "projets livrés",
@@ -44,9 +44,9 @@
       "response": "délai de réponse"
     },
     "techTitle": "Stack & outils",
-    "location": "Basé à Grenoble, France",
+    "location": "Basé à Lille & Grenoble, France",
     "availability": "Disponible pour de nouveaux projets",
-    "quote": "Je code un peu comme je marche en montagne : à mon rythme, mais je n'abandonne jamais avant le sommet.",
+    "quote": "J'aime les projets où on finit par devenir plus que client et prestataire.",
     "cta": "Travaillons ensemble"
   },
   "experiences": {
@@ -95,7 +95,7 @@
         ]
       },
       {
-        "org": "IUT1 de Grenoble",
+        "org": "IUT2 de Grenoble",
         "title": "BUT Informatique",
         "subtitle": "Grenoble, France",
         "description": "Formation axée sur le développement logiciel, les algorithmes et les structures de données.",
@@ -133,11 +133,6 @@
     "title": "Mes",
     "highlight": "Projets Récents",
     "description": "Une sélection de mes travaux récents. Chaque projet met en valeur différentes compétences et technologies que j'ai acquises au fil du temps.",
-    "code": "Code source",
-    "demo": "Démo en ligne",
-    "noCode": "Code non disponible",
-    "noDemo": "Démo non disponible",
-    "caseStudy": "étude de cas complète",
     "items": {
       "project1": {
         "title": "Achanfut",
@@ -288,7 +283,7 @@
       "title": "Coordonnées",
       "location": {
         "label": "Localisation",
-        "value": "Grenoble, FR"
+        "value": "Lille & Grenoble, FR"
       },
       "email": {
         "label": "Email"

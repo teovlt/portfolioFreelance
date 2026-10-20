@@ -76,7 +76,6 @@ export const Navbar = () => {
               onClick={(e) => scrollToSection("home-section", e)}
               className="flex items-center gap-2 font-display font-bold text-base tracking-tight"
             >
-              <span className="flex h-7 w-7 items-center justify-center rounded-full bg-primary text-primary-foreground text-xs">TV</span>
               Téo Villet
             </Link>
             <div className="flex gap-5 items-center">
@@ -110,7 +109,6 @@ export const Navbar = () => {
           {/* Mobile */}
           <div className="flex lg:hidden justify-between items-center p-2 rounded-full bg-card border border-border shadow-sm px-5">
             <Link to="/" className="flex items-center gap-2 font-display font-bold text-lg tracking-tight">
-              <span className="flex h-7 w-7 items-center justify-center rounded-full bg-primary text-primary-foreground text-xs">TV</span>
               Téo Villet
             </Link>
             <Menu onClick={() => setIsOpen(!isOpen)} className="cursor-pointer" />
