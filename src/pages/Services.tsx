@@ -114,7 +114,7 @@ export function Services() {
       viewport={{ once: true, amount: 0.1 }}
       variants={sectionVariants}
     >
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div variants={itemVariants} className="mb-16">
           <p className="eyebrow mb-4">{language === "fr" ? "Ce que je fais" : "What I do"}</p>
           <div className="flex flex-wrap items-end justify-between gap-6">

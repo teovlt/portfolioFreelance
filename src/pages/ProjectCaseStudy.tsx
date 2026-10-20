@@ -123,7 +123,10 @@ const caseStudies: CaseStudy[] = [
         fr: "Suivi des soumissions sur tout le cycle de vie d'une contribution",
         en: "Submission tracking across a contribution's full lifecycle",
       },
-      { fr: "Pensé pour que les doctorants gèrent leurs propres projets", en: "Built for doctorants to manage their own research projects" },
+      {
+        fr: "Pensé pour que les doctorants gèrent leurs propres projets",
+        en: "Built for doctorants to manage their own research projects",
+      },
       { fr: "Outils sur mesure développés pour les besoins internes du LIG", en: "Custom tooling developed for LIG's internal needs" },
     ],
     next: "insight-hub",

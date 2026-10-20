@@ -31,7 +31,7 @@ export const Home = () => {
   };
 
   return (
-    <section id="home-section" className="relative min-h-screen pt-40 pb-24 flex items-center overflow-hidden">
+    <section id="home-section" className="relative min-h-screen pt-28 pb-10 flex items-center overflow-hidden">
       <Helmet>
         <title>Téo Villet - Développeur Fullstack Freelance à Lille & Grenoble</title>
         <meta
@@ -48,31 +48,32 @@ export const Home = () => {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="xl:grid xl:grid-cols-[1.15fr_0.85fr] xl:gap-12 xl:items-center">
           <motion.div className="max-w-4xl" initial="hidden" animate="visible" variants={containerVariants}>
-            <motion.div variants={itemVariants} className="inline-flex items-center gap-2 border border-border rounded-full px-4 py-1.5 mb-8">
+            <motion.div variants={itemVariants} className="inline-flex items-center gap-2 border border-border rounded-full px-4 py-1.5 mb-4">
               <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
               <span className="text-sm font-medium">{t("home.badge")}</span>
             </motion.div>
 
             <motion.h1
               variants={itemVariants}
-              className="text-5xl sm:text-6xl lg:text-7xl xl:text-[5.5rem] font-display font-bold leading-[1.02] tracking-tight mb-8 text-balance"
+              className="text-5xl sm:text-6xl lg:text-7xl xl:text-[4.25rem] font-display font-bold leading-[1.05] tracking-tight mb-3 text-balance"
             >
-              {t("home.titleStart")} <Accent className="font-serif italic font-medium">{t("home.titleHighlight")}</Accent> {t("home.titleEnd")}
+              {t("home.titleStart")} <Accent className="font-serif italic font-medium">{t("home.titleHighlight")}</Accent>{" "}
+              {t("home.titleEnd")}
             </motion.h1>
 
             <motion.h2
               variants={itemVariants}
-              className="flex flex-wrap items-center gap-x-3 text-2xl sm:text-3xl lg:text-4xl text-muted-foreground mb-8 min-h-12"
+              className="flex flex-wrap items-center gap-x-3 text-2xl sm:text-3xl lg:text-4xl text-muted-foreground mb-3 min-h-12"
             >
               <span>{t("home.icreate")}</span>
               <TypingAnimation texts={typingTexts} className="font-serif italic font-medium text-foreground" />
             </motion.h2>
 
-            <motion.p variants={itemVariants} className="text-lg sm:text-xl text-muted-foreground max-w-2xl mb-12 leading-relaxed">
+            <motion.p variants={itemVariants} className="text-lg sm:text-xl text-muted-foreground max-w-2xl mb-5 leading-relaxed">
               {t("home.subtitle")}
             </motion.p>
 
-            <motion.div variants={itemVariants} className="flex flex-wrap items-center gap-4 mb-16">
+            <motion.div variants={itemVariants} className="flex flex-wrap items-center gap-4 mb-6">
               <Button size="lg" onClick={(e) => scrollToSection("contact-section", e)} className="group">
                 {t("home.action1")}
                 <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
@@ -110,7 +111,7 @@ export const Home = () => {
               </div>
             </motion.div>
 
-            <motion.div variants={itemVariants} className="flex flex-wrap items-center gap-x-12 gap-y-6 border-t border-border pt-10">
+            <motion.div variants={itemVariants} className="flex flex-wrap items-center gap-x-12 gap-y-4 border-t border-border pt-5">
               {stats.map((stat, i) => (
                 <div key={i} className="flex items-baseline gap-2">
                   <span className="text-3xl sm:text-4xl font-display font-bold tracking-tight">{stat.value}</span>
@@ -126,12 +127,7 @@ export const Home = () => {
       </div>
 
       <div className="hidden sm:flex absolute bottom-8 left-1/2 -translate-x-1/2 z-10">
-        <Button
-          variant="ghost"
-          size="icon"
-          aria-label="Voir la section À propos"
-          onClick={(e) => scrollToSection("about-section", e)}
-        >
+        <Button variant="ghost" size="icon" aria-label="Voir la section À propos" onClick={(e) => scrollToSection("about-section", e)}>
           <motion.div animate={{ y: [0, 8, 0] }} transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}>
             <ArrowDown className="h-5 w-5" />
           </motion.div>

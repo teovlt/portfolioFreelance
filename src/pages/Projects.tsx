@@ -1,7 +1,7 @@
 "use client";
 
-import { useRef, useState } from "react";
-import { AnimatePresence, motion, useMotionValue, useSpring } from "framer-motion";
+import { useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import { Badge } from "@/components/ui/badge";
 import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -109,22 +109,11 @@ const item = {
 
 export const Projects = () => {
   const { t } = useTranslation();
-  const [hovered, setHovered] = useState<(typeof projects)[number] | null>(null);
-  const listRef = useRef<HTMLDivElement>(null);
-
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-  const springX = useSpring(mouseX, { stiffness: 300, damping: 30, mass: 0.5 });
-  const springY = useSpring(mouseY, { stiffness: 300, damping: 30, mass: 0.5 });
-
-  const handleMouseMove = (e: React.MouseEvent) => {
-    mouseX.set(e.clientX);
-    mouseY.set(e.clientY);
-  };
+  const [hoveredId, setHoveredId] = useState<string | null>(null);
 
   return (
-    <section className="py-20 px-4" id="projects-section">
-      <div className="container max-w-5xl mx-auto">
+    <section className="py-20" id="projects-section">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -141,21 +130,11 @@ export const Projects = () => {
           </div>
         </motion.div>
 
-        <motion.div
-          ref={listRef}
-          onMouseMove={handleMouseMove}
-          variants={container}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true }}
-          className="mt-10"
-        >
+        <motion.div variants={container} initial="hidden" whileInView="show" viewport={{ once: true }} className="mt-10">
           {projects.map((project, index) => (
             <motion.div key={project.id} variants={item}>
               <Link
                 to={`/projects/${project.caseStudy}`}
-                onMouseEnter={() => setHovered(project)}
-                onMouseLeave={() => setHovered(null)}
                 className="group flex items-center gap-5 py-6 border-t border-border last:border-b hover:bg-muted/40 transition-colors px-2 -mx-2 rounded-lg"
               >
                 <span className="font-serif text-xl text-border w-9 flex-shrink-0 select-none">{String(index + 1).padStart(2, "0")}</span>
@@ -168,6 +147,30 @@ export const Projects = () => {
                 <Badge className={`${statusColors[project.status]} text-xs font-medium flex-shrink-0 hidden sm:inline-flex`}>
                   {t(`projects.status.${project.status}`)}
                 </Badge>
+
+                <div
+                  className="relative w-20 h-14 flex-shrink-0 hidden sm:block"
+                  onMouseEnter={() => setHoveredId(project.id)}
+                  onMouseLeave={() => setHoveredId(null)}
+                >
+                  <div className="w-20 h-14 rounded-lg overflow-hidden border border-border shadow-md">
+                    <img src={project.image} alt={project.title} className="w-full h-full object-cover" />
+                  </div>
+                  <AnimatePresence>
+                    {hoveredId === project.id && (
+                      <motion.div
+                        initial={{ opacity: 0, scale: 0.85, y: 8 }}
+                        animate={{ opacity: 1, scale: 1, y: 0 }}
+                        exit={{ opacity: 0, scale: 0.85, y: 8 }}
+                        transition={{ duration: 0.2, ease: "easeOut" }}
+                        className="absolute bottom-full right-0 mb-3 w-64 h-44 rounded-xl overflow-hidden border border-border shadow-2xl z-30 pointer-events-none origin-bottom-right"
+                      >
+                        <img src={project.image} alt={project.title} className="w-full h-full object-cover" />
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+
                 <span className="w-9 h-9 rounded-full border border-border flex items-center justify-center flex-shrink-0 group-hover:bg-accent group-hover:border-accent group-hover:text-accent-foreground transition-colors">
                   <ArrowRight className="w-4 h-4" />
                 </span>
@@ -176,27 +179,6 @@ export const Projects = () => {
           ))}
         </motion.div>
       </div>
-
-      {/* Floating hover preview, follows the cursor */}
-      <motion.div
-        className="hidden md:block fixed top-0 left-0 z-50 pointer-events-none"
-        style={{ x: springX, y: springY, translateX: "24px", translateY: "-50%" }}
-      >
-        <AnimatePresence>
-          {hovered && (
-            <motion.div
-              key={hovered.id}
-              initial={{ opacity: 0, scale: 0.85 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.85 }}
-              transition={{ duration: 0.25, ease: "easeOut" }}
-              className="w-64 h-44 rounded-xl overflow-hidden border border-border shadow-2xl rotate-2"
-            >
-              <img src={hovered.image} alt={hovered.title} className="w-full h-full object-cover" />
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </motion.div>
     </section>
   );
 };

@@ -3,8 +3,9 @@ import { ThemeChanger } from "./ThemeChanger";
 import { LanguageChanger } from "./LanguageChanger";
 import { useTranslation } from "react-i18next";
 import { Separator } from "./ui/separator";
-import { Briefcase, FileText, House, Info, Mail, Menu, Palette, X } from "lucide-react";
+import { Mail, Menu, X } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { Button } from "./ui/button";
 import { scrollToSection } from "@/utils/scrollToSection";
@@ -17,12 +18,12 @@ export const Navbar = () => {
   const menuRef = useRef(null);
 
   const navItems = [
-    { id: "home-section", label: t("navbar.home"), icon: <House className="w-4 h-4" /> },
-    { id: "about-section", label: t("navbar.about"), icon: <Info className="w-4 h-4" /> },
-    { id: "experiences-section", label: t("navbar.experiences"), icon: <Briefcase className="w-4 h-4" /> },
-    { id: "services-section", label: t("navbar.services"), icon: <Palette className="w-4 h-4" /> },
-    { id: "projects-section", label: t("navbar.projects"), icon: <FileText className="w-4 h-4" /> },
-    { id: "contact-section", label: t("navbar.contact"), icon: <Mail className="w-4 h-4" /> },
+    { id: "home-section", label: t("navbar.home") },
+    { id: "about-section", label: t("navbar.about") },
+    { id: "experiences-section", label: t("navbar.experiences") },
+    { id: "services-section", label: t("navbar.services") },
+    { id: "projects-section", label: t("navbar.projects") },
+    { id: "contact-section", label: t("navbar.contact") },
   ];
 
   useEffect(() => {
@@ -34,6 +35,13 @@ export const Navbar = () => {
 
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [isOpen]);
+
+  useEffect(() => {
+    document.body.style.overflow = isOpen ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
   }, [isOpen]);
 
   useEffect(() => {
@@ -107,62 +115,108 @@ export const Navbar = () => {
           </div>
 
           {/* Mobile */}
-          <div className="flex lg:hidden justify-between items-center p-2 rounded-full bg-card border border-border shadow-sm px-5">
+          <div className="flex lg:hidden justify-between items-center p-2 rounded-full bg-card border border-border shadow-sm px-5 relative z-50">
             <Link to="/" className="flex items-center gap-2 font-display font-bold text-lg tracking-tight">
               Téo Villet
             </Link>
-            <Menu onClick={() => setIsOpen(!isOpen)} className="cursor-pointer" />
-          </div>
-        </div>
-
-        {/* Mobile menu */}
-        <div
-          ref={menuRef}
-          className={cn(
-            "fixed top-0 right-0 w-4/5 h-screen overflow-hidden bg-background border-l border-border transition-transform duration-300 ease-in-out z-20",
-            isOpen ? "translate-x-0" : "translate-x-full",
-          )}
-        >
-          <div className="flex justify-end">
-            <X onClick={() => setIsOpen(!isOpen)} className="m-4 cursor-pointer" />
-          </div>
-
-          <div className="flex flex-col gap-8 p-8 pt-2">
-            {navItems.map((item) => (
-              <Link
-                key={item.id}
-                to={`#${item.id}`}
-                onClick={(e) => {
-                  scrollToSection(item.id, e), setIsOpen(false);
-                }}
-                className={cn(
-                  "flex gap-4 items-center justify-start font-medium",
-                  activeSection === item.id ? "text-foreground" : "text-muted-foreground hover:text-foreground",
+            <motion.button
+              whileTap={{ scale: 0.9 }}
+              onClick={() => setIsOpen(!isOpen)}
+              aria-label={isOpen ? "Fermer le menu" : "Ouvrir le menu"}
+              className="w-9 h-9 flex items-center justify-center"
+            >
+              <AnimatePresence mode="wait" initial={false}>
+                {isOpen ? (
+                  <motion.span key="x" initial={{ rotate: -90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: 90, opacity: 0 }}>
+                    <X className="h-5 w-5" />
+                  </motion.span>
+                ) : (
+                  <motion.span key="menu" initial={{ rotate: 90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: -90, opacity: 0 }}>
+                    <Menu className="h-5 w-5" />
+                  </motion.span>
                 )}
-              >
-                {item.icon}
-                {item.label}
-              </Link>
-            ))}
-            <Separator />
-            <div className="flex gap-8 justify-center items-center">
-              <LanguageChanger />
-              <ThemeChanger />
-            </div>
-            <Separator />
-            <div className="flex justify-center items-center">
-              <Button
-                className="w-full"
-                onClick={(e) => {
-                  scrollToSection("contact-section", e);
-                  setIsOpen(false);
-                }}
-              >
-                {t("navbar.contactCta")}
-              </Button>
-            </div>
+              </AnimatePresence>
+            </motion.button>
           </div>
         </div>
+
+        {/* Mobile menu: full-screen circle reveal */}
+        <AnimatePresence>
+          {isOpen && (
+            <motion.div
+              ref={menuRef}
+              initial={{ clipPath: "circle(2% at calc(100% - 2.75rem) 2.25rem)" }}
+              animate={{ clipPath: "circle(150% at calc(100% - 2.75rem) 2.25rem)" }}
+              exit={{ clipPath: "circle(2% at calc(100% - 2.75rem) 2.25rem)" }}
+              transition={{ duration: 0.55, ease: [0.76, 0, 0.24, 1] }}
+              className="fixed inset-0 z-40 bg-foreground text-background grain lg:hidden"
+            >
+              <div className="h-full flex flex-col px-6 pt-24 pb-10">
+                <nav className="flex-1 flex flex-col justify-center gap-0.5">
+                  {navItems.map((item, i) => (
+                    <motion.div
+                      key={item.id}
+                      initial={{ opacity: 0, x: -24 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      exit={{ opacity: 0, x: -24 }}
+                      transition={{ delay: 0.15 + i * 0.06, duration: 0.4, ease: "easeOut" }}
+                    >
+                      <Link
+                        to={`#${item.id}`}
+                        onClick={(e) => {
+                          scrollToSection(item.id, e);
+                          setIsOpen(false);
+                        }}
+                        className="group flex items-baseline gap-4 py-3 border-b border-background/10"
+                      >
+                        <span className="font-serif text-sm text-background/40">{String(i + 1).padStart(2, "0")}</span>
+                        <span
+                          className={cn(
+                            "font-display text-3xl sm:text-4xl font-bold transition-colors",
+                            activeSection === item.id ? "text-accent" : "text-background group-hover:text-accent",
+                          )}
+                        >
+                          {item.label}
+                        </span>
+                      </Link>
+                    </motion.div>
+                  ))}
+                </nav>
+
+                <motion.div
+                  initial={{ opacity: 0, y: 16 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 16 }}
+                  transition={{ delay: 0.5, duration: 0.4 }}
+                  className="flex flex-col gap-6 pt-8 border-t border-background/10"
+                >
+                  <Link
+                    to="mailto:teo.villet2@gmail.com"
+                    className="flex items-center gap-2 text-sm text-background/70 hover:text-background transition-colors w-fit"
+                  >
+                    <Mail className="h-4 w-4" />
+                    teo.villet2@gmail.com
+                  </Link>
+                  <div className="flex items-center justify-between gap-4">
+                    <div className="flex gap-2">
+                      <LanguageChanger />
+                      <ThemeChanger />
+                    </div>
+                    <Button
+                      className="bg-background text-foreground hover:bg-background/90"
+                      onClick={(e) => {
+                        scrollToSection("contact-section", e);
+                        setIsOpen(false);
+                      }}
+                    >
+                      {t("navbar.contactCta")}
+                    </Button>
+                  </div>
+                </motion.div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </header>
     </>
   );

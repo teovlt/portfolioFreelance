@@ -297,10 +297,16 @@
     "brand": {
       "eyebrow": "Let's work together",
       "titleStart": "Let's talk about",
-      "titleHighlight": "your project."
+      "titleHighlight": "your project.",
+      "tagline": "Freelance fullstack developer based between Lille and Grenoble, available for new projects."
     },
     "cta": "Get in touch",
     "rights": "All rights reserved.",
+    "location": "Lille & Grenoble, France",
+    "columns": {
+      "navTitle": "Navigation",
+      "contactTitle": "Contact"
+    },
     "nav": {
       "home": "Home",
       "about": "About",

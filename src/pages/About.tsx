@@ -46,7 +46,7 @@ export const About = () => {
       </Helmet>
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="max-w-6xl mx-auto">
+        <div>
           <h1 className="sr-only">À propos de Téo Villet, Développeur Web Fullstack Freelance à Lille & Grenoble</h1>
 
           <motion.p variants={itemVariants} className="eyebrow mb-4">
