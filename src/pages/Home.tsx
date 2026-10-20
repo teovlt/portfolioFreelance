@@ -1,44 +1,36 @@
 import { Helmet } from "react-helmet";
 import { Button } from "@/components/ui/button";
-import { ArrowDown, ArrowRight, Code2, Download, Sparkles, Star, Users } from "lucide-react";
+import { ArrowDown, ArrowRight, Star } from "lucide-react";
 import { scrollToSection } from "@/utils/scrollToSection";
 import { useTranslation } from "react-i18next";
-import { Badge } from "@/components/ui/badge";
-import { ParticleBackground } from "@/components/customs/particle-background";
 import { TypingAnimation } from "@/components/customs/typing-animations";
-import { motion } from "framer-motion"; // Import motion
+import { Accent } from "@/components/customs/accent-text";
+import { HeroSocialProof } from "@/components/customs/hero-social-proof";
+import { motion } from "framer-motion";
 
 export const Home = () => {
   const { t } = useTranslation();
 
   const typingTexts = [t("home.typing1"), t("home.typing2"), t("home.typing3"), t("home.typing4"), t("home.typing5")];
 
-  // Animation variants for the container to orchestrate children animations
+  const stats = [
+    { value: "5.0", label: t("home.rating") },
+    { value: "20+", label: t("home.clients") },
+    { value: "4+", label: t("home.experience") },
+  ];
+
   const containerVariants = {
     hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.15, // Delay between each child animation
-      },
-    },
+    visible: { opacity: 1, transition: { staggerChildren: 0.12 } },
   };
 
-  // Animation variants for individual items
   const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.5,
-        ease: "easeOut",
-      },
-    },
+    hidden: { opacity: 0, y: 16 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
   };
 
   return (
-    <section id="home-section" className="min-h-screen py-28 flex items-center justify-center">
+    <section id="home-section" className="relative min-h-screen pt-40 pb-24 flex items-center overflow-hidden">
       <Helmet>
         <title>Téo Villet - Développeur Fullstack Freelance à Grenoble</title>
         <meta
@@ -47,107 +39,74 @@ export const Home = () => {
         />
       </Helmet>
 
-      <ParticleBackground />
+      <div
+        className="absolute top-0 right-0 w-[640px] h-[640px] rounded-full pointer-events-none -z-10 opacity-60 dark:opacity-30"
+        style={{ background: "radial-gradient(circle, hsl(var(--accent) / 0.25), transparent 70%)" }}
+      />
+
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <motion.div className="text-center max-w-5xl mx-auto" initial="hidden" animate="visible" variants={containerVariants}>
-          {/* Status Badge */}
-          <motion.div className="mb-8 flex justify-center" variants={itemVariants}>
-            <Badge className="bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 border-green-200 dark:border-green-800 px-4 py-2 text-sm font-medium">
-              <div className="w-2 h-2 bg-green-500 rounded-full mr-2 animate-pulse" />
-              {t("home.badge")}
-            </Badge>
-          </motion.div>
+        <div className="xl:grid xl:grid-cols-[1.15fr_0.85fr] xl:gap-12 xl:items-center">
+          <motion.div className="max-w-4xl" initial="hidden" animate="visible" variants={containerVariants}>
+            <motion.div variants={itemVariants} className="inline-flex items-center gap-2 border border-border rounded-full px-4 py-1.5 mb-8">
+              <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
+              <span className="text-sm font-medium">{t("home.badge")}</span>
+            </motion.div>
 
-          {/* Main Content */}
-          <div className="mb-8">
-            <motion.p className="text-lg text-muted-foreground mb-4" variants={itemVariants}>
-              {t("home.hello")}
-            </motion.p>
-
-            <motion.h1 className="text-5xl sm:text-7xl lg:text-8xl font-bold mb-6" variants={itemVariants}>
-              <span className="sr-only">Développeur Fullstack Freelance - </span>
-              <span className="text-foreground">Téo</span>{" "}
-              <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-blue-800 bg-clip-text text-transparent">VILLET</span>
+            <motion.h1
+              variants={itemVariants}
+              className="text-5xl sm:text-6xl lg:text-7xl xl:text-[5.5rem] font-display font-bold leading-[1.02] tracking-tight mb-8 text-balance"
+            >
+              {t("home.titleStart")} <Accent className="font-serif italic font-medium">{t("home.titleHighlight")}</Accent> {t("home.titleEnd")}
             </motion.h1>
 
             <motion.h2
-              className="hidden sm:flex text-2xl sm:text-3xl lg:text-4xl font-semibold text-muted-foreground mb-8 min-h-16 flex-col sm:flex-row items-center justify-center text-center px-4 sm:px-8 space-y-2 sm:space-y-0 sm:space-x-3"
               variants={itemVariants}
+              className="flex flex-wrap items-center gap-x-3 text-2xl sm:text-3xl lg:text-4xl text-muted-foreground mb-8 min-h-12"
             >
-              <span className="whitespace-nowrap">{t("home.icreate")}</span>
-              <TypingAnimation texts={typingTexts} className="text-blue-600 dark:text-blue-400 break-words max-w-full" />
+              <span>{t("home.icreate")}</span>
+              <TypingAnimation texts={typingTexts} className="font-serif italic font-medium text-foreground" />
             </motion.h2>
-          </div>
 
-          <motion.p className="text-xl sm:text-2xl text-muted-foreground mb-12 max-w-3xl mx-auto leading-relaxed" variants={itemVariants}>
-            {t("home.subtitle")}
-          </motion.p>
+            <motion.p variants={itemVariants} className="text-lg sm:text-xl text-muted-foreground max-w-2xl mb-12 leading-relaxed">
+              {t("home.subtitle")}
+            </motion.p>
 
-          <motion.div className="flex flex-wrap justify-center gap-8 mb-12" variants={itemVariants}>
-            <div className="flex items-center gap-2 text-muted-foreground">
-              <Star className="h-5 w-5 text-yellow-500 fill-yellow-500" />
-              <span className="font-semibold">5.0</span>
-              <span>{t("home.rating")}</span>
-            </div>
-            <div className="flex items-center gap-2 text-muted-foreground">
-              <Users className="h-5 w-5 text-blue-500" />
-              <span className="font-semibold">20+</span>
-              <span>{t("home.clients")}</span>
-            </div>
-            <div className="flex items-center gap-2 text-muted-foreground">
-              <Code2 className="h-5 w-5 text-purple-500" />
-              <span className="font-semibold">4+</span>
-              <span>{t("home.experience")}</span>
-            </div>
-          </motion.div>
-
-          <motion.div className="flex flex-col sm:flex-row gap-6 justify-center items-center" variants={itemVariants}>
-            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} transition={{ duration: 0.2 }}>
-              <Button
-                size="lg"
-                onClick={(e) => scrollToSection("contact-section", e)}
-                className="group bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-10 py-4 text-lg font-semibold shadow-2xl hover:shadow-blue-500/25 transition-all duration-300"
-              >
-                <Sparkles className="mr-2 h-5 w-5 group-hover:animate-spin" />
-                <span>{t("home.action1")}</span>
-                <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+            <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-4 mb-16">
+              <Button size="lg" onClick={(e) => scrollToSection("contact-section", e)} className="group">
+                {t("home.action1")}
+                <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
+              </Button>
+              <Button variant="outline" size="lg" onClick={(e) => scrollToSection("projects-section", e)}>
+                {t("home.action2")}
               </Button>
             </motion.div>
 
-            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} transition={{ duration: 0.2 }}>
-              <Button
-                variant="outline"
-                size="lg"
-                onClick={(e) => scrollToSection("projects-section", e)}
-                className="group border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white px-10 py-4 text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
-              >
-                <span>{t("home.action2")}</span>
-                <Download className="ml-2 h-5 w-5 group-hover:animate-bounce" />
-              </Button>
+            <motion.div variants={itemVariants} className="flex flex-wrap items-center gap-x-12 gap-y-6 border-t border-border pt-10">
+              {stats.map((stat, i) => (
+                <div key={i} className="flex items-baseline gap-2">
+                  <span className="text-3xl sm:text-4xl font-display font-bold tracking-tight">{stat.value}</span>
+                  {i === 0 && <Star className="h-4 w-4 fill-accent text-accent -ml-1" />}
+                  <span className="text-sm text-muted-foreground">{stat.label}</span>
+                </div>
+              ))}
             </motion.div>
           </motion.div>
-        </motion.div>
 
-        <div className="flex items-center justify-center lg:mt-24 sm:mt-16 mt-12">
-          <Button
-            variant="ghost"
-            className="flex items-center justify-center"
-            size="icon"
-            aria-label="Voir la section À propos"
-            onClick={(e) => scrollToSection("about-section", e)}
-          >
-            <motion.div
-              animate={{ y: [0, 8, 0] }} // Bouncing animation keyframes
-              transition={{
-                duration: 1.5,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
-            >
-              <ArrowDown className="h-6 w-6" />
-            </motion.div>
-          </Button>
+          <HeroSocialProof />
         </div>
+      </div>
+
+      <div className="hidden sm:flex absolute bottom-8 left-1/2 -translate-x-1/2 z-10">
+        <Button
+          variant="ghost"
+          size="icon"
+          aria-label="Voir la section À propos"
+          onClick={(e) => scrollToSection("about-section", e)}
+        >
+          <motion.div animate={{ y: [0, 8, 0] }} transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}>
+            <ArrowDown className="h-5 w-5" />
+          </motion.div>
+        </Button>
       </div>
     </section>
   );

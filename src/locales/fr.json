@@ -5,84 +5,105 @@
     "projects": "Projets",
     "services": "Services",
     "contact": "Contact",
-    "skills": "Compétences",
     "experiences": "Expérience",
-    "reviews": "Avis",
-    "resume": "Mon CV",
+    "contactCta": "Me contacter",
     "languageChanged": "Langage changé avec succès"
   },
   "home": {
-    "developer": "Développeur Full Stack",
-    "hello": "Bonjour, je suis",
-    "title": "Je conçois des produits, des marques et des expériences numériques",
-    "subtitle": "Je développe et conçois des sites web sur mesure, pensés pour votre activité et vos utilisateurs.",
+    "badge": "Disponible pour de nouveaux projets",
+    "titleStart": "Je conçois des produits qui font",
+    "titleHighlight": "grandir",
+    "titleEnd": "votre activité.",
+    "icreate": "Des",
+    "subtitle": "Développeur fullstack freelance basé à Grenoble. Je conçois et développe des sites et applications sur mesure, pensés pour votre activité et vos utilisateurs — du premier brief à la mise en production.",
     "action1": "Me contacter",
     "action2": "Voir mes projets",
-    "figure1": "Génial",
-    "figure2": "En train de coder...",
-    "badge": "Disponible pour de nouveaux projets",
-    "rating": "Note moyenne",
-    "clients": "Clients satisfaits",
-    "experience": "Années d'expérience",
-    "typing1": "Plateformes web modernes",
-    "typing2": "Expériences utilisateur intuitives",
-    "typing3": "Sites rapides et fiables",
-    "typing4": "Interfaces adaptées au mobile",
-    "typing5": "Solutions numériques sur mesure",
-    "icreate": "Je crée des"
+    "rating": "note moyenne",
+    "clients": "clients satisfaits",
+    "experience": "ans d'expérience",
+    "typing1": "plateformes web modernes",
+    "typing2": "expériences utilisateur intuitives",
+    "typing3": "sites rapides et fiables",
+    "typing4": "interfaces adaptées au mobile",
+    "typing5": "solutions numériques sur mesure",
+    "socialProof": {
+      "count": "{{count}} avis clients",
+      "prev": "Avis précédent",
+      "next": "Avis suivant"
+    }
   },
   "about": {
-    "vibes": "Ambiance chill garantie",
+    "eyebrow": "À propos",
     "title": "Voici un aperçu de",
     "me": "moi",
-    "description": "Développeur fullstack passionné basé à Grenoble, je poursuis actuellement mes études d'ingénieur à l'IMT Nord Europe tout en étant en alternance. J’aime mélanger créativité et logique pour créer des expériences numériques élégantes et intuitives. Quand je ne code pas ou que je n’imagine pas de nouveaux projets, je suis sûrement en pleine nature, en train d’écouter du son ou de savourer un bon café. Je suis toujours motivé à relever de nouveaux défis — alors n’hésitez pas à me contacter !",
-    "factsTitle": "Quelques fun facts sur moi",
-    "fact1": {
-      "title": "Passionné de musculation",
-      "desc": "À mon top, je faisais 110kg au développé couché"
+    "description": "Développeur fullstack freelance basé à Grenoble, je poursuis actuellement mes études d'ingénieur à l'IMT Nord Europe en alternance. Depuis plus de 4 ans, j'accompagne laboratoires de recherche, indépendants et petites structures dans la conception de leurs outils numériques — avec la même exigence du premier brief à la mise en production. J'aime mélanger rigueur technique et sens du détail pour livrer des produits fiables, rapides, et pensés pour durer.",
+    "quick": {
+      "experience": "ans d'expérience",
+      "projects": "projets livrés",
+      "satisfaction": "satisfaction client",
+      "response": "délai de réponse"
     },
-    "fact2": {
-      "title": "Joueur d'échecs amateur",
-      "desc": "J'essaie d'apprendre les échecs en ce moment"
-    },
-    "fact3": {
-      "title": "Fan de One Piece",
-      "desc": "Je suis un grand fan de One Piece"
-    },
-    "fact4": {
-      "title": "Coureur dans l’âme",
-      "desc": "J’ai fait mon premier semi-marathon récemment"
-    },
-    "techTitle": "Technologies que j'aime",
+    "techTitle": "Stack & outils",
     "location": "Basé à Grenoble, France",
     "availability": "Disponible pour de nouveaux projets",
-    "quote": "Mon objectif n’est pas juste de coder, mais de créer des expériences qui marquent et apportent une vraie valeur à votre business."
+    "quote": "Je code un peu comme je marche en montagne : à mon rythme, mais je n'abandonne jamais avant le sommet.",
+    "cta": "Travaillons ensemble"
   },
   "experiences": {
-    "titleStart": "Mes",
-    "titleHighlight": "Expériences",
+    "eyebrow": "Expérience",
+    "titleStart": "Mon",
+    "titleHighlight": "parcours",
+    "types": {
+      "formation": "Formation",
+      "alternance": "Alternance",
+      "stage": "Stage"
+    },
     "timeline": [
       {
-        "title": "Diplôme d'ingénieur en informatique - IMT Nord Europe",
+        "org": "IMT Nord Europe",
+        "title": "Diplôme d'ingénieur en informatique",
         "subtitle": "Villeneuve d'Ascq, France",
-        "description": "Spécialisation en ingénierie logicielle, avec un accent sur le développement full-stack et la conception de systèmes. En alternance au GIPSA-Lab."
+        "description": "Spécialisation en ingénierie logicielle, avec un accent sur le développement full-stack et la conception de systèmes. En alternance au GIPSA-Lab.",
+        "highlights": [
+          "Spécialisation génie logiciel et architecture système",
+          "Alternance en entreprise en parallèle du cursus",
+          "Projets d'ingénierie en équipe sur cahier des charges réel"
+        ]
       },
       {
-        "date": "2023 - aujourd'hui",
-        "title": "Développeur FullStack - GIPSA-Lab",
+        "date": "2023 — aujourd'hui",
+        "org": "GIPSA-Lab",
+        "title": "Développeur FullStack",
         "subtitle": "Grenoble, France",
-        "description": "Développement et maintenance d'applications web, avec une attention particulière à l'expérience utilisateur et à la performance."
+        "description": "Développement et maintenance d'applications web, avec une attention particulière à l'expérience utilisateur et à la performance.",
+        "highlights": [
+          "Développement d'outils internes pour les équipes de recherche",
+          "Maintenance et évolution d'applications existantes",
+          "Collaboration directe avec chercheurs et doctorants"
+        ]
       },
       {
         "date": "Juin 2023",
-        "title": "Développeur FullStack - Laboratoire d'Informatique de Grenoble",
+        "org": "Laboratoire d'Informatique de Grenoble",
+        "title": "Développeur FullStack",
         "subtitle": "Grenoble, France",
-        "description": "Création d'une application web complète pour aider les doctorants à gérer leurs projets de recherche."
+        "description": "Création d'une application web complète pour aider les doctorants à gérer leurs projets de recherche.",
+        "highlights": [
+          "Conception de l'application de A à Z, du cahier des charges à la mise en production",
+          "Interface pensée avec les doctorants, utilisateurs finaux",
+          "Livraison en autonomie sur un calendrier contraint"
+        ]
       },
       {
+        "org": "IUT1 de Grenoble",
         "title": "BUT Informatique",
         "subtitle": "Grenoble, France",
-        "description": "Formation axée sur le développement logiciel, les algorithmes et les structures de données."
+        "description": "Formation axée sur le développement logiciel, les algorithmes et les structures de données.",
+        "highlights": [
+          "Algorithmique, structures de données et bases de données",
+          "Projets de groupe en méthodologie agile",
+          "Stages en entreprise chaque année de formation"
+        ]
       }
     ]
   },
@@ -107,46 +128,16 @@
       }
     ]
   },
-  "skills": {
-    "defaultReview": "Je suis encore en expérimentation",
-    "title1": "Compétences &",
-    "title2": "Superpouvoirs",
-    "bodies": {
-      "typescript": "Le typage m'évite de devenir fou.",
-      "react": "J'adore le modèle basé sur les composants.",
-      "flutter": "Écris une fois, déploie partout. C'est magique.",
-      "nodedotjs": "Du JavaScript partout. Node est puissant.",
-      "nextdotjs": "React fullstack comme jamais auparavant.",
-      "docker": "Parce que « ça marche chez moi ».",
-      "git": "Contrôle de version ou voyage dans le temps ?",
-      "tailwindcss": "Utility-first et rapide. Impossible de revenir en arrière.",
-      "postgresql": "Robuste, fiable et relationnel. Ma base de données préférée.",
-      "firebase": "Backend sans douleur. Parfois.",
-      "mysql": "Classique. Présente depuis toujours.",
-      "mongodb": "JSON à fond. Naturel à utiliser.",
-      "sqlite": "Léger et pratique pour les petites applications.",
-      "mariadb": "Un remplaçant avec quelques extras sympas.",
-      "neo4j": "Je ne sais même pas ce que c’est.",
-      "vercel": "Déploiement en secondes. Juste magique.",
-      "figma": "Le design n’a jamais été aussi collaboratif.",
-      "androidstudio": "Lourd, mais efficace.",
-      "vscodium": "VS Code open source ? Oui, merci.",
-      "intellijidea": "Le top pour les développeurs Java.",
-      "postman": "Tester les APIs devient (trop) facile.",
-      "notion": "Docs, tâches, agenda — tout en un.",
-      "github": "Le repaire de tous mes bugs.",
-      "gitlab": "GitHub, mais avec une touche DevOps.",
-      "redmine": "Toujours vivant dans certains coins d’entreprise."
-    }
-  },
   "projects": {
+    "eyebrow": "Projets",
     "title": "Mes",
     "highlight": "Projets Récents",
-    "description": "Une sélection de mes travaux récents. Chaque projet met en valeur différentes compétences et technologies que j’ai acquises au fil du temps.",
+    "description": "Une sélection de mes travaux récents. Chaque projet met en valeur différentes compétences et technologies que j'ai acquises au fil du temps.",
     "code": "Code source",
     "demo": "Démo en ligne",
     "noCode": "Code non disponible",
     "noDemo": "Démo non disponible",
+    "caseStudy": "étude de cas complète",
     "items": {
       "project1": {
         "title": "Achanfut",
@@ -192,11 +183,6 @@
     }
   },
   "reviews": {
-    "title1": "Ce que mes clients",
-    "title2": "disent",
-    "reviews": "Avis",
-    "subtitle": "Découvrez des témoignages authentiques de clients qui ont fait confiance à mon expertise pour leurs projets web",
-    "badge": "100% de clients satisfaits",
     "list": [
       {
         "name": "Timon Guillotin",
@@ -223,7 +209,7 @@
         "company": "Développeur Freelance",
         "rating": 5,
         "comment": "Téo m'a aidé à créer un site exceptionnel pour suivre mes candidatures. Son professionnalisme et son souci du détail sont remarquables. Je recommande vivement !",
-        "project": "Plateforme de suivi d’emploi",
+        "project": "Plateforme de suivi d'emploi",
         "avatar": "MD",
         "image": "/images/reviews/mayeul.jpeg",
         "website": "https://mayeulderies.fr/"
@@ -232,8 +218,8 @@
         "name": "Gabriel Halus",
         "company": "Développeur Freelance",
         "rating": 5,
-        "comment": "J’ai eu le plaisir de travailler avec Téo sur les projets Let’sgo Lego, Paperlive et Ahcanfut. Ce fut à chaque fois une très belle expérience. Téo apporte naturellement des idées innovantes et sait toujours trouver des solutions pertinentes face aux défis rencontrés. C’est un vrai plaisir de collaborer avec lui.",
-        "project": "Let’sgo Lego, Paperlive, et Ahcanfut",
+        "comment": "J'ai eu le plaisir de travailler avec Téo sur les projets Let'sgo Lego, Paperlive et Ahcanfut. Ce fut à chaque fois une très belle expérience. Téo apporte naturellement des idées innovantes et sait toujours trouver des solutions pertinentes face aux défis rencontrés. C'est un vrai plaisir de collaborer avec lui.",
+        "project": "Let'sgo Lego, Paperlive, et Ahcanfut",
         "avatar": "GH",
         "image": "/images/reviews/gabriel.jpeg",
         "website": "https://gabrielhalus.com"
@@ -242,7 +228,7 @@
         "name": "Félix Picon",
         "company": "Administrateur Système",
         "rating": 5,
-        "comment": "Le boilerplate de Téo m’a fait gagner des heures d’installation. Ses conseils étaient précis, clairs et vraiment utiles. Ce fut un plaisir de collaborer avec quelqu’un d’aussi passionné et rigoureux.",
+        "comment": "Le boilerplate de Téo m'a fait gagner des heures d'installation. Ses conseils étaient précis, clairs et vraiment utiles. Ce fut un plaisir de collaborer avec quelqu'un d'aussi passionné et rigoureux.",
         "project": "Support intégration boilerplate",
         "avatar": "FP",
         "image": "/images/reviews/felix.jpeg",
@@ -251,9 +237,31 @@
     ]
   },
   "contact": {
+    "eyebrow": "Contact",
     "title": "Prenez",
     "highlight": "Contact",
-    "description": "Un projet en tête ou envie de discuter d’opportunités ? N’hésitez pas à me contacter. Je suis toujours ouvert aux nouvelles idées et collaborations.",
+    "description": "Un projet en tête ou envie de discuter d'opportunités ? N'hésitez pas à me contacter. Je suis toujours ouvert aux nouvelles idées et collaborations.",
+    "tabs": {
+      "booking": "Réserver un appel",
+      "message": "Envoyer un message"
+    },
+    "packageChipLabel": "Forfait sélectionné :",
+    "packageClear": "Retirer le forfait sélectionné",
+    "packageSubject": "Devis — {{package}}",
+    "packageMessage": "Bonjour, je suis intéressé(e) par le forfait \"{{package}}\". ",
+    "booking": {
+      "pickDate": "Choisissez une date pour voir les créneaux disponibles.",
+      "confirm": "Confirmer la demande",
+      "sending": "Envoi en cours...",
+      "successTitle": "Demande envoyée !",
+      "successBody": "Je confirme votre créneau par email sous 24h.",
+      "another": "Choisir un autre créneau",
+      "formSubject": "Demande de rendez-vous",
+      "formMessage": "souhaite un appel le {{date}} à {{time}}.",
+      "forLabel": "Pour :",
+      "detailsPlaceholder": "Détails à ajouter (optionnel)",
+      "detailsSuffix": "Détails : {{details}}"
+    },
     "form": {
       "name": {
         "label": "Nom",
@@ -277,7 +285,7 @@
     "error": "Une erreur est survenue. Veuillez réessayer.",
     "failure": "Échec de l'envoi du message.",
     "info": {
-      "title": "Informations de contact",
+      "title": "Coordonnées",
       "location": {
         "label": "Localisation",
         "value": "Grenoble, FR"
@@ -292,73 +300,19 @@
   },
   "footer": {
     "brand": {
-      "primary": "Mon",
-      "secondary": "Portfolio"
+      "eyebrow": "On travaille ensemble ?",
+      "titleStart": "Parlons de",
+      "titleHighlight": "votre projet."
     },
-    "tagline": "Développeur fullstack créant des expériences web belles et fonctionnelles.",
+    "cta": "Me contacter",
     "rights": "Tous droits réservés.",
     "nav": {
       "home": "Accueil",
       "about": "À propos",
       "experiences": "Expériences",
       "services": "Services",
-      "skills": "Compétences",
       "projects": "Projets",
-      "reviews": "Avis",
       "contact": "Contact"
     }
-  },
-  "faq": {
-    "work_hours": {
-      "question": "Quels sont vos horaires de travail ?",
-      "answer": "Je suis généralement disponible du lundi au vendredi, mais je m'adapte aux besoins de mes clients."
-    },
-    "contact": {
-      "question": "Comment puis-je vous contacter ?",
-      "answer": "Vous pouvez me contacter par email à teo.villet2@gmail.com ou via le formulaire de contact sur mon site."
-    },
-    "long_term_projects": {
-      "question": "Êtes-vous disponible pour des projets à long terme ?",
-      "answer": "Oui, je suis ouvert à des collaborations à long terme et à des projets variés."
-    },
-    "work_process": {
-      "question": "Quel est votre processus de travail ?",
-      "answer": "Mon processus inclut une phase de consultation pour comprendre vos besoins, suivie de la conception, du développement, et enfin des tests avant la livraison."
-    },
-    "post_delivery_support": {
-      "question": "Offrez-vous un support après la livraison du projet ?",
-      "answer": "Oui, j'offre un support de 30 à 60 jours après la livraison, selon le type de projet."
-    },
-    "technologies": {
-      "question": "Quels types de technologies utilisez-vous ?",
-      "answer": "J'utilise des technologies modernes comme React, Node.js, TypeScript, et MongoDB pour créer des applications web performantes."
-    },
-    "custom_quote": {
-      "question": "Comment puis-je demander un devis personnalisé ?",
-      "answer": "Vous pouvez demander un devis personnalisé en me contactant directement via le formulaire sur mon site ou par email."
-    },
-    "pricing_design": {
-      "question": "Quel est le tarif pour un design personnalisé ?",
-      "answer": "Le package Design personnalisé commence à 800€. Il inclut des maquettes modernes (Figma), un design adapté mobile/bureau, et le choix des couleurs/typographies."
-    },
-    "pricing_showcase": {
-      "question": "Quel est le tarif pour un site vitrine ?",
-      "answer": "Le site vitrine commence à 1200€. C'est idéal pour présenter votre activité avec un site rapide, moderne et optimisé pour le référencement."
-    },
-    "pricing_features": {
-      "question": "Combien coûte un site avec fonctionnalités ?",
-      "answer": "Le tarif commence à 2500€. Cela inclut des fonctionnalités comme des avis, formulaires de contact, systèmes de réservation et un espace personnel sécurisé."
-    },
-    "pricing_complete": {
-      "question": "Quel est le prix pour un site complet ?",
-      "answer": "Pour un site complet avec base de données et fonctionnalités avancées sur mesure, les tarifs commencent à 4800€."
-    },
-    "services_offered": {
-      "question": "Quel est le tarif pour un design personnalisé ?",
-      "answer": "Le package Design personnalisé commence à 800€. Il inclut des maquettes modernes (Figma), un design adapté mobile/bureau, et le choix des couleurs/typographies."
-    }
-  },
-  "chat": {
-    "welcome": "Bonjour ! Je suis l'assistant virtuel de Téo. Comment puis-je vous aider aujourd'hui ? 👇"
   }
 }

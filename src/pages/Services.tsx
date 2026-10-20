@@ -1,236 +1,222 @@
 "use client";
 
 import { useState } from "react";
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Code, Server, Layers, ArrowRight, CheckCircle, Clock, Users, Paintbrush, Palette } from "lucide-react";
+import { Check, ArrowUpRight, Clock, FileText } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { scrollToSection } from "@/utils/scrollToSection";
 import { motion } from "framer-motion";
+import { Button } from "@/components/ui/button";
+import { Accent } from "@/components/customs/accent-text";
+import { usePackage } from "@/providers/package-provider";
+
+function QuotePreview({ label }: { label: string }) {
+  const [failed, setFailed] = useState(false);
+
+  return (
+    <div className="relative aspect-[4/5] sm:aspect-[3/4] w-full max-w-[280px] mx-auto rounded-2xl overflow-hidden border border-background/15 bg-background shadow-xl rotate-1">
+      {!failed ? (
+        <img
+          src="/images/services/devis-exemple.png"
+          alt={label}
+          onError={() => setFailed(true)}
+          className="w-full h-full object-cover object-top"
+        />
+      ) : (
+        <div className="w-full h-full flex flex-col items-center justify-center gap-3 p-6 text-center">
+          <FileText className="h-8 w-8 text-muted-foreground/40" />
+          <span className="text-xs text-muted-foreground">{label}</span>
+        </div>
+      )}
+    </div>
+  );
+}
 
 export function Services() {
-  const { t, i18n } = useTranslation();
+  const { i18n } = useTranslation();
   const language = i18n.language;
-  const [hoveredService, setHoveredService] = useState<number | null>(null);
+  const { setSelectedPackage } = usePackage();
 
   const services = [
     {
-      icon: Palette,
       title: language === "fr" ? "Design personnalisé" : "Custom Design",
       description:
         language === "fr"
-          ? "Création de maquettes modernes et cohérentes avec votre image. Idéal avant de passer au développement."
-          : "Modern mockups that match your brand. Perfect before starting development.",
-      price: language === "fr" ? "À partir de 800€" : "Starting from €800",
+          ? "Des maquettes modernes et cohérentes avec votre image, avant de passer au développement."
+          : "Modern mockups that match your brand, before moving into development.",
+      price: "800€",
       duration: language === "fr" ? "1 à 2 semaines" : "1 to 2 weeks",
-      deliverables: [
-        language === "fr" ? "Maquettes visuelles (ex : Figma)" : "Visual mockups (e.g. Figma)",
-        language === "fr" ? "Design mobile et ordinateur" : "Mobile & desktop design",
-        language === "fr" ? "Couleurs & typographies pro" : "Professional colors & fonts",
-        language === "fr" ? "Conseils personnalisés" : "Personalized advice",
-      ],
+      deliverables:
+        language === "fr"
+          ? ["Maquettes visuelles (Figma)", "Design mobile & bureau", "Couleurs & typographies pro", "Conseils personnalisés"]
+          : ["Visual mockups (Figma)", "Mobile & desktop design", "Professional colors & fonts", "Personalized advice"],
       popular: false,
-      projects: 5,
     },
     {
-      icon: Code,
       title: language === "fr" ? "Site vitrine" : "Showcase Website",
       description:
         language === "fr"
-          ? "Un site clair et rapide pour présenter votre activité ou projet (ex : restaurant, portfolio, artisan)"
-          : "A clean and fast website to showcase your activity or project (e.g. restaurant, portfolio, craftsman)",
-      price: language === "fr" ? "À partir de 1200€" : "Starting from €1200",
+          ? "Un site clair et rapide pour présenter votre activité ou projet."
+          : "A clean and fast website to showcase your activity or project.",
+      price: "1 200€",
       duration: language === "fr" ? "1 à 2 semaines" : "1 to 2 weeks",
-      deliverables: [
-        language === "fr" ? "Site visible sur ordi & mobile" : "Mobile & desktop ready",
-        language === "fr" ? "Pages rapides à charger" : "Fast loading pages",
-        language === "fr" ? "Design moderne" : "Modern design",
-        language === "fr" ? "Assistance 30 jours" : "30-day support",
-      ],
+      deliverables:
+        language === "fr"
+          ? ["Mobile & bureau", "Pages rapides", "Design moderne", "Assistance 30 jours"]
+          : ["Mobile & desktop ready", "Fast loading pages", "Modern design", "30-day support"],
       popular: true,
-      projects: 12,
     },
     {
-      icon: Server,
       title: language === "fr" ? "Site avec fonctionnalités" : "Website with Features",
       description:
         language === "fr"
-          ? "Ajout de fonctionnalités : Avis, formulaire de contact, réservation..."
-          : "Add features like reviews, contact form, booking...",
-      price: language === "fr" ? "À partir de 2500€" : "Starting from €2500",
+          ? "Avis, formulaire de contact, réservation, espace personnel, et plus."
+          : "Reviews, contact form, booking, personal space, and more.",
+      price: "2 500€",
       duration: language === "fr" ? "2 à 5 semaines" : "2 to 5 weeks",
-      deliverables: [
-        language === "fr" ? "Espace personnel sécurisé" : "Secure personal space",
-        language === "fr" ? "Formulaires simples à utiliser" : "Easy-to-use forms",
-        language === "fr" ? "Connexion avec identifiants" : "Login system",
-        language === "fr" ? "Hébergement en ligne inclus" : "Online hosting included",
-      ],
+      deliverables:
+        language === "fr"
+          ? ["Espace personnel sécurisé", "Formulaires simples", "Connexion identifiants", "Hébergement inclus"]
+          : ["Secure personal space", "Easy-to-use forms", "Login system", "Online hosting included"],
       popular: false,
-      projects: 6,
     },
     {
-      icon: Layers,
       title: language === "fr" ? "Site complet" : "Complete Website",
       description:
         language === "fr"
-          ? "Création d’un site avec plusieurs pages, fonctionnalités personnalisées, base de données, et tout ce qu’il faut"
-          : "A complete website with multiple pages, custom features, database, and everything needed",
-      price: language === "fr" ? "À partir de 4800€" : "Starting from €4800",
+          ? "Plusieurs pages, fonctionnalités personnalisées, base de données, et tout ce qu'il faut."
+          : "Multiple pages, custom features, database, and everything needed.",
+      price: "4 800€",
       duration: language === "fr" ? "4 à 8 semaines" : "4 to 8 weeks",
-      deliverables: [
-        language === "fr" ? "Site sur mesure" : "Custom website",
-        language === "fr" ? "Fonctionnalités avancées" : "Advanced features",
-        language === "fr" ? "Stockage des données" : "Data storage",
-        language === "fr" ? "Assistance 60 jours" : "60-day support",
-      ],
+      deliverables:
+        language === "fr"
+          ? ["Site sur mesure", "Fonctionnalités avancées", "Stockage des données", "Assistance 60 jours"]
+          : ["Custom website", "Advanced features", "Data storage", "60-day support"],
       popular: false,
-      projects: 9,
     },
   ];
+
   const sectionVariants = {
     hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: { staggerChildren: 0.2, delayChildren: 0.2 },
-    },
+    visible: { opacity: 1, transition: { staggerChildren: 0.1 } },
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" } },
   };
 
   return (
     <motion.section
-      className="min-h-screen flex items-center justify-center py-20 p-4 bg-gradient-to-br dark:from-muted/30 dark:to-muted/50 from-muted/80 to-muted/90"
+      className="py-24 sm:py-32"
       id="services-section"
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, amount: 0.1 }}
       variants={sectionVariants}
     >
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div className="text-center mb-16" variants={itemVariants}>
-          <h2 className="text-4xl md:text-5xl font-bold items-center justify-center text-center mb-4">
-            {language === "fr" ? (
-              <>
-                Packages<span className="text-primary"> Professionnels</span>
-              </>
-            ) : (
-              <>
-                <span className="text-primary">Professional</span> Packages
-              </>
-            )}
-          </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            {language === "fr"
-              ? "Choisissez le package qui correspond à vos besoins avec des prix transparents"
-              : "Choose the package that fits your needs with transparent pricing"}
-          </p>
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl">
+        <motion.div variants={itemVariants} className="mb-16">
+          <p className="eyebrow mb-4">{language === "fr" ? "Ce que je fais" : "What I do"}</p>
+          <div className="flex flex-wrap items-end justify-between gap-6">
+            <h2 className="text-4xl md:text-5xl">
+              {language === "fr" ? (
+                <>
+                  Packages <Accent className="font-serif italic font-medium">professionnels</Accent>
+                </>
+              ) : (
+                <>
+                  <Accent className="font-serif italic font-medium">Professional</Accent> Packages
+                </>
+              )}
+            </h2>
+            <p className="text-muted-foreground max-w-xs">
+              {language === "fr"
+                ? "Choisissez le package qui correspond à vos besoins — prix transparents, à chaque fois."
+                : "Choose the package that fits your needs — transparent pricing, every time."}
+            </p>
+          </div>
         </motion.div>
 
-        <motion.div className="grid lg:grid-cols-4 gap-8 max-w-8xl mx-auto" variants={sectionVariants}>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 items-stretch">
           {services.map((service, index) => (
             <motion.div
               key={index}
               variants={itemVariants}
-              initial={{ scale: service.popular ? 1.05 : 1 }}
-              whileHover={{ scale: service.popular ? 1.1 : 1.05, y: -8 }}
-              transition={{ type: "spring", stiffness: 300, damping: 15 }}
+              className={`flex flex-col rounded-2xl border p-7 ${
+                service.popular ? "border-accent bg-accent/5 lg:-translate-y-3 shadow-lg shadow-accent/10" : "border-border bg-card"
+              }`}
             >
-              <Card
-                className={`h-full flex flex-col transition-all duration-300 ${
-                  service.popular
-                    ? "border-2 border-blue-500 shadow-xl"
-                    : "border hover:border-blue-300 dark:hover:border-blue-700 hover:shadow-lg"
-                }`}
+              {service.popular && (
+                <span className="self-start mb-4 rounded-full bg-accent text-accent-foreground text-[10px] font-semibold uppercase tracking-wider px-3 py-1">
+                  {language === "fr" ? "Plus populaire" : "Most Popular"}
+                </span>
+              )}
+
+              <h3 className="text-lg font-display font-bold mb-2">{service.title}</h3>
+              <p className="text-sm text-muted-foreground leading-relaxed mb-6 flex-1">{service.description}</p>
+
+              <div className="mb-6">
+                <div className="flex items-baseline gap-1.5">
+                  <span className="text-xs text-muted-foreground">{language === "fr" ? "À partir de" : "Starting from"}</span>
+                </div>
+                <div className="font-serif text-4xl font-semibold">{service.price}</div>
+                <div className="flex items-center gap-1.5 text-xs text-muted-foreground mt-1.5">
+                  <Clock className="h-3 w-3" />
+                  {service.duration}
+                </div>
+              </div>
+
+              <ul className="space-y-2.5 mb-8">
+                {service.deliverables.map((point, i) => (
+                  <li key={i} className="flex items-start gap-2 text-sm">
+                    <Check className="h-3.5 w-3.5 mt-0.5 text-accent-foreground flex-shrink-0" />
+                    {point}
+                  </li>
+                ))}
+              </ul>
+
+              <Button
+                variant={service.popular ? "default" : "outline"}
+                className="w-full mt-auto"
+                onClick={(e) => {
+                  setSelectedPackage(service.title);
+                  scrollToSection("contact-section", e);
+                }}
               >
-                {service.popular && (
-                  <div className="absolute left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10">
-                    <div className="bg-blue-500 text-white px-4 py-1 rounded-full text-sm font-medium">
-                      {language === "fr" ? "Plus Populaire" : "Most Popular"}
-                    </div>
-                  </div>
-                )}
-
-                <CardContent className="p-8 flex flex-col flex-grow">
-                  {/* Header */}
-                  <div className="text-center mb-6">
-                    <div
-                      className={`w-16 h-16 mx-auto mb-4 rounded-2xl flex items-center justify-center ${
-                        service.popular ? "bg-blue-500 text-white" : "bg-blue-100 dark:bg-blue-900 text-blue-600"
-                      }`}
-                    >
-                      <service.icon className="h-8 w-8" />
-                    </div>
-                    <h3 className="text-xl font-bold mb-2">{service.title}</h3>
-                    <p className="text-muted-foreground text-sm mb-4 h-12">{service.description}</p>
-                    <div className="text-3xl font-bold text-blue-600 mb-1">{service.price}</div>
-                    <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
-                      <Clock className="h-4 w-4" />
-                      {service.duration}
-                    </div>
-                  </div>
-
-                  {/* Deliverables */}
-                  <div className="space-y-3 mb-8 flex-grow">
-                    {service.deliverables.map((deliverable, deliverableIndex) => (
-                      <div key={deliverableIndex} className="flex items-center gap-3">
-                        <CheckCircle className="h-5 w-5 text-green-500 flex-shrink-0" />
-                        <span className="text-sm">{deliverable}</span>
-                      </div>
-                    ))}
-                  </div>
-
-                  {/* CTA Button */}
-                  <Button
-                    className={`w-full mt-auto ${
-                      service.popular
-                        ? "bg-blue-500 hover:bg-blue-600 text-white"
-                        : "bg-white dark:bg-gray-800 border-2 border-blue-500 text-blue-500 hover:bg-blue-50 dark:hover:bg-blue-950"
-                    }`}
-                    onClick={(e) => scrollToSection("contact-section", e)}
-                  >
-                    {language === "fr" ? "Choisir ce package" : "Choose this package"}
-                    <ArrowRight className="ml-2 h-4 w-4" />
-                  </Button>
-
-                  {/* Stats */}
-                  <div className="flex items-center justify-center gap-4 mt-6 pt-6 border-t">
-                    <div className="flex items-center gap-1 text-xs text-muted-foreground">
-                      <Users className="h-3 w-3" />
-                      <span>
-                        {service.projects}+ {language === "fr" ? "projets" : "projects"}
-                      </span>
-                    </div>
-                    <div className="flex items-center gap-1 text-xs text-muted-foreground">
-                      <CheckCircle className="h-3 w-3" />
-                      <span>100% {language === "fr" ? "satisfait" : "satisfied"}</span>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
+                {language === "fr" ? "Choisir ce forfait" : "Choose this plan"}
+              </Button>
             </motion.div>
           ))}
-        </motion.div>
+        </div>
 
         {/* Bottom CTA */}
-        <motion.div className="text-center mt-24" variants={itemVariants}>
-          <div className="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg border max-w-2xl mx-auto">
-            <h3 className="text-2xl font-bold mb-4">{language === "fr" ? "Besoin d'un devis personnalisé ?" : "Need a custom quote?"}</h3>
-            <p className="text-muted-foreground mb-6">
-              {language === "fr"
-                ? "Chaque projet est unique. Discutons de vos besoins spécifiques pour un devis sur mesure."
-                : "Every project is unique. Let's discuss your specific needs for a tailored quote."}
-            </p>
-            <Button
-              size="lg"
-              onClick={(e) => scrollToSection("contact-section", e)}
-              className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white"
-            >
-              {language === "fr" ? "Demander un devis" : "Request a quote"}
-              <ArrowRight className="ml-2 h-5 w-5" />
-            </Button>
+        <motion.div variants={itemVariants} className="mt-16 relative rounded-3xl overflow-hidden bg-foreground text-background grain">
+          <div className="relative grid md:grid-cols-[1.1fr_0.9fr] gap-10 items-center px-8 sm:px-14 py-16">
+            <div>
+              <span className="inline-flex items-center rounded-full bg-background/10 border border-background/20 px-3 py-1 text-xs font-semibold uppercase tracking-wider mb-5">
+                {language === "fr" ? "100% gratuit" : "100% free"}
+              </span>
+              <h3 className="text-3xl sm:text-4xl font-display font-bold max-w-xl mb-4">
+                {language === "fr" ? "Besoin d'un devis personnalisé ?" : "Need a custom quote?"}
+              </h3>
+              <p className="text-background/70 max-w-md mb-8">
+                {language === "fr"
+                  ? "Je vous envoie un devis clair et détaillé sous 24h — gratuit et sans engagement, pour que vous sachiez exactement ce que vous payez avant de commencer."
+                  : "I'll send you a clear, detailed quote within 24h — free of charge and with no commitment, so you know exactly what you're paying for before we start."}
+              </p>
+              <button
+                onClick={(e) => {
+                  setSelectedPackage(language === "fr" ? "Devis personnalisé" : "Custom quote");
+                  scrollToSection("contact-section", e);
+                }}
+                className="inline-flex items-center gap-2 h-12 px-7 rounded-full bg-background text-foreground font-semibold text-sm hover:bg-background/90 transition-colors"
+              >
+                {language === "fr" ? "Demander un devis gratuit" : "Request a free quote"}
+                <ArrowUpRight className="h-4 w-4" />
+              </button>
+            </div>
+
+            <QuotePreview label={language === "fr" ? "Exemple de devis" : "Example quote"} />
           </div>
         </motion.div>
       </div>

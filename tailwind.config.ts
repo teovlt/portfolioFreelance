@@ -6,7 +6,11 @@ const config = {
   prefix: "",
   theme: {
     extend: {
-      fontFamily: {},
+      fontFamily: {
+        sans: ["Inter", "system-ui", "sans-serif"],
+        display: ["Fraunces", "serif"],
+        serif: ["Fraunces", "serif"],
+      },
       colors: {
         primary: {
           DEFAULT: "hsl(var(--primary))",

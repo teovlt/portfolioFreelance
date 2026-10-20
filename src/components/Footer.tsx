@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { Github, Linkedin, Mail } from "lucide-react";
+import { ArrowUpRight, Github, Linkedin, Mail } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import { Link } from "react-router-dom";
 import { scrollToSection } from "@/utils/scrollToSection";
@@ -16,62 +16,83 @@ export function Footer() {
     { label: t("footer.nav.experiences"), sectionId: "experiences-section" },
     { label: t("footer.nav.services"), sectionId: "services-section" },
     { label: t("footer.nav.projects"), sectionId: "projects-section" },
-    { label: t("footer.nav.reviews"), sectionId: "reviews-section" },
     { label: t("footer.nav.contact"), sectionId: "contact-section" },
   ];
 
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-muted/30 py-4 md:py-12 flex items-center justify-center">
-      <div className="container space-y-8">
-        <div className="flex flex-col md:flex-row justify-between items-center">
-          <div className="mb-6 md:mb-0 flex-col text-center md:text-left px-4">
-            <Link to="/" className="font-bold text-xl">
-              <span className="text-primary">{t("footer.brand.primary")} </span>
-              {t("footer.brand.secondary")}
-            </Link>
-            <p className="text-muted-foreground mt-2 text-sm">{t("footer.tagline")}</p>
+    <footer className="relative bg-foreground text-background overflow-hidden grain">
+      <div className="relative container mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-28 space-y-16">
+        <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-10">
+          <div>
+            <p className="eyebrow text-background/50 mb-5">{t("footer.brand.eyebrow")}</p>
+            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-display font-bold tracking-tight max-w-xl">
+              {t("footer.brand.titleStart")}{" "}
+              <span className="font-serif italic font-medium text-accent">{t("footer.brand.titleHighlight")}</span>
+            </h2>
           </div>
-          <div className="flex items-center gap-4">
-            <Button variant="ghost" size="icon" asChild aria-label="GitHub">
-              <Link to="https://github.com/teovlt" target="_blank" rel="noopener noreferrer">
-                <Github className="h-5 w-5" />
-              </Link>
-            </Button>
-            <Button variant="ghost" size="icon" asChild aria-label="LinkedIn">
-              <Link to="https://www.linkedin.com/in/teo-villet/" target="_blank" rel="noopener noreferrer">
-                <Linkedin className="h-5 w-5" />
-              </Link>
-            </Button>
-            <Button variant="ghost" size="icon" asChild aria-label="Email">
-              <Link to="mailto:teo.villet2@gmail.com">
-                <Mail className="h-5 w-5" />
-              </Link>
-            </Button>
-          </div>
+          <Button
+            asChild
+            size="lg"
+            className="rounded-full bg-background text-foreground hover:bg-background/90 flex-shrink-0 w-fit"
+            onClick={(e) => scrollToSection("contact-section", e)}
+          >
+            <a href="#contact-section" onClick={(e) => scrollToSection("contact-section", e)}>
+              {t("footer.cta")}
+              <ArrowUpRight className="h-4 w-4" />
+            </a>
+          </Button>
         </div>
 
-        <Separator />
+        <Link
+          to="mailto:teo.villet2@gmail.com"
+          className="inline-block font-serif italic text-2xl sm:text-3xl text-background/90 border-b border-background/30 hover:border-background transition-colors"
+        >
+          teo.villet2@gmail.com
+        </Link>
 
-        <div className="flex flex-col md:flex-row justify-between items-center">
-          <div className="mb-4 md:mb-0 sm:mb-0">
-            <p className="text-sm text-muted-foreground">
-              © {currentYear} Téo Villet. {t("footer.rights")}
-            </p>
-          </div>
-          <nav className="hidden sm:flex gap-6">
+        <Separator className="bg-background/15" />
+
+        <div className="flex flex-col md:flex-row justify-between items-center gap-6">
+          <p className="text-sm text-background/50 order-3 md:order-1">
+            © {currentYear} Téo Villet. {t("footer.rights")}
+          </p>
+          <nav className="flex flex-wrap justify-center gap-x-6 gap-y-2 order-1 md:order-2 text-sm">
             {navItems.map(({ label, sectionId }) => (
               <Link
                 key={sectionId}
                 to={`#${sectionId}`}
-                className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                className="text-background/60 hover:text-background transition-colors"
                 onClick={(e) => scrollToSection(sectionId, e)}
               >
                 {label}
               </Link>
             ))}
           </nav>
+          <div className="flex items-center gap-1 order-2 md:order-3">
+            <Button variant="ghost" size="icon" asChild aria-label="GitHub" className="text-background hover:bg-background/10 hover:text-background">
+              <Link to="https://github.com/teovlt" target="_blank" rel="noopener noreferrer">
+                <Github className="h-5 w-5" />
+              </Link>
+            </Button>
+            <Button
+              variant="ghost"
+              size="icon"
+              asChild
+              aria-label="LinkedIn"
+              className="text-background hover:bg-background/10 hover:text-background"
+            >
+              <Link to="https://www.linkedin.com/in/teo-villet/" target="_blank" rel="noopener noreferrer">
+                <Linkedin className="h-5 w-5" />
+              </Link>
+            </Button>
+            <Button variant="ghost" size="icon" asChild aria-label="Email" className="text-background hover:bg-background/10 hover:text-background">
+              <Link to="mailto:teo.villet2@gmail.com">
+                <Mail className="h-5 w-5" />
+              </Link>
+            </Button>
+          </div>
         </div>
       </div>
     </footer>

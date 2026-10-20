@@ -40,18 +40,18 @@ export default function NotFound() {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:from-gray-900 dark:via-blue-950 dark:to-purple-950 flex flex-col">
+    <div className="min-h-screen flex flex-col">
       {/* Main Content */}
       <div className="flex-1 flex items-center justify-center px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto text-center">
-          {/* 404 Animation */}
-          <div className="mb-12 relative">
-            <div className="text-[12rem] sm:text-[16rem] font-bold text-blue-100 dark:text-blue-900/30 leading-none select-none">404</div>
+          {/* 404 */}
+          <div className="mb-8 relative">
+            <div className="text-[9rem] sm:text-[12rem] font-display font-bold text-border leading-none select-none">404</div>
           </div>
 
           {/* Error Message */}
           <div className="mb-12">
-            <h1 className="text-3xl sm:text-4xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+            <h1 className="text-3xl sm:text-4xl mb-4">
               {language === "fr" ? "Page non trouvée" : "Page Not Found"}
             </h1>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
@@ -64,7 +64,7 @@ export default function NotFound() {
           {/* Quick Actions */}
           <div className="mb-12">
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
-              <Button asChild size="lg" className="bg-blue-600 hover:bg-blue-700 text-white px-8">
+              <Button asChild size="lg">
                 <Link to="/">
                   <Home className="mr-2 h-5 w-5" />
                   {language === "fr" ? "Retour à l'accueil" : "Back to Home"}

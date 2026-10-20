@@ -1,66 +1,47 @@
 import { Helmet } from "react-helmet";
 import { motion } from "framer-motion";
-import { Dumbbell, Crown, Ship, MapPin, Calendar, Heart, Footprints } from "lucide-react";
+import { MapPin, Calendar } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { FunFactCard } from "@/components/FunCard"; // Assurez-vous que ce composant est prêt pour framer-motion si besoin
 import { useTranslation } from "react-i18next";
-import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Accent } from "@/components/customs/accent-text";
 
 export const About = () => {
   const { t } = useTranslation();
 
   const skills = ["React", "Next.js", "TypeScript", "Node.js", "PostgreSQL", "MongoDB", "Tailwind CSS", "Docker", "Vercel", "Git"];
 
-  // Variants pour l'animation de la section principale et de ses enfants
+  const quickFacts = [
+    { value: "4+", label: t("about.quick.experience") },
+    { value: "20+", label: t("about.quick.projects") },
+    { value: "100%", label: t("about.quick.satisfaction") },
+    { value: "24h", label: t("about.quick.response") },
+  ];
+
   const sectionVariants = {
     hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-      },
-    },
+    visible: { opacity: 1, transition: { staggerChildren: 0.15 } },
   };
 
-  // Variants pour les éléments individuels (fade in + slide up)
   const itemVariants = {
     hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.6,
-        ease: "easeOut",
-      },
-    },
-  };
-
-  // Variants pour le conteneur des badges de compétences
-  const skillsContainerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.05, // Animation plus rapide pour les badges
-      },
-    },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
   };
 
   return (
     <motion.section
       id="about-section"
-      className="min-h-screen flex items-center justify-center bg-muted/50 py-20"
+      className="py-24 sm:py-32"
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, amount: 0.1 }} // Déclenche une fois quand 10% est visible
+      viewport={{ once: true, amount: 0.1 }}
       variants={sectionVariants}
     >
       <Helmet>
         <title>Téo Villet - Développeur Fullstack Freelance à Grenoble</title>
         <meta
           name="description"
-          content="Découvrez qui est Téo Villet, développeur web fullstack freelance basé à Grenoble. Compétences, fun facts, parcours et plus encore."
+          content="Découvrez qui est Téo Villet, développeur web fullstack freelance basé à Grenoble. Compétences, expérience, parcours et plus encore."
         />
       </Helmet>
 
@@ -68,38 +49,38 @@ export const About = () => {
         <div className="max-w-6xl mx-auto">
           <h1 className="sr-only">À propos de Téo Villet, Développeur Web Fullstack Freelance à Grenoble</h1>
 
-          <div className="text-center mb-16">
-            <motion.h2 variants={itemVariants} className="text-4xl md:text-5xl font-bold">
-              {t("about.title")} <span className="text-primary">{t("about.me")}</span>
-            </motion.h2>
-          </div>
+          <motion.p variants={itemVariants} className="eyebrow mb-4">
+            {t("about.eyebrow")}
+          </motion.p>
 
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
+          <motion.h2 variants={itemVariants} className="text-4xl md:text-5xl mb-16 max-w-xl">
+            {t("about.title")} <Accent className="font-serif italic font-medium">{t("about.me")}</Accent>
+          </motion.h2>
+
+          <div className="grid lg:grid-cols-[minmax(0,380px)_1fr] gap-16 items-start">
             {/* Photo et infos */}
-            <motion.div variants={itemVariants} className="text-center lg:text-left">
-              <div className="relative inline-block mb-8">
-                <motion.div
-                  className="relative lg:w-96 lg:h-96 sm:w-80 sm:h-80 mx-auto lg:mx-0"
-                  whileHover={{ scale: 1.05, rotate: 2 }}
-                  transition={{ type: "spring", stiffness: 300 }}
-                >
-                  <Avatar className="w-full h-full shadow-lg">
+            <motion.div variants={itemVariants}>
+              <div className="relative w-full max-w-sm mx-auto lg:mx-0">
+                <div className="absolute -bottom-5 -right-5 w-full h-full rounded-2xl bg-accent -z-10" />
+                <motion.div whileHover={{ y: -4 }} transition={{ type: "spring", stiffness: 300 }} className="aspect-[4/5] w-full">
+                  <Avatar className="w-full h-full rounded-2xl border border-border shadow-sm">
                     <AvatarImage
-                      src="/images/reviews/me.png"
-                      alt="Photo de Téo Villet, développeur web freelance à Grenoble"
-                      className="object-cover w-full h-full"
+                      src="/images/about/me.jpg"
+                      alt="Photo de Téo Villet, développeur web freelance à Grenoble, en randonnée en montagne"
+                      className="object-cover w-full h-full rounded-2xl"
+                      style={{ objectPosition: "32% 28%" }}
                     />
-                    <AvatarFallback className="text-6xl">TV</AvatarFallback>
+                    <AvatarFallback className="text-6xl rounded-2xl">TV</AvatarFallback>
                   </Avatar>
                 </motion.div>
               </div>
 
-              <div className="space-y-4">
-                <div className="flex items-center justify-center lg:justify-start gap-2 text-muted-foreground">
+              <div className="flex flex-wrap gap-x-6 gap-y-2 mt-8 max-w-sm mx-auto lg:mx-0">
+                <div className="flex items-center gap-2 text-sm text-muted-foreground">
                   <MapPin className="h-4 w-4" />
                   <span>{t("about.location")}</span>
                 </div>
-                <div className="flex items-center justify-center lg:justify-start gap-2 text-muted-foreground">
+                <div className="flex items-center gap-2 text-sm text-muted-foreground">
                   <Calendar className="h-4 w-4" />
                   <span>{t("about.availability")}</span>
                 </div>
@@ -107,41 +88,28 @@ export const About = () => {
             </motion.div>
 
             {/* Description et détails */}
-            <motion.div className="space-y-8" variants={sectionVariants}>
-              <motion.div variants={itemVariants}>
-                <p className="text-lg text-muted-foreground leading-relaxed mb-6">{t("about.description")}</p>
-                <span className="sr-only">
-                  Téo Villet est développeur web fullstack freelance, passionné par React, Node.js et basé à Grenoble.
-                </span>
-              </motion.div>
+            <motion.div className="space-y-12" variants={sectionVariants}>
+              <motion.p variants={itemVariants} className="text-lg text-muted-foreground leading-relaxed max-w-2xl">
+                {t("about.description")}
+              </motion.p>
 
-              {/* Fun facts */}
-              <motion.div variants={itemVariants}>
-                <h3 className="text-xl font-semibold mb-4 text-primary">{t("about.factsTitle")}</h3>
-                <motion.div
-                  className="grid grid-cols-1 md:grid-cols-2 gap-4"
-                  variants={skillsContainerVariants} // Réutilisation pour un effet similaire
-                >
-                  <FunFactCard icon={<Dumbbell />} title={t("about.fact1.title")} description={t("about.fact1.desc")} />
-                  <FunFactCard icon={<Crown />} title={t("about.fact2.title")} description={t("about.fact2.desc")} />
-                  <FunFactCard icon={<Ship />} title={t("about.fact3.title")} description={t("about.fact3.desc")} />
-                  <FunFactCard icon={<Footprints />} title={t("about.fact4.title")} description={t("about.fact4.desc")} />
-                </motion.div>
+              {/* Quick facts */}
+              <motion.div variants={itemVariants} className="grid grid-cols-2 sm:grid-cols-4 gap-6 border-y border-border py-8">
+                {quickFacts.map((fact, index) => (
+                  <div key={index}>
+                    <div className="text-3xl font-display font-bold tracking-tight">{fact.value}</div>
+                    <div className="text-sm text-muted-foreground mt-1">{fact.label}</div>
+                  </div>
+                ))}
               </motion.div>
 
               {/* Skills */}
               <motion.div variants={itemVariants}>
-                <h3 className="text-xl font-semibold mb-4 flex items-center gap-2">
-                  <Heart className="h-5 w-5 text-red-500" />
-                  {t("about.techTitle")}
-                </h3>
-                <motion.div className="flex flex-wrap gap-2" variants={skillsContainerVariants}>
+                <h3 className="eyebrow mb-4">{t("about.techTitle")}</h3>
+                <motion.div className="flex flex-wrap gap-2" variants={sectionVariants}>
                   {skills.map((skill, index) => (
-                    <motion.div key={index} variants={itemVariants} whileHover={{ y: -3 }}>
-                      <Badge
-                        variant="secondary"
-                        className="bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 hover:bg-blue-200 dark:hover:bg-blue-800 transition-colors cursor-pointer"
-                      >
+                    <motion.div key={index} variants={itemVariants}>
+                      <Badge variant="outline" className="font-normal">
                         {skill}
                       </Badge>
                     </motion.div>
@@ -150,13 +118,9 @@ export const About = () => {
               </motion.div>
 
               {/* Citation perso */}
-              <motion.div variants={itemVariants}>
-                <Card className="bg-blue-50 dark:bg-blue-950 border-blue-200 dark:border-blue-800">
-                  <CardContent className="p-6">
-                    <p className="text-blue-800 dark:text-blue-200 italic">{`"${t("about.quote")}"`}</p>
-                  </CardContent>
-                </Card>
-              </motion.div>
+              <motion.blockquote variants={itemVariants} className="border-l-2 border-accent pl-6">
+                <p className="font-serif italic text-xl sm:text-2xl leading-snug">{`"${t("about.quote")}"`}</p>
+              </motion.blockquote>
             </motion.div>
           </div>
         </div>
