@@ -12,6 +12,7 @@ interface Review {
   comment: string;
   avatar: string;
   image?: string;
+  website?: string;
 }
 
 export function HeroSocialProof() {
@@ -72,7 +73,19 @@ export function HeroSocialProof() {
           >
             <p className="font-serif italic text-2xl leading-snug text-foreground line-clamp-4 mb-5">"{active.comment}"</p>
             <p className="text-sm text-muted-foreground">
-              <span className="font-semibold text-foreground">{active.name}</span> · {active.company}
+              {active.website ? (
+                <a
+                  href={active.website}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-semibold text-foreground hover:text-accent transition-colors"
+                >
+                  {active.name}
+                </a>
+              ) : (
+                <span className="font-semibold text-foreground">{active.name}</span>
+              )}{" "}
+              · {active.company}
             </p>
           </motion.div>
         </AnimatePresence>
