@@ -33,6 +33,12 @@
     --ring: 217 89% 54%;
 
     --radius: 0.9rem;
+
+    /* Fixed "always dark" ink block, used for the footer and similar
+       inverted panels — intentionally not redefined under .dark so it
+       keeps its own contrast instead of flipping with the site theme. */
+    --ink: 222 47% 7%;
+    --ink-foreground: 216 25% 95%;
   }
 
   .dark {

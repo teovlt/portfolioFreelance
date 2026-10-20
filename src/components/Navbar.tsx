@@ -8,14 +8,16 @@ import { useState, useEffect, useRef } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { Button } from "./ui/button";
-import { scrollToSection } from "@/utils/scrollToSection";
+import { useSectionNav } from "@/hooks/useSectionNav";
 
 export const Navbar = () => {
   const { t } = useTranslation();
+  const { handleNavLinkClick, handleSectionButtonClick } = useSectionNav();
   const [isOpen, setIsOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("home-section");
   const [isScrolled, setIsScrolled] = useState(false);
   const menuRef = useRef(null);
+  const toggleButtonRef = useRef(null);
 
   const navItems = [
     { id: "home-section", label: t("navbar.home") },
@@ -28,7 +30,13 @@ export const Navbar = () => {
 
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (menuRef.current && !menuRef.current.contains(event.target) && isOpen) {
+      if (
+        isOpen &&
+        menuRef.current &&
+        !menuRef.current.contains(event.target) &&
+        toggleButtonRef.current &&
+        !toggleButtonRef.current.contains(event.target)
+      ) {
         setIsOpen(false);
       }
     };
@@ -81,7 +89,7 @@ export const Navbar = () => {
           >
             <Link
               to="/"
-              onClick={(e) => scrollToSection("home-section", e)}
+              onClick={(e) => handleNavLinkClick("home-section", e)}
               className="flex items-center gap-2 font-display font-bold text-base tracking-tight"
             >
               Téo Villet
@@ -91,8 +99,8 @@ export const Navbar = () => {
                 {navItems.map((item) => (
                   <Link
                     key={item.id}
-                    to={`#${item.id}`}
-                    onClick={(e) => scrollToSection(item.id, e)}
+                    to={`/#${item.id}`}
+                    onClick={(e) => handleNavLinkClick(item.id, e)}
                     className={cn(
                       "relative py-1 transition-colors",
                       activeSection === item.id ? "text-foreground" : "text-muted-foreground hover:text-foreground",
@@ -108,7 +116,7 @@ export const Navbar = () => {
                 <LanguageChanger />
                 <ThemeChanger />
               </div>
-              <Button size="sm" className="rounded-full" onClick={(e) => scrollToSection("contact-section", e)}>
+              <Button size="sm" className="rounded-full" onClick={(e) => handleSectionButtonClick("contact-section", e)}>
                 {t("navbar.contactCta")}
               </Button>
             </div>
@@ -120,6 +128,7 @@ export const Navbar = () => {
               Téo Villet
             </Link>
             <motion.button
+              ref={toggleButtonRef}
               whileTap={{ scale: 0.9 }}
               onClick={() => setIsOpen(!isOpen)}
               aria-label={isOpen ? "Fermer le menu" : "Ouvrir le menu"}
@@ -149,7 +158,7 @@ export const Navbar = () => {
               animate={{ clipPath: "circle(150% at calc(100% - 2.75rem) 2.25rem)" }}
               exit={{ clipPath: "circle(2% at calc(100% - 2.75rem) 2.25rem)" }}
               transition={{ duration: 0.55, ease: [0.76, 0, 0.24, 1] }}
-              className="fixed inset-0 z-40 bg-foreground text-background grain lg:hidden"
+              className="fixed inset-0 z-40 bg-ink text-ink-foreground grain lg:hidden"
             >
               <div className="h-full flex flex-col px-6 pt-24 pb-10">
                 <nav className="flex-1 flex flex-col justify-center gap-0.5">
@@ -162,18 +171,18 @@ export const Navbar = () => {
                       transition={{ delay: 0.15 + i * 0.06, duration: 0.4, ease: "easeOut" }}
                     >
                       <Link
-                        to={`#${item.id}`}
+                        to={`/#${item.id}`}
                         onClick={(e) => {
-                          scrollToSection(item.id, e);
+                          handleNavLinkClick(item.id, e);
                           setIsOpen(false);
                         }}
-                        className="group flex items-baseline gap-4 py-3 border-b border-background/10"
+                        className="group flex items-baseline gap-4 py-3 border-b border-ink-foreground/10"
                       >
-                        <span className="font-serif text-sm text-background/40">{String(i + 1).padStart(2, "0")}</span>
+                        <span className="font-serif text-sm text-ink-foreground/40">{String(i + 1).padStart(2, "0")}</span>
                         <span
                           className={cn(
                             "font-display text-3xl sm:text-4xl font-bold transition-colors",
-                            activeSection === item.id ? "text-accent" : "text-background group-hover:text-accent",
+                            activeSection === item.id ? "text-accent" : "text-ink-foreground group-hover:text-accent",
                           )}
                         >
                           {item.label}
@@ -188,11 +197,11 @@ export const Navbar = () => {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: 16 }}
                   transition={{ delay: 0.5, duration: 0.4 }}
-                  className="flex flex-col gap-6 pt-8 border-t border-background/10"
+                  className="flex flex-col gap-6 pt-8 border-t border-ink-foreground/10"
                 >
                   <Link
                     to="mailto:teo.villet2@gmail.com"
-                    className="flex items-center gap-2 text-sm text-background/70 hover:text-background transition-colors w-fit"
+                    className="flex items-center gap-2 text-sm text-ink-foreground/70 hover:text-ink-foreground transition-colors w-fit"
                   >
                     <Mail className="h-4 w-4" />
                     teo.villet2@gmail.com
@@ -203,9 +212,9 @@ export const Navbar = () => {
                       <ThemeChanger />
                     </div>
                     <Button
-                      className="bg-background text-foreground hover:bg-background/90"
+                      className="bg-ink-foreground text-ink hover:bg-ink-foreground/90"
                       onClick={(e) => {
-                        scrollToSection("contact-section", e);
+                        handleSectionButtonClick("contact-section", e);
                         setIsOpen(false);
                       }}
                     >
