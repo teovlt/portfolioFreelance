@@ -111,7 +111,7 @@ export const Home = () => {
               </div>
             </motion.div>
 
-            <motion.div variants={itemVariants} className="flex flex-wrap items-center gap-x-12 gap-y-4 border-t border-border pt-5">
+            <motion.div variants={itemVariants} className="hidden sm:flex flex-wrap items-center gap-x-12 gap-y-4 border-t border-border pt-5">
               {stats.map((stat, i) => (
                 <div key={i} className="flex items-baseline gap-2">
                   <span className="text-3xl sm:text-4xl font-display font-bold tracking-tight">{stat.value}</span>
