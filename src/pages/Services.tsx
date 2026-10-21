@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Check, ArrowUpRight, Clock, FileText } from "lucide-react";
+import { Check, ArrowUpRight, Clock, FileText, Handshake, Percent, PenTool, RefreshCw } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { scrollToSection } from "@/utils/scrollToSection";
 import { motion } from "framer-motion";
@@ -45,10 +45,11 @@ export function Services() {
           : "Modern mockups that match your brand, before moving into development.",
       price: "800€",
       duration: language === "fr" ? "1 à 2 semaines" : "1 to 2 weeks",
+      badge: language === "fr" ? "Étape optionnelle" : "Optional step",
       deliverables:
         language === "fr"
-          ? ["Maquettes visuelles (Figma)", "Design mobile & bureau", "Couleurs & typographies pro", "Conseils personnalisés"]
-          : ["Visual mockups (Figma)", "Mobile & desktop design", "Professional colors & fonts", "Personalized advice"],
+          ? ["Maquettes visuelles (Figma)", "Design mobile & bureau", "Couleurs & typographies pro", "Combinable avec un forfait développement"]
+          : ["Visual mockups (Figma)", "Mobile & desktop design", "Professional colors & fonts", "Can be combined with a dev package"],
       popular: false,
     },
     {
@@ -59,10 +60,11 @@ export function Services() {
           : "A clean and fast website to showcase your activity or project.",
       price: "1 200€",
       duration: language === "fr" ? "1 à 2 semaines" : "1 to 2 weeks",
+      badge: language === "fr" ? "Plus populaire" : "Most Popular",
       deliverables:
         language === "fr"
-          ? ["Mobile & bureau", "Pages rapides", "Design moderne", "Assistance 30 jours"]
-          : ["Mobile & desktop ready", "Fast loading pages", "Modern design", "30-day support"],
+          ? ["Mobile & bureau", "Pages rapides & optimisées", "Design moderne sur-mesure", "Hébergement & assistance 30 jours inclus"]
+          : ["Mobile & desktop ready", "Fast, optimized pages", "Custom modern design", "Hosting & 30-day support included"],
       popular: true,
     },
     {
@@ -75,8 +77,8 @@ export function Services() {
       duration: language === "fr" ? "2 à 5 semaines" : "2 to 5 weeks",
       deliverables:
         language === "fr"
-          ? ["Espace personnel sécurisé", "Formulaires simples", "Connexion identifiants", "Hébergement inclus"]
-          : ["Secure personal space", "Easy-to-use forms", "Login system", "Online hosting included"],
+          ? ["Espace personnel sécurisé", "Formulaires & réservation", "Connexion identifiants", "Hébergement & assistance 30 jours inclus"]
+          : ["Secure personal space", "Forms & booking system", "Login system", "Hosting & 30-day support included"],
       popular: false,
     },
     {
@@ -89,8 +91,8 @@ export function Services() {
       duration: language === "fr" ? "4 à 8 semaines" : "4 to 8 weeks",
       deliverables:
         language === "fr"
-          ? ["Site sur mesure", "Fonctionnalités avancées", "Stockage des données", "Assistance 60 jours"]
-          : ["Custom website", "Advanced features", "Data storage", "60-day support"],
+          ? ["Site sur mesure multi-pages", "Fonctionnalités avancées", "Base de données & stockage", "Hébergement & assistance 60 jours inclus"]
+          : ["Custom multi-page website", "Advanced features", "Database & storage", "Hosting & 60-day support included"],
       popular: false,
     },
   ];
@@ -146,9 +148,15 @@ export function Services() {
                 service.popular ? "border-accent bg-accent/5 lg:-translate-y-3 shadow-lg shadow-accent/10" : "border-border bg-card"
               }`}
             >
-              {service.popular && (
-                <span className="self-start mb-4 rounded-full bg-accent text-accent-foreground text-[10px] font-semibold uppercase tracking-wider px-3 py-1">
-                  {language === "fr" ? "Plus populaire" : "Most Popular"}
+              {service.badge && (
+                <span
+                  className={`self-start mb-4 rounded-full text-[10px] font-semibold uppercase tracking-wider px-3 py-1 ${
+                    service.popular
+                      ? "bg-accent text-accent-foreground"
+                      : "bg-muted text-muted-foreground border border-border"
+                  }`}
+                >
+                  {service.badge}
                 </span>
               )}
 
@@ -188,6 +196,29 @@ export function Services() {
             </motion.div>
           ))}
         </div>
+
+        {/* Trust strip */}
+        <motion.div
+          variants={itemVariants}
+          className="mt-10 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-center text-sm text-muted-foreground"
+        >
+          <div className="flex items-center gap-2">
+            <Handshake className="h-4 w-4 text-accent-foreground flex-shrink-0" />
+            {language === "fr" ? "Accompagnement du début à la fin" : "Support from start to finish"}
+          </div>
+          <div className="flex items-center gap-2">
+            <Percent className="h-4 w-4 text-accent-foreground flex-shrink-0" />
+            {language === "fr" ? "Prix ouverts à la négociation" : "Prices open to negotiation"}
+          </div>
+          <div className="flex items-center gap-2">
+            <PenTool className="h-4 w-4 text-accent-foreground flex-shrink-0" />
+            {language === "fr" ? "Maquettes avant développement si besoin" : "Mockups before development if needed"}
+          </div>
+          <div className="flex items-center gap-2">
+            <RefreshCw className="h-4 w-4 text-accent-foreground flex-shrink-0" />
+            {language === "fr" ? "Création de site ou refonte d'un site existant" : "New builds or redesigns of existing sites"}
+          </div>
+        </motion.div>
 
         {/* Bottom CTA */}
         <motion.div variants={itemVariants} className="mt-16 relative rounded-3xl overflow-hidden bg-foreground text-background grain">
