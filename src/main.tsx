@@ -7,6 +7,7 @@ import { ThemeProvider } from "./providers/theme-provider";
 import "./lib/i18n";
 import { Toaster } from "./components/ui/sonner";
 import { Helmet } from "react-helmet";
+import { Preloader } from "./components/Preloader";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
@@ -15,6 +16,7 @@ createRoot(document.getElementById("root")!).render(
         <title>Téo Villet</title>
         <meta name="description" content="Portfolio Téo Villet" />
       </Helmet>
+      <Preloader />
       <RouterProvider router={router} />
       <Toaster />
     </ThemeProvider>
