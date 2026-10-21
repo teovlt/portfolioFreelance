@@ -1,15 +1,45 @@
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 
 const NAME = "Téo Villet";
+const BLOCKED_KEYS = new Set([" ", "ArrowUp", "ArrowDown", "PageUp", "PageDown", "Home", "End"]);
 
 export const Preloader = () => {
   const [progress, setProgress] = useState(0);
   const [done, setDone] = useState(false);
 
-  useEffect(() => {
-    document.body.style.overflow = "hidden";
+  // Fully lock scrolling while the preloader is up, instead of only toggling
+  // body overflow — on some browsers (notably touch devices) that alone
+  // doesn't stop the user from scrolling the page behind it before reveal.
+  useLayoutEffect(() => {
+    if (done) return;
 
+    const html = document.documentElement;
+    const { body } = document;
+    const prevHtmlOverflow = html.style.overflow;
+    const prevBodyOverflow = body.style.overflow;
+    html.style.overflow = "hidden";
+    body.style.overflow = "hidden";
+
+    const preventScroll = (e: Event) => e.preventDefault();
+    const preventScrollKeys = (e: KeyboardEvent) => {
+      if (BLOCKED_KEYS.has(e.key)) e.preventDefault();
+    };
+
+    window.addEventListener("wheel", preventScroll, { passive: false });
+    window.addEventListener("touchmove", preventScroll, { passive: false });
+    window.addEventListener("keydown", preventScrollKeys);
+
+    return () => {
+      html.style.overflow = prevHtmlOverflow;
+      body.style.overflow = prevBodyOverflow;
+      window.removeEventListener("wheel", preventScroll);
+      window.removeEventListener("touchmove", preventScroll);
+      window.removeEventListener("keydown", preventScrollKeys);
+    };
+  }, [done]);
+
+  useEffect(() => {
     const duration = 1400;
     const start = performance.now();
     let raf = 0;
@@ -27,10 +57,6 @@ export const Preloader = () => {
     raf = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(raf);
   }, []);
-
-  useEffect(() => {
-    if (done) document.body.style.overflow = "";
-  }, [done]);
 
   return (
     <AnimatePresence>
