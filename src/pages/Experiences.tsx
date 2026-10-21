@@ -12,7 +12,7 @@ export const Experiences = () => {
       kind: "education",
       date: "2024 — 2027",
       org: t("experiences.timeline.0.org"),
-      initials: "IMT",
+      logo: "/images/experiences/imt-nord-europe.png",
       accent: "primary",
       title: t("experiences.timeline.0.title"),
       subtitle: t("experiences.timeline.0.subtitle"),
@@ -24,7 +24,7 @@ export const Experiences = () => {
       kind: "work",
       date: t("experiences.timeline.1.date"),
       org: t("experiences.timeline.1.org"),
-      initials: "GL",
+      logo: "/images/experiences/gipsa-lab.png",
       accent: "accent",
       title: t("experiences.timeline.1.title"),
       subtitle: t("experiences.timeline.1.subtitle"),
@@ -36,7 +36,7 @@ export const Experiences = () => {
       kind: "work",
       date: t("experiences.timeline.2.date"),
       org: t("experiences.timeline.2.org"),
-      initials: "LIG",
+      logo: "/images/experiences/lig.png",
       accent: "primary",
       title: t("experiences.timeline.2.title"),
       subtitle: t("experiences.timeline.2.subtitle"),
@@ -48,7 +48,7 @@ export const Experiences = () => {
       kind: "education",
       date: "2021 — 2024",
       org: t("experiences.timeline.3.org"),
-      initials: "IUT",
+      logo: "/images/experiences/iut2-informatique.png",
       accent: "accent",
       title: t("experiences.timeline.3.title"),
       subtitle: t("experiences.timeline.3.subtitle"),
@@ -90,13 +90,9 @@ export const Experiences = () => {
               variants={item}
               className="flex flex-col sm:flex-row gap-6 rounded-2xl border border-border bg-card p-6 sm:p-8"
             >
-              {/* Logo placeholder tile */}
-              <div
-                className={`flex-shrink-0 w-14 h-14 sm:w-16 sm:h-16 rounded-xl flex items-center justify-center font-semibold text-sm ${
-                  entry.accent === "primary" ? "bg-primary/10 text-primary" : "bg-accent/20 text-accent-foreground"
-                }`}
-              >
-                {entry.initials}
+              {/* Organization logo tile */}
+              <div className="flex-shrink-0 w-14 h-14 sm:w-16 sm:h-16 rounded-xl bg-white flex items-center justify-center p-2 border border-border">
+                <img src={entry.logo} alt={entry.org} className="w-full h-full object-contain" />
               </div>
 
               <div className="flex-1">
