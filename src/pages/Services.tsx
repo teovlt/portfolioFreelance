@@ -43,7 +43,7 @@ export function Services() {
         language === "fr"
           ? "Des maquettes modernes et cohérentes avec votre image, avant de passer au développement."
           : "Modern mockups that match your brand, before moving into development.",
-      price: "800€",
+      price: "950€",
       duration: language === "fr" ? "1 à 2 semaines" : "1 to 2 weeks",
       badge: language === "fr" ? "Étape optionnelle" : "Optional step",
       deliverables:
@@ -58,7 +58,7 @@ export function Services() {
         language === "fr"
           ? "Un site clair et rapide pour présenter votre activité ou projet."
           : "A clean and fast website to showcase your activity or project.",
-      price: "1 200€",
+      price: "1 400€",
       duration: language === "fr" ? "1 à 2 semaines" : "1 to 2 weeks",
       badge: language === "fr" ? "Plus populaire" : "Most Popular",
       deliverables:
@@ -73,7 +73,7 @@ export function Services() {
         language === "fr"
           ? "Avis, formulaire de contact, réservation, espace personnel, et plus."
           : "Reviews, contact form, booking, personal space, and more.",
-      price: "2 500€",
+      price: "2 900€",
       duration: language === "fr" ? "2 à 5 semaines" : "2 to 5 weeks",
       deliverables:
         language === "fr"
@@ -87,7 +87,7 @@ export function Services() {
         language === "fr"
           ? "Plusieurs pages, fonctionnalités personnalisées, base de données, et tout ce qu'il faut."
           : "Multiple pages, custom features, database, and everything needed.",
-      price: "4 800€",
+      price: "5 500€",
       duration: language === "fr" ? "4 à 8 semaines" : "4 to 8 weeks",
       deliverables:
         language === "fr"
