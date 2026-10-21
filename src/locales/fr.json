@@ -114,17 +114,32 @@
       {
         "title": "Développement Web",
         "description": "Création de sites web sur mesure avec un accent sur la performance, le SEO et le design responsive. De la landing page simple aux applications complexes.",
-        "points": ["Design Responsive", "Solutions E-commerce", "Intégration CMS", "Développement d'API"]
+        "points": [
+          "Design Responsive",
+          "Solutions E-commerce",
+          "Intégration CMS",
+          "Développement d'API"
+        ]
       },
       {
         "title": "Développement Mobile",
         "description": "Développement d'applications mobiles natives et multiplateformes pour iOS et Android, avec un souci constant de l'expérience utilisateur et de la performance.",
-        "points": ["iOS/Android natif", "Solutions multiplateformes", "Optimisation pour les stores", "Maintenance et support"]
+        "points": [
+          "iOS/Android natif",
+          "Solutions multiplateformes",
+          "Optimisation pour les stores",
+          "Maintenance et support"
+        ]
       },
       {
         "title": "Conception UI/UX",
         "description": "Conception centrée utilisateur visant à améliorer la satisfaction et la fidélisation grâce à des interfaces intuitives et engageantes.",
-        "points": ["Recherche utilisateur", "Wireframing & Prototypage", "Design Visuel", "Tests d'utilisabilité"]
+        "points": [
+          "Recherche utilisateur",
+          "Wireframing & Prototypage",
+          "Design Visuel",
+          "Tests d'utilisabilité"
+        ]
       }
     ]
   },
@@ -133,44 +148,6 @@
     "title": "Mes",
     "highlight": "Projets Récents",
     "description": "Une sélection de mes travaux récents. Chaque projet met en valeur différentes compétences et technologies que j'ai acquises au fil du temps.",
-    "items": {
-      "project1": {
-        "title": "Achanfut",
-        "description": "Une plateforme e-commerce complète avec gestion de comptes EA, panier, intégration de paiement et authentification utilisateur."
-      },
-      "project2": {
-        "title": "MERN Boilerplate",
-        "description": "Un modèle de base pour créer des applications full-stack avec MERN, incluant l'authentification, statut en temps réel, panneau admin, et plus."
-      },
-      "project3": {
-        "title": "Portfolio",
-        "description": "Mon portfolio personnel présentant mes compétences et projets."
-      },
-      "project4": {
-        "title": "Paperlive",
-        "description": "Une application web complète pour aider les doctorants à gérer leurs projets de recherche, développée pour le Laboratoire d'Informatique de Grenoble."
-      },
-      "project5": {
-        "title": "Insight-hub",
-        "description": "Votre tableau de bord pour tracker vos statistiques. Suivez vos progrès, fixez des objectifs et restez motivé."
-      },
-      "project6": {
-        "title": "Lets-go lego",
-        "description": "Plateforme de vente aux enchères en ligne dédiée aux passionnés de Lego pour acheter, vendre et enchérir sur des produits Lego uniques."
-      },
-      "project7": {
-        "title": "Ciel Avenue",
-        "description": "Prototype d'une plateforme qui rend l'immobilier plus simple, plus rapide et plus accessible pour tous."
-      },
-      "project8": {
-        "title": "Couverto",
-        "description": "Un logiciel SaaS dédié aux restaurateurs indépendants, offrant des outils essentiels pour gérer les réservations, les tables, les services et les informations clients."
-      },
-      "project9": {
-        "title": "Job Tracker",
-        "description": "Une plateforme pour suivre vos demandes d'emploi et de stage, surveiller leur statut et organiser efficacement votre recherche d'emploi."
-      }
-    },
     "status": {
       "ongoing": "En cours",
       "done": "Terminé",

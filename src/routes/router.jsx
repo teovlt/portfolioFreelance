@@ -12,6 +12,10 @@ import { Experiences } from "@/pages/Experiences";
 import { ProjectCaseStudy } from "@/pages/ProjectCaseStudy";
 import { PackageProvider } from "@/providers/package-provider";
 import { scrollToId } from "@/utils/scrollToSection";
+import { AdminLogin } from "@/pages/admin/AdminLogin";
+import { AdminLayout } from "@/pages/admin/AdminLayout";
+import { AdminProjects } from "@/pages/admin/AdminProjects";
+import { AdminProjectForm } from "@/pages/admin/AdminProjectForm";
 
 const ScrollToTop = () => {
   const { pathname, hash } = useLocation();
@@ -62,6 +66,19 @@ export const router = createBrowserRouter([
         path: "/*",
         element: <NotFound />,
       },
+    ],
+  },
+  {
+    path: "/admin/login",
+    element: <AdminLogin />,
+  },
+  {
+    path: "/admin",
+    element: <AdminLayout />,
+    children: [
+      { path: "projects", element: <AdminProjects /> },
+      { path: "projects/new", element: <AdminProjectForm /> },
+      { path: "projects/:slug/edit", element: <AdminProjectForm /> },
     ],
   },
 ]);

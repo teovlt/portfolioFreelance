@@ -15,6 +15,9 @@ RUN pnpm install --frozen-lockfile
 # Copy source code
 COPY . .
 
+# Same-origin API in prod — nginx proxies /api to the backend container
+ENV VITE_API_URL=/api
+
 # Build the application
 RUN pnpm run build
 
