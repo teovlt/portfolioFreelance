@@ -8,4 +8,8 @@ export default defineConfig({
   resolve: { alias: { "@": path.resolve(__dirname, "./src") } },
   build: { outDir: "dist" },
   assetsInclude: ["**/*.glb"],
+  server: {
+    port: process.env.PORT ? Number(process.env.PORT) : 5173,
+    strictPort: !!process.env.PORT,
+  },
 });
