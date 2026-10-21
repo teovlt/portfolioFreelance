@@ -114,17 +114,32 @@
       {
         "title": "Web Development",
         "description": "Custom website development with focus on performance, SEO, and responsive design. From simple landing pages to complex web applications.",
-        "points": ["Responsive Design", "E-commerce Solutions", "CMS Integration", "API Development"]
+        "points": [
+          "Responsive Design",
+          "E-commerce Solutions",
+          "CMS Integration",
+          "API Development"
+        ]
       },
       {
         "title": "Mobile App Development",
         "description": "Native and cross-platform mobile app development for iOS and Android with focus on user experience and performance.",
-        "points": ["Native iOS/Android", "Cross-platform Solutions", "App Store Optimization", "Maintenance & Support"]
+        "points": [
+          "Native iOS/Android",
+          "Cross-platform Solutions",
+          "App Store Optimization",
+          "Maintenance & Support"
+        ]
       },
       {
         "title": "UI/UX Design",
         "description": "User-centered design solutions that enhance customer satisfaction and retention through intuitive and engaging interfaces.",
-        "points": ["User Research", "Wireframing & Prototyping", "Visual Design", "Usability Testing"]
+        "points": [
+          "User Research",
+          "Wireframing & Prototyping",
+          "Visual Design",
+          "Usability Testing"
+        ]
       }
     ]
   },
@@ -133,44 +148,6 @@
     "title": "My",
     "highlight": "Recent Projects",
     "description": "A selection of my recent work. Each project showcases different skills and technologies that I've acquired over the years.",
-    "items": {
-      "project1": {
-        "title": "Achanfut",
-        "description": "A full-featured e-commerce platform with EA accounts management, shopping cart, payment integration, and user authentication."
-      },
-      "project2": {
-        "title": "MERN Boilerplate",
-        "description": "A boilerplate for building full-stack applications using the MERN stack, with auth, real-time status, admin panel, and more."
-      },
-      "project3": {
-        "title": "Portfolio",
-        "description": "My personal portfolio showcasing my skills and projects."
-      },
-      "project4": {
-        "title": "Paperlive",
-        "description": "A full-featured web application to help PhD students manage their research projects, developed for the Grenoble Computer Science Laboratory."
-      },
-      "project5": {
-        "title": "Insight-hub",
-        "description": "Your own dashboard to track all the data you want, with a focus on simplicity and ease of use."
-      },
-      "project6": {
-        "title": "Lets-go lego",
-        "description": "Online auction platform for Lego enthusiasts to buy, sell, and bid on unique Lego products."
-      },
-      "project7": {
-        "title": "Ciel Avenue",
-        "description": "Prototype for a platform that makes real estate simpler, faster, and more accessible for everyone."
-      },
-      "project8": {
-        "title": "Couverto",
-        "description": "A SaaS software dedicated to independent restaurant owners, providing essential tools for managing reservations, tables, services, and customer information."
-      },
-      "project9": {
-        "title": "Job Tracker",
-        "description": "A platform to track your job and internship applications, monitor their status, and organize your job search effectively."
-      }
-    },
     "status": {
       "ongoing": "Ongoing",
       "done": "Done",

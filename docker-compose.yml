@@ -5,3 +5,12 @@ services:
     ports:
       - "80:80"
     restart: always
+    depends_on:
+      - api
+
+  api:
+    build: ./server
+    container_name: portfolio-api
+    env_file:
+      - ./server/.env
+    restart: always
