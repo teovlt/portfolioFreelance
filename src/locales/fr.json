@@ -15,7 +15,7 @@
     "titleHighlight": "grandir",
     "titleEnd": "votre activité.",
     "icreate": "Des",
-    "subtitle": "Développeur fullstack freelance basé entre Lille et Grenoble. Je conçois et développe des sites et applications sur mesure, pensés pour votre activité et vos utilisateurs — du premier brief à la mise en production.",
+    "subtitle": "Développeur fullstack freelance basé à Grenoble. Je conçois et développe des sites et applications sur mesure, pensés pour votre activité et vos utilisateurs — du premier brief à la mise en production.",
     "action1": "Me contacter",
     "action2": "Voir mes projets",
     "rating": "note moyenne",
@@ -36,7 +36,7 @@
     "eyebrow": "À propos",
     "title": "Voici un aperçu de",
     "me": "moi",
-    "description": "Développeur fullstack freelance, partagé entre Lille et Grenoble le temps de mon alternance d'ingénieur à l'IMT Nord Europe. Depuis plus de 4 ans, je conçois des outils numériques pour des laboratoires de recherche, des indépendants et de petites structures — du premier appel jusqu'à la mise en ligne, sans jamais lâcher un projet à mi-chemin. Ce qui m'intéresse, ce n'est pas juste que ça marche : c'est que ce soit propre, rapide, et que vous puissiez vous en servir sans moi dans six mois.",
+    "description": "Développeur fullstack freelance, basé à Grenoble le temps de mon alternance d'ingénieur à l'IMT Nord Europe. Depuis plus de 4 ans, je conçois des outils numériques pour des laboratoires de recherche, des indépendants et de petites structures — du premier appel jusqu'à la mise en ligne, sans jamais lâcher un projet à mi-chemin. Ce qui m'intéresse, ce n'est pas juste que ça marche : c'est que ce soit propre, rapide, et que vous puissiez vous en servir sans moi dans six mois.",
     "quick": {
       "experience": "ans d'expérience",
       "projects": "projets livrés",
@@ -44,7 +44,7 @@
       "response": "délai de réponse"
     },
     "techTitle": "Stack & outils",
-    "location": "Basé à Lille & Grenoble, France",
+    "location": "Basé à Grenoble, France",
     "availability": "Disponible pour de nouveaux projets",
     "quote": "J'aime les projets où on finit par devenir plus que client et prestataire.",
     "cta": "Travaillons ensemble"
@@ -283,7 +283,7 @@
       "title": "Coordonnées",
       "location": {
         "label": "Localisation",
-        "value": "Lille & Grenoble, FR"
+        "value": "Grenoble, FR"
       },
       "email": {
         "label": "Email"
@@ -298,11 +298,11 @@
       "eyebrow": "On travaille ensemble ?",
       "titleStart": "Parlons de",
       "titleHighlight": "votre projet.",
-      "tagline": "Développeur fullstack freelance basé entre Lille et Grenoble, disponible pour de nouveaux projets."
+      "tagline": "Développeur fullstack freelance basé à Grenoble, disponible pour de nouveaux projets."
     },
     "cta": "Me contacter",
     "rights": "Tous droits réservés.",
-    "location": "Lille & Grenoble, France",
+    "location": "Grenoble, France",
     "columns": {
       "navTitle": "Navigation",
       "contactTitle": "Contact"

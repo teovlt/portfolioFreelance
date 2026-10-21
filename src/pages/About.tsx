@@ -73,16 +73,16 @@ export const About = () => {
       variants={sectionVariants}
     >
       <Helmet>
-        <title>Téo Villet - Développeur Fullstack Freelance à Lille & Grenoble</title>
+        <title>Téo Villet - Développeur Fullstack Freelance à Grenoble</title>
         <meta
           name="description"
-          content="Découvrez qui est Téo Villet, développeur web fullstack freelance basé à Lille et Grenoble. Compétences, expérience, parcours et plus encore."
+          content="Découvrez qui est Téo Villet, développeur web fullstack freelance basé à Grenoble. Compétences, expérience, parcours et plus encore."
         />
       </Helmet>
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div>
-          <h1 className="sr-only">À propos de Téo Villet, Développeur Web Fullstack Freelance à Lille & Grenoble</h1>
+          <h1 className="sr-only">À propos de Téo Villet, Développeur Web Fullstack Freelance à Grenoble</h1>
 
           <motion.p variants={itemVariants} className="eyebrow mb-4">
             {t("about.eyebrow")}

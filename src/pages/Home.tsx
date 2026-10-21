@@ -33,10 +33,10 @@ export const Home = () => {
   return (
     <section id="home-section" className="relative min-h-screen pt-28 pb-10 flex items-center overflow-hidden">
       <Helmet>
-        <title>Téo Villet - Développeur Fullstack Freelance à Lille & Grenoble</title>
+        <title>Téo Villet - Développeur Fullstack Freelance à Grenoble</title>
         <meta
           name="description"
-          content="Téo Villet, développeur web fullstack freelance basé à Lille et Grenoble. Découvrez mon portfolio, mes projets, mon expérience et contactez-moi pour concrétiser vos idées web !"
+          content="Téo Villet, développeur web fullstack freelance basé à Grenoble. Découvrez mon portfolio, mes projets, mon expérience et contactez-moi pour concrétiser vos idées web !"
         />
       </Helmet>
 

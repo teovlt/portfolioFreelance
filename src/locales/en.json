@@ -15,7 +15,7 @@
     "titleHighlight": "grow",
     "titleEnd": "your business.",
     "icreate": "I craft",
-    "subtitle": "Freelance fullstack developer based between Lille and Grenoble. I design and build custom websites and applications, built for your business and your users — from the first brief to production.",
+    "subtitle": "Freelance fullstack developer based in Grenoble. I design and build custom websites and applications, built for your business and your users — from the first brief to production.",
     "action1": "Get in Touch",
     "action2": "View My Work",
     "rating": "average rating",
@@ -36,7 +36,7 @@
     "eyebrow": "About",
     "title": "Here's a little about",
     "me": "me",
-    "description": "I'm a freelance fullstack developer, splitting my time between Lille and Grenoble during my engineering apprenticeship at IMT Nord Europe. For over 4 years I've been building digital tools for research labs, independents and small businesses — from the first call to going live, never leaving a project half-finished. What matters to me isn't just that it works: it's that it's clean, fast, and that you can run it without me six months from now.",
+    "description": "I'm a freelance fullstack developer, based in Grenoble during my engineering apprenticeship at IMT Nord Europe. For over 4 years I've been building digital tools for research labs, independents and small businesses — from the first call to going live, never leaving a project half-finished. What matters to me isn't just that it works: it's that it's clean, fast, and that you can run it without me six months from now.",
     "quick": {
       "experience": "years experience",
       "projects": "projects delivered",
@@ -44,7 +44,7 @@
       "response": "response time"
     },
     "techTitle": "Stack & tools",
-    "location": "Based in Lille & Grenoble, France",
+    "location": "Based in Grenoble, France",
     "availability": "Available for new projects",
     "quote": "I like projects where we end up being more than just client and freelancer.",
     "cta": "Let's work together"
@@ -283,7 +283,7 @@
       "title": "Contact Information",
       "location": {
         "label": "Location",
-        "value": "Lille & Grenoble, FR"
+        "value": "Grenoble, FR"
       },
       "email": {
         "label": "Email"
@@ -298,11 +298,11 @@
       "eyebrow": "Let's work together",
       "titleStart": "Let's talk about",
       "titleHighlight": "your project.",
-      "tagline": "Freelance fullstack developer based between Lille and Grenoble, available for new projects."
+      "tagline": "Freelance fullstack developer based in Grenoble, available for new projects."
     },
     "cta": "Get in touch",
     "rights": "All rights reserved.",
-    "location": "Lille & Grenoble, France",
+    "location": "Grenoble, France",
     "columns": {
       "navTitle": "Navigation",
       "contactTitle": "Contact"
