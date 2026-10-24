@@ -1,8 +1,7 @@
 import jwt from "jsonwebtoken";
 
-export type AdminTokenPayload = {
-  adminId: string;
-  email: string;
+export type TokenPayload = {
+  userId: string;
 };
 
 const getSecret = () => {
@@ -13,10 +12,10 @@ const getSecret = () => {
   return secret;
 };
 
-export const signAdminToken = (payload: AdminTokenPayload) => {
+export const signToken = (payload: TokenPayload) => {
   return jwt.sign(payload, getSecret(), { expiresIn: "7d" });
 };
 
-export const verifyAdminToken = (token: string): AdminTokenPayload => {
-  return jwt.verify(token, getSecret()) as AdminTokenPayload;
+export const verifyToken = (token: string): TokenPayload => {
+  return jwt.verify(token, getSecret()) as TokenPayload;
 };
