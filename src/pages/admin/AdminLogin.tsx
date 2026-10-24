@@ -9,12 +9,14 @@ import { useAuth } from "@/providers/auth-provider";
 import { ApiError } from "@/lib/api";
 
 export const AdminLogin = () => {
-  const { isAuthenticated, login } = useAuth();
+  const { isAuthenticated, isLoading, login } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
-  const [email, setEmail] = useState("");
+  const [identifier, setIdentifier] = useState("");
   const [password, setPassword] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  if (isLoading) return null;
 
   if (isAuthenticated) {
     const redirectTo = (location.state as { from?: string } | null)?.from ?? "/admin/projects";
@@ -25,7 +27,7 @@ export const AdminLogin = () => {
     e.preventDefault();
     setIsSubmitting(true);
     try {
-      await login(email, password);
+      await login(identifier, password);
       navigate("/admin/projects", { replace: true });
     } catch (err) {
       toast.error(err instanceof ApiError ? err.message : "Connexion impossible.");
@@ -43,8 +45,8 @@ export const AdminLogin = () => {
         <CardContent>
           <form onSubmit={onSubmit} className="space-y-4">
             <div className="space-y-1.5">
-              <Label htmlFor="email">Email</Label>
-              <Input id="email" type="email" required value={email} onChange={(e) => setEmail(e.target.value)} />
+              <Label htmlFor="identifier">Email ou nom d'utilisateur</Label>
+              <Input id="identifier" autoComplete="username" required value={identifier} onChange={(e) => setIdentifier(e.target.value)} />
             </div>
             <div className="space-y-1.5">
               <Label htmlFor="password">Mot de passe</Label>
