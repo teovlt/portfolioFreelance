@@ -1,16 +1,19 @@
 services:
   portfolio:
     build: .
-    container_name: portfolio-app
-    ports:
-      - "80:80"
+    # Traefik (Dokploy) owns ports 80/443 — attach the domain to this service on port 80
+    expose:
+      - "80"
     restart: always
     depends_on:
       - api
 
   api:
     build: ./server
-    container_name: portfolio-api
-    env_file:
-      - ./server/.env
+    # Values come from the .env next to this file (Dokploy's "Environment" tab writes it)
+    environment:
+      MONGODB_URI: ${MONGODB_URI:?MONGODB_URI is required}
+      JWT_SECRET: ${JWT_SECRET:?JWT_SECRET is required}
+      FRONTEND_URL: ${FRONTEND_URL:-https://www.teovillet.fr}
+      PORT: 4000
     restart: always
