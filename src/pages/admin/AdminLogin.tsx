@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { Navigate, useLocation, useNavigate } from "react-router-dom";
+import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
+import { ArrowLeft } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -37,7 +38,7 @@ export const AdminLogin = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-muted/30 px-4">
+    <div className="min-h-screen flex flex-col items-center justify-center gap-4 bg-muted/30 px-4">
       <Card className="w-full max-w-sm">
         <CardHeader>
           <CardTitle>Connexion admin</CardTitle>
@@ -58,6 +59,12 @@ export const AdminLogin = () => {
           </form>
         </CardContent>
       </Card>
+      <Button asChild variant="ghost" size="sm">
+        <Link to="/">
+          <ArrowLeft className="h-4 w-4" />
+          Retour au site
+        </Link>
+      </Button>
     </div>
   );
 };
