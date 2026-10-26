@@ -129,13 +129,14 @@ export const AdminProjectForm = () => {
     } as ProjectInput;
 
     try {
-      if (isEditing) {
-        await apiRequest(`/projects/${slug}`, { method: "PUT", body: payload, token });
-      } else {
-        await apiRequest("/projects", { method: "POST", body: payload, token });
-      }
+      const saved = isEditing
+        ? await apiRequest<Project>(`/projects/${slug}`, { method: "PUT", body: payload, token })
+        : await apiRequest<Project>("/projects", { method: "POST", body: payload, token });
       toast.success("Projet enregistré.");
-      navigate("/admin/projects");
+      reset(toFormValues(saved));
+      // Stay on the form; only move when the URL no longer matches the project
+      // (new project created, or slug renamed).
+      if (saved.slug !== slug) navigate(`/admin/projects/${saved.slug}/edit`, { replace: true });
     } catch (err) {
       toast.error(err instanceof ApiError ? err.message : "Enregistrement impossible.");
     } finally {
