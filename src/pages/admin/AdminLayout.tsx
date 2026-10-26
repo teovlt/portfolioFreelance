@@ -1,13 +1,13 @@
 import { Link, Navigate, NavLink, Outlet, useLocation } from "react-router-dom";
-import { ArrowUpRight, FolderKanban, LogOut, Plus } from "lucide-react";
+import { ArrowUpRight, FolderKanban, LayoutDashboard, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ThemeChanger } from "@/components/ThemeChanger";
 import { cn } from "@/lib/utils";
 import { useAuth } from "@/providers/auth-provider";
 
 const navItems = [
-  { to: "/admin/projects", label: "Projets", icon: FolderKanban, end: true },
-  { to: "/admin/projects/new", label: "Nouveau projet", icon: Plus, end: true },
+  { to: "/admin", label: "Tableau de bord", icon: LayoutDashboard, end: true },
+  { to: "/admin/projects", label: "Projets", icon: FolderKanban, end: false },
 ];
 
 const navLinkClass = ({ isActive }: { isActive: boolean }) =>
@@ -35,7 +35,7 @@ export const AdminLayout = () => {
         <div aria-hidden className="absolute -top-24 -left-24 h-64 w-64 rounded-full bg-primary/20 blur-3xl" />
 
         <div className="relative px-6 pt-7 pb-8">
-          <Link to="/admin/projects" className="flex items-baseline gap-2">
+          <Link to="/admin" className="flex items-baseline gap-2">
             <span className="font-serif italic text-2xl">Téo Villet</span>
             <span className="rounded-md bg-accent/20 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-accent">Admin</span>
           </Link>
@@ -82,7 +82,7 @@ export const AdminLayout = () => {
         {/* Top bar */}
         <header className="sticky top-0 z-30 border-b border-border bg-background/80 backdrop-blur">
           <div className="flex h-16 items-center justify-between gap-3 px-4 sm:px-8">
-            <Link to="/admin/projects" className="lg:hidden flex items-baseline gap-2">
+            <Link to="/admin" className="lg:hidden flex items-baseline gap-2">
               <span className="font-serif italic text-xl">Téo Villet</span>
               <span className="rounded-md bg-accent/15 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-accent-foreground dark:text-accent">
                 Admin

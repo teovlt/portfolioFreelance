@@ -14,6 +14,7 @@ import { PackageProvider } from "@/providers/package-provider";
 import { scrollToId } from "@/utils/scrollToSection";
 import { AdminLogin } from "@/pages/admin/AdminLogin";
 import { AdminLayout } from "@/pages/admin/AdminLayout";
+import { AdminDashboard } from "@/pages/admin/AdminDashboard";
 import { AdminProjects } from "@/pages/admin/AdminProjects";
 import { AdminProjectForm } from "@/pages/admin/AdminProjectForm";
 
@@ -76,6 +77,7 @@ export const router = createBrowserRouter([
     path: "/admin",
     element: <AdminLayout />,
     children: [
+      { index: true, element: <AdminDashboard /> },
       { path: "projects", element: <AdminProjects /> },
       { path: "projects/new", element: <AdminProjectForm /> },
       { path: "projects/:slug/edit", element: <AdminProjectForm /> },

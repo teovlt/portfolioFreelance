@@ -30,7 +30,7 @@ export const AdminLogin = () => {
   if (isLoading) return null;
 
   if (isAuthenticated) {
-    const redirectTo = (location.state as { from?: string } | null)?.from ?? "/admin/projects";
+    const redirectTo = (location.state as { from?: string } | null)?.from ?? "/admin";
     return <Navigate to={redirectTo} replace />;
   }
 
@@ -39,7 +39,7 @@ export const AdminLogin = () => {
     setIsSubmitting(true);
     try {
       await login(identifier, password);
-      navigate("/admin/projects", { replace: true });
+      navigate("/admin", { replace: true });
     } catch (err) {
       toast.error(err instanceof ApiError ? err.message : "Connexion impossible.");
     } finally {
