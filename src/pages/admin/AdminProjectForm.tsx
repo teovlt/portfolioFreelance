@@ -15,6 +15,7 @@ import { useAuth } from "@/providers/auth-provider";
 import { apiRequest, ApiError } from "@/lib/api";
 import { ProjectStatus, type Project, type ProjectInput } from "@/types/project";
 import { ProjectStatusBadge } from "./ProjectStatusBadge";
+import { ImageUpload } from "@/components/admin/ImageUpload";
 
 const localizedText = z.object({ fr: z.string().min(1, "Requis"), en: z.string().min(1, "Requis") });
 
@@ -86,7 +87,6 @@ export const AdminProjectForm = () => {
   const { token } = useAuth();
   const [isLoading, setIsLoading] = useState(isEditing);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [imageBroken, setImageBroken] = useState(false);
 
   const {
     register,
@@ -94,6 +94,7 @@ export const AdminProjectForm = () => {
     control,
     reset,
     watch,
+    setValue,
     formState: { errors },
   } = useForm<FormValues>({ resolver: zodResolver(schema), defaultValues: emptyValues });
 
@@ -191,7 +192,11 @@ export const AdminProjectForm = () => {
       </div>
 
       {/* General */}
-      <FormSection icon={Info} title="Informations générales" description="Ce qui apparaît sur la carte du projet dans la liste du portfolio.">
+      <FormSection
+        icon={Info}
+        title="Informations générales"
+        description="Ce qui apparaît sur la carte du projet dans la liste du portfolio."
+      >
         <div className="grid sm:grid-cols-2 gap-5">
           <div className="space-y-2">
             <Label htmlFor="title">Titre</Label>
@@ -201,8 +206,15 @@ export const AdminProjectForm = () => {
           <div className="space-y-2">
             <Label htmlFor="slug">Slug (URL)</Label>
             <div className="flex rounded-md border border-input shadow-sm focus-within:ring-1 focus-within:ring-ring">
-              <span className="flex items-center rounded-l-md border-r border-input bg-muted/60 px-3 font-mono text-xs text-muted-foreground">/projects/</span>
-              <Input id="slug" placeholder="mon-projet" className="border-0 shadow-none focus-visible:ring-0 font-mono" {...register("slug")} />
+              <span className="flex items-center rounded-l-md border-r border-input bg-muted/60 px-3 font-mono text-xs text-muted-foreground">
+                /projects/
+              </span>
+              <Input
+                id="slug"
+                placeholder="mon-projet"
+                className="border-0 shadow-none focus-visible:ring-0 font-mono"
+                {...register("slug")}
+              />
             </div>
             {fieldError(errors.slug?.message)}
           </div>
@@ -238,30 +250,18 @@ export const AdminProjectForm = () => {
       </FormSection>
 
       {/* Media & links */}
-      <FormSection icon={ImageIcon} title="Visuel & liens" description="L'image de couverture et les liens externes affichés sur l'étude de cas.">
-        <div className="grid sm:grid-cols-[200px_1fr] gap-5">
-          <div className="flex aspect-[16/10] items-center justify-center overflow-hidden rounded-xl border border-dashed border-border bg-muted/50">
-            {image && !imageBroken ? (
-              <img src={image} alt="" className="h-full w-full object-cover" onError={() => setImageBroken(true)} />
-            ) : (
-              <div className="flex flex-col items-center gap-1.5 text-xs text-muted-foreground">
-                <ImageIcon className="h-5 w-5" />
-                {image ? "Image introuvable" : "Aperçu"}
-              </div>
-            )}
+      <FormSection
+        icon={ImageIcon}
+        title="Visuel & liens"
+        description="L'image de couverture et les liens externes affichés sur l'étude de cas."
+      >
+        <div className="grid sm:grid-cols-[240px_1fr] gap-5">
+          <div className="space-y-2">
+            <Label htmlFor="image">Image</Label>
+            <ImageUpload id="image" value={image} onChange={(url) => setValue("image", url, { shouldDirty: true, shouldValidate: true })} />
+            {fieldError(errors.image?.message)}
           </div>
           <div className="min-w-0 space-y-5">
-            <div className="space-y-2">
-              <Label htmlFor="image">Image</Label>
-              <Input
-                id="image"
-                placeholder="/images/projects/mon-projet.png"
-                className="font-mono text-xs md:text-xs"
-                {...register("image", { onChange: () => setImageBroken(false) })}
-              />
-              {fieldError(errors.image?.message)}
-              <p className="text-xs text-muted-foreground">Chemin relatif au dossier public, ou URL complète.</p>
-            </div>
             <div className="space-y-5">
               <div className="space-y-2">
                 <Label htmlFor="liveLink" className="flex items-center gap-1.5">
@@ -281,7 +281,11 @@ export const AdminProjectForm = () => {
       </FormSection>
 
       {/* Case study */}
-      <FormSection icon={Languages} title="Étude de cas" description="Le contenu de la page détaillée, à rédiger en français et en anglais.">
+      <FormSection
+        icon={Languages}
+        title="Étude de cas"
+        description="Le contenu de la page détaillée, à rédiger en français et en anglais."
+      >
         <Tabs defaultValue="fr">
           <TabsList className="mb-5">
             {(["fr", "en"] as const).map((lang) => (
@@ -331,7 +335,11 @@ export const AdminProjectForm = () => {
       </FormSection>
 
       {/* Features */}
-      <FormSection icon={ListChecks} title="Fonctionnalités clés" description="La liste à puces de l'étude de cas, une ligne par fonctionnalité.">
+      <FormSection
+        icon={ListChecks}
+        title="Fonctionnalités clés"
+        description="La liste à puces de l'étude de cas, une ligne par fonctionnalité."
+      >
         <div className="space-y-3">
           <div className="hidden sm:grid grid-cols-[28px_1fr_1fr_36px] gap-2 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
             <span />

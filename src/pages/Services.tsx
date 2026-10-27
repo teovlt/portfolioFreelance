@@ -8,6 +8,8 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Accent } from "@/components/customs/accent-text";
 import { usePackage } from "@/providers/package-provider";
+import { useLocalize, usePublicContent } from "@/hooks/usePublicContent";
+import type { Package } from "@/types/content";
 
 function QuotePreview({ label }: { label: string }) {
   const [failed, setFailed] = useState(false);
@@ -36,66 +38,8 @@ export function Services() {
   const language = i18n.language;
   const { setSelectedPackage } = usePackage();
 
-  const services = [
-    {
-      title: language === "fr" ? "Design personnalisé" : "Custom Design",
-      description:
-        language === "fr"
-          ? "Des maquettes modernes et cohérentes avec votre image, avant de passer au développement."
-          : "Modern mockups that match your brand, before moving into development.",
-      price: "950€",
-      duration: language === "fr" ? "1 à 2 semaines" : "1 to 2 weeks",
-      badge: language === "fr" ? "Étape optionnelle" : "Optional step",
-      deliverables:
-        language === "fr"
-          ? ["Maquettes visuelles (Figma)", "Design mobile & bureau", "Couleurs & typographies pro", "Combinable avec un forfait développement"]
-          : ["Visual mockups (Figma)", "Mobile & desktop design", "Professional colors & fonts", "Can be combined with a dev package"],
-      popular: false,
-    },
-    {
-      title: language === "fr" ? "Site vitrine" : "Showcase Website",
-      description:
-        language === "fr"
-          ? "Un site clair et rapide pour présenter votre activité ou projet."
-          : "A clean and fast website to showcase your activity or project.",
-      price: "1 400€",
-      duration: language === "fr" ? "1 à 2 semaines" : "1 to 2 weeks",
-      badge: language === "fr" ? "Plus populaire" : "Most Popular",
-      deliverables:
-        language === "fr"
-          ? ["Mobile & bureau", "Pages rapides & optimisées", "Design moderne sur-mesure", "Hébergement & assistance 30 jours inclus"]
-          : ["Mobile & desktop ready", "Fast, optimized pages", "Custom modern design", "Hosting & 30-day support included"],
-      popular: true,
-    },
-    {
-      title: language === "fr" ? "Site avec fonctionnalités" : "Website with Features",
-      description:
-        language === "fr"
-          ? "Avis, formulaire de contact, réservation, espace personnel, et plus."
-          : "Reviews, contact form, booking, personal space, and more.",
-      price: "2 900€",
-      duration: language === "fr" ? "2 à 5 semaines" : "2 to 5 weeks",
-      deliverables:
-        language === "fr"
-          ? ["Espace personnel sécurisé", "Formulaires & réservation", "Connexion identifiants", "Hébergement & assistance 30 jours inclus"]
-          : ["Secure personal space", "Forms & booking system", "Login system", "Hosting & 30-day support included"],
-      popular: false,
-    },
-    {
-      title: language === "fr" ? "Site complet" : "Complete Website",
-      description:
-        language === "fr"
-          ? "Plusieurs pages, fonctionnalités personnalisées, base de données, et tout ce qu'il faut."
-          : "Multiple pages, custom features, database, and everything needed.",
-      price: "5 500€",
-      duration: language === "fr" ? "4 à 8 semaines" : "4 to 8 weeks",
-      deliverables:
-        language === "fr"
-          ? ["Site sur mesure multi-pages", "Fonctionnalités avancées", "Base de données & stockage", "Hébergement & assistance 60 jours inclus"]
-          : ["Custom multi-page website", "Advanced features", "Database & storage", "Hosting & 60-day support included"],
-      popular: false,
-    },
-  ];
+  const localize = useLocalize();
+  const { data: services } = usePublicContent<Package[]>("/packages", []);
 
   const sectionVariants = {
     hidden: { opacity: 0 },
@@ -139,29 +83,31 @@ export function Services() {
           </div>
         </motion.div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 items-stretch">
-          {services.map((service, index) => (
+        <div
+          className={`grid sm:grid-cols-2 gap-5 items-stretch ${
+            services.length === 3 ? "lg:grid-cols-3" : services.length === 2 ? "max-w-4xl mx-auto" : "lg:grid-cols-4"
+          }`}
+        >
+          {services.map((service) => (
             <motion.div
-              key={index}
+              key={service._id}
               variants={itemVariants}
               className={`flex flex-col rounded-2xl border p-7 ${
                 service.popular ? "border-accent bg-accent/5 lg:-translate-y-3 shadow-lg shadow-accent/10" : "border-border bg-card"
               }`}
             >
-              {service.badge && (
+              {localize(service.badge) && (
                 <span
                   className={`self-start mb-4 rounded-full text-[10px] font-semibold uppercase tracking-wider px-3 py-1 ${
-                    service.popular
-                      ? "bg-accent text-accent-foreground"
-                      : "bg-muted text-muted-foreground border border-border"
+                    service.popular ? "bg-accent text-accent-foreground" : "bg-muted text-muted-foreground border border-border"
                   }`}
                 >
-                  {service.badge}
+                  {localize(service.badge)}
                 </span>
               )}
 
-              <h3 className="text-lg font-display font-bold mb-2">{service.title}</h3>
-              <p className="text-sm text-muted-foreground leading-relaxed mb-6 flex-1">{service.description}</p>
+              <h3 className="text-lg font-display font-bold mb-2">{localize(service.title)}</h3>
+              <p className="text-sm text-muted-foreground leading-relaxed mb-6 flex-1">{localize(service.description)}</p>
 
               <div className="mb-6">
                 <div className="flex items-baseline gap-1.5">
@@ -170,7 +116,7 @@ export function Services() {
                 <div className="font-serif text-4xl font-semibold">{service.price}</div>
                 <div className="flex items-center gap-1.5 text-xs text-muted-foreground mt-1.5">
                   <Clock className="h-3 w-3" />
-                  {service.duration}
+                  {localize(service.duration)}
                 </div>
               </div>
 
@@ -178,7 +124,7 @@ export function Services() {
                 {service.deliverables.map((point, i) => (
                   <li key={i} className="flex items-start gap-2 text-sm">
                     <Check className="h-3.5 w-3.5 mt-0.5 text-accent-foreground flex-shrink-0" />
-                    {point}
+                    {localize(point)}
                   </li>
                 ))}
               </ul>
@@ -187,7 +133,7 @@ export function Services() {
                 variant={service.popular ? "default" : "outline"}
                 className="w-full mt-auto"
                 onClick={(e) => {
-                  setSelectedPackage(service.title);
+                  setSelectedPackage(localize(service.title));
                   scrollToSection("contact-section", e);
                 }}
               >

@@ -9,9 +9,12 @@ import { AnimatePresence, motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { Button } from "./ui/button";
 import { useSectionNav } from "@/hooks/useSectionNav";
+import { usePublicContent } from "@/hooks/usePublicContent";
+import type { ContactInfo } from "@/types/content";
 
 export const Navbar = () => {
   const { t } = useTranslation();
+  const { data: contactInfo } = usePublicContent<ContactInfo | null>("/contact", null);
   const { handleNavLinkClick, handleSectionButtonClick } = useSectionNav();
   const [isOpen, setIsOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("home-section");
@@ -136,11 +139,21 @@ export const Navbar = () => {
             >
               <AnimatePresence mode="wait" initial={false}>
                 {isOpen ? (
-                  <motion.span key="x" initial={{ rotate: -90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: 90, opacity: 0 }}>
+                  <motion.span
+                    key="x"
+                    initial={{ rotate: -90, opacity: 0 }}
+                    animate={{ rotate: 0, opacity: 1 }}
+                    exit={{ rotate: 90, opacity: 0 }}
+                  >
                     <X className="h-5 w-5" />
                   </motion.span>
                 ) : (
-                  <motion.span key="menu" initial={{ rotate: 90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: -90, opacity: 0 }}>
+                  <motion.span
+                    key="menu"
+                    initial={{ rotate: 90, opacity: 0 }}
+                    animate={{ rotate: 0, opacity: 1 }}
+                    exit={{ rotate: -90, opacity: 0 }}
+                  >
                     <Menu className="h-5 w-5" />
                   </motion.span>
                 )}
@@ -199,13 +212,15 @@ export const Navbar = () => {
                   transition={{ delay: 0.5, duration: 0.4 }}
                   className="flex flex-col gap-6 pt-8 border-t border-ink-foreground/10"
                 >
-                  <Link
-                    to="mailto:teo.villet2@gmail.com"
-                    className="flex items-center gap-2 text-sm text-ink-foreground/70 hover:text-ink-foreground transition-colors w-fit"
-                  >
-                    <Mail className="h-4 w-4" />
-                    teo.villet2@gmail.com
-                  </Link>
+                  {contactInfo?.email && (
+                    <a
+                      href={`mailto:${contactInfo.email}`}
+                      className="flex items-center gap-2 text-sm text-ink-foreground/70 hover:text-ink-foreground transition-colors w-fit"
+                    >
+                      <Mail className="h-4 w-4" />
+                      {contactInfo.email}
+                    </a>
+                  )}
                   <div className="flex items-center justify-between gap-4">
                     <div className="flex gap-2">
                       <LanguageChanger />

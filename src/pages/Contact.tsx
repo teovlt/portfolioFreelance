@@ -15,10 +15,14 @@ import { Mail, MapPin, Phone, X } from "lucide-react";
 import { toast } from "sonner";
 import { contactSchema } from "@/lib/zod";
 import { usePackage } from "@/providers/package-provider";
+import { useLocalize, usePublicContent } from "@/hooks/usePublicContent";
+import type { ContactInfo } from "@/types/content";
 
 export const Contact = () => {
   const { t } = useTranslation();
   const { selectedPackage, setSelectedPackage } = usePackage();
+  const localize = useLocalize();
+  const { data: info } = usePublicContent<ContactInfo | null>("/contact", null);
   const form = useForm<z.infer<typeof contactSchema>>({
     resolver: zodResolver(contactSchema),
     defaultValues: {
@@ -189,47 +193,44 @@ export const Contact = () => {
             <div className="space-y-8 flex-col justify-center items-center">
               <h3 className="eyebrow mb-4">{t("contact.info.title")}</h3>
               <div className="space-y-6">
-                <div className="flex items-start gap-3">
-                  <span className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full bg-accent/15 text-foreground">
-                    <MapPin className="h-4 w-4" />
-                  </span>
-                  <div>
-                    <h4 className="font-medium">{t("contact.info.location.label")}</h4>
-                    <a
-                      className="text-muted-foreground hover:text-foreground transition-colors"
-                      href="https://www.google.fr/search?q=lille+grenoble"
-                      target="_blank"
-                    >
-                      {t("contact.info.location.value")}
-                    </a>
-                  </div>
-                </div>
-                <div className="flex items-start gap-3">
-                  <span className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full bg-accent/15 text-foreground">
-                    <Mail className="h-4 w-4" />
-                  </span>
-                  <div>
-                    <h4 className="font-medium">{t("contact.info.email.label")}</h4>
-                    <p className="text-muted-foreground">
-                      <a href="mailto:teo.villet2@gmail.com" className="hover:text-foreground transition-colors">
-                        teo.villet2@gmail.com
-                      </a>
-                    </p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-3">
-                  <span className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full bg-accent/15 text-foreground">
-                    <Phone className="h-4 w-4" />
-                  </span>
-                  <div>
-                    <h4 className="font-medium">{t("contact.info.phone.label")}</h4>
-                    <p className="text-muted-foreground">
-                      <a href="tel:+33618215637" className="hover:text-foreground transition-colors">
-                        +33 6 18 21 56 37
-                      </a>
-                    </p>
-                  </div>
-                </div>
+                {[
+                  {
+                    icon: MapPin,
+                    label: t("contact.info.location.label"),
+                    value: localize(info?.location),
+                    href: info?.locationUrl,
+                    external: true,
+                  },
+                  { icon: Mail, label: t("contact.info.email.label"), value: info?.email, href: info?.email && `mailto:${info.email}` },
+                  {
+                    icon: Phone,
+                    label: t("contact.info.phone.label"),
+                    value: info?.phone,
+                    href: info?.phone && `tel:${info.phone.replace(/[^+\d]/g, "")}`,
+                  },
+                ]
+                  .filter((row) => row.value)
+                  .map(({ icon: Icon, label, value, href, external }) => (
+                    <div key={label} className="flex items-start gap-3">
+                      <span className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full bg-accent/15 text-foreground">
+                        <Icon className="h-4 w-4" />
+                      </span>
+                      <div>
+                        <h4 className="font-medium">{label}</h4>
+                        {href ? (
+                          <a
+                            href={href}
+                            className="text-muted-foreground hover:text-foreground transition-colors"
+                            {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                          >
+                            {value}
+                          </a>
+                        ) : (
+                          <p className="text-muted-foreground">{value}</p>
+                        )}
+                      </div>
+                    </div>
+                  ))}
               </div>
             </div>
           </motion.div>

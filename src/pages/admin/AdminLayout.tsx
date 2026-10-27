@@ -1,13 +1,31 @@
 import { Link, Navigate, NavLink, Outlet, useLocation } from "react-router-dom";
-import { ArrowUpRight, FolderKanban, LayoutDashboard, LogOut } from "lucide-react";
+import {
+  ArrowUpRight,
+  Contact,
+  FolderKanban,
+  Images,
+  LayoutDashboard,
+  LogOut,
+  MessageSquareQuote,
+  Package,
+  Route,
+  Share2,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ThemeChanger } from "@/components/ThemeChanger";
 import { cn } from "@/lib/utils";
 import { useAuth } from "@/providers/auth-provider";
+import { useStats } from "@/hooks/useStats";
 
 const navItems = [
   { to: "/admin", label: "Tableau de bord", icon: LayoutDashboard, end: true },
   { to: "/admin/projects", label: "Projets", icon: FolderKanban, end: false },
+  { to: "/admin/reviews", label: "Avis", icon: MessageSquareQuote, end: false },
+  { to: "/admin/packages", label: "Packages", icon: Package, end: false },
+  { to: "/admin/experiences", label: "Parcours", icon: Route, end: false },
+  { to: "/admin/photos", label: "Photos", icon: Images, end: false },
+  { to: "/admin/socials", label: "Réseaux", icon: Share2, end: false },
+  { to: "/admin/contact", label: "Coordonnées", icon: Contact, end: false },
 ];
 
 const navLinkClass = ({ isActive }: { isActive: boolean }) =>
@@ -19,6 +37,8 @@ const navLinkClass = ({ isActive }: { isActive: boolean }) =>
 export const AdminLayout = () => {
   const { isAuthenticated, isLoading, user, logout } = useAuth();
   const location = useLocation();
+  const { stats } = useStats(location.pathname);
+  const pendingReviews = stats?.reviews.pending ?? 0;
 
   if (isLoading) return null;
 
@@ -37,16 +57,23 @@ export const AdminLayout = () => {
         <div className="relative px-6 pt-7 pb-8">
           <Link to="/admin" className="flex items-baseline gap-2">
             <span className="font-serif italic text-2xl">Téo Villet</span>
-            <span className="rounded-md bg-accent/20 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-accent">Admin</span>
+            <span className="rounded-md bg-accent/20 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-accent">
+              Admin
+            </span>
           </Link>
         </div>
 
-        <nav className="relative flex-1 px-3 space-y-1">
+        <nav className="relative flex-1 px-3 space-y-1 overflow-y-auto">
           <p className="px-3 pb-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-ink-foreground/40">Contenu</p>
           {navItems.map(({ to, label, icon: Icon, end }) => (
             <NavLink key={to} to={to} end={end} className={navLinkClass}>
               <Icon className="h-4 w-4" />
               {label}
+              {to === "/admin/reviews" && pendingReviews > 0 && (
+                <span className="ml-auto rounded-full bg-accent px-2 py-0.5 text-[11px] font-bold tabular-nums text-accent-foreground">
+                  {pendingReviews}
+                </span>
+              )}
             </NavLink>
           ))}
 
@@ -121,9 +148,17 @@ export const AdminLayout = () => {
               >
                 <Icon className="h-4 w-4" />
                 {label}
+                {to === "/admin/reviews" && pendingReviews > 0 && (
+                  <span className="rounded-full bg-accent px-1.5 text-[11px] font-bold tabular-nums text-accent-foreground">
+                    {pendingReviews}
+                  </span>
+                )}
               </NavLink>
             ))}
-            <Link to="/" className="flex flex-shrink-0 items-center gap-2 rounded-full px-3.5 py-1.5 text-sm font-medium text-muted-foreground hover:bg-muted">
+            <Link
+              to="/"
+              className="flex flex-shrink-0 items-center gap-2 rounded-full px-3.5 py-1.5 text-sm font-medium text-muted-foreground hover:bg-muted"
+            >
               <ArrowUpRight className="h-4 w-4" />
               Site
             </Link>

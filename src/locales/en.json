@@ -56,56 +56,10 @@
     "types": {
       "formation": "Degree",
       "alternance": "Apprenticeship",
-      "stage": "Internship"
-    },
-    "timeline": [
-      {
-        "org": "IMT Nord Europe",
-        "title": "Engineering Degree in Computer Science",
-        "subtitle": "Villeneuve d'Ascq, France",
-        "description": "Specializing in software engineering, focusing on full-stack development and system design. In apprenticeship at GIPSA-Lab.",
-        "highlights": [
-          "Software engineering and systems architecture track",
-          "Apprenticeship alongside the degree",
-          "Team engineering projects on real-world specs"
-        ]
-      },
-      {
-        "date": "2023 — present",
-        "org": "GIPSA-Lab",
-        "title": "FullStack Developer",
-        "subtitle": "Grenoble, France",
-        "description": "Developing and maintaining web applications, focusing on user experience and performance.",
-        "highlights": [
-          "Building internal tools for research teams",
-          "Maintaining and evolving existing applications",
-          "Working directly with researchers and PhD students"
-        ]
-      },
-      {
-        "date": "June 2023",
-        "org": "Grenoble Computer Science Laboratory",
-        "title": "FullStack Developer",
-        "subtitle": "Grenoble, France",
-        "description": "Created a web application from scratch to help doctorants manage their research projects.",
-        "highlights": [
-          "Built the app end-to-end, from spec to production",
-          "Interface designed with PhD students, the end users",
-          "Delivered independently on a tight timeline"
-        ]
-      },
-      {
-        "org": "IUT2 Grenoble",
-        "title": "Bachelor of Technology in Computer Science",
-        "subtitle": "Grenoble, France",
-        "description": "Focus on software development, algorithms, and data structures.",
-        "highlights": [
-          "Algorithms, data structures and databases",
-          "Group projects using agile methodology",
-          "Internships every year of the program"
-        ]
-      }
-    ]
+      "stage": "Internship",
+      "emploi": "Job",
+      "freelance": "Freelance"
+    }
   },
   "services": {
     "titleStart": "Let's build",
@@ -155,58 +109,36 @@
     }
   },
   "reviews": {
-    "list": [
-      {
-        "name": "Timon Guillotin",
-        "company": "Freelancer & CEO",
-        "rating": 5,
-        "comment": "Téo brought Ciel Avenue to life with incredible attention to detail. His technical skills and creative vision helped us build a platform that truly simplifies real estate. Working with him was an absolute pleasure!",
-        "project": "Ciel Avenue platform",
-        "avatar": "TG",
-        "image": "/images/reviews/timon.jpeg",
-        "website": "https://www.linkedin.com/in/timon-guillotin/?originalSubdomain=fr"
+    "leave": "Leave a review",
+    "form": {
+      "title": "Leave a review",
+      "description": "Did we work together? Your feedback means a lot. It will be published after review.",
+      "name": "Name",
+      "namePlaceholder": "Jane Smith",
+      "email": "Email",
+      "emailHint": "Optional, never published — only used to reply to you.",
+      "company": "Role / company",
+      "companyPlaceholder": "Founder — Example Studio",
+      "project": "Project",
+      "projectPlaceholder": "Showcase website",
+      "rating": "Rating",
+      "comment": "Your review",
+      "commentPlaceholder": "How was working together?",
+      "website": "Website or LinkedIn",
+      "optional": "optional",
+      "submit": "Send my review",
+      "submitting": "Sending...",
+      "errors": {
+        "name": "Please enter your name.",
+        "email": "Invalid email.",
+        "comment": "Please write a few words (10 characters).",
+        "website": "Invalid link (https://...)."
       },
-      {
-        "name": "Axel Elias",
-        "company": "Co-founder - Couverto",
-        "rating": 5,
-        "comment": "Couverto started as my idea, and Téo helped me turn it into reality. We share this project 50/50, and his technical expertise combined with his dedication made all the difference. A true partner in every sense!",
-        "project": "Couverto platform",
-        "avatar": "AP",
-        "image": "/images/reviews/axel.jpeg",
-        "website": "https://www.linkedin.com/in/axel-elias/"
-      },
-      {
-        "name": "Mayeul Deries",
-        "company": "Freelance Developer",
-        "rating": 5,
-        "comment": "Téo helped me build an exceptional website to track job applications. His professionalism and attention to detail are remarkable. I highly recommend!",
-        "project": "Job tracker platform",
-        "avatar": "MD",
-        "image": "/images/reviews/mayeul.jpeg",
-        "website": "https://mayeulderies.fr/"
-      },
-      {
-        "name": "Gabriel Halus",
-        "company": "Freelance Developer",
-        "rating": 5,
-        "comment": "I had the pleasure of working with Téo on the Let'sgo Lego, Paperlive, and Ahcanfut projects. It was a great experience every time. Téo naturally brings innovative ideas and always finds relevant solutions to challenges. It is a genuine pleasure collaborating with him.",
-        "project": "Let'sgo Lego, Paperlive, and Ahcanfut",
-        "avatar": "GH",
-        "image": "/images/reviews/gabriel.jpeg",
-        "website": "https://gabrielhalus.com"
-      },
-      {
-        "name": "Félix Picon",
-        "company": "System Administrator",
-        "rating": 5,
-        "comment": "Téo's boilerplate saved me hours of setup. His guidance was sharp, clear, and very useful. It was great to collaborate with someone so precise and passionate.",
-        "project": "Boilerplate integration support",
-        "avatar": "FP",
-        "image": "/images/reviews/felix.jpeg",
-        "website": "https://www.linkedin.com/in/f%C3%A9lix-picon-519231317/"
-      }
-    ]
+      "successTitle": "Thank you so much!",
+      "successText": "Your review has been sent. It will appear on the site once reviewed.",
+      "close": "Close",
+      "error": "Sending failed, please try again in a moment."
+    }
   },
   "contact": {
     "eyebrow": "Contact",

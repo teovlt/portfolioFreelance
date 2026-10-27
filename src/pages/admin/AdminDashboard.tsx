@@ -1,8 +1,9 @@
 import { useMemo } from "react";
 import { Link } from "react-router-dom";
-import { ArrowRight, ArrowUpRight, FolderKanban, Plus } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Contact, FolderKanban, Images, MessageSquareQuote, Package, Plus, Route, Share2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useProjects } from "@/hooks/useProjects";
+import { useStats } from "@/hooks/useStats";
 import { useAuth } from "@/providers/auth-provider";
 import { cn } from "@/lib/utils";
 import { ProjectStatus } from "@/types/project";
@@ -30,6 +31,8 @@ const statusOrder = [ProjectStatus.DONE, ProjectStatus.ONGOING, ProjectStatus.ST
 export const AdminDashboard = () => {
   const { user } = useAuth();
   const { projects, isLoading, error } = useProjects();
+  const { stats, isLoading: statsLoading } = useStats();
+  const pendingReviews = stats?.reviews.pending ?? 0;
 
   const recent = useMemo(() => [...projects].sort((a, b) => b.updatedAt.localeCompare(a.updatedAt)).slice(0, 5), [projects]);
 
@@ -44,8 +47,20 @@ export const AdminDashboard = () => {
       label: "Projets",
       description: "Études de cas de la section projets",
       icon: FolderKanban,
-      count: projects.length,
-      updatedAt: recent[0]?.updatedAt,
+      stat: stats?.projects,
+    },
+    { to: "/admin/reviews", label: "Avis", description: "Témoignages clients du hero", icon: MessageSquareQuote, stat: stats?.reviews },
+    { to: "/admin/packages", label: "Packages", description: "Offres et tarifs", icon: Package, stat: stats?.packages },
+    { to: "/admin/experiences", label: "Parcours", description: "Formations et expériences", icon: Route, stat: stats?.experiences },
+    { to: "/admin/photos", label: "Photos", description: "Carrousel de la section À propos", icon: Images, stat: stats?.photos },
+    { to: "/admin/socials", label: "Réseaux", description: "Liens du hero et du pied de page", icon: Share2, stat: stats?.socials },
+    {
+      to: "/admin/contact",
+      label: "Coordonnées",
+      description: "Email, téléphone, localisation",
+      icon: Contact,
+      stat: stats?.contact,
+      single: true,
     },
   ];
 
@@ -68,11 +83,31 @@ export const AdminDashboard = () => {
 
       {error && <p className="rounded-2xl border border-destructive/30 bg-destructive/5 px-5 py-4 text-sm text-destructive">{error}</p>}
 
+      {pendingReviews > 0 && (
+        <Link
+          to="/admin/reviews"
+          className="group flex items-center gap-4 rounded-2xl border border-accent/50 bg-accent/10 px-5 py-4 transition-colors hover:bg-accent/20"
+        >
+          <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-accent text-accent-foreground">
+            <MessageSquareQuote className="h-5 w-5" />
+          </span>
+          <span className="min-w-0 flex-1">
+            <span className="block font-semibold">
+              {pendingReviews} {pendingReviews > 1 ? "nouveaux" : "nouvel"} avis en attente
+            </span>
+            <span className="block text-sm text-muted-foreground">
+              Relis-{pendingReviews > 1 ? "les" : "le"} et décide de {pendingReviews > 1 ? "les" : "le"} publier sur le site.
+            </span>
+          </span>
+          <ArrowRight className="h-4 w-4 flex-shrink-0 transition-transform group-hover:translate-x-0.5" />
+        </Link>
+      )}
+
       {/* Collections */}
       <section className="space-y-3">
         <h2 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">Collections</h2>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
-          {collections.map(({ to, label, description, icon: Icon, count, updatedAt }) => (
+          {collections.map(({ to, label, description, icon: Icon, stat, single }) => (
             <Link
               key={to}
               to={to}
@@ -87,8 +122,10 @@ export const AdminDashboard = () => {
               <p className="mt-4 font-semibold">{label}</p>
               <p className="text-sm text-muted-foreground">{description}</p>
               <div className="mt-4 flex items-baseline justify-between">
-                <span className="text-3xl font-display font-bold tracking-tight tabular-nums">{isLoading ? "…" : count}</span>
-                <span className="text-xs text-muted-foreground">{updatedAt ? `Modifié ${timeAgo(updatedAt)}` : "—"}</span>
+                <span className="text-3xl font-display font-bold tracking-tight tabular-nums">
+                  {statsLoading ? "…" : single ? (stat?.count ? "✓" : "—") : (stat?.count ?? 0)}
+                </span>
+                <span className="text-xs text-muted-foreground">{stat?.updatedAt ? `Modifié ${timeAgo(stat.updatedAt)}` : "—"}</span>
               </div>
             </Link>
           ))}
@@ -145,9 +182,7 @@ export const AdminDashboard = () => {
                     </div>
                     <div className="min-w-0 flex-1">
                       <p className="truncate font-medium">{project.title}</p>
-                      <p className="truncate text-xs text-muted-foreground">
-                        Projet · {timeAgo(project.updatedAt)}
-                      </p>
+                      <p className="truncate text-xs text-muted-foreground">Projet · {timeAgo(project.updatedAt)}</p>
                     </div>
                     <ProjectStatusBadge status={project.status} className="flex-shrink-0" />
                   </Link>
@@ -166,7 +201,11 @@ export const AdminDashboard = () => {
             {!isLoading &&
               projects.length > 0 &&
               statusCounts.map(({ status, count }) => (
-                <div key={status} className={cn("h-full", statusMeta[status].dot)} style={{ width: `${(count / projects.length) * 100}%` }} />
+                <div
+                  key={status}
+                  className={cn("h-full", statusMeta[status].dot)}
+                  style={{ width: `${(count / projects.length) * 100}%` }}
+                />
               ))}
           </div>
 

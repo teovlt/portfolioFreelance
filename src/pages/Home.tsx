@@ -1,16 +1,19 @@
 import { Helmet } from "react-helmet";
-import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { ArrowDown, ArrowRight, Github, Linkedin, Mail, Star } from "lucide-react";
+import { ArrowDown, ArrowRight, Star } from "lucide-react";
 import { scrollToSection } from "@/utils/scrollToSection";
 import { useTranslation } from "react-i18next";
 import { TypingAnimation } from "@/components/customs/typing-animations";
 import { Accent } from "@/components/customs/accent-text";
 import { HeroSocialProof } from "@/components/customs/hero-social-proof";
 import { motion } from "framer-motion";
+import { isExternalUrl, SocialIcon } from "@/components/SocialIcon";
+import { usePublicContent } from "@/hooks/usePublicContent";
+import type { Social } from "@/types/content";
 
 export const Home = () => {
   const { t } = useTranslation();
+  const { data: socials } = usePublicContent<Social[]>("/socials", []);
 
   const typingTexts = [t("home.typing1"), t("home.typing2"), t("home.typing3"), t("home.typing4"), t("home.typing5")];
 
@@ -48,7 +51,10 @@ export const Home = () => {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="xl:grid xl:grid-cols-[1.15fr_0.85fr] xl:gap-12 xl:items-center">
           <motion.div className="max-w-4xl" initial="hidden" animate="visible" variants={containerVariants}>
-            <motion.div variants={itemVariants} className="inline-flex items-center gap-2 border border-border rounded-full px-4 py-1.5 mb-4">
+            <motion.div
+              variants={itemVariants}
+              className="inline-flex items-center gap-2 border border-border rounded-full px-4 py-1.5 mb-4"
+            >
               <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
               <span className="text-sm font-medium">{t("home.badge")}</span>
             </motion.div>
@@ -83,35 +89,25 @@ export const Home = () => {
               </Button>
 
               <div className="flex items-center gap-2 sm:ml-2">
-                <Link
-                  to="https://github.com/teovlt"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="GitHub"
-                  className="w-11 h-11 rounded-full border border-border flex items-center justify-center hover:border-foreground hover:bg-accent hover:text-accent-foreground transition-colors"
-                >
-                  <Github className="h-4 w-4" />
-                </Link>
-                <Link
-                  to="https://www.linkedin.com/in/teo-villet/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="LinkedIn"
-                  className="w-11 h-11 rounded-full border border-border flex items-center justify-center hover:border-foreground hover:bg-accent hover:text-accent-foreground transition-colors"
-                >
-                  <Linkedin className="h-4 w-4" />
-                </Link>
-                <Link
-                  to="mailto:teo.villet2@gmail.com"
-                  aria-label="Email"
-                  className="w-11 h-11 rounded-full border border-border flex items-center justify-center hover:border-foreground hover:bg-accent hover:text-accent-foreground transition-colors"
-                >
-                  <Mail className="h-4 w-4" />
-                </Link>
+                {socials.map((social) => (
+                  <a
+                    key={social._id}
+                    href={social.url}
+                    {...(isExternalUrl(social.url) ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                    aria-label={social.label}
+                    title={social.label}
+                    className="w-11 h-11 rounded-full border border-border flex items-center justify-center hover:border-foreground hover:bg-accent hover:text-accent-foreground transition-colors"
+                  >
+                    <SocialIcon icon={social.icon} className="h-4 w-4" />
+                  </a>
+                ))}
               </div>
             </motion.div>
 
-            <motion.div variants={itemVariants} className="hidden sm:flex flex-wrap items-center gap-x-12 gap-y-4 border-t border-border pt-5">
+            <motion.div
+              variants={itemVariants}
+              className="hidden sm:flex flex-wrap items-center gap-x-12 gap-y-4 border-t border-border pt-5"
+            >
               {stats.map((stat, i) => (
                 <div key={i} className="flex items-baseline gap-2">
                   <span className="text-3xl sm:text-4xl font-display font-bold tracking-tight">{stat.value}</span>

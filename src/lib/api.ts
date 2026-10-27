@@ -36,3 +36,21 @@ export const apiRequest = async <T>(path: string, { method = "GET", body, token 
 
   return data as T;
 };
+
+export const uploadImage = async (file: File, token: string | null): Promise<string> => {
+  const body = new FormData();
+  body.append("file", file);
+
+  const res = await fetch(`${API_URL}/uploads`, {
+    method: "POST",
+    headers: token ? { Authorization: `Bearer ${token}` } : {},
+    body,
+  });
+  const data = await res.json().catch(() => undefined);
+
+  if (!res.ok) {
+    throw new ApiError(res.status, data?.message ?? "Upload failed");
+  }
+
+  return data.url as string;
+};

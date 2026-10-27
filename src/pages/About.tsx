@@ -5,12 +5,8 @@ import { useTranslation } from "react-i18next";
 import { Badge } from "@/components/ui/badge";
 import { Accent } from "@/components/customs/accent-text";
 import { useEffect, useState } from "react";
-
-const aboutPhotos = [
-  { src: "/images/about/me.jpg", alt: "Photo de Téo Villet, développeur web freelance à Grenoble, en randonnée en montagne", position: "32% 28%" },
-  { src: "/images/about/bridge.jpg", alt: "Photo de Téo Villet, développeur web freelance, sur un pont au-dessus d'un canal", position: "50% 35%" },
-  { src: "/images/about/park.jpg", alt: "Photo de Téo Villet, développeur web freelance, dans un parc", position: "50% 30%" },
-];
+import { useLocalize, usePublicContent } from "@/hooks/usePublicContent";
+import type { Photo } from "@/types/content";
 
 const swipeConfidenceThreshold = 10000;
 const swipePower = (offset: number, velocity: number) => Math.abs(offset) * velocity;
@@ -23,17 +19,21 @@ const slideVariants = {
 
 export const About = () => {
   const { t } = useTranslation();
+  const localize = useLocalize();
+  const { data: aboutPhotos } = usePublicContent<Photo[]>("/photos", []);
   const [[page, direction], setPage] = useState([0, 0]);
-  const photoIndex = ((page % aboutPhotos.length) + aboutPhotos.length) % aboutPhotos.length;
+  const photoIndex = aboutPhotos.length ? ((page % aboutPhotos.length) + aboutPhotos.length) % aboutPhotos.length : 0;
+  const photo = aboutPhotos[photoIndex];
 
   const paginate = (newDirection: number) => {
     setPage(([prevPage]) => [prevPage + newDirection, newDirection]);
   };
 
   useEffect(() => {
+    if (aboutPhotos.length < 2) return;
     const interval = setInterval(() => paginate(1), 4000);
     return () => clearInterval(interval);
-  }, []);
+  }, [aboutPhotos.length]);
 
   const handleDragEnd = (_event: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
     const swipe = swipePower(info.offset.x, info.velocity.x);
@@ -103,23 +103,25 @@ export const About = () => {
                   className="relative aspect-[4/5] w-full overflow-hidden rounded-2xl border border-border bg-muted shadow-sm"
                 >
                   <AnimatePresence initial={false} custom={direction} mode="popLayout">
-                    <motion.img
-                      key={page}
-                      src={aboutPhotos[photoIndex].src}
-                      alt={aboutPhotos[photoIndex].alt}
-                      custom={direction}
-                      variants={slideVariants}
-                      initial="enter"
-                      animate="center"
-                      exit="exit"
-                      transition={{ x: { type: "spring", stiffness: 300, damping: 30 }, opacity: { duration: 0.2 } }}
-                      drag="x"
-                      dragConstraints={{ left: 0, right: 0 }}
-                      dragElastic={1}
-                      onDragEnd={handleDragEnd}
-                      className="absolute inset-0 object-cover w-full h-full rounded-2xl cursor-grab active:cursor-grabbing"
-                      style={{ objectPosition: aboutPhotos[photoIndex].position }}
-                    />
+                    {photo && (
+                      <motion.img
+                        key={page}
+                        src={photo.src}
+                        alt={localize(photo.alt)}
+                        custom={direction}
+                        variants={slideVariants}
+                        initial="enter"
+                        animate="center"
+                        exit="exit"
+                        transition={{ x: { type: "spring", stiffness: 300, damping: 30 }, opacity: { duration: 0.2 } }}
+                        drag={aboutPhotos.length > 1 ? "x" : false}
+                        dragConstraints={{ left: 0, right: 0 }}
+                        dragElastic={1}
+                        onDragEnd={handleDragEnd}
+                        className="absolute inset-0 object-cover w-full h-full rounded-2xl cursor-grab active:cursor-grabbing"
+                        style={{ objectPosition: photo.position }}
+                      />
+                    )}
                   </AnimatePresence>
                 </motion.div>
               </div>

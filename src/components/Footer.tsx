@@ -1,14 +1,21 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { ArrowUpRight, Github, Linkedin, Mail } from "lucide-react";
+import { useState } from "react";
+import { ArrowUpRight, PenLine } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useSectionNav } from "@/hooks/useSectionNav";
 import { useTranslation } from "react-i18next";
+import { isExternalUrl, SocialIcon } from "@/components/SocialIcon";
+import { ReviewDialog } from "@/components/customs/review-dialog";
+import { usePublicContent } from "@/hooks/usePublicContent";
+import type { Social } from "@/types/content";
 
 export function Footer() {
   const { t } = useTranslation();
   const { handleNavLinkClick, handleSectionButtonClick } = useSectionNav();
+  const { data: socials } = usePublicContent<Social[]>("/socials", []);
+  const [isReviewOpen, setIsReviewOpen] = useState(false);
 
   const navItems = [
     { label: t("footer.nav.home"), sectionId: "home-section" },
@@ -33,7 +40,11 @@ export function Footer() {
               <span className="font-serif italic font-medium text-accent">{t("footer.brand.titleHighlight")}</span>
             </h2>
           </div>
-          <Button asChild size="lg" className="rounded-full bg-ink-foreground text-ink hover:bg-ink-foreground/90 flex-shrink-0 w-fit lg:mb-1">
+          <Button
+            asChild
+            size="lg"
+            className="rounded-full bg-ink-foreground text-ink hover:bg-ink-foreground/90 flex-shrink-0 w-fit lg:mb-1"
+          >
             <a href="#contact-section" onClick={(e) => handleSectionButtonClick("contact-section", e)}>
               {t("footer.cta")}
               <ArrowUpRight className="h-4 w-4" />
@@ -66,29 +77,30 @@ export function Footer() {
 
           <div>
             <p className="eyebrow text-ink-foreground/50 mb-4">{t("footer.columns.contactTitle")}</p>
-            <div className="flex items-center gap-1 -ml-2">
-              <Button variant="ghost" size="icon" asChild aria-label="GitHub" className="text-ink-foreground hover:bg-ink-foreground/10 hover:text-ink-foreground">
-                <Link to="https://github.com/teovlt" target="_blank" rel="noopener noreferrer">
-                  <Github className="h-5 w-5" />
-                </Link>
-              </Button>
-              <Button
-                variant="ghost"
-                size="icon"
-                asChild
-                aria-label="LinkedIn"
-                className="text-ink-foreground hover:bg-ink-foreground/10 hover:text-ink-foreground"
-              >
-                <Link to="https://www.linkedin.com/in/teo-villet/" target="_blank" rel="noopener noreferrer">
-                  <Linkedin className="h-5 w-5" />
-                </Link>
-              </Button>
-              <Button variant="ghost" size="icon" asChild aria-label="Email" className="text-ink-foreground hover:bg-ink-foreground/10 hover:text-ink-foreground">
-                <Link to="mailto:teo.villet2@gmail.com">
-                  <Mail className="h-5 w-5" />
-                </Link>
-              </Button>
+            <div className="flex flex-wrap items-center gap-1 -ml-2">
+              {socials.map((social) => (
+                <Button
+                  key={social._id}
+                  variant="ghost"
+                  size="icon"
+                  asChild
+                  aria-label={social.label}
+                  title={social.label}
+                  className="text-ink-foreground hover:bg-ink-foreground/10 hover:text-ink-foreground"
+                >
+                  <a href={social.url} {...(isExternalUrl(social.url) ? { target: "_blank", rel: "noopener noreferrer" } : {})}>
+                    <SocialIcon icon={social.icon} className="h-5 w-5" />
+                  </a>
+                </Button>
+              ))}
             </div>
+            <button
+              onClick={() => setIsReviewOpen(true)}
+              className="mt-5 inline-flex items-center gap-2 text-sm text-ink-foreground/70 hover:text-ink-foreground transition-colors"
+            >
+              <PenLine className="h-4 w-4" />
+              {t("reviews.leave")}
+            </button>
           </div>
         </div>
 
@@ -100,6 +112,7 @@ export function Footer() {
           <p className="text-sm text-ink-foreground/50">{t("footer.location")}</p>
         </div>
       </div>
+      <ReviewDialog open={isReviewOpen} onOpenChange={setIsReviewOpen} />
     </footer>
   );
 }

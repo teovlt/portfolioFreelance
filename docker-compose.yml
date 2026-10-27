@@ -16,4 +16,15 @@ services:
       JWT_SECRET: ${JWT_SECRET:?JWT_SECRET is required}
       FRONTEND_URL: ${FRONTEND_URL:-https://www.teovillet.fr}
       PORT: 4000
+      # Traefik + nginx sit in front of the API
+      TRUST_PROXY: 2
+      UPLOAD_DIR: /app/uploads
+      # Formspree form that emails me when a review is submitted
+      FORMSPREE_ENDPOINT: ${FORMSPREE_ENDPOINT:-https://formspree.io/f/mdkgvoeq}
+    volumes:
+      # Images uploaded from the dashboard must survive redeploys
+      - uploads:/app/uploads
     restart: always
+
+volumes:
+  uploads:

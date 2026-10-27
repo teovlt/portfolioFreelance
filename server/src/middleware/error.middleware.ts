@@ -1,4 +1,6 @@
 import { NextFunction, Request, Response } from "express";
+import mongoose from "mongoose";
+import multer from "multer";
 
 export class HttpError extends Error {
   status: number;
@@ -17,6 +19,15 @@ export const notFoundHandler = (req: Request, res: Response) => {
 export const errorHandler = (err: unknown, req: Request, res: Response, next: NextFunction) => {
   if (err instanceof HttpError) {
     return res.status(err.status).json({ message: err.message });
+  }
+
+  if (err instanceof mongoose.Error.ValidationError || err instanceof mongoose.Error.CastError) {
+    return res.status(400).json({ message: err.message });
+  }
+
+  if (err instanceof multer.MulterError) {
+    const message = err.code === "LIMIT_FILE_SIZE" ? "File is too large" : err.message;
+    return res.status(400).json({ message });
   }
 
   console.error(err);

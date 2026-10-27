@@ -17,6 +17,12 @@ import { AdminLayout } from "@/pages/admin/AdminLayout";
 import { AdminDashboard } from "@/pages/admin/AdminDashboard";
 import { AdminProjects } from "@/pages/admin/AdminProjects";
 import { AdminProjectForm } from "@/pages/admin/AdminProjectForm";
+import { AdminReviews } from "@/pages/admin/AdminReviews";
+import { AdminPhotos } from "@/pages/admin/AdminPhotos";
+import { AdminSocials } from "@/pages/admin/AdminSocials";
+import { AdminPackages } from "@/pages/admin/AdminPackages";
+import { AdminExperiences } from "@/pages/admin/AdminExperiences";
+import { AdminContact } from "@/pages/admin/AdminContact";
 
 const ScrollToTop = () => {
   const { pathname, hash } = useLocation();
@@ -81,6 +87,12 @@ export const router = createBrowserRouter([
       { path: "projects", element: <AdminProjects /> },
       { path: "projects/new", element: <AdminProjectForm /> },
       { path: "projects/:slug/edit", element: <AdminProjectForm /> },
+      { path: "reviews", element: <AdminReviews /> },
+      { path: "packages", element: <AdminPackages /> },
+      { path: "experiences", element: <AdminExperiences /> },
+      { path: "photos", element: <AdminPhotos /> },
+      { path: "socials", element: <AdminSocials /> },
+      { path: "contact", element: <AdminContact /> },
     ],
   },
 ]);
