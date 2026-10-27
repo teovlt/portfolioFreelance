@@ -101,7 +101,7 @@ const PackageForm = ({ item, onSubmit }: { item?: Package; onSubmit: (values: Fo
 
 export const AdminPackages = () => {
   const { items, isLoading, error, save, remove, move } = useAdminCollection<Package>("packages");
-  const editor = useEditor(save);
+  const editor = useEditor(save, items);
 
   return (
     <>

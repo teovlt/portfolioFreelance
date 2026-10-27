@@ -64,7 +64,7 @@ const PhotoForm = ({ item, onSubmit }: { item?: Photo; onSubmit: (values: FormVa
 
 export const AdminPhotos = () => {
   const { items, isLoading, error, save, remove, move } = useAdminCollection<Photo>("photos");
-  const editor = useEditor(save);
+  const editor = useEditor(save, items);
 
   return (
     <>

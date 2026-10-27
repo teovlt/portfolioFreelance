@@ -65,7 +65,7 @@ const SocialForm = ({ item, onSubmit }: { item?: Social; onSubmit: (values: Form
 
 export const AdminSocials = () => {
   const { items, isLoading, error, save, remove, move } = useAdminCollection<Social>("socials");
-  const editor = useEditor(save);
+  const editor = useEditor(save, items);
 
   return (
     <>

@@ -1,9 +1,9 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ArrowUpRight, PenLine } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { useSectionNav } from "@/hooks/useSectionNav";
 import { useTranslation } from "react-i18next";
 import { isExternalUrl, SocialIcon } from "@/components/SocialIcon";
@@ -16,6 +16,15 @@ export function Footer() {
   const { handleNavLinkClick, handleSectionButtonClick } = useSectionNav();
   const { data: socials } = usePublicContent<Social[]>("/socials", []);
   const [isReviewOpen, setIsReviewOpen] = useState(false);
+  const [params, setParams] = useSearchParams();
+
+  // `/?avis` is the link I send clients: it opens the review form directly
+  useEffect(() => {
+    if (!params.has("avis")) return;
+    setIsReviewOpen(true);
+    params.delete("avis");
+    setParams(params, { replace: true });
+  }, [params, setParams]);
 
   const navItems = [
     { label: t("footer.nav.home"), sectionId: "home-section" },

@@ -105,7 +105,7 @@ const ExperienceForm = ({ item, onSubmit }: { item?: Experience; onSubmit: (valu
 
 export const AdminExperiences = () => {
   const { items, isLoading, error, save, remove, move } = useAdminCollection<Experience>("experiences");
-  const editor = useEditor(save);
+  const editor = useEditor(save, items);
 
   return (
     <>

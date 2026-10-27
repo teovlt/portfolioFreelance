@@ -173,7 +173,7 @@ type Filter = "all" | ReviewStatus;
 
 export const AdminReviews = () => {
   const { items, isLoading, error, save, remove, move } = useAdminCollection<Review>("reviews");
-  const editor = useEditor(save);
+  const editor = useEditor(save, items);
   const [filter, setFilter] = useState<Filter>("all");
   const [initialFilterSet, setInitialFilterSet] = useState(false);
 
