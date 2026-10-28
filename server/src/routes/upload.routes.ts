@@ -18,7 +18,7 @@ const extensions: Record<string, string> = {
   "image/avif": ".avif",
 };
 
-const upload = multer({
+export const imageUpload = multer({
   storage: multer.diskStorage({
     destination: uploadDir,
     filename: (req, file, cb) => cb(null, `${crypto.randomBytes(12).toString("hex")}${extensions[file.mimetype]}`),
@@ -32,7 +32,7 @@ const upload = multer({
 
 export const uploadRouter = Router();
 
-uploadRouter.post("/", requireAuth, upload.single("file"), (req, res) => {
+uploadRouter.post("/", requireAuth, imageUpload.single("file"), (req, res) => {
   if (!req.file) throw new HttpError(400, "No file received");
   res.status(201).json({ url: `/api/uploads/${req.file.filename}` });
 });

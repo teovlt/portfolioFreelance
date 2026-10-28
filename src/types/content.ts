@@ -34,6 +34,12 @@ export enum ReviewStatus {
   HIDDEN = "hidden",
 }
 
+export enum PhotoSource {
+  NONE = "none",
+  UPLOAD = "upload",
+  LINKEDIN = "linkedin",
+}
+
 export type Review = Document & {
   name: string;
   email?: string;
@@ -43,6 +49,7 @@ export type Review = Document & {
   rating: number;
   image?: string;
   website?: string;
+  photoSource?: PhotoSource;
   status: ReviewStatus;
   submitted: boolean;
   order: number;

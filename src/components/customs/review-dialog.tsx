@@ -1,10 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
-import { CheckCircle2, Star } from "lucide-react";
+import { CheckCircle2, ImagePlus, Linkedin, Star, UserRound } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
@@ -12,9 +12,13 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { apiRequest } from "@/lib/api";
 import { cn } from "@/lib/utils";
+import { PhotoSource } from "@/types/content";
+
+const MAX_PHOTO_SIZE = 8 * 1024 * 1024;
 
 const buildSchema = (t: (key: string) => string) =>
-  z.object({
+  z
+    .object({
     name: z.string().trim().min(2, t("reviews.form.errors.name")),
     email: z.string().trim().email(t("reviews.form.errors.email")).optional().or(z.literal("")),
     company: z.string().optional(),
@@ -27,13 +31,45 @@ const buildSchema = (t: (key: string) => string) =>
       .regex(/^https?:\/\/\S+$/, t("reviews.form.errors.website"))
       .optional()
       .or(z.literal("")),
+    photoSource: z.nativeEnum(PhotoSource),
+    photo: z.instanceof(File).optional(),
+    linkedinConsent: z.boolean(),
     // Honeypot, hidden from humans
     website2: z.string().optional(),
-  });
+  })
+    .superRefine((values, ctx) => {
+      if (values.photoSource === PhotoSource.UPLOAD) {
+        if (!values.photo) ctx.addIssue({ code: "custom", path: ["photo"], message: t("reviews.form.errors.photo") });
+        else if (values.photo.size > MAX_PHOTO_SIZE) ctx.addIssue({ code: "custom", path: ["photo"], message: t("reviews.form.errors.photoSize") });
+      }
+      if (values.photoSource === PhotoSource.LINKEDIN) {
+        if (!values.linkedinConsent) ctx.addIssue({ code: "custom", path: ["linkedinConsent"], message: t("reviews.form.errors.consent") });
+        if (!/^https?:\/\/([\w-]+\.)*linkedin\.com\//i.test(values.website ?? ""))
+          ctx.addIssue({ code: "custom", path: ["website"], message: t("reviews.form.errors.linkedin") });
+      }
+    });
 
 type FormValues = z.infer<ReturnType<typeof buildSchema>>;
 
-const emptyValues: FormValues = { name: "", email: "", company: "", project: "", rating: 5, comment: "", website: "", website2: "" };
+const emptyValues: FormValues = {
+  name: "",
+  email: "",
+  company: "",
+  project: "",
+  rating: 5,
+  comment: "",
+  website: "",
+  photoSource: PhotoSource.NONE,
+  photo: undefined,
+  linkedinConsent: false,
+  website2: "",
+};
+
+const photoChoices = [
+  { value: PhotoSource.UPLOAD, icon: ImagePlus },
+  { value: PhotoSource.LINKEDIN, icon: Linkedin },
+  { value: PhotoSource.NONE, icon: UserRound },
+] as const;
 
 export const ReviewDialog = ({ open, onOpenChange }: { open: boolean; onOpenChange: (open: boolean) => void }) => {
   const { t, i18n } = useTranslation();
@@ -45,10 +81,22 @@ export const ReviewDialog = ({ open, onOpenChange }: { open: boolean; onOpenChan
     handleSubmit,
     watch,
     setValue,
+    clearErrors,
     reset,
     formState: { errors, isSubmitting },
   } = useForm<FormValues>({ resolver: zodResolver(buildSchema(t)), defaultValues: emptyValues });
-  const rating = watch("rating");
+  const [rating, photoSource, photo, linkedinConsent] = watch(["rating", "photoSource", "photo", "linkedinConsent"]);
+  const [photoPreview, setPhotoPreview] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!photo) {
+      setPhotoPreview(null);
+      return;
+    }
+    const url = URL.createObjectURL(photo);
+    setPhotoPreview(url);
+    return () => URL.revokeObjectURL(url);
+  }, [photo]);
 
   const handleOpenChange = (next: boolean) => {
     onOpenChange(next);
@@ -63,7 +111,13 @@ export const ReviewDialog = ({ open, onOpenChange }: { open: boolean; onOpenChan
 
   const onSubmit = async (values: FormValues) => {
     try {
-      await apiRequest("/reviews/submit", { method: "POST", body: { ...values, lang: i18n.language === "en" ? "en" : "fr" } });
+      // Multipart so the optional photo is sent with the review in one request
+      const body = new FormData();
+      const fields = ["name", "email", "company", "project", "rating", "comment", "website", "photoSource", "website2"] as const;
+      for (const key of fields) body.append(key, String(values[key] ?? ""));
+      body.append("lang", i18n.language === "en" ? "en" : "fr");
+      if (values.photoSource === PhotoSource.UPLOAD && values.photo) body.append("photo", values.photo);
+      await apiRequest("/reviews/submit", { method: "POST", body });
       setSent(true);
     } catch {
       toast.error(t("reviews.form.error"));
@@ -158,10 +212,79 @@ export const ReviewDialog = ({ open, onOpenChange }: { open: boolean; onOpenChan
 
               <div className="space-y-2">
                 <Label htmlFor="review-website">
-                  {t("reviews.form.website")} {optional}
+                  {photoSource === PhotoSource.LINKEDIN ? t("reviews.form.linkedinUrl") : t("reviews.form.website")}{" "}
+                  {photoSource !== PhotoSource.LINKEDIN && optional}
                 </Label>
-                <Input id="review-website" type="url" placeholder="https://..." {...register("website")} />
+                <Input
+                  id="review-website"
+                  type="url"
+                  placeholder={photoSource === PhotoSource.LINKEDIN ? "https://www.linkedin.com/in/..." : "https://..."}
+                  {...register("website")}
+                />
                 {error(errors.website?.message)}
+              </div>
+
+              <div className="space-y-3">
+                <Label>{t("reviews.form.photo")}</Label>
+                <div role="radiogroup" className="grid grid-cols-3 gap-2">
+                  {photoChoices.map(({ value, icon: Icon }) => (
+                    <button
+                      key={value}
+                      type="button"
+                      role="radio"
+                      aria-checked={photoSource === value}
+                      onClick={() => {
+                        setValue("photoSource", value);
+                        // Errors from the previous choice no longer apply
+                        clearErrors(["photo", "linkedinConsent", "website"]);
+                      }}
+                      className={cn(
+                        "flex flex-col items-center gap-1.5 rounded-xl border px-2 py-3 text-center text-xs font-medium transition-colors",
+                        photoSource === value ? "border-primary bg-primary/5 text-foreground" : "border-border text-muted-foreground hover:bg-muted",
+                      )}
+                    >
+                      <Icon className="h-5 w-5" />
+                      {t(`reviews.form.photoChoices.${value}`)}
+                    </button>
+                  ))}
+                </div>
+
+                {photoSource === PhotoSource.UPLOAD && (
+                  <div className="flex items-center gap-4">
+                    <div className="h-16 w-16 flex-shrink-0 overflow-hidden rounded-full border border-border bg-muted">
+                      {photoPreview ? (
+                        <img src={photoPreview} alt="" className="h-full w-full object-cover" />
+                      ) : (
+                        <UserRound className="m-auto h-full w-6 text-muted-foreground" />
+                      )}
+                    </div>
+                    <div className="min-w-0 space-y-1">
+                      <Input
+                        id="review-photo"
+                        type="file"
+                        accept="image/jpeg,image/png,image/webp,image/gif,image/avif"
+                        className="cursor-pointer"
+                        onChange={(e) => setValue("photo", e.target.files?.[0], { shouldValidate: true })}
+                      />
+                      {errors.photo ? error(errors.photo.message) : <p className="text-xs text-muted-foreground">{t("reviews.form.photoHint")}</p>}
+                    </div>
+                  </div>
+                )}
+
+                {photoSource === PhotoSource.LINKEDIN && (
+                  <div className="space-y-1">
+                    <label className="flex cursor-pointer items-start gap-2.5 text-sm">
+                      <input
+                        type="checkbox"
+                        checked={linkedinConsent}
+                        onChange={(e) => setValue("linkedinConsent", e.target.checked, { shouldValidate: true })}
+                        className="mt-0.5 h-4 w-4 flex-shrink-0 accent-primary"
+                      />
+                      <span className="text-muted-foreground">{t("reviews.form.linkedinConsent")}</span>
+                    </label>
+                    {error(errors.linkedinConsent?.message)}
+                  </div>
+                )}
               </div>
 
               <div aria-hidden className="absolute -left-[9999px] h-px w-px overflow-hidden">

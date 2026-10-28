@@ -7,6 +7,14 @@ export enum ReviewStatus {
   HIDDEN = "hidden",
 }
 
+// How the author chose to illustrate their review on the public form
+export enum PhotoSource {
+  NONE = "none",
+  UPLOAD = "upload",
+  // Consented to me using their LinkedIn profile picture, which I add by hand
+  LINKEDIN = "linkedin",
+}
+
 const reviewSchema = new Schema(
   {
     name: { type: String, required: true, trim: true },
@@ -18,6 +26,7 @@ const reviewSchema = new Schema(
     rating: { type: Number, min: 1, max: 5, default: 5 },
     image: { type: String },
     website: { type: String, trim: true },
+    photoSource: { type: String, enum: Object.values(PhotoSource), default: PhotoSource.NONE },
     status: { type: String, enum: Object.values(ReviewStatus), default: ReviewStatus.PENDING },
     // true when it came from the public "leave a review" form
     submitted: { type: Boolean, default: false },

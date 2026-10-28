@@ -132,12 +132,25 @@
         "name": "Indiquez votre nom.",
         "email": "Email invalide.",
         "comment": "Écrivez au moins quelques mots (10 caractères).",
-        "website": "Lien invalide (https://...)."
+        "website": "Lien invalide (https://...).",
+        "photo": "Choisissez une photo.",
+        "photoSize": "La photo dépasse 8 Mo.",
+        "consent": "Cochez l'autorisation pour utiliser votre photo LinkedIn.",
+        "linkedin": "Indiquez le lien de votre profil LinkedIn (https://www.linkedin.com/in/...)."
       },
       "successTitle": "Merci beaucoup !",
       "successText": "Votre avis a bien été envoyé. Il apparaîtra sur le site après relecture.",
       "close": "Fermer",
-      "error": "L'envoi a échoué, réessayez dans un instant."
+      "error": "L'envoi a échoué, réessayez dans un instant.",
+      "photo": "Photo",
+      "photoChoices": {
+        "upload": "Ajouter une photo",
+        "linkedin": "Ma photo LinkedIn",
+        "none": "Pas de photo"
+      },
+      "photoHint": "JPG, PNG ou WebP, 8 Mo max.",
+      "linkedinUrl": "Profil LinkedIn",
+      "linkedinConsent": "J'autorise l'utilisation de ma photo de profil LinkedIn pour illustrer cet avis sur ce site."
     }
   },
   "contact": {

@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { Check, EyeOff, Mail, MessageSquareQuote, Star } from "lucide-react";
+import { Check, EyeOff, Linkedin, Mail, MessageSquareQuote, Star } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -14,7 +14,7 @@ import { ImageUpload } from "@/components/admin/ImageUpload";
 import { useEditor } from "@/components/admin/useEditor";
 import { useAdminCollection } from "@/hooks/useAdminCollection";
 import { cn } from "@/lib/utils";
-import { ReviewStatus, type Review } from "@/types/content";
+import { PhotoSource, ReviewStatus, type Review } from "@/types/content";
 
 export const reviewStatusMeta: Record<ReviewStatus, { label: string; dot: string; badge: string }> = {
   [ReviewStatus.PENDING]: {
@@ -106,6 +106,23 @@ const ReviewForm = ({ item, onSubmit }: { item?: Review; onSubmit: (values: Form
           Avis envoyé depuis le site le{" "}
           {new Date(item.createdAt).toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric" })}. Il n'a été écrit que
           dans une langue : ajoute la traduction si tu veux, sinon le site affiche l'original dans les deux langues.
+        </p>
+      )}
+
+      {item?.photoSource === PhotoSource.LINKEDIN && !image && (
+        <p className="flex items-start gap-2 rounded-xl border border-primary/30 bg-primary/5 px-4 py-3 text-sm">
+          <Linkedin className="mt-0.5 h-4 w-4 flex-shrink-0 text-primary" />
+          <span>
+            L'auteur autorise l'utilisation de sa photo LinkedIn. Enregistre-la depuis{" "}
+            {item.website ? (
+              <a href={item.website} target="_blank" rel="noopener noreferrer" className="font-medium underline underline-offset-2">
+                son profil
+              </a>
+            ) : (
+              "son profil"
+            )}{" "}
+            puis ajoute-la ci-dessous.
+          </span>
         </p>
       )}
 
@@ -268,6 +285,15 @@ export const AdminReviews = () => {
                 {r.submitted && (
                   <span className="rounded-md bg-primary/10 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-primary">
                     Via le site
+                  </span>
+                )}
+                {r.photoSource === PhotoSource.LINKEDIN && !r.image && (
+                  <span
+                    className="inline-flex items-center gap-1 rounded-md bg-muted px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground"
+                    title="Photo LinkedIn autorisée, à ajouter"
+                  >
+                    <Linkedin className="h-3 w-3" />
+                    Photo à ajouter
                   </span>
                 )}
               </div>

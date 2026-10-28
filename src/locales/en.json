@@ -132,12 +132,25 @@
         "name": "Please enter your name.",
         "email": "Invalid email.",
         "comment": "Please write a few words (10 characters).",
-        "website": "Invalid link (https://...)."
+        "website": "Invalid link (https://...).",
+        "photo": "Please choose a photo.",
+        "photoSize": "The photo is larger than 8 MB.",
+        "consent": "Please tick the box to allow using your LinkedIn photo.",
+        "linkedin": "Please enter your LinkedIn profile link (https://www.linkedin.com/in/...)."
       },
       "successTitle": "Thank you so much!",
       "successText": "Your review has been sent. It will appear on the site once reviewed.",
       "close": "Close",
-      "error": "Sending failed, please try again in a moment."
+      "error": "Sending failed, please try again in a moment.",
+      "photo": "Photo",
+      "photoChoices": {
+        "upload": "Upload a photo",
+        "linkedin": "My LinkedIn photo",
+        "none": "No photo"
+      },
+      "photoHint": "JPG, PNG or WebP, 8 MB max.",
+      "linkedinUrl": "LinkedIn profile",
+      "linkedinConsent": "I allow my LinkedIn profile picture to be shown alongside this review on this website."
     }
   },
   "contact": {
