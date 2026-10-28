@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "sonner";
-import { ArrowUpRight, FolderKanban, Github, Globe, Pencil, Plus, Search, Trash2 } from "lucide-react";
+import { ArrowUpRight, Eye, EyeOff, FolderKanban, Github, Globe, Pencil, Plus, Search, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
@@ -12,13 +12,13 @@ import { cn } from "@/lib/utils";
 import { ProjectStatus, type Project } from "@/types/project";
 import { ProjectStatusBadge, statusMeta } from "./ProjectStatusBadge";
 
-type StatusFilter = "all" | ProjectStatus;
+type StatusFilter = "all" | "hidden" | ProjectStatus;
 
 const dateFormatter = new Intl.DateTimeFormat("fr-FR", { day: "numeric", month: "short", year: "numeric" });
 const shortDateFormatter = new Intl.DateTimeFormat("fr-FR", { day: "numeric", month: "short" });
 
 export const AdminProjects = () => {
-  const { projects, isLoading, error, refresh } = useProjects();
+  const { projects, setProjects, isLoading, error, refresh } = useProjects({ admin: true });
   const { token } = useAuth();
   const [toDelete, setToDelete] = useState<Project | null>(null);
   const [isDeleting, setIsDeleting] = useState(false);
@@ -28,6 +28,8 @@ export const AdminProjects = () => {
   const counts = useMemo(
     () => ({
       all: projects.length,
+      published: projects.filter((p) => p.visible).length,
+      hidden: projects.filter((p) => !p.visible).length,
       [ProjectStatus.DONE]: projects.filter((p) => p.status === ProjectStatus.DONE).length,
       [ProjectStatus.ONGOING]: projects.filter((p) => p.status === ProjectStatus.ONGOING).length,
       [ProjectStatus.STARTED]: projects.filter((p) => p.status === ProjectStatus.STARTED).length,
@@ -43,11 +45,21 @@ export const AdminProjects = () => {
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
     return projects.filter((p) => {
-      if (statusFilter !== "all" && p.status !== statusFilter) return false;
+      if (statusFilter === "hidden" ? p.visible : statusFilter !== "all" && p.status !== statusFilter) return false;
       if (!q) return true;
       return p.title.toLowerCase().includes(q) || p.slug.includes(q) || p.stack.some((s) => s.toLowerCase().includes(q));
     });
   }, [projects, query, statusFilter]);
+
+  const toggleVisible = async (project: Project) => {
+    try {
+      const saved = await apiRequest<Project>(`/projects/${project.slug}`, { method: "PUT", body: { visible: !project.visible }, token });
+      setProjects((current) => current.map((p) => (p._id === saved._id ? saved : p)));
+      toast.success(saved.visible ? `"${saved.title}" publié.` : `"${saved.title}" masqué du site.`);
+    } catch (err) {
+      toast.error(err instanceof ApiError ? err.message : "Modification impossible.");
+    }
+  };
 
   const confirmDelete = async () => {
     if (!toDelete) return;
@@ -65,7 +77,12 @@ export const AdminProjects = () => {
   };
 
   const stats = [
-    { label: "Projets publiés", value: counts.all, hint: "Visibles sur le portfolio", accent: "bg-foreground" },
+    {
+      label: "Projets publiés",
+      value: counts.published,
+      hint: counts.hidden ? `${counts.hidden} masqué${counts.hidden > 1 ? "s" : ""}` : "Visibles sur le portfolio",
+      accent: "bg-foreground",
+    },
     { label: statusMeta[ProjectStatus.DONE].label, value: counts[ProjectStatus.DONE], hint: "Livrés et en ligne", accent: statusMeta[ProjectStatus.DONE].dot },
     { label: statusMeta[ProjectStatus.ONGOING].label, value: counts[ProjectStatus.ONGOING], hint: "En développement", accent: statusMeta[ProjectStatus.ONGOING].dot },
     {
@@ -81,6 +98,7 @@ export const AdminProjects = () => {
     { value: ProjectStatus.DONE, label: statusMeta[ProjectStatus.DONE].label },
     { value: ProjectStatus.ONGOING, label: statusMeta[ProjectStatus.ONGOING].label },
     { value: ProjectStatus.STARTED, label: statusMeta[ProjectStatus.STARTED].label },
+    { value: "hidden", label: "Masqués" },
   ];
 
   return (
@@ -144,7 +162,7 @@ export const AdminProjects = () => {
         </div>
 
         {/* Column headings */}
-        <div className="hidden xl:grid grid-cols-[minmax(0,1fr)_200px_110px_120px_132px] gap-4 border-b border-border bg-muted/40 px-5 py-2.5 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
+        <div className="hidden xl:grid grid-cols-[minmax(0,1fr)_200px_110px_120px_172px] gap-4 border-b border-border bg-muted/40 px-5 py-2.5 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
           <span>Projet</span>
           <span>Stack</span>
           <span>Statut</span>
@@ -193,9 +211,9 @@ export const AdminProjects = () => {
             {filtered.map((project) => (
               <li
                 key={project._id}
-                className="group grid grid-cols-[minmax(0,1fr)_auto] xl:grid-cols-[minmax(0,1fr)_200px_110px_120px_132px] items-center gap-x-4 gap-y-3 px-4 sm:px-5 py-4 hover:bg-muted/40 transition-colors"
+                className="group grid grid-cols-[minmax(0,1fr)_auto] xl:grid-cols-[minmax(0,1fr)_200px_110px_120px_172px] items-center gap-x-4 gap-y-3 px-4 sm:px-5 py-4 hover:bg-muted/40 transition-colors"
               >
-                <div className="flex items-center gap-4 min-w-0">
+                <div className={cn("flex items-center gap-4 min-w-0", !project.visible && "opacity-60")}>
                   <div className="relative hidden sm:block h-12 w-20 flex-shrink-0 overflow-hidden rounded-lg border border-border bg-muted">
                     <img src={project.image} alt="" className="h-full w-full object-cover" />
                   </div>
@@ -209,6 +227,12 @@ export const AdminProjects = () => {
                       <span>#{project.order}</span>
                       {project.liveLink && <Globe className="h-3 w-3" aria-label="Lien live" />}
                       {project.githubLink && <Github className="h-3 w-3" aria-label="Lien GitHub" />}
+                      {!project.visible && (
+                        <span className="inline-flex items-center gap-1 rounded-full bg-muted px-2 py-0.5 text-[11px] font-medium">
+                          <EyeOff className="h-3 w-3" />
+                          Masqué
+                        </span>
+                      )}
                     </p>
                     <ProjectStatusBadge status={project.status} className="sm:hidden mt-2" />
                   </div>
@@ -233,11 +257,26 @@ export const AdminProjects = () => {
 
                 <div className="flex items-center justify-end gap-1">
                   <ProjectStatusBadge status={project.status} className="hidden sm:inline-flex xl:hidden mr-1" />
-                  <Button asChild variant="ghost" size="icon" className="h-9 w-9" title="Voir sur le site">
-                    <Link to={`/projects/${project.slug}`} target="_blank" rel="noopener noreferrer">
-                      <ArrowUpRight />
-                    </Link>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="h-9 w-9"
+                    title={project.visible ? "Masquer du site" : "Publier sur le site"}
+                    onClick={() => toggleVisible(project)}
+                  >
+                    {project.visible ? <Eye /> : <EyeOff className="text-muted-foreground" />}
                   </Button>
+                  {project.visible ? (
+                    <Button asChild variant="ghost" size="icon" className="h-9 w-9" title="Voir sur le site">
+                      <Link to={`/projects/${project.slug}`} target="_blank" rel="noopener noreferrer">
+                        <ArrowUpRight />
+                      </Link>
+                    </Button>
+                  ) : (
+                    <Button variant="ghost" size="icon" className="h-9 w-9" title="Masqué : pas de page publique" disabled>
+                      <ArrowUpRight />
+                    </Button>
+                  )}
                   <Button asChild variant="ghost" size="icon" className="h-9 w-9" title="Modifier">
                     <Link to={`/admin/projects/${project.slug}/edit`}>
                       <Pencil />

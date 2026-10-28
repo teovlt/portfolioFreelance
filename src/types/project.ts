@@ -17,6 +17,7 @@ export type Project = {
   stack: string[];
   status: ProjectStatus;
   order: number;
+  visible: boolean;
   liveLink?: string;
   githubLink?: string;
   tagline: LocalizedText;

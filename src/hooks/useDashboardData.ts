@@ -24,7 +24,7 @@ export const useDashboardData = () => {
   const refresh = useCallback(async () => {
     try {
       const [projects, reviews, packages, experiences, photos, socials, contact] = await Promise.all([
-        apiRequest<Project[]>("/projects"),
+        apiRequest<Project[]>("/projects/admin", { token }),
         apiRequest<Review[]>("/reviews/admin", { token }),
         apiRequest<Package[]>("/packages/admin", { token }),
         apiRequest<Experience[]>("/experiences/admin", { token }),

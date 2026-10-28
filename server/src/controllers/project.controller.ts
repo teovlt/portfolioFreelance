@@ -2,12 +2,28 @@ import { Request, Response } from "express";
 import { Project } from "../models/Project.js";
 import { HttpError } from "../middleware/error.middleware.js";
 
+// Projects saved before the field existed have no `visible` and stay published
+const publicFilter = { visible: { $ne: false } };
+
 export const listProjects = async (req: Request, res: Response) => {
+  const projects = await Project.find(publicFilter).sort({ order: 1 });
+  res.json(projects);
+};
+
+export const listAdminProjects = async (req: Request, res: Response) => {
   const projects = await Project.find().sort({ order: 1 });
   res.json(projects);
 };
 
 export const getProject = async (req: Request, res: Response) => {
+  const project = await Project.findOne({ slug: req.params.slug, ...publicFilter });
+  if (!project) {
+    throw new HttpError(404, "Project not found");
+  }
+  res.json(project);
+};
+
+export const getAdminProject = async (req: Request, res: Response) => {
   const project = await Project.findOne({ slug: req.params.slug });
   if (!project) {
     throw new HttpError(404, "Project not found");

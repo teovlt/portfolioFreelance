@@ -10,6 +10,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Select } from "@/components/ui/select";
+import { Switch } from "@/components/ui/switch";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { useAuth } from "@/providers/auth-provider";
 import { apiRequest, ApiError } from "@/lib/api";
@@ -29,6 +30,7 @@ const schema = z.object({
   stack: z.string().min(1, "Requis"),
   status: z.nativeEnum(ProjectStatus),
   order: z.coerce.number().int(),
+  visible: z.boolean(),
   liveLink: z.string().optional().or(z.literal("")),
   githubLink: z.string().optional().or(z.literal("")),
   tagline: localizedText,
@@ -49,6 +51,7 @@ const emptyValues: FormValues = {
   stack: "",
   status: ProjectStatus.STARTED,
   order: 0,
+  visible: true,
   liveLink: "",
   githubLink: "",
   tagline: { fr: "", en: "" },
@@ -69,6 +72,7 @@ const toFormValues = (project: Project): FormValues => ({
   stack: project.stack.join(", "),
   status: project.status,
   order: project.order,
+  visible: project.visible ?? true,
   liveLink: project.liveLink ?? "",
   githubLink: project.githubLink ?? "",
   tagline: project.tagline,
@@ -100,7 +104,7 @@ export const AdminProjectForm = () => {
 
   const { fields, append, remove } = useFieldArray({ control, name: "features" });
 
-  const [title, image, stack, status] = watch(["title", "image", "stack", "status"]);
+  const [title, image, stack, status, visible] = watch(["title", "image", "stack", "status", "visible"]);
   const stackItems = (stack ?? "")
     .split(",")
     .map((s) => s.trim())
@@ -108,11 +112,11 @@ export const AdminProjectForm = () => {
 
   useEffect(() => {
     if (!slug) return;
-    apiRequest<Project>(`/projects/${slug}`)
+    apiRequest<Project>(`/projects/admin/${slug}`, { token })
       .then((project) => reset(toFormValues(project)))
       .catch(() => toast.error("Projet introuvable."))
       .finally(() => setIsLoading(false));
-  }, [slug, reset]);
+  }, [slug, reset, token]);
 
   const onSubmit = async (values: FormValues) => {
     setIsSubmitting(true);
@@ -176,7 +180,7 @@ export const AdminProjectForm = () => {
           {isEditing && <p className="mt-2 font-mono text-sm text-muted-foreground">/projects/{slug}</p>}
         </div>
         <div className="flex items-center gap-2">
-          {isEditing && (
+          {isEditing && visible && (
             <Button asChild variant="outline">
               <Link to={`/projects/${slug}`} target="_blank" rel="noopener noreferrer">
                 <ArrowUpRight />
@@ -245,6 +249,15 @@ export const AdminProjectForm = () => {
             <Label htmlFor="order">Ordre d'affichage</Label>
             <Input id="order" type="number" {...register("order")} />
             <p className="text-xs text-muted-foreground">0 = affiché en premier.</p>
+          </div>
+          <div className="sm:col-span-2 flex items-center justify-between gap-4 rounded-xl border border-border px-4 py-3">
+            <div>
+              <Label htmlFor="visible">Publié sur le site</Label>
+              <p className="text-xs text-muted-foreground">
+                {visible ? "Visible dans la liste des projets et accessible via son URL." : "Masqué : seul l'admin peut le voir."}
+              </p>
+            </div>
+            <Switch id="visible" checked={visible} onCheckedChange={(checked) => setValue("visible", checked, { shouldDirty: true })} />
           </div>
         </div>
       </FormSection>
@@ -383,7 +396,7 @@ export const AdminProjectForm = () => {
           {Object.keys(errors).length > 0 ? (
             <span className="font-medium text-destructive">Certains champs sont incomplets.</span>
           ) : (
-            "Les modifications sont publiées dès l'enregistrement."
+            visible ? "Les modifications sont publiées dès l'enregistrement." : "Ce projet est masqué du site."
           )}
         </p>
         <div className="ml-auto flex items-center gap-2">

@@ -19,6 +19,7 @@ const projectSchema = new Schema(
     stack: { type: [String], default: [] },
     status: { type: String, enum: Object.values(ProjectStatus), default: ProjectStatus.STARTED },
     order: { type: Number, required: true, default: 0 },
+    visible: { type: Boolean, default: true },
     liveLink: { type: String },
     githubLink: { type: String },
     tagline: bilingualText,
