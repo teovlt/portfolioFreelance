@@ -7,6 +7,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Home, ArrowLeft, Search, Mail, Code2 } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet";
 
 export default function NotFound() {
   const { i18n } = useTranslation();
@@ -22,25 +23,29 @@ export default function NotFound() {
     {
       title: language === "fr" ? "À propos" : "About",
       description: language === "fr" ? "En savoir plus sur moi" : "Learn more about me",
-      href: "/#about",
+      href: "/#about-section",
       icon: Code2,
     },
     {
       title: language === "fr" ? "Projets" : "Projects",
       description: language === "fr" ? "Voir mes réalisations" : "View my work",
-      href: "/#projects",
+      href: "/#projects-section",
       icon: Search,
     },
     {
       title: language === "fr" ? "Contact" : "Contact",
       description: language === "fr" ? "Me contacter" : "Get in touch",
-      href: "/#contact",
+      href: "/#contact-section",
       icon: Mail,
     },
   ];
 
   return (
     <div className="min-h-screen flex flex-col">
+      <Helmet>
+        <title>{language === "fr" ? "Page non trouvée — Téo Villet" : "Page not found — Téo Villet"}</title>
+        <meta name="robots" content="noindex" />
+      </Helmet>
       {/* Main Content */}
       <div className="flex-1 flex items-center justify-center px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto text-center">

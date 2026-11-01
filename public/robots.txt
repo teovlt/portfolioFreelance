@@ -3,4 +3,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://teovillet.fr/sitemap.xml
+Sitemap: https://www.teovillet.fr/sitemap.xml

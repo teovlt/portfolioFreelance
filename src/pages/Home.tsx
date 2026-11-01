@@ -35,7 +35,7 @@ export const Home = () => {
         <title>Téo Villet - Développeur Fullstack Freelance à Grenoble</title>
         <meta
           name="description"
-          content="Téo Villet, développeur web fullstack freelance basé à Grenoble. Découvrez mon portfolio, mes projets, mon expérience et contactez-moi pour concrétiser vos idées web !"
+          content="Développeur web freelance à Grenoble. Sites vitrines dès 1 400 €, applications et outils sur mesure pour restaurants, artisans et indépendants. Devis gratuit sous 24 h."
         />
       </Helmet>
 

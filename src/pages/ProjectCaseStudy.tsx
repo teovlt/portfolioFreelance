@@ -1,7 +1,8 @@
 "use client";
 
 import { Helmet } from "react-helmet";
-import { Link, useParams, Navigate } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import NotFound from "@/pages/ErrorPage";
 import { useTranslation } from "react-i18next";
 import { motion } from "framer-motion";
 import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
@@ -18,7 +19,9 @@ export const ProjectCaseStudy = () => {
   if (isLoading) return null;
 
   const study = projects.find((p) => p.slug === slug);
-  if (!study) return <Navigate to="/#projects-section" replace />;
+  // A not-found page rather than a redirect to the list, so a deleted or
+  // mistyped project isn't indexed as a copy of the home page
+  if (!study) return <NotFound />;
 
   const sorted = [...projects].sort((a, b) => a.order - b.order);
   const currentIndex = sorted.findIndex((p) => p.slug === slug);

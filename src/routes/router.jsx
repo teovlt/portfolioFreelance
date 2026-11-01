@@ -1,6 +1,7 @@
 import NotFound from "../pages/ErrorPage";
 import { createBrowserRouter, Outlet, useLocation } from "react-router-dom";
 import { useEffect } from "react";
+import { Helmet } from "react-helmet";
 import { Home } from "@/pages/Home";
 import { About } from "@/pages/About";
 import { Services } from "@/pages/Services";
@@ -38,8 +39,22 @@ const ScrollToTop = () => {
   return null;
 };
 
+const SITE_URL = "https://www.teovillet.fr";
+
+// One canonical per page: a single static one in index.html told Google every
+// case study was a duplicate of the home page
+const Canonical = () => {
+  const { pathname } = useLocation();
+  return (
+    <Helmet>
+      <link rel="canonical" href={`${SITE_URL}${pathname === "/" ? "/" : pathname.replace(/\/$/, "")}`} />
+    </Helmet>
+  );
+};
+
 const RootLayout = () => (
   <PackageProvider>
+    <Canonical />
     <ScrollToTop />
     <Navbar />
     <Outlet />

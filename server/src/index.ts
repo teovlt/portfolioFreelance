@@ -8,6 +8,7 @@ import { contactRouter } from "./routes/contact.routes.js";
 import { experienceRouter, packageRouter, photoRouter, socialRouter } from "./routes/content.routes.js";
 import { projectRouter } from "./routes/project.routes.js";
 import { reviewRouter } from "./routes/review.routes.js";
+import { sitemapRouter } from "./routes/sitemap.routes.js";
 import { statsRouter } from "./routes/stats.routes.js";
 import { uploadRouter } from "./routes/upload.routes.js";
 
@@ -31,6 +32,7 @@ app.use("/api/experiences", experienceRouter);
 app.use("/api/contact", contactRouter);
 app.use("/api/uploads", uploadRouter);
 app.use("/api/stats", statsRouter);
+app.use("/api/sitemap.xml", sitemapRouter);
 
 app.use(notFoundHandler);
 app.use(errorHandler);
