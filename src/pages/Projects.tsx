@@ -26,7 +26,8 @@ const item = {
 };
 
 export const Projects = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const lang = i18n.language === "en" ? "en" : "fr";
   const { projects } = useProjects();
   const [hoveredId, setHoveredId] = useState<string | null>(null);
 
@@ -66,7 +67,7 @@ export const Projects = () => {
                 <span className="font-serif text-xl text-border w-9 flex-shrink-0 select-none">{String(index + 1).padStart(2, "0")}</span>
                 <div className="flex-1 min-w-[200px]">
                   <h3 className="text-xl sm:text-2xl font-display font-bold transition-colors">{project.title}</h3>
-                  <p className="text-sm text-muted-foreground mt-1.5 line-clamp-1">{project.stack.join(", ")}</p>
+                  <p className="text-sm text-muted-foreground mt-1.5 line-clamp-1">{project.tagline[lang] || project.stack.join(", ")}</p>
                 </div>
                 <Badge className={`${statusColors[project.status]} text-xs font-medium flex-shrink-0 hidden sm:inline-flex`}>
                   {t(`projects.status.${project.status}`)}

@@ -87,13 +87,15 @@ export const Home = () => {
 
             <motion.div
               variants={itemVariants}
-              className="hidden sm:flex flex-wrap items-center gap-x-12 gap-y-4 border-t border-border pt-5"
+              className="grid grid-cols-3 gap-4 sm:flex sm:flex-wrap sm:items-center sm:gap-x-12 sm:gap-y-4 border-t border-border pt-5"
             >
               {stats.map((stat, i) => (
-                <div key={i} className="flex items-baseline gap-2">
-                  <span className="text-3xl sm:text-4xl font-display font-bold tracking-tight">{stat.value}</span>
-                  {i === 0 && <Star className="h-4 w-4 fill-accent text-accent -ml-1" />}
-                  <span className="text-sm text-muted-foreground">{stat.label}</span>
+                <div key={i} className="flex flex-col sm:flex-row sm:items-baseline gap-0.5 sm:gap-2">
+                  <span className="flex items-baseline gap-1">
+                    <span className="text-3xl sm:text-4xl font-display font-bold tracking-tight">{stat.value}</span>
+                    {i === 0 && <Star className="h-4 w-4 fill-accent text-accent" />}
+                  </span>
+                  <span className="text-xs sm:text-sm text-muted-foreground">{stat.label}</span>
                 </div>
               ))}
             </motion.div>

@@ -47,10 +47,10 @@ export function HeroSocialProof() {
       transition={{ duration: 0.6, delay: 0.5 }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className="hidden xl:block relative mt-12 xl:mt-0"
+      className="relative mt-12 mx-2 sm:mx-5 xl:mx-0 xl:mt-0"
     >
       <div className="absolute -top-5 -left-5 w-full h-full rounded-3xl bg-accent/70 -z-10 rotate-2" />
-      <div className="rounded-3xl border border-border bg-card p-8 shadow-sm">
+      <div className="rounded-3xl border border-border bg-card p-6 sm:p-8 shadow-sm">
         <div className="flex items-center justify-between mb-6">
           <div className="flex -space-x-3">
             {reviews.map((r) => (
@@ -79,7 +79,7 @@ export function HeroSocialProof() {
             transition={{ duration: 0.3 }}
             className="min-h-[9.5rem]"
           >
-            <p className="font-serif italic text-2xl leading-snug text-foreground line-clamp-4 mb-5">"{localize(active.comment)}"</p>
+            <p className="font-serif italic text-xl sm:text-2xl leading-snug text-foreground line-clamp-4 mb-5">"{localize(active.comment)}"</p>
             <p className="text-sm text-muted-foreground">
               {active.website ? (
                 <a
