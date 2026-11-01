@@ -11,7 +11,7 @@ type Displayable = {
   visible: boolean;
 };
 
-export const socialIcons = ["github", "linkedin", "mail", "x", "instagram", "facebook", "youtube", "dribbble", "malt", "website"] as const;
+export const socialIcons = ["github", "linkedin", "mail", "x", "instagram", "facebook", "youtube", "dribbble", "malt", "whatsapp", "website"] as const;
 export type SocialIcon = (typeof socialIcons)[number];
 
 export type Social = Document &

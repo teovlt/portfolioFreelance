@@ -56,7 +56,7 @@ const SocialForm = ({ item, onSubmit }: { item?: Social; onSubmit: (values: Form
           </div>
         </div>
       </Field>
-      <Field label="Lien" htmlFor="url" error={errors.url?.message} hint="https://..., mailto:... ou tel:..." className="sm:col-span-2">
+      <Field label="Lien" htmlFor="url" error={errors.url?.message} hint="https://..., mailto:..., tel:... ou https://wa.me/33612345678 pour WhatsApp" className="sm:col-span-2">
         <Input id="url" placeholder="https://www.linkedin.com/in/..." className="font-mono text-xs md:text-xs" {...register("url")} />
       </Field>
     </form>

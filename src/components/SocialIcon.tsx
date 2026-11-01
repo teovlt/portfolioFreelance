@@ -1,5 +1,6 @@
 import { Briefcase, Dribbble, Facebook, Github, Globe, Instagram, Linkedin, Mail, Twitter, Youtube } from "lucide-react";
 import type { SocialIcon as SocialIconName } from "@/types/content";
+import { WhatsAppIcon } from "@/components/WhatsApp";
 
 const icons: Record<SocialIconName, React.ComponentType<{ className?: string }>> = {
   github: Github,
@@ -11,6 +12,7 @@ const icons: Record<SocialIconName, React.ComponentType<{ className?: string }>>
   youtube: Youtube,
   dribbble: Dribbble,
   malt: Briefcase,
+  whatsapp: WhatsAppIcon,
   website: Globe,
 };
 
@@ -24,6 +26,7 @@ export const socialIconLabels: Record<SocialIconName, string> = {
   youtube: "YouTube",
   dribbble: "Dribbble",
   malt: "Malt",
+  whatsapp: "WhatsApp",
   website: "Site web",
 };
 

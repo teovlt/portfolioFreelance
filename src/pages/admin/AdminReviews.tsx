@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import { toast } from "sonner";
 import { Check, EyeOff, Linkedin, Mail, MessageSquareQuote, Star } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
@@ -13,6 +14,7 @@ import { Field, LocalizedField } from "@/components/admin/fields";
 import { ImageUpload } from "@/components/admin/ImageUpload";
 import { useEditor } from "@/components/admin/useEditor";
 import { useAdminCollection } from "@/hooks/useAdminCollection";
+import { ApiError } from "@/lib/api";
 import { cn } from "@/lib/utils";
 import { PhotoSource, ReviewStatus, type Review } from "@/types/content";
 
@@ -221,7 +223,11 @@ export const AdminReviews = () => {
   ];
 
   const setStatus = async (review: Review, status: ReviewStatus) => {
-    await save({ status }, review._id);
+    try {
+      await save({ status }, review._id);
+    } catch (err) {
+      toast.error(err instanceof ApiError ? err.message : "Modification impossible.");
+    }
   };
 
   return (
@@ -258,17 +264,22 @@ export const AdminReviews = () => {
             ))}
           </div>
         }
+        // Same eye shortcut as the other lists: hides a published review,
+        // publishes a hidden or pending one
+        isVisible={(r) => r.status === ReviewStatus.PUBLISHED}
+        onToggleVisible={(r) => save({ status: r.status === ReviewStatus.PUBLISHED ? ReviewStatus.HIDDEN : ReviewStatus.PUBLISHED }, r._id).then(() => {})}
         renderActions={(r) =>
-          r.status === ReviewStatus.PUBLISHED ? (
-            <Button variant="ghost" size="sm" className="h-8 px-3" onClick={() => setStatus(r, ReviewStatus.HIDDEN)}>
-              <EyeOff />
-              Masquer
-            </Button>
-          ) : (
-            <Button variant="outline" size="sm" className="h-8 px-3" onClick={() => setStatus(r, ReviewStatus.PUBLISHED)}>
-              <Check />
-              Publier
-            </Button>
+          r.status === ReviewStatus.PENDING && (
+            <>
+              <Button variant="ghost" size="sm" className="h-8 px-3" onClick={() => setStatus(r, ReviewStatus.HIDDEN)}>
+                <EyeOff />
+                Masquer
+              </Button>
+              <Button variant="outline" size="sm" className="h-8 px-3" onClick={() => setStatus(r, ReviewStatus.PUBLISHED)}>
+                <Check />
+                Publier
+              </Button>
+            </>
           )
         }
         renderItem={(r) => (

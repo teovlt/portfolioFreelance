@@ -1,7 +1,7 @@
 import { Schema, model } from "mongoose";
 import { displayFields } from "./shared.js";
 
-export const socialIcons = ["github", "linkedin", "mail", "x", "instagram", "facebook", "youtube", "dribbble", "malt", "website"] as const;
+export const socialIcons = ["github", "linkedin", "mail", "x", "instagram", "facebook", "youtube", "dribbble", "malt", "whatsapp", "website"] as const;
 
 const socialSchema = new Schema(
   {
