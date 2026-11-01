@@ -5,18 +5,24 @@ import { ArrowUpRight, Plus } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { openContactTab } from "@/utils/contactTab";
 import { usePackagePricing } from "@/hooks/usePackagePricing";
+import { useLocalize, usePublicContent } from "@/hooks/usePublicContent";
+import type { Faq as FaqItem } from "@/types/content";
 
 type Item = { q: string; a: string };
 
 export const Faq = () => {
   const { t } = useTranslation();
+  const localize = useLocalize();
   const { prices, durations } = usePackagePricing();
-  const items = t("faq.items", {
-    returnObjects: true,
-    prices: prices || t("faq.pricesFallback"),
-    durations: durations || t("faq.durationsFallback"),
-    interpolation: { escapeValue: false },
-  }) as Item[];
+  const { data: faqs } = usePublicContent<FaqItem[]>("/faqs", []);
+
+  // Answers can quote {{tarifs}} / {{delais}}, filled in from the packages
+  const items: Item[] = faqs.map((f) => ({
+    q: localize(f.question),
+    a: localize(f.answer)
+      .replace(/{{\s*tarifs\s*}}/g, prices || t("faq.pricesFallback"))
+      .replace(/{{\s*delais\s*}}/g, durations || t("faq.durationsFallback")),
+  }));
   const [open, setOpen] = useState<number | null>(0);
 
   // Lets Google show the questions as rich results under the site
@@ -25,6 +31,9 @@ export const Faq = () => {
     "@type": "FAQPage",
     mainEntity: items.map(({ q, a }) => ({ "@type": "Question", name: q, acceptedAnswer: { "@type": "Answer", text: a } })),
   };
+
+  // Nothing to show until questions exist in the admin
+  if (items.length === 0) return null;
 
   return (
     <section className="py-24 sm:py-32" id="faq-section">

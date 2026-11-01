@@ -11,6 +11,7 @@ import {
   Contact,
   EyeOff,
   FolderKanban,
+  HelpCircle,
   Images,
   Inbox,
   Link2,
@@ -220,6 +221,15 @@ const buildActivity = (data: DashboardData): Activity[] => {
       to: `/admin/experiences?edit=${e._id}`,
       image: e.logo,
     })),
+    ...data.faqs.map((f) => ({
+      key: `faq-${f._id}`,
+      kind: "FAQ",
+      icon: HelpCircle,
+      title: f.question.fr,
+      action: verb(f),
+      date: f.updatedAt,
+      to: `/admin/faqs?edit=${f._id}`,
+    })),
     ...data.photos.map((p) => ({
       key: `photo-${p._id}`,
       kind: "Photo",
@@ -332,6 +342,8 @@ const buildTodos = (data: DashboardData): Todo[] => {
 
   if (!data.photos.some((p) => p.visible))
     todos.push({ key: "photos", label: "Aucune photo visible dans « À propos »", to: "/admin/photos?new", tone: "warning" });
+  if (!data.faqs.some((f) => f.visible))
+    todos.push({ key: "faqs", label: "Aucune question visible : la FAQ est masquée sur le site", to: "/admin/faqs?new", tone: "info" });
   if (!data.packages.some((p) => p.visible))
     todos.push({ key: "packages", label: "Aucun package visible sur le site", to: "/admin/packages", tone: "warning" });
   if (!data.contact) todos.push({ key: "contact", label: "Coordonnées non renseignées", to: "/admin/contact", tone: "warning" });
@@ -863,6 +875,33 @@ const CollectionCards = ({ data, onCopyReviewLink }: { data: DashboardData; onCo
           </ol>
         ) : (
           <Empty>Parcours vide.</Empty>
+        )}
+      </CollectionCard>
+
+      <CollectionCard
+        to="/admin/faqs"
+        label="FAQ"
+        icon={HelpCircle}
+        count={data.faqs.length}
+        meta={hiddenLabel(data.faqs)}
+        actions={
+          <QuickAction to="/admin/faqs?new" icon={Plus}>
+            Nouvelle question
+          </QuickAction>
+        }
+      >
+        {data.faqs.length ? (
+          <ul className="space-y-2">
+            {data.faqs.slice(0, 4).map((f) => (
+              <li key={f._id}>
+                <Link to={`/admin/faqs?edit=${f._id}`} className="block truncate text-sm hover:text-primary transition-colors">
+                  {f.question.fr}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <Empty>Aucune question pour l'instant.</Empty>
         )}
       </CollectionCard>
 

@@ -14,16 +14,11 @@ function QuotePreview({ label }: { label: string }) {
   const [failed, setFailed] = useState(false);
 
   return (
-    <div className="relative aspect-[4/5] sm:aspect-[3/4] w-full max-w-[280px] mx-auto rounded-2xl overflow-hidden border border-background/15 bg-background shadow-xl rotate-1">
+    <div className="hidden sm:block absolute right-8 top-12 w-56 lg:w-64 rotate-3 rounded-xl overflow-hidden border border-background/15 bg-background shadow-2xl transition-transform duration-300 group-hover:rotate-1 group-hover:-translate-y-1">
       {!failed ? (
-        <img
-          src="/images/services/devis-exemple.png"
-          alt={label}
-          onError={() => setFailed(true)}
-          className="w-full h-full object-cover object-top"
-        />
+        <img src="/images/services/devis-exemple.png" alt={label} onError={() => setFailed(true)} className="w-full h-auto" />
       ) : (
-        <div className="w-full h-full flex flex-col items-center justify-center gap-3 p-6 text-center">
+        <div className="aspect-square flex flex-col items-center justify-center gap-3 p-6 text-center">
           <FileText className="h-8 w-8 text-muted-foreground/40" />
           <span className="text-xs text-muted-foreground">{label}</span>
         </div>
@@ -214,16 +209,19 @@ export function Services() {
         </motion.div>
 
         {/* Bottom CTA */}
-        <motion.div variants={itemVariants} className="mt-16 relative rounded-3xl overflow-hidden bg-foreground text-background grain">
-          <div className="relative grid md:grid-cols-[1.1fr_0.9fr] gap-10 items-center px-8 sm:px-14 py-16">
+        <motion.div
+          variants={itemVariants}
+          className="group mt-14 max-w-4xl mx-auto relative rounded-3xl overflow-hidden bg-foreground text-background grain"
+        >
+          <div className="relative px-7 sm:px-10 py-9 sm:pr-72 lg:pr-80 sm:min-h-[15rem]">
             <div>
-              <span className="inline-flex items-center rounded-full bg-background/10 border border-background/20 px-3 py-1 text-xs font-semibold uppercase tracking-wider mb-5">
+              <span className="inline-flex items-center rounded-full bg-background/10 border border-background/20 px-2.5 py-0.5 text-[11px] font-semibold uppercase tracking-wider mb-4">
                 {language === "fr" ? "100% gratuit" : "100% free"}
               </span>
-              <h3 className="text-3xl sm:text-4xl font-display font-bold max-w-xl mb-4">
+              <h3 className="text-2xl sm:text-3xl font-display font-bold mb-2">
                 {language === "fr" ? "Besoin d'un devis personnalisé ?" : "Need a custom quote?"}
               </h3>
-              <p className="text-background/70 max-w-md mb-8">
+              <p className="text-sm text-background/70 max-w-sm mb-6">
                 {language === "fr"
                   ? "Je vous envoie un devis détaillé sous 24 h, gratuit et sans engagement. Vous savez exactement ce que vous payez avant de commencer."
                   : "I'll send you a detailed quote within 24 hours, free and with no commitment. You know exactly what you're paying for before we start."}
@@ -233,7 +231,7 @@ export function Services() {
                   setSelectedPackage(language === "fr" ? "Devis personnalisé" : "Custom quote");
                   scrollToSection("contact-section", e);
                 }}
-                className="inline-flex items-center gap-2 h-12 px-7 rounded-full bg-background text-foreground font-semibold text-sm hover:bg-background/90 transition-colors"
+                className="inline-flex items-center gap-2 h-11 px-6 rounded-full bg-background text-foreground font-semibold text-sm hover:bg-background/90 transition-colors"
               >
                 {language === "fr" ? "Demander un devis gratuit" : "Request a free quote"}
                 <ArrowUpRight className="h-4 w-4" />

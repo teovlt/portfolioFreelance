@@ -72,6 +72,12 @@ export type Package = Document &
     popular: boolean;
   };
 
+export type Faq = Document &
+  Displayable & {
+    question: LocalizedText;
+    answer: LocalizedText;
+  };
+
 export const experienceTypes = ["formation", "alternance", "stage", "emploi", "freelance"] as const;
 export type ExperienceType = (typeof experienceTypes)[number];
 
@@ -109,6 +115,7 @@ export type Stats = {
   socials: CollectionStat;
   packages: CollectionStat;
   experiences: CollectionStat;
+  faqs: CollectionStat;
   contact: CollectionStat;
   bookings: { pending: number };
   messages: { unread: number };

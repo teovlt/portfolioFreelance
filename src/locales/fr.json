@@ -139,40 +139,6 @@
     "titleHighlight": "questions",
     "description": "Les questions qu'on me pose le plus souvent. La vôtre n'y est pas ?",
     "ask": "Posez-la moi directement",
-    "items": [
-      {
-        "q": "Combien coûte un site ?",
-        "a": "{{prices}} Le prix exact dépend de votre projet et figure dans le devis, gratuit et envoyé sous 24 h. Certaines formules existent aussi en paiement mensuel."
-      },
-      {
-        "q": "Combien de temps faut-il ?",
-        "a": "{{durations}} Le planning exact est fixé dans le devis."
-      },
-      {
-        "q": "Le site m'appartient-il ?",
-        "a": "Oui. Le site, son code, vos contenus et le nom de domaine sont à votre nom. En paiement unique, dès le dernier règlement. En abonnement, à la fin de l'engagement."
-      },
-      {
-        "q": "Pourrai-je modifier mon site moi-même ?",
-        "a": "Oui, si vous le souhaitez : je peux prévoir un espace d'administration pour changer vos textes, photos ou tarifs sans toucher au code. Sinon, je m'en occupe pour vous."
-      },
-      {
-        "q": "Que se passe-t-il après la mise en ligne ?",
-        "a": "L'assistance est incluse pendant 30 jours (60 pour un site complet). Ensuite, une maintenance mensuelle couvre l'hébergement, les mises à jour, les sauvegardes et les petites modifications."
-      },
-      {
-        "q": "Mon site sera-t-il visible sur Google ?",
-        "a": "Les bases du référencement sont incluses : site rapide, adapté au mobile, balises et contenus bien structurés, inscription sur Google Search Console. Personne ne peut garantir la première place, mais votre site part sur de bonnes bases."
-      },
-      {
-        "q": "Je n'ai ni logo ni textes, est-ce un problème ?",
-        "a": "Non. Je vous aide à structurer vos pages et à écrire vos textes. Pour l'identité visuelle, la formule Design personnalisé crée une maquette à votre image avant le développement."
-      },
-      {
-        "q": "On peut se voir en vrai ?",
-        "a": "Oui, autour de Grenoble. Ailleurs en France, tout se fait très bien en visio."
-      }
-    ],
     "pricesFallback": "Chaque formule affiche son prix de départ dans la section Tarifs.",
     "durationsFallback": "Chaque formule indique son délai dans la section Tarifs."
   },

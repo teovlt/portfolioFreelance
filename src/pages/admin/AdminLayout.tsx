@@ -4,6 +4,7 @@ import {
   CalendarClock,
   Contact,
   FolderKanban,
+  HelpCircle,
   Images,
   LayoutDashboard,
   LogOut,
@@ -26,6 +27,7 @@ const navItems = [
   { to: "/admin/reviews", label: "Avis", icon: MessageSquareQuote, end: false },
   { to: "/admin/packages", label: "Packages", icon: Package, end: false },
   { to: "/admin/experiences", label: "Parcours", icon: Route, end: false },
+  { to: "/admin/faqs", label: "FAQ", icon: HelpCircle, end: false },
   { to: "/admin/photos", label: "Photos", icon: Images, end: false },
   { to: "/admin/contact", label: "Coordonnées", icon: Contact, end: false },
 ];

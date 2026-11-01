@@ -25,6 +25,7 @@ import { AdminReviews } from "@/pages/admin/AdminReviews";
 import { AdminPhotos } from "@/pages/admin/AdminPhotos";
 import { AdminPackages } from "@/pages/admin/AdminPackages";
 import { AdminExperiences } from "@/pages/admin/AdminExperiences";
+import { AdminFaqs } from "@/pages/admin/AdminFaqs";
 import { AdminContact } from "@/pages/admin/AdminContact";
 import { AdminBookings } from "@/pages/admin/AdminBookings";
 import { AdminMessages } from "@/pages/admin/AdminMessages";
@@ -118,6 +119,7 @@ export const router = createBrowserRouter([
       { path: "reviews", element: <AdminReviews /> },
       { path: "packages", element: <AdminPackages /> },
       { path: "experiences", element: <AdminExperiences /> },
+      { path: "faqs", element: <AdminFaqs /> },
       { path: "photos", element: <AdminPhotos /> },
       { path: "socials", element: <SocialsRedirect /> },
       { path: "contact", element: <AdminContact /> },

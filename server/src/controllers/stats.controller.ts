@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { Model } from "mongoose";
 import { Experience } from "../models/Experience.js";
+import { Faq } from "../models/Faq.js";
 import { Package } from "../models/Package.js";
 import { Photo } from "../models/Photo.js";
 import { Project } from "../models/Project.js";
@@ -18,13 +19,14 @@ const summarize = async (model: Model<any>) => {
 
 // Counts and last-modified dates for the dashboard cards
 export const getStats = async (req: Request, res: Response) => {
-  const [projects, reviews, photos, socials, packages, experiences, contact, pendingReviews, pendingBookings, unreadMessages] = await Promise.all([
+  const [projects, reviews, photos, socials, packages, experiences, faqs, contact, pendingReviews, pendingBookings, unreadMessages] = await Promise.all([
     summarize(Project),
     summarize(Review),
     summarize(Photo),
     summarize(Social),
     summarize(Package),
     summarize(Experience),
+    summarize(Faq),
     summarize(ContactInfo),
     Review.countDocuments({ status: ReviewStatus.PENDING }),
     Booking.countDocuments({ status: BookingStatus.PENDING }),
@@ -38,6 +40,7 @@ export const getStats = async (req: Request, res: Response) => {
     socials,
     packages,
     experiences,
+    faqs,
     contact,
     bookings: { pending: pendingBookings },
     messages: { unread: unreadMessages },

@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { apiRequest } from "@/lib/api";
 import { useAuth } from "@/providers/auth-provider";
-import type { Booking, ContactInfo, ContactMessage, Experience, Package, Photo, Review, Social } from "@/types/content";
+import type { Booking, ContactInfo, ContactMessage, Experience, Faq, Package, Photo, Review, Social } from "@/types/content";
 import type { Project } from "@/types/project";
 import { CONTENT_CHANGED_EVENT } from "./useStats";
 
@@ -10,6 +10,7 @@ export type DashboardData = {
   reviews: Review[];
   packages: Package[];
   experiences: Experience[];
+  faqs: Faq[];
   photos: Photo[];
   socials: Social[];
   contact: ContactInfo | null;
@@ -25,18 +26,19 @@ export const useDashboardData = () => {
 
   const refresh = useCallback(async () => {
     try {
-      const [projects, reviews, packages, experiences, photos, socials, contact, bookings, messages] = await Promise.all([
+      const [projects, reviews, packages, experiences, faqs, photos, socials, contact, bookings, messages] = await Promise.all([
         apiRequest<Project[]>("/projects/admin", { token }),
         apiRequest<Review[]>("/reviews/admin", { token }),
         apiRequest<Package[]>("/packages/admin", { token }),
         apiRequest<Experience[]>("/experiences/admin", { token }),
+        apiRequest<Faq[]>("/faqs/admin", { token }),
         apiRequest<Photo[]>("/photos/admin", { token }),
         apiRequest<Social[]>("/socials/admin", { token }),
         apiRequest<ContactInfo | null>("/contact"),
         apiRequest<Booking[]>("/bookings/admin", { token }),
         apiRequest<ContactMessage[]>("/messages/admin", { token }),
       ]);
-      setData({ projects, reviews, packages, experiences, photos, socials, contact, bookings, messages });
+      setData({ projects, reviews, packages, experiences, faqs, photos, socials, contact, bookings, messages });
       setError(null);
     } catch {
       setError("Impossible de charger le contenu.");

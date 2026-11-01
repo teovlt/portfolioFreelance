@@ -4,6 +4,7 @@ import { Model } from "mongoose";
 import { connectDB } from "../config/db.js";
 import { ContactInfo } from "../models/ContactInfo.js";
 import { Experience } from "../models/Experience.js";
+import { Faq } from "../models/Faq.js";
 import { Package } from "../models/Package.js";
 import { Photo } from "../models/Photo.js";
 import { Review } from "../models/Review.js";
@@ -393,6 +394,73 @@ const contactInfo = {
   locationUrl: "https://www.google.fr/search?q=lille+grenoble",
 };
 
+const faqs = [
+  {
+    question: { fr: "Combien coûte un site ?", en: "How much does a website cost?" },
+    answer: {
+      fr: "{{tarifs}} Le prix exact dépend de votre projet et figure dans le devis, gratuit et envoyé sous 24 h. Certaines formules existent aussi en paiement mensuel.",
+      en: "{{tarifs}} The exact price depends on your project and is in the quote, free and sent within 24 hours. Some plans can also be paid monthly.",
+    },
+    order: 0,
+  },
+  {
+    question: { fr: "Combien de temps faut-il ?", en: "How long does it take?" },
+    answer: {
+      fr: "{{delais}} Le planning exact est fixé dans le devis.",
+      en: "{{delais}} The exact schedule is set in the quote.",
+    },
+    order: 1,
+  },
+  {
+    question: { fr: "Le site m'appartient-il ?", en: "Do I own the website?" },
+    answer: {
+      fr: "Oui. Le site, son code, vos contenus et le nom de domaine sont à votre nom. En paiement unique, dès le dernier règlement. En abonnement, à la fin de l'engagement.",
+      en: "Yes. The site, its code, your content and the domain name are in your name. With a one-time payment, as soon as it's paid off. With a subscription, at the end of the commitment.",
+    },
+    order: 2,
+  },
+  {
+    question: { fr: "Pourrai-je modifier mon site moi-même ?", en: "Can I edit the site myself?" },
+    answer: {
+      fr: "Oui, si vous le souhaitez : je peux prévoir un espace d'administration pour changer vos textes, photos ou tarifs sans toucher au code. Sinon, je m'en occupe pour vous.",
+      en: "Yes, if you'd like: I can add an admin area to change your text, photos or prices without touching code. Otherwise, I'll handle it for you.",
+    },
+    order: 3,
+  },
+  {
+    question: { fr: "Que se passe-t-il après la mise en ligne ?", en: "What happens after launch?" },
+    answer: {
+      fr: "L'assistance est incluse pendant 30 jours (60 pour un site complet). Ensuite, une maintenance mensuelle couvre l'hébergement, les mises à jour, les sauvegardes et les petites modifications.",
+      en: "Support is included for 30 days (60 for a complete site). After that, monthly maintenance covers hosting, updates, backups and small changes.",
+    },
+    order: 4,
+  },
+  {
+    question: { fr: "Mon site sera-t-il visible sur Google ?", en: "Will my site show up on Google?" },
+    answer: {
+      fr: "Les bases du référencement sont incluses : site rapide, adapté au mobile, balises et contenus bien structurés, inscription sur Google Search Console. Personne ne peut garantir la première place, mais votre site part sur de bonnes bases.",
+      en: "SEO basics are included: a fast, mobile-friendly site, well-structured tags and content, and Google Search Console setup. Nobody can guarantee first place, but your site starts on solid ground.",
+    },
+    order: 5,
+  },
+  {
+    question: { fr: "Je n'ai ni logo ni textes, est-ce un problème ?", en: "I don't have a logo or copy. Is that a problem?" },
+    answer: {
+      fr: "Non. Je vous aide à structurer vos pages et à écrire vos textes. Pour l'identité visuelle, la formule Design personnalisé crée une maquette à votre image avant le développement.",
+      en: "No. I help you structure your pages and write your text. For branding, the Custom Design plan creates a mockup that fits your business before development.",
+    },
+    order: 6,
+  },
+  {
+    question: { fr: "On peut se voir en vrai ?", en: "Can we meet in person?" },
+    answer: {
+      fr: "Oui, autour de Grenoble. Ailleurs en France, tout se fait très bien en visio.",
+      en: "Yes, around Grenoble. Anywhere else in France, video calls work just as well.",
+    },
+    order: 7,
+  },
+];
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const seedCollection = async (name: string, model: Model<any>, docs: object[]) => {
   if (await model.exists({})) {
@@ -412,6 +480,7 @@ const run = async () => {
   await seedCollection("reviews", Review, reviews);
   await seedCollection("experiences", Experience, experiences);
   await seedCollection("contact info", ContactInfo, [contactInfo]);
+  await seedCollection("faqs", Faq, faqs);
 
   await mongoose.disconnect();
 };

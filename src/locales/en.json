@@ -139,40 +139,6 @@
     "titleHighlight": "questions",
     "description": "The questions I get asked most. Yours isn't here?",
     "ask": "Ask me directly",
-    "items": [
-      {
-        "q": "How much does a website cost?",
-        "a": "{{prices}} The exact price depends on your project and is in the quote, free and sent within 24 hours. Some plans can also be paid monthly."
-      },
-      {
-        "q": "How long does it take?",
-        "a": "{{durations}} The exact schedule is set in the quote."
-      },
-      {
-        "q": "Do I own the website?",
-        "a": "Yes. The site, its code, your content and the domain name are in your name. With a one-time payment, as soon as it's paid off. With a subscription, at the end of the commitment."
-      },
-      {
-        "q": "Can I edit the site myself?",
-        "a": "Yes, if you'd like: I can add an admin area to change your text, photos or prices without touching code. Otherwise, I'll handle it for you."
-      },
-      {
-        "q": "What happens after launch?",
-        "a": "Support is included for 30 days (60 for a complete site). After that, monthly maintenance covers hosting, updates, backups and small changes."
-      },
-      {
-        "q": "Will my site show up on Google?",
-        "a": "SEO basics are included: a fast, mobile-friendly site, well-structured tags and content, and Google Search Console setup. Nobody can guarantee first place, but your site starts on solid ground."
-      },
-      {
-        "q": "I don't have a logo or copy. Is that a problem?",
-        "a": "No. I help you structure your pages and write your text. For branding, the Custom Design plan creates a mockup that fits your business before development."
-      },
-      {
-        "q": "Can we meet in person?",
-        "a": "Yes, around Grenoble. Anywhere else in France, video calls work just as well."
-      }
-    ],
     "pricesFallback": "Each plan shows its starting price in the Pricing section.",
     "durationsFallback": "Each plan shows its timeline in the Pricing section."
   },

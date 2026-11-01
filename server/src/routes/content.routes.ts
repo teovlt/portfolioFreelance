@@ -1,4 +1,5 @@
 import { Experience } from "../models/Experience.js";
+import { Faq } from "../models/Faq.js";
 import { Package } from "../models/Package.js";
 import { Photo } from "../models/Photo.js";
 import { Social } from "../models/Social.js";
@@ -8,3 +9,4 @@ export const socialRouter = createCrudRouter(Social, { publicFilter: { visible: 
 export const photoRouter = createCrudRouter(Photo, { publicFilter: { visible: true } });
 export const packageRouter = createCrudRouter(Package, { publicFilter: { visible: true } });
 export const experienceRouter = createCrudRouter(Experience, { publicFilter: { visible: true } });
+export const faqRouter = createCrudRouter(Faq, { publicFilter: { visible: true } });
