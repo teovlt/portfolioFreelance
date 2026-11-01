@@ -520,7 +520,7 @@ const CollectionCards = ({ data, onCopyReviewLink }: { data: DashboardData; onCo
   const latestReview = [...reviews].sort((a, b) => b.createdAt.localeCompare(a.createdAt))[0];
 
   const visiblePackages = packages.filter((p) => p.visible);
-  const prices = [...visiblePackages].sort((a, b) => priceValue(a.price) - priceValue(b.price));
+  const prices = visiblePackages.filter((p) => p.price).sort((a, b) => priceValue(a.price) - priceValue(b.price));
 
   const visiblePhotos = photos.filter((p) => p.visible);
 
@@ -656,7 +656,7 @@ const CollectionCards = ({ data, onCopyReviewLink }: { data: DashboardData; onCo
                     {p.title.fr}
                     {p.popular && <Sparkles className="h-3 w-3 flex-shrink-0 text-accent" />}
                   </span>
-                  <span className="flex-shrink-0 font-serif font-semibold tabular-nums">{p.price}</span>
+                  <span className="flex-shrink-0 font-serif font-semibold tabular-nums">{p.price || `${p.monthlyPrice}/mois`}</span>
                 </Link>
               </li>
             ))}

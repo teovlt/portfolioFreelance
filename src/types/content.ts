@@ -55,11 +55,17 @@ export type Review = Document & {
   order: number;
 };
 
+export const pricingModes = ["oneTime", "subscription", "both"] as const;
+export type PricingMode = (typeof pricingModes)[number];
+
 export type Package = Document &
   Displayable & {
     title: LocalizedText;
     description: LocalizedText;
+    pricing: PricingMode;
     price: string;
+    monthlyPrice: string;
+    commitment: LocalizedText;
     duration: LocalizedText;
     badge: LocalizedText;
     deliverables: LocalizedText[];

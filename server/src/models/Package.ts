@@ -5,7 +5,11 @@ const packageSchema = new Schema(
   {
     title: bilingualText,
     description: bilingualText,
-    price: { type: String, required: true, trim: true },
+    // A package can be paid once, by subscription, or offer the client both
+    pricing: { type: String, enum: ["oneTime", "subscription", "both"], default: "oneTime" },
+    price: { type: String, default: "", trim: true },
+    monthlyPrice: { type: String, default: "", trim: true },
+    commitment: optionalBilingualText,
     duration: bilingualText,
     badge: optionalBilingualText,
     deliverables: bilingualList,

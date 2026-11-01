@@ -1,10 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import { Check, ArrowUpRight, Clock, FileText, Handshake, Percent, PenTool, RefreshCw } from "lucide-react";
+import { Check, ArrowUpRight, Clock, FileText, Handshake, Percent, PenTool, RefreshCw, Repeat } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { scrollToSection } from "@/utils/scrollToSection";
-import { motion } from "framer-motion";
+import { motion, type Variants } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Accent } from "@/components/customs/accent-text";
 import { usePackage } from "@/providers/package-provider";
@@ -33,12 +33,110 @@ function QuotePreview({ label }: { label: string }) {
   );
 }
 
+function PackageCard({ service, variants }: { service: Package; variants: Variants }) {
+  const { i18n } = useTranslation();
+  const fr = i18n.language === "fr";
+  const localize = useLocalize();
+  const { setSelectedPackage } = usePackage();
+  // Only used when the package offers both; otherwise the pricing mode decides
+  const [monthly, setMonthly] = useState(false);
+  const isMonthly = service.pricing === "subscription" || (service.pricing === "both" && monthly);
+
+  return (
+    // Own reveal rather than the section's: cards mount after the fetch, and a
+    // late child of an already-revealed parent would stay hidden
+    <motion.div
+      variants={variants}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true }}
+      className={`flex flex-col rounded-2xl border p-7 ${
+        service.popular ? "border-accent bg-accent/5 lg:-translate-y-3 shadow-lg shadow-accent/10" : "border-border bg-card"
+      }`}
+    >
+      {localize(service.badge) && (
+        <span
+          className={`self-start mb-4 rounded-full text-[10px] font-semibold uppercase tracking-wider px-3 py-1 ${
+            service.popular ? "bg-accent text-accent-foreground" : "bg-muted text-muted-foreground border border-border"
+          }`}
+        >
+          {localize(service.badge)}
+        </span>
+      )}
+
+      <h3 className="text-lg font-display font-bold mb-2">{localize(service.title)}</h3>
+      <p className="text-sm text-muted-foreground leading-relaxed mb-6 flex-1">{localize(service.description)}</p>
+
+      <div className="mb-6">
+        {service.pricing === "both" && (
+          <div className="mb-3 inline-grid grid-cols-2 gap-0.5 rounded-full border border-border p-0.5 text-xs font-medium">
+            {([false, true] as const).map((option) => (
+              <button
+                key={String(option)}
+                type="button"
+                onClick={() => setMonthly(option)}
+                className={`rounded-full px-3 py-1 transition-colors ${
+                  monthly === option ? "bg-foreground text-background" : "text-muted-foreground hover:text-foreground"
+                }`}
+              >
+                {option ? (fr ? "Mensuel" : "Monthly") : fr ? "En une fois" : "One-time"}
+              </button>
+            ))}
+          </div>
+        )}
+        <div className="flex items-baseline gap-1.5">
+          <span className="text-xs text-muted-foreground">{fr ? "À partir de" : "Starting from"}</span>
+        </div>
+        {isMonthly ? (
+          <>
+            <div className="font-serif text-4xl font-semibold">
+              {service.monthlyPrice}
+              <span className="font-sans text-base font-normal text-muted-foreground">{fr ? "/mois" : "/month"}</span>
+            </div>
+            {localize(service.commitment) && (
+              <div className="flex items-center gap-1.5 text-xs text-muted-foreground mt-1.5">
+                <Repeat className="h-3 w-3" />
+                {localize(service.commitment)}
+              </div>
+            )}
+          </>
+        ) : (
+          <div className="font-serif text-4xl font-semibold">{service.price}</div>
+        )}
+        <div className="flex items-center gap-1.5 text-xs text-muted-foreground mt-1.5">
+          <Clock className="h-3 w-3" />
+          {localize(service.duration)}
+        </div>
+      </div>
+
+      <ul className="space-y-2.5 mb-8">
+        {service.deliverables.map((point, i) => (
+          <li key={i} className="flex items-start gap-2 text-sm">
+            <Check className="h-3.5 w-3.5 mt-0.5 text-accent-foreground flex-shrink-0" />
+            {localize(point)}
+          </li>
+        ))}
+      </ul>
+
+      <Button
+        variant={service.popular ? "default" : "outline"}
+        className="w-full mt-auto"
+        onClick={(e) => {
+          const title = localize(service.title);
+          setSelectedPackage(isMonthly ? `${title} (${fr ? "abonnement" : "subscription"})` : title);
+          scrollToSection("contact-section", e);
+        }}
+      >
+        {fr ? "Choisir ce forfait" : "Choose this plan"}
+      </Button>
+    </motion.div>
+  );
+}
+
 export function Services() {
   const { i18n } = useTranslation();
   const language = i18n.language;
   const { setSelectedPackage } = usePackage();
-
-  const localize = useLocalize();
   const { data: services } = usePublicContent<Package[]>("/packages", []);
 
   const sectionVariants = {
@@ -89,57 +187,7 @@ export function Services() {
           }`}
         >
           {services.map((service) => (
-            <motion.div
-              key={service._id}
-              variants={itemVariants}
-              className={`flex flex-col rounded-2xl border p-7 ${
-                service.popular ? "border-accent bg-accent/5 lg:-translate-y-3 shadow-lg shadow-accent/10" : "border-border bg-card"
-              }`}
-            >
-              {localize(service.badge) && (
-                <span
-                  className={`self-start mb-4 rounded-full text-[10px] font-semibold uppercase tracking-wider px-3 py-1 ${
-                    service.popular ? "bg-accent text-accent-foreground" : "bg-muted text-muted-foreground border border-border"
-                  }`}
-                >
-                  {localize(service.badge)}
-                </span>
-              )}
-
-              <h3 className="text-lg font-display font-bold mb-2">{localize(service.title)}</h3>
-              <p className="text-sm text-muted-foreground leading-relaxed mb-6 flex-1">{localize(service.description)}</p>
-
-              <div className="mb-6">
-                <div className="flex items-baseline gap-1.5">
-                  <span className="text-xs text-muted-foreground">{language === "fr" ? "À partir de" : "Starting from"}</span>
-                </div>
-                <div className="font-serif text-4xl font-semibold">{service.price}</div>
-                <div className="flex items-center gap-1.5 text-xs text-muted-foreground mt-1.5">
-                  <Clock className="h-3 w-3" />
-                  {localize(service.duration)}
-                </div>
-              </div>
-
-              <ul className="space-y-2.5 mb-8">
-                {service.deliverables.map((point, i) => (
-                  <li key={i} className="flex items-start gap-2 text-sm">
-                    <Check className="h-3.5 w-3.5 mt-0.5 text-accent-foreground flex-shrink-0" />
-                    {localize(point)}
-                  </li>
-                ))}
-              </ul>
-
-              <Button
-                variant={service.popular ? "default" : "outline"}
-                className="w-full mt-auto"
-                onClick={(e) => {
-                  setSelectedPackage(localize(service.title));
-                  scrollToSection("contact-section", e);
-                }}
-              >
-                {language === "fr" ? "Choisir ce forfait" : "Choose this plan"}
-              </Button>
-            </motion.div>
+            <PackageCard key={service._id} service={service} variants={itemVariants} />
           ))}
         </div>
 

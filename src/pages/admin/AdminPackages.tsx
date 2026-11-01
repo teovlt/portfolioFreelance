@@ -10,19 +10,38 @@ import { EDITOR_FORM_ID, EditorDialog } from "@/components/admin/EditorDialog";
 import { Field, LocalizedField } from "@/components/admin/fields";
 import { useEditor } from "@/components/admin/useEditor";
 import { useAdminCollection } from "@/hooks/useAdminCollection";
-import type { Package } from "@/types/content";
+import { cn } from "@/lib/utils";
+import { pricingModes, type Package, type PricingMode } from "@/types/content";
 
 const localizedText = z.object({ fr: z.string().min(1, "Requis"), en: z.string().min(1, "Requis") });
 
-const schema = z.object({
-  title: localizedText,
-  description: localizedText,
-  price: z.string().min(1, "Requis"),
-  duration: localizedText,
-  badge: z.object({ fr: z.string(), en: z.string() }),
-  popular: z.boolean(),
-  deliverables: z.array(localizedText).min(1, "Ajoute au moins un élément inclus"),
-});
+const pricingLabels: Record<PricingMode, string> = {
+  oneTime: "Paiement unique",
+  subscription: "Abonnement",
+  both: "Les deux",
+};
+
+const schema = z
+  .object({
+    title: localizedText,
+    description: localizedText,
+    pricing: z.enum(pricingModes),
+    price: z.string(),
+    monthlyPrice: z.string(),
+    commitment: z.object({ fr: z.string(), en: z.string() }),
+    duration: localizedText,
+    badge: z.object({ fr: z.string(), en: z.string() }),
+    popular: z.boolean(),
+    deliverables: z.array(localizedText).min(1, "Ajoute au moins un élément inclus"),
+  })
+  .superRefine((values, ctx) => {
+    if (values.pricing !== "subscription" && !values.price.trim()) {
+      ctx.addIssue({ code: "custom", path: ["price"], message: "Requis" });
+    }
+    if (values.pricing !== "oneTime" && !values.monthlyPrice.trim()) {
+      ctx.addIssue({ code: "custom", path: ["monthlyPrice"], message: "Requis" });
+    }
+  });
 
 type FormValues = z.infer<typeof schema>;
 
@@ -41,7 +60,10 @@ const PackageForm = ({ item, onSubmit }: { item?: Package; onSubmit: (values: Fo
     defaultValues: {
       title: item?.title ?? emptyText,
       description: item?.description ?? emptyText,
+      pricing: item?.pricing ?? "oneTime",
       price: item?.price ?? "",
+      monthlyPrice: item?.monthlyPrice ?? "",
+      commitment: item?.commitment ?? emptyText,
       duration: item?.duration ?? emptyText,
       badge: item?.badge ?? emptyText,
       popular: item?.popular ?? false,
@@ -49,6 +71,7 @@ const PackageForm = ({ item, onSubmit }: { item?: Package; onSubmit: (values: Fo
     },
   });
   const popular = watch("popular");
+  const pricing = watch("pricing");
 
   return (
     <form id={EDITOR_FORM_ID} onSubmit={handleSubmit(onSubmit)} className="space-y-6">
@@ -61,18 +84,52 @@ const PackageForm = ({ item, onSubmit }: { item?: Package; onSubmit: (values: Fo
         en={register("description.en")}
         errors={errors.description}
       />
-      <div className="grid sm:grid-cols-[180px_1fr] gap-5">
-        <Field label="Prix" htmlFor="price" error={errors.price?.message} hint="Affiché après « À partir de ».">
-          <Input id="price" placeholder="1 400€" {...register("price")} />
-        </Field>
-        <LocalizedField
-          label="Durée"
-          fr={register("duration.fr")}
-          en={register("duration.en")}
-          errors={errors.duration}
-          placeholder={{ fr: "1 à 2 semaines", en: "1 to 2 weeks" }}
-        />
+      <Field label="Tarification" hint="« Les deux » laisse le client choisir entre payer en une fois ou au mois.">
+        <div className="grid grid-cols-3 gap-1 rounded-xl border border-border p-1">
+          {pricingModes.map((mode) => (
+            <button
+              key={mode}
+              type="button"
+              onClick={() => setValue("pricing", mode)}
+              className={cn(
+                "rounded-lg px-3 py-2 text-sm font-medium transition-colors",
+                pricing === mode ? "bg-foreground text-background" : "text-muted-foreground hover:text-foreground",
+              )}
+            >
+              {pricingLabels[mode]}
+            </button>
+          ))}
+        </div>
+      </Field>
+      <div className="grid sm:grid-cols-2 gap-5">
+        {pricing !== "subscription" && (
+          <Field label="Prix" htmlFor="price" error={errors.price?.message} hint="Affiché après « À partir de ».">
+            <Input id="price" placeholder="1 400€" {...register("price")} />
+          </Field>
+        )}
+        {pricing !== "oneTime" && (
+          <Field label="Prix mensuel" htmlFor="monthlyPrice" error={errors.monthlyPrice?.message} hint="Affiché suivi de « /mois ».">
+            <Input id="monthlyPrice" placeholder="65€" {...register("monthlyPrice")} />
+          </Field>
+        )}
       </div>
+      {pricing !== "oneTime" && (
+        <LocalizedField
+          label="Engagement"
+          optional
+          fr={register("commitment.fr")}
+          en={register("commitment.en")}
+          placeholder={{ fr: "Engagement 24 mois", en: "24-month commitment" }}
+          hint="Affiché sous le prix mensuel."
+        />
+      )}
+      <LocalizedField
+        label="Durée"
+        fr={register("duration.fr")}
+        en={register("duration.en")}
+        errors={errors.duration}
+        placeholder={{ fr: "1 à 2 semaines", en: "1 to 2 weeks" }}
+      />
       <LocalizedField
         label="Badge"
         optional
@@ -127,7 +184,18 @@ export const AdminPackages = () => {
         renderItem={(p) => (
           <div className="flex items-center gap-4 min-w-0">
             <div className="w-24 flex-shrink-0">
-              <p className="font-serif text-2xl font-semibold leading-none">{p.price}</p>
+              {p.pricing !== "subscription" && <p className="font-serif text-2xl font-semibold leading-none">{p.price}</p>}
+              {p.pricing !== "oneTime" && (
+                <p
+                  className={cn(
+                    "font-serif font-semibold leading-none",
+                    p.pricing === "subscription" ? "text-2xl" : "mt-1 text-sm text-muted-foreground",
+                  )}
+                >
+                  {p.monthlyPrice}
+                  <span className="text-xs font-normal">/mois</span>
+                </p>
+              )}
             </div>
             <div className="min-w-0">
               <div className="flex flex-wrap items-center gap-2">
