@@ -11,21 +11,21 @@
   },
   "home": {
     "badge": "Disponible pour de nouveaux projets",
-    "titleStart": "Je conçois des produits qui font",
-    "titleHighlight": "grandir",
-    "titleEnd": "votre activité.",
-    "icreate": "Des",
-    "subtitle": "Développeur fullstack freelance basé à Grenoble. Je conçois et développe des sites et applications sur mesure, pensés pour votre activité et vos utilisateurs — du premier brief à la mise en production.",
+    "titleStart": "Des sites qui vous",
+    "titleHighlight": "ramènent",
+    "titleEnd": "des clients.",
+    "icreate": "Pour les",
+    "subtitle": "Développeur web freelance à Grenoble. Je crée votre site sur mesure, du premier appel à la mise en ligne. Un site vitrine est en ligne en 2 semaines, à partir de 1 400 €.",
     "action1": "Me contacter",
     "action2": "Voir mes projets",
     "rating": "note moyenne",
     "clients": "clients satisfaits",
     "experience": "ans d'expérience",
-    "typing1": "plateformes web modernes",
-    "typing2": "expériences utilisateur intuitives",
-    "typing3": "sites rapides et fiables",
-    "typing4": "interfaces adaptées au mobile",
-    "typing5": "solutions numériques sur mesure",
+    "typing1": "restaurants",
+    "typing2": "artisans",
+    "typing3": "commerçants",
+    "typing4": "indépendants",
+    "typing5": "associations",
     "socialProof": {
       "count": "{{count}} avis clients",
       "prev": "Avis précédent",
@@ -100,8 +100,8 @@
   "projects": {
     "eyebrow": "Projets",
     "title": "Mes",
-    "highlight": "Projets Récents",
-    "description": "Une sélection de mes travaux récents. Chaque projet met en valeur différentes compétences et technologies que j'ai acquises au fil du temps.",
+    "highlight": "réalisations",
+    "description": "Des sites et applications que j'ai conçus et mis en ligne, de l'idée jusqu'à la production.",
     "status": {
       "ongoing": "En cours",
       "done": "Terminé",
@@ -216,6 +216,8 @@
     }
   },
   "footer": {
+    "legal": "Mentions légales",
+    "privacy": "Confidentialité",
     "brand": {
       "eyebrow": "On travaille ensemble ?",
       "titleStart": "Parlons de",

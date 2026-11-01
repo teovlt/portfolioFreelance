@@ -10,6 +10,7 @@ import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { Experiences } from "@/pages/Experiences";
 import { ProjectCaseStudy } from "@/pages/ProjectCaseStudy";
+import { LegalNotice, PrivacyPolicy } from "@/pages/Legal";
 import { PackageProvider } from "@/providers/package-provider";
 import { scrollToHash } from "@/utils/scrollToSection";
 import { AdminLogin } from "@/pages/admin/AdminLogin";
@@ -66,6 +67,8 @@ export const router = createBrowserRouter([
         path: "/projects/:slug",
         element: <ProjectCaseStudy />,
       },
+      { path: "/mentions-legales", element: <LegalNotice /> },
+      { path: "/confidentialite", element: <PrivacyPolicy /> },
       {
         path: "/*",
         element: <NotFound />,

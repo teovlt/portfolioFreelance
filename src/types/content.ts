@@ -92,6 +92,11 @@ export type ContactInfo = Document & {
   phone: string;
   location: LocalizedText;
   locationUrl: string;
+  siret: string;
+  legalAddress: string;
+  vatMention: string;
+  hostName: string;
+  hostAddress: string;
 };
 
 type CollectionStat = { count: number; updatedAt: string | null };

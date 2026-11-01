@@ -17,11 +17,38 @@ const schema = z.object({
   phone: z.string(),
   location: z.object({ fr: z.string().min(1, "Requis"), en: z.string().min(1, "Requis") }),
   locationUrl: z.string().url("URL invalide").optional().or(z.literal("")),
+  siret: z.string(),
+  legalAddress: z.string(),
+  vatMention: z.string(),
+  hostName: z.string(),
+  hostAddress: z.string(),
 });
 
 type FormValues = z.infer<typeof schema>;
 
-const emptyValues: FormValues = { email: "", phone: "", location: { fr: "", en: "" }, locationUrl: "" };
+const emptyValues: FormValues = {
+  email: "",
+  phone: "",
+  location: { fr: "", en: "" },
+  locationUrl: "",
+  siret: "",
+  legalAddress: "",
+  vatMention: "",
+  hostName: "",
+  hostAddress: "",
+};
+
+const toValues = (info: ContactInfo): FormValues => ({
+  email: info.email,
+  phone: info.phone,
+  location: info.location,
+  locationUrl: info.locationUrl,
+  siret: info.siret ?? "",
+  legalAddress: info.legalAddress ?? "",
+  vatMention: info.vatMention ?? "",
+  hostName: info.hostName ?? "",
+  hostAddress: info.hostAddress ?? "",
+});
 
 export const AdminContact = () => {
   const { token } = useAuth();
@@ -40,7 +67,7 @@ export const AdminContact = () => {
 
   useEffect(() => {
     apiRequest<ContactInfo | null>("/contact")
-      .then((info) => info && reset({ email: info.email, phone: info.phone, location: info.location, locationUrl: info.locationUrl }))
+      .then((info) => info && reset(toValues(info)))
       .catch(() => toast.error("Impossible de charger les coordonnées."))
       .finally(() => setIsLoading(false));
   }, [reset]);
@@ -49,7 +76,7 @@ export const AdminContact = () => {
     setIsSubmitting(true);
     try {
       const saved = await apiRequest<ContactInfo>("/contact", { method: "PUT", body: values, token });
-      reset({ email: saved.email, phone: saved.phone, location: saved.location, locationUrl: saved.locationUrl });
+      reset(toValues(saved));
       toast.success("Coordonnées enregistrées.");
     } catch (err) {
       toast.error(err instanceof ApiError ? err.message : "Enregistrement impossible.");
@@ -110,7 +137,39 @@ export const AdminContact = () => {
           </Field>
         </section>
 
-        <aside className="space-y-4">
+        <section className="lg:col-start-1 rounded-2xl border border-border bg-card p-5 sm:p-6 space-y-5">
+          <div>
+            <h2 className="font-semibold">Mentions légales</h2>
+            <p className="text-sm text-muted-foreground">
+              Obligatoires pour un site professionnel. Affichées sur la page{" "}
+              <Link to="/mentions-legales" target="_blank" className="underline underline-offset-2">
+                Mentions légales
+              </Link>
+              .
+            </p>
+          </div>
+          <div className="grid sm:grid-cols-2 gap-5">
+            <Field label="SIRET" htmlFor="siret">
+              <Input id="siret" placeholder="123 456 789 00012" {...register("siret")} />
+            </Field>
+            <Field label="Mention TVA" htmlFor="vatMention" optional hint="En micro-entreprise : « TVA non applicable, art. 293 B du CGI ».">
+              <Input id="vatMention" placeholder="TVA non applicable, art. 293 B du CGI" {...register("vatMention")} />
+            </Field>
+          </div>
+          <Field label="Adresse de l'entreprise" htmlFor="legalAddress" hint="Adresse déclarée de ta micro-entreprise.">
+            <Input id="legalAddress" {...register("legalAddress")} />
+          </Field>
+          <div className="grid sm:grid-cols-2 gap-5">
+            <Field label="Hébergeur" htmlFor="hostName" hint="Le fournisseur du serveur (OVH, Hostinger, Hetzner…).">
+              <Input id="hostName" {...register("hostName")} />
+            </Field>
+            <Field label="Adresse de l'hébergeur" htmlFor="hostAddress">
+              <Input id="hostAddress" {...register("hostAddress")} />
+            </Field>
+          </div>
+        </section>
+
+        <aside className="space-y-4 lg:row-start-1 lg:col-start-2 lg:row-span-2">
           <section className="rounded-2xl border border-border bg-card p-5">
             <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-4">Aperçu</p>
             <ul className="space-y-4 text-sm">

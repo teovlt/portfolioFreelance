@@ -118,7 +118,15 @@ export function Footer() {
           <p className="text-sm text-ink-foreground/50">
             © {currentYear} Téo Villet. {t("footer.rights")}
           </p>
-          <p className="text-sm text-ink-foreground/50">{t("footer.location")}</p>
+          <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-sm text-ink-foreground/50">
+            <Link to="/mentions-legales" className="hover:text-ink-foreground transition-colors">
+              {t("footer.legal")}
+            </Link>
+            <Link to="/confidentialite" className="hover:text-ink-foreground transition-colors">
+              {t("footer.privacy")}
+            </Link>
+            <span>{t("footer.location")}</span>
+          </div>
         </div>
       </div>
       <ReviewDialog open={isReviewOpen} onOpenChange={setIsReviewOpen} />

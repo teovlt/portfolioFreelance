@@ -8,6 +8,12 @@ const contactInfoSchema = new Schema(
     phone: { type: String, trim: true, default: "" },
     location: bilingualText,
     locationUrl: { type: String, trim: true, default: "" },
+    // Required by French law on a professional site (legal notice page)
+    siret: { type: String, trim: true, default: "" },
+    legalAddress: { type: String, trim: true, default: "" },
+    vatMention: { type: String, trim: true, default: "" },
+    hostName: { type: String, trim: true, default: "" },
+    hostAddress: { type: String, trim: true, default: "" },
   },
   { timestamps: true },
 );
