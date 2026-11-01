@@ -1,9 +1,3 @@
-import { useTranslation } from "react-i18next";
-import { motion } from "framer-motion";
-import { useLocation } from "react-router-dom";
-import { usePublicContent } from "@/hooks/usePublicContent";
-import type { ContactInfo } from "@/types/content";
-
 // Lucide has no brand logos; this is the WhatsApp glyph from Simple Icons
 export const WhatsAppIcon = ({ className }: { className?: string }) => (
   <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className={className}>
@@ -17,29 +11,4 @@ export const whatsAppLink = (number: string, message?: string) => {
   let digits = number.replace(/\D/g, "");
   if (digits.length === 10 && digits.startsWith("0")) digits = `33${digits.slice(1)}`;
   return `https://wa.me/${digits}${message ? `?text=${encodeURIComponent(message)}` : ""}`;
-};
-
-// Floating button on the public pages, shown once a number is set in the admin
-export const WhatsAppButton = () => {
-  const { t } = useTranslation();
-  const { pathname } = useLocation();
-  const { data: info } = usePublicContent<ContactInfo | null>("/contact", null);
-
-  if (!info?.whatsapp || pathname.startsWith("/admin")) return null;
-
-  return (
-    <motion.a
-      href={whatsAppLink(info.whatsapp, t("whatsapp.message"))}
-      target="_blank"
-      rel="noopener noreferrer"
-      aria-label={t("whatsapp.label")}
-      title={t("whatsapp.label")}
-      initial={{ opacity: 0, scale: 0.6 }}
-      animate={{ opacity: 1, scale: 1 }}
-      transition={{ delay: 2.4, type: "spring", stiffness: 260, damping: 18 }}
-      className="fixed bottom-5 right-5 sm:bottom-6 sm:right-6 z-40 flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg shadow-black/20 hover:scale-105 transition-transform"
-    >
-      <WhatsAppIcon className="h-7 w-7" />
-    </motion.a>
-  );
 };

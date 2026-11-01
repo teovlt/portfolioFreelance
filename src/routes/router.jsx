@@ -9,7 +9,6 @@ import { Projects } from "@/pages/Projects";
 import { Contact } from "@/pages/Contact";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
-import { WhatsAppButton } from "@/components/WhatsApp";
 import { Experiences } from "@/pages/Experiences";
 import { Process } from "@/pages/Process";
 import { Faq } from "@/pages/Faq";
@@ -67,7 +66,6 @@ const RootLayout = () => (
     <Navbar />
     <Outlet />
     <Footer />
-    <WhatsAppButton />
   </PackageProvider>
 );
 

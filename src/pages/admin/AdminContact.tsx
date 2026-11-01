@@ -128,7 +128,7 @@ export const AdminContact = () => {
                 label="WhatsApp"
                 htmlFor="whatsapp"
                 optional
-                hint="Affiche le bouton flottant, une ligne dans Contact et l'icône avec les réseaux. Vide = rien."
+                hint="Ajoute une ligne dans Contact et l'icône avec les réseaux. Vide = rien."
               >
                 <Input id="whatsapp" type="tel" placeholder="+33 6 12 34 56 78" {...register("whatsapp")} />
               </Field>
