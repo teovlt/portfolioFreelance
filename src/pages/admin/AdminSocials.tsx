@@ -23,6 +23,10 @@ const schema = z.object({
 
 type FormValues = z.infer<typeof schema>;
 
+// WhatsApp is set once in the contact info and shown with the socials
+// automatically; an older WhatsApp social can still be edited
+const iconChoices = (current?: Social["icon"]) => socialIcons.filter((value) => value !== "whatsapp" || current === "whatsapp");
+
 const SocialForm = ({ item, onSubmit }: { item?: Social; onSubmit: (values: FormValues) => void }) => {
   const {
     register,
@@ -47,7 +51,7 @@ const SocialForm = ({ item, onSubmit }: { item?: Social; onSubmit: (values: Form
           </span>
           <div className="flex-1">
             <Select id="icon" {...register("icon")}>
-              {socialIcons.map((value) => (
+              {iconChoices(item?.icon).map((value) => (
                 <option key={value} value={value}>
                   {socialIconLabels[value]}
                 </option>
@@ -56,22 +60,23 @@ const SocialForm = ({ item, onSubmit }: { item?: Social; onSubmit: (values: Form
           </div>
         </div>
       </Field>
-      <Field label="Lien" htmlFor="url" error={errors.url?.message} hint="https://..., mailto:..., tel:... ou https://wa.me/33612345678 pour WhatsApp" className="sm:col-span-2">
+      <Field label="Lien" htmlFor="url" error={errors.url?.message} hint="https://..., mailto:... ou tel:..." className="sm:col-span-2">
         <Input id="url" placeholder="https://www.linkedin.com/in/..." className="font-mono text-xs md:text-xs" {...register("url")} />
       </Field>
     </form>
   );
 };
 
-export const AdminSocials = () => {
+export const SocialsSection = () => {
   const { items, isLoading, error, save, remove, move } = useAdminCollection<Social>("socials");
   const editor = useEditor(save, items);
 
   return (
     <>
       <CollectionPage
+        embedded
         title="Réseaux"
-        description="Les liens affichés dans le hero et le pied de page du site."
+        description="Les liens affichés dans le pied de page. WhatsApp s'y ajoute tout seul depuis le numéro ci-dessus."
         icon={Share2}
         newLabel="Nouveau réseau"
         onNew={editor.openNew}

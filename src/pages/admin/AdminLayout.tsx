@@ -11,7 +11,6 @@ import {
   MessageSquareQuote,
   Package,
   Route,
-  Share2,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ThemeChanger } from "@/components/ThemeChanger";
@@ -28,7 +27,6 @@ const navItems = [
   { to: "/admin/packages", label: "Packages", icon: Package, end: false },
   { to: "/admin/experiences", label: "Parcours", icon: Route, end: false },
   { to: "/admin/photos", label: "Photos", icon: Images, end: false },
-  { to: "/admin/socials", label: "Réseaux", icon: Share2, end: false },
   { to: "/admin/contact", label: "Coordonnées", icon: Contact, end: false },
 ];
 

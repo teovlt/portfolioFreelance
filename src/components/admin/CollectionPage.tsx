@@ -30,6 +30,8 @@ type CollectionPageProps<T extends { _id: string }> = {
   onMove?: (item: T, direction: -1 | 1) => Promise<void>;
   isVisible?: (item: T) => boolean;
   onToggleVisible?: (item: T) => Promise<void>;
+  // Rendered as a section of another page (h2, smaller header) instead of a page
+  embedded?: boolean;
 };
 
 const iconButton = "h-8 w-8";
@@ -56,6 +58,7 @@ export const CollectionPage = <T extends { _id: string }>({
   onMove,
   isVisible,
   onToggleVisible,
+  embedded = false,
 }: CollectionPageProps<T>) => {
   const [toDelete, setToDelete] = useState<T | null>(null);
   const [isDeleting, setIsDeleting] = useState(false);
@@ -136,14 +139,21 @@ export const CollectionPage = <T extends { _id: string }>({
   };
 
   return (
-    <div className="space-y-8">
+    <div className={embedded ? "space-y-4" : "space-y-8"}>
       <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
-        <div>
-          <p className="eyebrow mb-3">Contenu</p>
-          <h1 className="text-3xl sm:text-4xl font-display font-bold tracking-tight">{title}</h1>
-          <p className="mt-2 text-muted-foreground">{description}</p>
-        </div>
-        <Button size="lg" className="w-fit" onClick={onNew}>
+        {embedded ? (
+          <div>
+            <h2 className="text-xl font-display font-bold tracking-tight">{title}</h2>
+            <p className="mt-1 text-sm text-muted-foreground">{description}</p>
+          </div>
+        ) : (
+          <div>
+            <p className="eyebrow mb-3">Contenu</p>
+            <h1 className="text-3xl sm:text-4xl font-display font-bold tracking-tight">{title}</h1>
+            <p className="mt-2 text-muted-foreground">{description}</p>
+          </div>
+        )}
+        <Button size={embedded ? "default" : "lg"} className="w-fit" onClick={onNew}>
           <Plus />
           {newLabel}
         </Button>

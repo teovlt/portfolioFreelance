@@ -9,12 +9,14 @@ import { useTranslation } from "react-i18next";
 import { isExternalUrl, SocialIcon } from "@/components/SocialIcon";
 import { ReviewDialog } from "@/components/customs/review-dialog";
 import { usePublicContent } from "@/hooks/usePublicContent";
-import type { Social } from "@/types/content";
+import type { ContactInfo, Social } from "@/types/content";
+import { WhatsAppIcon, whatsAppLink } from "@/components/WhatsApp";
 
 export function Footer() {
   const { t } = useTranslation();
   const { handleNavLinkClick, handleSectionButtonClick } = useSectionNav();
   const { data: socials } = usePublicContent<Social[]>("/socials", []);
+  const { data: info } = usePublicContent<ContactInfo | null>("/contact", null);
   const [isReviewOpen, setIsReviewOpen] = useState(false);
   const [params, setParams] = useSearchParams();
 
@@ -103,6 +105,21 @@ export function Footer() {
                   </a>
                 </Button>
               ))}
+              {/* From the contact info, unless an older WhatsApp social already shows it */}
+              {info?.whatsapp && !socials.some((s) => s.icon === "whatsapp") && (
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  asChild
+                  aria-label="WhatsApp"
+                  title="WhatsApp"
+                  className="text-ink-foreground hover:bg-ink-foreground/10 hover:text-ink-foreground"
+                >
+                  <a href={whatsAppLink(info.whatsapp, t("whatsapp.message"))} target="_blank" rel="noopener noreferrer">
+                    <WhatsAppIcon className="h-5 w-5" />
+                  </a>
+                </Button>
+              )}
             </div>
             <button
               onClick={() => setIsReviewOpen(true)}

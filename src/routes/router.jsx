@@ -1,5 +1,5 @@
 import NotFound from "../pages/ErrorPage";
-import { createBrowserRouter, Outlet, useLocation } from "react-router-dom";
+import { createBrowserRouter, Navigate, Outlet, useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import { Helmet } from "react-helmet";
 import { Home } from "@/pages/Home";
@@ -24,7 +24,6 @@ import { AdminProjects } from "@/pages/admin/AdminProjects";
 import { AdminProjectForm } from "@/pages/admin/AdminProjectForm";
 import { AdminReviews } from "@/pages/admin/AdminReviews";
 import { AdminPhotos } from "@/pages/admin/AdminPhotos";
-import { AdminSocials } from "@/pages/admin/AdminSocials";
 import { AdminPackages } from "@/pages/admin/AdminPackages";
 import { AdminExperiences } from "@/pages/admin/AdminExperiences";
 import { AdminContact } from "@/pages/admin/AdminContact";
@@ -40,6 +39,12 @@ const ScrollToTop = () => {
   }, [pathname, hash]);
 
   return null;
+};
+
+// Socials moved into the contact page; keeps ?edit / ?new links working
+const SocialsRedirect = () => {
+  const { search } = useLocation();
+  return <Navigate to={`/admin/contact${search}`} replace />;
 };
 
 const SITE_URL = "https://www.teovillet.fr";
@@ -116,7 +121,7 @@ export const router = createBrowserRouter([
       { path: "packages", element: <AdminPackages /> },
       { path: "experiences", element: <AdminExperiences /> },
       { path: "photos", element: <AdminPhotos /> },
-      { path: "socials", element: <AdminSocials /> },
+      { path: "socials", element: <SocialsRedirect /> },
       { path: "contact", element: <AdminContact /> },
     ],
   },

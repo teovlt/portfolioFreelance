@@ -77,7 +77,9 @@ const todayKey = () => {
 };
 
 const formatDay = (date: string) =>
-  new Intl.DateTimeFormat("fr-FR", { weekday: "short", day: "numeric", month: "short", timeZone: "UTC" }).format(new Date(`${date}T12:00:00Z`));
+  new Intl.DateTimeFormat("fr-FR", { weekday: "short", day: "numeric", month: "short", timeZone: "UTC" }).format(
+    new Date(`${date}T12:00:00Z`),
+  );
 
 // Not declined and not past, soonest first
 const upcomingBookings = (bookings: Booking[]) => {
@@ -235,7 +237,7 @@ const buildActivity = (data: DashboardData): Activity[] => {
       title: s.label,
       action: verb(s),
       date: s.updatedAt,
-      to: `/admin/socials?edit=${s._id}`,
+      to: `/admin/contact?edit=${s._id}`,
     })),
     ...data.bookings.map((b) => ({
       key: `booking-${b._id}`,
@@ -290,7 +292,12 @@ const buildTodos = (data: DashboardData): Todo[] => {
 
   const unread = data.messages.filter((m) => !m.read);
   if (unread.length)
-    todos.push({ key: "messages", label: plural(unread.length, "message non lu", "messages non lus"), to: "/admin/messages", tone: "warning" });
+    todos.push({
+      key: "messages",
+      label: plural(unread.length, "message non lu", "messages non lus"),
+      to: "/admin/messages",
+      tone: "warning",
+    });
 
   const pending = data.reviews.filter((r) => r.status === ReviewStatus.PENDING);
   if (pending.length)
@@ -330,6 +337,13 @@ const buildTodos = (data: DashboardData): Todo[] => {
   if (!data.contact) todos.push({ key: "contact", label: "Coordonnées non renseignées", to: "/admin/contact", tone: "warning" });
   if (data.contact && (!data.contact.siret || !data.contact.legalAddress || !data.contact.hostName))
     todos.push({ key: "legal", label: "Mentions légales incomplètes (SIRET, adresse, hébergeur)", to: "/admin/contact", tone: "warning" });
+  if (data.socials.some((s) => s.icon === "whatsapp"))
+    todos.push({
+      key: "whatsapp-social",
+      label: "WhatsApp en double dans les réseaux (il vient maintenant des coordonnées)",
+      to: "/admin/contact",
+      tone: "info",
+    });
   if (data.contact && !data.contact.whatsapp)
     todos.push({ key: "whatsapp", label: "Numéro WhatsApp non renseigné", to: "/admin/contact", tone: "info" });
 
@@ -608,7 +622,10 @@ const RequestCards = ({ data }: { data: DashboardData }) => {
               {upcoming.slice(0, 4).map((b) => (
                 <li key={b._id} className="flex items-center gap-3 min-w-0">
                   <span
-                    className={cn("h-2 w-2 flex-shrink-0 rounded-full", b.status === BookingStatus.PENDING ? "bg-amber-500" : "bg-emerald-500")}
+                    className={cn(
+                      "h-2 w-2 flex-shrink-0 rounded-full",
+                      b.status === BookingStatus.PENDING ? "bg-amber-500" : "bg-emerald-500",
+                    )}
                     title={b.status === BookingStatus.PENDING ? "À confirmer" : "Confirmé"}
                   />
                   <span className="w-24 flex-shrink-0 capitalize text-muted-foreground">{formatDay(b.date)}</span>
@@ -880,13 +897,13 @@ const CollectionCards = ({ data, onCopyReviewLink }: { data: DashboardData; onCo
       </CollectionCard>
 
       <CollectionCard
-        to="/admin/socials"
+        to="/admin/contact"
         label="Réseaux"
         icon={Share2}
         count={socials.length}
         meta={hiddenLabel(socials)}
         actions={
-          <QuickAction to="/admin/socials?new" icon={Plus}>
+          <QuickAction to="/admin/contact?new" icon={Plus}>
             Ajouter un réseau
           </QuickAction>
         }
@@ -896,7 +913,7 @@ const CollectionCards = ({ data, onCopyReviewLink }: { data: DashboardData; onCo
             {socials.map((s) => (
               <li key={s._id}>
                 <Link
-                  to={`/admin/socials?edit=${s._id}`}
+                  to={`/admin/contact?edit=${s._id}`}
                   className={cn(
                     "inline-flex items-center gap-1.5 rounded-full border border-border px-2.5 py-1 text-xs font-medium hover:border-foreground/30 transition-colors",
                     !s.visible && "opacity-50",
