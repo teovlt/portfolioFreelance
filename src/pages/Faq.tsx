@@ -4,12 +4,19 @@ import { AnimatePresence, motion } from "framer-motion";
 import { ArrowUpRight, Plus } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { openContactTab } from "@/utils/contactTab";
+import { usePackagePricing } from "@/hooks/usePackagePricing";
 
 type Item = { q: string; a: string };
 
 export const Faq = () => {
   const { t } = useTranslation();
-  const items = t("faq.items", { returnObjects: true }) as Item[];
+  const { prices, durations } = usePackagePricing();
+  const items = t("faq.items", {
+    returnObjects: true,
+    prices: prices || t("faq.pricesFallback"),
+    durations: durations || t("faq.durationsFallback"),
+    interpolation: { escapeValue: false },
+  }) as Item[];
   const [open, setOpen] = useState<number | null>(0);
 
   // Lets Google show the questions as rich results under the site

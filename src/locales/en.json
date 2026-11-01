@@ -15,7 +15,7 @@
     "titleHighlight": "bring you",
     "titleEnd": "customers.",
     "icreate": "For",
-    "subtitle": "Freelance web developer in Grenoble. I build your custom website, from the first call to launch. A showcase site goes live in 2 weeks, from €1,400.",
+    "subtitle": "Freelance web developer in Grenoble. I build your custom website, from the first call to launch.",
     "action1": "Get in Touch",
     "action2": "View My Work",
     "rating": "average rating",
@@ -30,7 +30,8 @@
       "count": "{{count}} client reviews",
       "prev": "Previous review",
       "next": "Next review"
-    }
+    },
+    "offer": "{{title}}: live in {{duration}}, from {{price}}."
   },
   "about": {
     "eyebrow": "About",
@@ -141,11 +142,11 @@
     "items": [
       {
         "q": "How much does a website cost?",
-        "a": "A showcase site starts at €1,400, a site with features at €2,900. The exact price depends on your project and is in the quote, free and sent within 24 hours. Some plans can also be paid monthly."
+        "a": "{{prices}} The exact price depends on your project and is in the quote, free and sent within 24 hours. Some plans can also be paid monthly."
       },
       {
         "q": "How long does it take?",
-        "a": "Allow 1 to 2 weeks for a showcase site, 2 to 5 weeks for a site with features and 4 to 8 weeks for a complete project. The schedule is set in the quote."
+        "a": "{{durations}} The exact schedule is set in the quote."
       },
       {
         "q": "Do I own the website?",
@@ -171,7 +172,9 @@
         "q": "Can we meet in person?",
         "a": "Yes, around Grenoble. Anywhere else in France, video calls work just as well."
       }
-    ]
+    ],
+    "pricesFallback": "Each plan shows its starting price in the Pricing section.",
+    "durationsFallback": "Each plan shows its timeline in the Pricing section."
   },
   "projects": {
     "eyebrow": "Projects",

@@ -73,12 +73,16 @@ export const Projects = () => {
                 </Badge>
 
                 <div
-                  className="relative w-20 h-14 flex-shrink-0 hidden sm:block"
+                  className="relative w-20 h-14 sm:w-32 sm:h-20 lg:w-44 lg:h-28 flex-shrink-0"
                   onMouseEnter={() => setHoveredId(project._id)}
                   onMouseLeave={() => setHoveredId(null)}
                 >
-                  <div className="w-20 h-14 rounded-lg overflow-hidden border border-border shadow-md">
-                    <img src={project.image} alt={project.title} className="w-full h-full object-cover" />
+                  <div className="w-full h-full rounded-lg overflow-hidden border border-border shadow-md">
+                    <img
+                      src={project.image}
+                      alt={project.title}
+                      className="w-full h-full object-cover object-top transition-transform duration-300 group-hover:scale-105"
+                    />
                   </div>
                   <AnimatePresence>
                     {hoveredId === project._id && (
@@ -87,9 +91,9 @@ export const Projects = () => {
                         animate={{ opacity: 1, scale: 1, y: 0 }}
                         exit={{ opacity: 0, scale: 0.85, y: 8 }}
                         transition={{ duration: 0.2, ease: "easeOut" }}
-                        className="absolute bottom-full right-0 mb-3 w-64 h-44 rounded-xl overflow-hidden border border-border shadow-2xl z-30 pointer-events-none origin-bottom-right"
+                        className="hidden lg:block absolute bottom-full right-0 mb-3 w-96 h-60 rounded-xl overflow-hidden border border-border shadow-2xl z-30 pointer-events-none origin-bottom-right"
                       >
-                        <img src={project.image} alt={project.title} className="w-full h-full object-cover" />
+                        <img src={project.image} alt={project.title} className="w-full h-full object-cover object-top" />
                       </motion.div>
                     )}
                   </AnimatePresence>

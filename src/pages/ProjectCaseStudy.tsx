@@ -146,6 +146,37 @@ export const ProjectCaseStudy = () => {
             </div>
           </div>
 
+          {/* Turns a reader who liked the project into a call */}
+          <div className="mb-16 relative rounded-3xl overflow-hidden bg-foreground text-background grain">
+            <div className="relative px-8 sm:px-12 py-12 flex flex-col md:flex-row md:items-center md:justify-between gap-8">
+              <div className="max-w-md">
+                <h2 className="text-2xl sm:text-3xl font-display font-bold mb-3">
+                  {lang === "fr" ? "Un projet dans le même esprit ?" : "Got a project like this one?"}
+                </h2>
+                <p className="text-background/70">
+                  {lang === "fr"
+                    ? "Parlons-en lors d'un appel gratuit. Je vous envoie ensuite un devis détaillé sous 24 h."
+                    : "Let's talk about it on a free call. I'll then send you a detailed quote within 24 hours."}
+                </p>
+              </div>
+              <div className="flex flex-wrap gap-3">
+                <Link
+                  to="/#contact-section"
+                  className="inline-flex items-center gap-2 h-12 px-6 rounded-full bg-background text-foreground font-semibold text-sm hover:bg-background/90 transition-colors"
+                >
+                  {lang === "fr" ? "Réserver un appel" : "Book a call"}
+                  <ArrowUpRight className="h-4 w-4" />
+                </Link>
+                <Link
+                  to="/#services-section"
+                  className="inline-flex items-center h-12 px-6 rounded-full border border-background/30 font-semibold text-sm hover:bg-background/10 transition-colors"
+                >
+                  {lang === "fr" ? "Voir les tarifs" : "See pricing"}
+                </Link>
+              </div>
+            </div>
+          </div>
+
           <div className="flex items-center justify-between flex-wrap gap-4 pt-8 border-t border-border">
             <Link to="/#projects-section" className="text-sm font-semibold text-muted-foreground hover:text-foreground transition-colors">
               ← {lang === "fr" ? "Retour aux projets" : "Back to all projects"}

@@ -18,7 +18,8 @@ createRoot(document.getElementById("root")!).render(
           <title>Téo Villet</title>
           <meta name="description" content="Portfolio Téo Villet" />
         </Helmet>
-        <Preloader />
+        {/* Intro for visitors only; it just gets in the way of the dashboard */}
+        {!window.location.pathname.startsWith("/admin") && <Preloader />}
         <RouterProvider router={router} />
         <Toaster />
       </AuthProvider>

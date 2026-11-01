@@ -15,7 +15,7 @@
     "titleHighlight": "ramènent",
     "titleEnd": "des clients.",
     "icreate": "Pour les",
-    "subtitle": "Développeur web freelance à Grenoble. Je crée votre site sur mesure, du premier appel à la mise en ligne. Un site vitrine est en ligne en 2 semaines, à partir de 1 400 €.",
+    "subtitle": "Développeur web freelance à Grenoble. Je crée votre site sur mesure, du premier appel à la mise en ligne.",
     "action1": "Me contacter",
     "action2": "Voir mes projets",
     "rating": "note moyenne",
@@ -30,7 +30,8 @@
       "count": "{{count}} avis clients",
       "prev": "Avis précédent",
       "next": "Avis suivant"
-    }
+    },
+    "offer": "{{title}} : en ligne en {{duration}}, à partir de {{price}}."
   },
   "about": {
     "eyebrow": "À propos",
@@ -141,11 +142,11 @@
     "items": [
       {
         "q": "Combien coûte un site ?",
-        "a": "Un site vitrine démarre à 1 400 €, un site avec fonctionnalités à 2 900 €. Le prix exact dépend de votre projet et figure dans le devis, gratuit et envoyé sous 24 h. Certaines formules existent aussi en paiement mensuel."
+        "a": "{{prices}} Le prix exact dépend de votre projet et figure dans le devis, gratuit et envoyé sous 24 h. Certaines formules existent aussi en paiement mensuel."
       },
       {
         "q": "Combien de temps faut-il ?",
-        "a": "Comptez 1 à 2 semaines pour un site vitrine, 2 à 5 semaines pour un site avec fonctionnalités et 4 à 8 semaines pour un projet complet. Le planning est fixé dans le devis."
+        "a": "{{durations}} Le planning exact est fixé dans le devis."
       },
       {
         "q": "Le site m'appartient-il ?",
@@ -171,7 +172,9 @@
         "q": "On peut se voir en vrai ?",
         "a": "Oui, autour de Grenoble. Ailleurs en France, tout se fait très bien en visio."
       }
-    ]
+    ],
+    "pricesFallback": "Chaque formule affiche son prix de départ dans la section Tarifs.",
+    "durationsFallback": "Chaque formule indique son délai dans la section Tarifs."
   },
   "projects": {
     "eyebrow": "Projets",

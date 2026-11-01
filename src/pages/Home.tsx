@@ -7,9 +7,11 @@ import { TypingAnimation } from "@/components/customs/typing-animations";
 import { Accent } from "@/components/customs/accent-text";
 import { HeroSocialProof } from "@/components/customs/hero-social-proof";
 import { motion } from "framer-motion";
+import { usePackagePricing } from "@/hooks/usePackagePricing";
 
 export const Home = () => {
   const { t } = useTranslation();
+  const { featured } = usePackagePricing();
 
   const typingTexts = [t("home.typing1"), t("home.typing2"), t("home.typing3"), t("home.typing4"), t("home.typing5")];
 
@@ -35,7 +37,7 @@ export const Home = () => {
         <title>Téo Villet - Développeur Fullstack Freelance à Grenoble</title>
         <meta
           name="description"
-          content="Développeur web freelance à Grenoble. Sites vitrines dès 1 400 €, applications et outils sur mesure pour restaurants, artisans et indépendants. Devis gratuit sous 24 h."
+          content="Développeur web freelance à Grenoble. Sites vitrines, applications et outils sur mesure pour restaurants, artisans et indépendants. Devis gratuit sous 24 h."
         />
       </Helmet>
 
@@ -73,6 +75,7 @@ export const Home = () => {
 
             <motion.p variants={itemVariants} className="text-lg sm:text-xl text-muted-foreground max-w-2xl mb-5 leading-relaxed">
               {t("home.subtitle")}
+              {featured && ` ${t("home.offer", { ...featured, interpolation: { escapeValue: false } })}`}
             </motion.p>
 
             <motion.div variants={itemVariants} className="flex flex-wrap items-center gap-4 mb-6">
