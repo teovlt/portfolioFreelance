@@ -28,12 +28,14 @@ export function Footer() {
     setParams(params, { replace: true });
   }, [params, setParams]);
 
-  const navItems = [
+  // Home sections, plus the background timeline which has its own page
+  const navItems: { label: string; sectionId?: string; to?: string }[] = [
     { label: t("footer.nav.home"), sectionId: "home-section" },
     { label: t("footer.nav.services"), sectionId: "services-section" },
     { label: t("footer.nav.process"), sectionId: "process-section" },
     { label: t("footer.nav.projects"), sectionId: "projects-section" },
     { label: t("footer.nav.about"), sectionId: "about-section" },
+    { label: t("footer.nav.experiences"), to: "/parcours" },
     { label: t("footer.nav.faq"), sectionId: "faq-section" },
     { label: t("footer.nav.contact"), sectionId: "contact-section" },
   ];
@@ -73,13 +75,14 @@ export function Footer() {
 
           <div>
             <p className="eyebrow text-ink-foreground/50 mb-4">{t("footer.columns.navTitle")}</p>
-            <nav className="flex flex-col gap-2.5 text-sm">
-              {navItems.map(({ label, sectionId }) => (
+            {/* Filled column by column, so each column reads in page order */}
+            <nav className="grid grid-rows-4 grid-flow-col gap-x-8 gap-y-2.5 text-sm w-fit">
+              {navItems.map(({ label, sectionId, to }) => (
                 <Link
-                  key={sectionId}
-                  to={`/#${sectionId}`}
+                  key={label}
+                  to={to ?? `/#${sectionId}`}
                   className="text-ink-foreground/70 hover:text-ink-foreground transition-colors w-fit"
-                  onClick={(e) => handleNavLinkClick(sectionId, e)}
+                  onClick={sectionId ? (e) => handleNavLinkClick(sectionId, e) : undefined}
                 >
                   {label}
                 </Link>
