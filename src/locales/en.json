@@ -99,6 +99,76 @@
       }
     ]
   },
+  "process": {
+    "eyebrow": "Process",
+    "titleStart": "How it",
+    "titleHighlight": "works",
+    "description": "Four steps, no jargon. You always know where your site stands.",
+    "steps": [
+      {
+        "title": "Discovery call",
+        "duration": "30 min, free",
+        "text": "We talk about your business, your customers and what the site needs to do for you. You leave with ideas, even if we don't end up working together."
+      },
+      {
+        "title": "Quote within 24 h",
+        "duration": "Fixed price",
+        "text": "A detailed, line-by-line quote. The price doesn't change once signed, and a deposit books your slot."
+      },
+      {
+        "title": "Mockup and development",
+        "duration": "1 to 8 weeks",
+        "text": "You approve the mockup before I write any code. Then a preview link lets you follow progress at any time."
+      },
+      {
+        "title": "Launch and follow-up",
+        "duration": "Support included",
+        "text": "I put the site live and show you how to keep it up to date. I stay available for fixes and new features."
+      }
+    ],
+    "cta": "Book the discovery call"
+  },
+  "faq": {
+    "eyebrow": "FAQ",
+    "titleStart": "Your",
+    "titleHighlight": "questions",
+    "description": "The questions I get asked most. Yours isn't here?",
+    "ask": "Ask me directly",
+    "items": [
+      {
+        "q": "How much does a website cost?",
+        "a": "A showcase site starts at €1,400, a site with features at €2,900. The exact price depends on your project and is in the quote, free and sent within 24 hours. Some plans can also be paid monthly."
+      },
+      {
+        "q": "How long does it take?",
+        "a": "Allow 1 to 2 weeks for a showcase site, 2 to 5 weeks for a site with features and 4 to 8 weeks for a complete project. The schedule is set in the quote."
+      },
+      {
+        "q": "Do I own the website?",
+        "a": "Yes. The site, its code, your content and the domain name are in your name. With a one-time payment, as soon as it's paid off. With a subscription, at the end of the commitment."
+      },
+      {
+        "q": "Can I edit the site myself?",
+        "a": "Yes, if you'd like: I can add an admin area to change your text, photos or prices without touching code. Otherwise, I'll handle it for you."
+      },
+      {
+        "q": "What happens after launch?",
+        "a": "Support is included for 30 days (60 for a complete site). After that, monthly maintenance covers hosting, updates, backups and small changes."
+      },
+      {
+        "q": "Will my site show up on Google?",
+        "a": "SEO basics are included: a fast, mobile-friendly site, well-structured tags and content, and Google Search Console setup. Nobody can guarantee first place, but your site starts on solid ground."
+      },
+      {
+        "q": "I don't have a logo or copy. Is that a problem?",
+        "a": "No. I help you structure your pages and write your text. For branding, the Custom Design plan creates a mockup that fits your business before development."
+      },
+      {
+        "q": "Can we meet in person?",
+        "a": "Yes, around Grenoble. Anywhere else in France, video calls work just as well."
+      }
+    ]
+  },
   "projects": {
     "eyebrow": "Projects",
     "title": "My",
@@ -239,7 +309,9 @@
       "experiences": "Background",
       "services": "Services",
       "projects": "Projects",
-      "contact": "Contact"
+      "contact": "Contact",
+      "process": "Process",
+      "faq": "FAQ"
     }
   }
 }

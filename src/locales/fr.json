@@ -99,6 +99,76 @@
       }
     ]
   },
+  "process": {
+    "eyebrow": "Méthode",
+    "titleStart": "Comment ça",
+    "titleHighlight": "se passe",
+    "description": "Quatre étapes, sans jargon. Vous savez toujours où en est votre site.",
+    "steps": [
+      {
+        "title": "Appel découverte",
+        "duration": "30 min, gratuit",
+        "text": "On parle de votre activité, de vos clients et de ce que le site doit vous apporter. Vous repartez avec des idées, même si on ne travaille pas ensemble."
+      },
+      {
+        "title": "Devis sous 24 h",
+        "duration": "Prix fixe",
+        "text": "Un devis détaillé, ligne par ligne. Le prix ne bouge plus une fois signé, et un acompte réserve votre créneau."
+      },
+      {
+        "title": "Maquette et développement",
+        "duration": "1 à 8 semaines",
+        "text": "Vous validez la maquette avant que je code. Ensuite, un lien de prévisualisation vous permet de suivre l'avancement à tout moment."
+      },
+      {
+        "title": "Mise en ligne et suivi",
+        "duration": "Assistance incluse",
+        "text": "Je mets le site en ligne et je vous montre comment le faire vivre. Je reste disponible pour les corrections et les évolutions."
+      }
+    ],
+    "cta": "Réserver l'appel découverte"
+  },
+  "faq": {
+    "eyebrow": "FAQ",
+    "titleStart": "Vos",
+    "titleHighlight": "questions",
+    "description": "Les questions qu'on me pose le plus souvent. La vôtre n'y est pas ?",
+    "ask": "Posez-la moi directement",
+    "items": [
+      {
+        "q": "Combien coûte un site ?",
+        "a": "Un site vitrine démarre à 1 400 €, un site avec fonctionnalités à 2 900 €. Le prix exact dépend de votre projet et figure dans le devis, gratuit et envoyé sous 24 h. Certaines formules existent aussi en paiement mensuel."
+      },
+      {
+        "q": "Combien de temps faut-il ?",
+        "a": "Comptez 1 à 2 semaines pour un site vitrine, 2 à 5 semaines pour un site avec fonctionnalités et 4 à 8 semaines pour un projet complet. Le planning est fixé dans le devis."
+      },
+      {
+        "q": "Le site m'appartient-il ?",
+        "a": "Oui. Le site, son code, vos contenus et le nom de domaine sont à votre nom. En paiement unique, dès le dernier règlement. En abonnement, à la fin de l'engagement."
+      },
+      {
+        "q": "Pourrai-je modifier mon site moi-même ?",
+        "a": "Oui, si vous le souhaitez : je peux prévoir un espace d'administration pour changer vos textes, photos ou tarifs sans toucher au code. Sinon, je m'en occupe pour vous."
+      },
+      {
+        "q": "Que se passe-t-il après la mise en ligne ?",
+        "a": "L'assistance est incluse pendant 30 jours (60 pour un site complet). Ensuite, une maintenance mensuelle couvre l'hébergement, les mises à jour, les sauvegardes et les petites modifications."
+      },
+      {
+        "q": "Mon site sera-t-il visible sur Google ?",
+        "a": "Les bases du référencement sont incluses : site rapide, adapté au mobile, balises et contenus bien structurés, inscription sur Google Search Console. Personne ne peut garantir la première place, mais votre site part sur de bonnes bases."
+      },
+      {
+        "q": "Je n'ai ni logo ni textes, est-ce un problème ?",
+        "a": "Non. Je vous aide à structurer vos pages et à écrire vos textes. Pour l'identité visuelle, la formule Design personnalisé crée une maquette à votre image avant le développement."
+      },
+      {
+        "q": "On peut se voir en vrai ?",
+        "a": "Oui, autour de Grenoble. Ailleurs en France, tout se fait très bien en visio."
+      }
+    ]
+  },
   "projects": {
     "eyebrow": "Projets",
     "title": "Mes",
@@ -239,7 +309,9 @@
       "experiences": "Parcours",
       "services": "Services",
       "projects": "Projets",
-      "contact": "Contact"
+      "contact": "Contact",
+      "process": "Méthode",
+      "faq": "FAQ"
     }
   }
 }

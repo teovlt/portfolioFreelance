@@ -9,6 +9,8 @@ import { Contact } from "@/pages/Contact";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { Experiences } from "@/pages/Experiences";
+import { Process } from "@/pages/Process";
+import { Faq } from "@/pages/Faq";
 import { ProjectCaseStudy } from "@/pages/ProjectCaseStudy";
 import { LegalNotice, PrivacyPolicy } from "@/pages/Legal";
 import { PackageProvider } from "@/providers/package-provider";
@@ -56,9 +58,11 @@ export const router = createBrowserRouter([
           <>
             <Home />
             <Services />
+            <Process />
             <Projects />
             <About />
             <Experiences />
+            <Faq />
             <Contact />
           </>
         ),

@@ -62,13 +62,12 @@ export const Navbar = () => {
       const sections = navItems.map((item) => item.id);
       let currentSection = "home-section";
 
+      // Last nav section scrolled past, so sections that aren't in the menu
+      // (process, FAQ) keep the one just above them highlighted
       sections.forEach((section) => {
         const element = document.getElementById(section);
-        if (element) {
-          const rect = element.getBoundingClientRect();
-          if (rect.top <= 100 && rect.bottom >= 100) {
-            currentSection = section;
-          }
+        if (element && element.getBoundingClientRect().top <= 100) {
+          currentSection = section;
         }
       });
 
