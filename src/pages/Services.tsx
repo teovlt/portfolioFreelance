@@ -88,20 +88,20 @@ function PackageCard({ service, variants }: { service: Package; variants: Varian
           <span className="text-xs text-muted-foreground">{fr ? "À partir de" : "Starting from"}</span>
         </div>
         {isMonthly ? (
-          <>
-            <div className="font-serif text-4xl font-semibold">
-              {service.monthlyPrice}
-              <span className="font-sans text-base font-normal text-muted-foreground">{fr ? "/mois" : "/month"}</span>
-            </div>
-            {localize(service.commitment) && (
-              <div className="flex items-center gap-1.5 text-xs text-muted-foreground mt-1.5">
-                <Repeat className="h-3 w-3" />
-                {localize(service.commitment)}
-              </div>
-            )}
-          </>
+          <div className="font-serif text-4xl font-semibold">
+            {service.monthlyPrice}
+            <span className="font-sans text-base font-normal text-muted-foreground">{fr ? "/mois" : "/month"}</span>
+          </div>
         ) : (
           <div className="font-serif text-4xl font-semibold">{service.price}</div>
+        )}
+        {/* Kept in the layout (just hidden) in one-time mode, so switching to
+            monthly doesn't grow the card and push the whole grid row down */}
+        {service.pricing !== "oneTime" && localize(service.commitment) && (
+          <div className={`flex items-center gap-1.5 text-xs text-muted-foreground mt-1.5 ${isMonthly ? "" : "invisible"}`}>
+            <Repeat className="h-3 w-3" />
+            {localize(service.commitment)}
+          </div>
         )}
         <div className="flex items-center gap-1.5 text-xs text-muted-foreground mt-1.5">
           <Clock className="h-3 w-3" />
