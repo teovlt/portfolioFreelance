@@ -1,12 +1,46 @@
 import { useEffect, useLayoutEffect, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { useTranslation } from "react-i18next";
+import { Code2, Database, Globe, Palette, Rocket, Smartphone, Sparkles, Zap, type LucideIcon } from "lucide-react";
 
 const NAME = "Téo Villet";
+const DURATION = 1700;
+
+// What I build, orbiting the name
+const ORBIT: LucideIcon[] = [Code2, Palette, Smartphone, Rocket, Database, Globe, Zap, Sparkles];
+const ORBIT_SPEED = 22;
+
+// Little accent shapes drifting up in the background: [left %, top %, size px, shape, delay s]
+const FLOATERS = [
+  [12, 72, 10, "diamond", 0],
+  [22, 28, 6, "dot", 0.6],
+  [78, 22, 8, "diamond", 0.3],
+  [86, 64, 12, "ring", 0.9],
+  [64, 86, 6, "dot", 0.2],
+  [34, 88, 9, "ring", 1.1],
+  [8, 44, 7, "dot", 0.8],
+  [92, 38, 6, "diamond", 0.5],
+] as const;
+
+const floaterShape = {
+  diamond: "rounded-[2px] rotate-45 bg-accent",
+  dot: "rounded-full bg-accent/70",
+  ring: "rounded-full border-2 border-accent/60",
+};
+
+const STATUS = {
+  fr: ["Compilation des idées…", "Assemblage des pixels…", "Mise en ligne…"],
+  en: ["Compiling ideas…", "Assembling pixels…", "Going live…"],
+};
 const BLOCKED_KEYS = new Set([" ", "ArrowUp", "ArrowDown", "PageUp", "PageDown", "Home", "End"]);
 
 export const Preloader = () => {
   const [progress, setProgress] = useState(0);
   const [done, setDone] = useState(false);
+  const reduceMotion = useReducedMotion();
+  const { i18n } = useTranslation();
+  const status = STATUS[i18n.language === "en" ? "en" : "fr"];
+  const step = progress < 40 ? 0 : progress < 80 ? 1 : 2;
 
   // Fully lock scrolling while the preloader is up, instead of only toggling
   // body overflow — on some browsers (notably touch devices) that alone
@@ -40,7 +74,7 @@ export const Preloader = () => {
   }, [done]);
 
   useEffect(() => {
-    const duration = 1400;
+    const duration = DURATION;
     const start = performance.now();
     let raf = 0;
 
@@ -67,10 +101,72 @@ export const Preloader = () => {
           transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
           className="fixed inset-0 z-[100] flex items-center justify-center overflow-hidden bg-background"
         >
-          <div className="absolute w-[32rem] h-[32rem] rounded-full bg-accent/20 blur-3xl" aria-hidden="true" />
-          <div className="absolute w-[20rem] h-[20rem] rounded-full bg-primary/10 blur-3xl translate-x-24 translate-y-16" aria-hidden="true" />
+          <motion.div
+            className="absolute w-[32rem] h-[32rem] rounded-full bg-accent/20 blur-3xl"
+            animate={reduceMotion ? undefined : { scale: [1, 1.12, 1], x: [0, -20, 0] }}
+            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+            aria-hidden="true"
+          />
+          <motion.div
+            className="absolute w-[20rem] h-[20rem] rounded-full bg-primary/10 blur-3xl translate-x-24 translate-y-16"
+            animate={reduceMotion ? undefined : { scale: [1, 0.85, 1], y: [0, -24, 0] }}
+            transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}
+            aria-hidden="true"
+          />
 
-          <div className="relative flex flex-col items-center gap-7">
+          {FLOATERS.map(([left, top, size, shape, delay], i) => (
+            <motion.span
+              key={i}
+              aria-hidden="true"
+              className={`absolute ${floaterShape[shape]}`}
+              style={{ left: `${left}%`, top: `${top}%`, width: size, height: size }}
+              initial={{ opacity: 0, y: 0 }}
+              animate={reduceMotion ? { opacity: 0.6 } : { opacity: [0, 0.8, 0], y: -60 }}
+              transition={{ duration: 2.6, delay, repeat: Infinity, ease: "easeOut" }}
+            />
+          ))}
+
+          {/* Orbit: the ring turns, each badge counter-turns to stay upright */}
+          <motion.div
+            aria-hidden="true"
+            className="absolute left-1/2 top-1/2 [--r:140px] sm:[--r:215px]"
+            animate={reduceMotion ? undefined : { rotate: 360 }}
+            transition={{ duration: ORBIT_SPEED, repeat: Infinity, ease: "linear" }}
+          >
+            <div className="absolute left-0 top-0 w-[calc(var(--r)*2)] h-[calc(var(--r)*2)] -translate-x-1/2 -translate-y-1/2 rounded-full border border-dashed border-border" />
+            {ORBIT.map((Icon, i) => {
+              const angle = (360 / ORBIT.length) * i;
+              return (
+                <div
+                  key={i}
+                  className="absolute left-0 top-0"
+                  style={{ transform: `rotate(${angle}deg) translateY(calc(var(--r) * -1)) rotate(${-angle}deg)` }}
+                >
+                  <motion.div
+                    animate={reduceMotion ? undefined : { rotate: -360 }}
+                    transition={{ duration: ORBIT_SPEED, repeat: Infinity, ease: "linear" }}
+                  >
+                    <motion.div
+                      initial={{ opacity: 0, scale: 0 }}
+                      animate={{ opacity: 1, scale: 1, y: reduceMotion ? 0 : [0, -5, 0] }}
+                      transition={{
+                        opacity: { delay: 0.15 + i * 0.07, duration: 0.3 },
+                        scale: { delay: 0.15 + i * 0.07, type: "spring", stiffness: 300, damping: 15 },
+                        y: { delay: i * 0.2, duration: 2, repeat: Infinity, ease: "easeInOut" },
+                      }}
+                      className={`-translate-x-1/2 -translate-y-1/2 w-9 h-9 sm:w-11 sm:h-11 rounded-xl border flex items-center justify-center shadow-sm ${
+                        i % 3 === 0 ? "bg-accent border-accent text-accent-foreground" : "bg-card border-border text-foreground"
+                      }`}
+                    >
+                      <Icon className="h-4 w-4 sm:h-5 sm:w-5" />
+                    </motion.div>
+                  </motion.div>
+                </div>
+              );
+            })}
+          </motion.div>
+
+          <div className="relative flex flex-col items-center gap-5">
             <div className="flex">
               {NAME.split("").map((char, i) => (
                 <span key={i} className="overflow-hidden inline-block">
@@ -95,6 +191,21 @@ export const Preloader = () => {
                 />
               </div>
               <span className="font-sans text-xs tabular-nums text-muted-foreground w-8">{progress}%</span>
+            </div>
+
+            <div className="h-4 overflow-hidden">
+              <AnimatePresence mode="wait">
+                <motion.p
+                  key={step}
+                  initial={{ y: 12, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  exit={{ y: -12, opacity: 0 }}
+                  transition={{ duration: 0.25 }}
+                  className="font-sans text-xs text-muted-foreground"
+                >
+                  {status[step]}
+                </motion.p>
+              </AnimatePresence>
             </div>
           </div>
         </motion.div>
