@@ -42,7 +42,7 @@ export const ProjectCaseStudy = () => {
 
         <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
           <p className="eyebrow mb-3">
-            {lang === "fr" ? "Étude de cas" : "Case Study"} — {t(`projects.status.${study.status}`)}
+            {lang === "fr" ? "Étude de cas" : "Case study"} · {t(`projects.status.${study.status}`)}
           </p>
           <h1 className="text-5xl md:text-7xl mb-5">{study.title}</h1>
           <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mb-10">{study.tagline[lang]}</p>

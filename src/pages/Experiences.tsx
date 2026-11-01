@@ -1,7 +1,6 @@
 import { GraduationCap, Briefcase, Check } from "lucide-react";
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
-import { Accent } from "@/components/customs/accent-text";
 import { useLocalize, usePublicContent } from "@/hooks/usePublicContent";
 import type { Experience } from "@/types/content";
 
@@ -33,7 +32,7 @@ export const Experiences = () => {
         >
           <p className="eyebrow mb-4">{t("experiences.eyebrow")}</p>
           <h2 className="text-4xl md:text-5xl max-w-xl">
-            {t("experiences.titleStart")} <Accent className="font-serif italic font-medium">{t("experiences.titleHighlight")}</Accent>
+            {t("experiences.titleStart")} <span className="font-serif italic font-medium">{t("experiences.titleHighlight")}</span>
           </h2>
         </motion.div>
 

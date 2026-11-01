@@ -5,9 +5,9 @@
     "projects": "Projets",
     "services": "Services",
     "contact": "Contact",
-    "experiences": "Expérience",
+    "experiences": "Parcours",
     "contactCta": "Me contacter",
-    "languageChanged": "Langage changé avec succès"
+    "languageChanged": "Langue changée"
   },
   "home": {
     "badge": "Disponible pour de nouveaux projets",
@@ -34,14 +34,16 @@
   },
   "about": {
     "eyebrow": "À propos",
-    "title": "Voici un aperçu de",
-    "me": "moi",
-    "description": "Développeur fullstack freelance, basé à Grenoble le temps de mon alternance d'ingénieur à l'IMT Nord Europe. Depuis plus de 4 ans, je conçois des outils numériques pour des laboratoires de recherche, des indépendants et de petites structures — du premier appel jusqu'à la mise en ligne, sans jamais lâcher un projet à mi-chemin. Ce qui m'intéresse, ce n'est pas juste que ça marche : c'est que ce soit propre, rapide, et que vous puissiez vous en servir sans moi dans six mois.",
+    "title": "Un seul",
+    "me": "interlocuteur",
+    "description": "Je suis Téo, développeur web freelance à Grenoble. Depuis 4 ans, je crée des sites et des outils pour des indépendants, des petites entreprises et des laboratoires de recherche. Vous parlez directement à la personne qui construit votre site : pas d'agence, pas de sous-traitance. Je vous livre un site rapide et propre, que vous pouvez faire évoluer avec ou sans moi. En parallèle, je termine un diplôme d'ingénieur en informatique à l'IMT Nord Europe.",
     "quick": {
       "experience": "ans d'expérience",
       "projects": "projets livrés",
       "satisfaction": "satisfaction client",
-      "response": "délai de réponse"
+      "response": "délai de réponse",
+      "delivery": "pour un site vitrine",
+      "deliveryValue": "2 sem."
     },
     "techTitle": "Stack & outils",
     "location": "Basé à Grenoble, France",
@@ -50,7 +52,7 @@
     "cta": "Travaillons ensemble"
   },
   "experiences": {
-    "eyebrow": "Expérience",
+    "eyebrow": "Parcours",
     "titleStart": "Mon",
     "titleHighlight": "parcours",
     "types": {
@@ -116,9 +118,9 @@
       "name": "Nom",
       "namePlaceholder": "Marie Dupont",
       "email": "Email",
-      "emailHint": "Facultatif, jamais publié — seulement pour vous répondre.",
+      "emailHint": "Facultatif et jamais publié. Seulement pour vous répondre.",
       "company": "Poste / entreprise",
-      "companyPlaceholder": "Fondatrice — Studio Exemple",
+      "companyPlaceholder": "Fondatrice, Studio Exemple",
       "project": "Projet",
       "projectPlaceholder": "Site vitrine",
       "rating": "Note",
@@ -155,16 +157,16 @@
   },
   "contact": {
     "eyebrow": "Contact",
-    "title": "Prenez",
-    "highlight": "Contact",
-    "description": "Un projet en tête ou envie de discuter d'opportunités ? N'hésitez pas à me contacter. Je suis toujours ouvert aux nouvelles idées et collaborations.",
+    "title": "Réservez un",
+    "highlight": "appel gratuit",
+    "description": "Un appel rapide pour comprendre votre besoin, sans engagement. Je vous envoie ensuite un devis détaillé sous 24 h. Vous préférez écrire ? Passez par le formulaire.",
     "tabs": {
       "booking": "Réserver un appel",
       "message": "Envoyer un message"
     },
     "packageChipLabel": "Forfait sélectionné :",
     "packageClear": "Retirer le forfait sélectionné",
-    "packageSubject": "Devis — {{package}}",
+    "packageSubject": "Devis : {{package}}",
     "packageMessage": "Bonjour, je suis intéressé(e) par le forfait \"{{package}}\". ",
     "booking": {
       "pickDate": "Choisissez une date pour voir les créneaux disponibles.",
@@ -222,7 +224,7 @@
       "eyebrow": "On travaille ensemble ?",
       "titleStart": "Parlons de",
       "titleHighlight": "votre projet.",
-      "tagline": "Développeur fullstack freelance basé à Grenoble, disponible pour de nouveaux projets."
+      "tagline": "Développeur web freelance à Grenoble. Sites vitrines, applications et outils sur mesure."
     },
     "cta": "Me contacter",
     "rights": "Tous droits réservés.",
@@ -234,7 +236,7 @@
     "nav": {
       "home": "Accueil",
       "about": "À propos",
-      "experiences": "Expériences",
+      "experiences": "Parcours",
       "services": "Services",
       "projects": "Projets",
       "contact": "Contact"

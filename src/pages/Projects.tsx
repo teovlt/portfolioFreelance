@@ -6,7 +6,6 @@ import { Badge } from "@/components/ui/badge";
 import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { Accent } from "@/components/customs/accent-text";
 import { useProjects } from "@/hooks/useProjects";
 import { ProjectStatus } from "@/types/project";
 
@@ -44,7 +43,7 @@ export const Projects = () => {
           <p className="eyebrow mb-4">{t("projects.eyebrow")}</p>
           <div className="flex flex-wrap items-end justify-between gap-6">
             <h2 className="text-4xl md:text-5xl">
-              {t("projects.title")} <Accent className="font-serif italic font-medium">{t("projects.highlight")}</Accent>
+              {t("projects.title")} <span className="font-serif italic font-medium">{t("projects.highlight")}</span>
             </h2>
             <p className="text-muted-foreground max-w-xs">{t("projects.description")}</p>
           </div>

@@ -10,7 +10,6 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { BookingCalendar } from "@/components/customs/booking-calendar";
-import { Accent } from "@/components/customs/accent-text";
 import { Mail, MapPin, Phone, X } from "lucide-react";
 import { toast } from "sonner";
 import { contactSchema } from "@/lib/zod";
@@ -77,7 +76,7 @@ export const Contact = () => {
         >
           <p className="eyebrow justify-center mb-4">{t("contact.eyebrow")}</p>
           <h2 className="text-4xl md:text-5xl">
-            {t("contact.title")} <Accent className="font-serif italic font-medium">{t("contact.highlight")}</Accent>
+            {t("contact.title")} <span className="font-serif italic font-medium">{t("contact.highlight")}</span>
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto mt-4">{t("contact.description")}</p>
         </motion.div>

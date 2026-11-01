@@ -1,12 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import { Check, ArrowUpRight, Clock, FileText, Handshake, Percent, PenTool, RefreshCw, Repeat } from "lucide-react";
+import { Check, ArrowUpRight, Clock, FileText, Handshake, KeyRound, PenTool, RefreshCw, Repeat } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { scrollToSection } from "@/utils/scrollToSection";
 import { motion, type Variants } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { Accent } from "@/components/customs/accent-text";
 import { usePackage } from "@/providers/package-provider";
 import { useLocalize, usePublicContent } from "@/hooks/usePublicContent";
 import type { Package } from "@/types/content";
@@ -160,23 +159,23 @@ export function Services() {
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div variants={itemVariants} className="mb-16">
-          <p className="eyebrow mb-4">{language === "fr" ? "Ce que je fais" : "What I do"}</p>
+          <p className="eyebrow mb-4">{language === "fr" ? "Tarifs" : "Pricing"}</p>
           <div className="flex flex-wrap items-end justify-between gap-6">
             <h2 className="text-4xl md:text-5xl">
               {language === "fr" ? (
                 <>
-                  Packages <Accent className="font-serif italic font-medium">professionnels</Accent>
+                  Des tarifs <span className="font-serif italic font-medium">clairs</span>
                 </>
               ) : (
                 <>
-                  <Accent className="font-serif italic font-medium">Professional</Accent> Packages
+                  <span className="font-serif italic font-medium">Clear</span> pricing
                 </>
               )}
             </h2>
             <p className="text-muted-foreground max-w-xs">
               {language === "fr"
-                ? "Choisissez le package qui correspond à vos besoins — prix transparents, à chaque fois."
-                : "Choose the package that fits your needs — transparent pricing, every time."}
+                ? "Un prix de départ par formule, ajusté à votre projet dans le devis. Pas de surprise à la facture."
+                : "A starting price for each plan, fine-tuned to your project in the quote. No surprises on the invoice."}
             </p>
           </div>
         </motion.div>
@@ -198,19 +197,19 @@ export function Services() {
         >
           <div className="flex items-center gap-2">
             <Handshake className="h-4 w-4 text-accent-foreground flex-shrink-0" />
-            {language === "fr" ? "Accompagnement du début à la fin" : "Support from start to finish"}
+            {language === "fr" ? "Un seul interlocuteur, du devis à la mise en ligne" : "One point of contact, from quote to launch"}
           </div>
           <div className="flex items-center gap-2">
-            <Percent className="h-4 w-4 text-accent-foreground flex-shrink-0" />
-            {language === "fr" ? "Prix ouverts à la négociation" : "Prices open to negotiation"}
+            <KeyRound className="h-4 w-4 text-accent-foreground flex-shrink-0" />
+            {language === "fr" ? "Le site et son code vous appartiennent" : "You own the site and its code"}
           </div>
           <div className="flex items-center gap-2">
             <PenTool className="h-4 w-4 text-accent-foreground flex-shrink-0" />
-            {language === "fr" ? "Maquettes avant développement si besoin" : "Mockups before development if needed"}
+            {language === "fr" ? "Maquette validée avant le développement" : "Mockup approved before development"}
           </div>
           <div className="flex items-center gap-2">
             <RefreshCw className="h-4 w-4 text-accent-foreground flex-shrink-0" />
-            {language === "fr" ? "Création de site ou refonte d'un site existant" : "New builds or redesigns of existing sites"}
+            {language === "fr" ? "Création ou refonte de site" : "New sites or redesigns"}
           </div>
         </motion.div>
 
@@ -226,8 +225,8 @@ export function Services() {
               </h3>
               <p className="text-background/70 max-w-md mb-8">
                 {language === "fr"
-                  ? "Je vous envoie un devis clair et détaillé sous 24h — gratuit et sans engagement, pour que vous sachiez exactement ce que vous payez avant de commencer."
-                  : "I'll send you a clear, detailed quote within 24h — free of charge and with no commitment, so you know exactly what you're paying for before we start."}
+                  ? "Je vous envoie un devis détaillé sous 24 h, gratuit et sans engagement. Vous savez exactement ce que vous payez avant de commencer."
+                  : "I'll send you a detailed quote within 24 hours, free and with no commitment. You know exactly what you're paying for before we start."}
               </p>
               <button
                 onClick={(e) => {

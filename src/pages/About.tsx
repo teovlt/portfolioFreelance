@@ -3,7 +3,6 @@ import { motion, AnimatePresence, type PanInfo } from "framer-motion";
 import { MapPin, Calendar } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { Badge } from "@/components/ui/badge";
-import { Accent } from "@/components/customs/accent-text";
 import { useEffect, useState } from "react";
 import { useLocalize, usePublicContent } from "@/hooks/usePublicContent";
 import type { Photo } from "@/types/content";
@@ -49,7 +48,7 @@ export const About = () => {
   const quickFacts = [
     { value: "4+", label: t("about.quick.experience") },
     { value: "20+", label: t("about.quick.projects") },
-    { value: "100%", label: t("about.quick.satisfaction") },
+    { value: t("about.quick.deliveryValue"), label: t("about.quick.delivery") },
     { value: "24h", label: t("about.quick.response") },
   ];
 
@@ -89,7 +88,7 @@ export const About = () => {
           </motion.p>
 
           <motion.h2 variants={itemVariants} className="text-4xl md:text-5xl mb-16 max-w-xl">
-            {t("about.title")} <Accent className="font-serif italic font-medium">{t("about.me")}</Accent>
+            {t("about.title")} <span className="font-serif italic font-medium">{t("about.me")}</span>
           </motion.h2>
 
           <div className="grid lg:grid-cols-[minmax(0,380px)_1fr] gap-16 items-start">

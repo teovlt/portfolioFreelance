@@ -5,9 +5,9 @@
     "projects": "Projects",
     "services": "Services",
     "contact": "Contact",
-    "experiences": "Experience",
+    "experiences": "Background",
     "contactCta": "Get in touch",
-    "languageChanged": "Language changed successfully"
+    "languageChanged": "Language changed"
   },
   "home": {
     "badge": "Available for new projects",
@@ -34,14 +34,16 @@
   },
   "about": {
     "eyebrow": "About",
-    "title": "Here's a little about",
-    "me": "me",
-    "description": "I'm a freelance fullstack developer, based in Grenoble during my engineering apprenticeship at IMT Nord Europe. For over 4 years I've been building digital tools for research labs, independents and small businesses — from the first call to going live, never leaving a project half-finished. What matters to me isn't just that it works: it's that it's clean, fast, and that you can run it without me six months from now.",
+    "title": "One",
+    "me": "point of contact",
+    "description": "I'm Téo, a freelance web developer in Grenoble. For 4 years I've been building websites and tools for independents, small businesses and research labs. You talk directly to the person building your site: no agency, no subcontracting. I deliver a fast, clean site that you can keep growing, with or without me. Alongside that, I'm finishing a computer science engineering degree at IMT Nord Europe.",
     "quick": {
       "experience": "years experience",
       "projects": "projects delivered",
       "satisfaction": "client satisfaction",
-      "response": "response time"
+      "response": "response time",
+      "delivery": "for a showcase site",
+      "deliveryValue": "2 wks"
     },
     "techTitle": "Stack & tools",
     "location": "Based in Grenoble, France",
@@ -50,7 +52,7 @@
     "cta": "Let's work together"
   },
   "experiences": {
-    "eyebrow": "Experience",
+    "eyebrow": "Background",
     "titleStart": "My",
     "titleHighlight": "journey",
     "types": {
@@ -116,9 +118,9 @@
       "name": "Name",
       "namePlaceholder": "Jane Smith",
       "email": "Email",
-      "emailHint": "Optional, never published — only used to reply to you.",
+      "emailHint": "Optional and never published. Only used to reply to you.",
       "company": "Role / company",
-      "companyPlaceholder": "Founder — Example Studio",
+      "companyPlaceholder": "Founder, Example Studio",
       "project": "Project",
       "projectPlaceholder": "Showcase website",
       "rating": "Rating",
@@ -155,16 +157,16 @@
   },
   "contact": {
     "eyebrow": "Contact",
-    "title": "Get in",
-    "highlight": "Touch",
-    "description": "Have a project in mind or want to discuss potential opportunities? Feel free to reach out. I'm always open to new ideas and collaborations.",
+    "title": "Book a",
+    "highlight": "free call",
+    "description": "A quick call to understand what you need, with no commitment. I then send you a detailed quote within 24 hours. Rather write? Use the form.",
     "tabs": {
       "booking": "Book a call",
       "message": "Send a message"
     },
     "packageChipLabel": "Selected package:",
     "packageClear": "Remove selected package",
-    "packageSubject": "Quote — {{package}}",
+    "packageSubject": "Quote: {{package}}",
     "packageMessage": "Hi, I'm interested in the \"{{package}}\" package. ",
     "booking": {
       "pickDate": "Pick a date to see available time slots.",
@@ -222,7 +224,7 @@
       "eyebrow": "Let's work together",
       "titleStart": "Let's talk about",
       "titleHighlight": "your project.",
-      "tagline": "Freelance fullstack developer based in Grenoble, available for new projects."
+      "tagline": "Freelance web developer in Grenoble. Showcase sites, web apps and custom tools."
     },
     "cta": "Get in touch",
     "rights": "All rights reserved.",
@@ -234,7 +236,7 @@
     "nav": {
       "home": "Home",
       "about": "About",
-      "experiences": "Experiences",
+      "experiences": "Background",
       "services": "Services",
       "projects": "Projects",
       "contact": "Contact"
