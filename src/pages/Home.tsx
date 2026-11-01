@@ -104,7 +104,7 @@ export const Home = () => {
       </div>
 
       <div className="hidden sm:flex absolute bottom-8 left-1/2 -translate-x-1/2 z-10">
-        <Button variant="ghost" size="icon" aria-label="Voir la section À propos" onClick={(e) => scrollToSection("about-section", e)}>
+        <Button variant="ghost" size="icon" aria-label="Voir la section Services" onClick={(e) => scrollToSection("services-section", e)}>
           <motion.div animate={{ y: [0, 8, 0] }} transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}>
             <ArrowDown className="h-5 w-5" />
           </motion.div>

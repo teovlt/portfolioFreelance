@@ -57,10 +57,10 @@ export const router = createBrowserRouter([
         element: (
           <>
             <Home />
-            <About />
-            <Experiences />
             <Services />
             <Projects />
+            <About />
+            <Experiences />
             <Contact />
           </>
         ),
