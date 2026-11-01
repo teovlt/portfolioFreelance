@@ -61,7 +61,6 @@ export const router = createBrowserRouter([
             <Process />
             <Projects />
             <About />
-            <Experiences />
             <Faq />
             <Contact />
           </>
@@ -71,6 +70,7 @@ export const router = createBrowserRouter([
         path: "/projects/:slug",
         element: <ProjectCaseStudy />,
       },
+      { path: "/parcours", element: <Experiences /> },
       { path: "/mentions-legales", element: <LegalNotice /> },
       { path: "/confidentialite", element: <PrivacyPolicy /> },
       {

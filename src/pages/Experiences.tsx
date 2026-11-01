@@ -1,9 +1,13 @@
-import { GraduationCap, Briefcase, Check } from "lucide-react";
+import { Helmet } from "react-helmet";
+import { Link } from "react-router-dom";
+import { ArrowLeft, GraduationCap, Briefcase, Check } from "lucide-react";
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import { useLocalize, usePublicContent } from "@/hooks/usePublicContent";
 import type { Experience } from "@/types/content";
 
+// Its own page (/parcours) rather than a home section: it speaks to recruiters,
+// not to the clients the home page is written for
 export const Experiences = () => {
   const { t } = useTranslation();
   const localize = useLocalize();
@@ -21,8 +25,20 @@ export const Experiences = () => {
   };
 
   return (
-    <section className="py-24 sm:py-32" id="experiences-section">
+    <section className="pt-32 pb-24 sm:pb-32" id="experiences-section">
+      <Helmet>
+        <title>{`${t("experiences.pageTitle")} — Téo Villet`}</title>
+        <meta name="description" content={t("experiences.pageDescription")} />
+      </Helmet>
+
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <Link
+          to="/#about-section"
+          className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-muted-foreground hover:text-foreground transition-colors mb-10"
+        >
+          <ArrowLeft className="w-3.5 h-3.5" />
+          {t("experiences.back")}
+        </Link>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -31,9 +47,9 @@ export const Experiences = () => {
           className="mb-16"
         >
           <p className="eyebrow mb-4">{t("experiences.eyebrow")}</p>
-          <h2 className="text-4xl md:text-5xl max-w-xl">
+          <h1 className="text-4xl md:text-5xl max-w-xl">
             {t("experiences.titleStart")} <span className="font-serif italic font-medium">{t("experiences.titleHighlight")}</span>
-          </h2>
+          </h1>
         </motion.div>
 
         <motion.div variants={container} initial="hidden" whileInView="show" viewport={{ once: true }} className="space-y-6">

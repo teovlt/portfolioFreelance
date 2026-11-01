@@ -27,7 +27,6 @@ export const Navbar = () => {
     { id: "services-section", label: t("navbar.services") },
     { id: "projects-section", label: t("navbar.projects") },
     { id: "about-section", label: t("navbar.about") },
-    { id: "experiences-section", label: t("navbar.experiences") },
     { id: "contact-section", label: t("navbar.contact") },
   ];
 

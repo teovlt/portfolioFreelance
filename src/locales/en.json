@@ -49,7 +49,8 @@
     "location": "Based in Grenoble, France",
     "availability": "Available for new projects",
     "quote": "I like projects where we end up being more than just client and freelancer.",
-    "cta": "Let's work together"
+    "cta": "Let's work together",
+    "backgroundLink": "See my full background"
   },
   "experiences": {
     "eyebrow": "Background",
@@ -61,7 +62,10 @@
       "stage": "Internship",
       "emploi": "Job",
       "freelance": "Freelance"
-    }
+    },
+    "pageTitle": "Background",
+    "pageDescription": "Education and experience of Téo Villet, freelance web developer in Grenoble.",
+    "back": "Back to home"
   },
   "services": {
     "titleStart": "Let's build",

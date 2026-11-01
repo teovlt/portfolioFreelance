@@ -1,6 +1,7 @@
 import { Helmet } from "react-helmet";
 import { motion, AnimatePresence, type PanInfo } from "framer-motion";
-import { MapPin, Calendar } from "lucide-react";
+import { Link } from "react-router-dom";
+import { ArrowRight, MapPin, Calendar } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { Badge } from "@/components/ui/badge";
 import { useEffect, useState } from "react";
@@ -142,6 +143,15 @@ export const About = () => {
               <motion.p variants={itemVariants} className="text-lg text-muted-foreground leading-relaxed max-w-2xl">
                 {t("about.description")}
               </motion.p>
+              <motion.div variants={itemVariants} className="-mt-8">
+                <Link
+                  to="/parcours"
+                  className="inline-flex items-center gap-1.5 text-sm font-semibold underline underline-offset-4 hover:text-accent-foreground transition-colors"
+                >
+                  {t("about.backgroundLink")}
+                  <ArrowRight className="h-4 w-4" />
+                </Link>
+              </motion.div>
 
               {/* Quick facts */}
               <motion.div variants={itemVariants} className="grid grid-cols-2 sm:grid-cols-4 gap-6 border-y border-border py-8">
