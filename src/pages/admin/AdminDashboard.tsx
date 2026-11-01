@@ -4,6 +4,7 @@ import { toast } from "sonner";
 import {
   AlertTriangle,
   ArrowRight,
+  CalendarClock,
   ArrowUpRight,
   Check,
   CheckCircle2,
@@ -11,6 +12,7 @@ import {
   EyeOff,
   FolderKanban,
   Images,
+  Inbox,
   Link2,
   Mail,
   MapPin,
@@ -31,7 +33,7 @@ import { useDashboardData, type DashboardData } from "@/hooks/useDashboardData";
 import { ApiError } from "@/lib/api";
 import { cn } from "@/lib/utils";
 import { useAuth } from "@/providers/auth-provider";
-import { ReviewStatus, type Review } from "@/types/content";
+import { BookingStatus, ReviewStatus, type Booking, type Review } from "@/types/content";
 import { ProjectStatus } from "@/types/project";
 import { statusMeta } from "./ProjectStatusBadge";
 
@@ -68,6 +70,23 @@ const hiddenLabel = (items: { visible: boolean }[]) => {
 };
 
 // Sorts "1 400€", "950€"… by their numeric value
+// Bookings are stored as plain YYYY-MM-DD strings, compared as such
+const todayKey = () => {
+  const d = new Date();
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+};
+
+const formatDay = (date: string) =>
+  new Intl.DateTimeFormat("fr-FR", { weekday: "short", day: "numeric", month: "short", timeZone: "UTC" }).format(new Date(`${date}T12:00:00Z`));
+
+// Not declined and not past, soonest first
+const upcomingBookings = (bookings: Booking[]) => {
+  const today = todayKey();
+  return bookings
+    .filter((b) => b.status !== BookingStatus.DECLINED && b.date >= today)
+    .sort((a, b) => (a.date + a.time).localeCompare(b.date + b.time));
+};
+
 const priceValue = (price: string) => Number(price.replace(/[^\d]/g, "")) || 0;
 
 const statusOrder = [ProjectStatus.DONE, ProjectStatus.ONGOING, ProjectStatus.STARTED];
@@ -218,6 +237,24 @@ const buildActivity = (data: DashboardData): Activity[] => {
       date: s.updatedAt,
       to: `/admin/socials?edit=${s._id}`,
     })),
+    ...data.bookings.map((b) => ({
+      key: `booking-${b._id}`,
+      kind: "Rendez-vous",
+      icon: CalendarClock,
+      title: `${b.name}, ${formatDay(b.date)} à ${b.time}`,
+      action: "Demandé",
+      date: b.createdAt,
+      to: "/admin/bookings",
+    })),
+    ...data.messages.map((m) => ({
+      key: `message-${m._id}`,
+      kind: "Message",
+      icon: Inbox,
+      title: m.subject,
+      action: `Reçu de ${m.name}`,
+      date: m.createdAt,
+      to: "/admin/messages",
+    })),
     ...(data.contact
       ? [
           {
@@ -241,6 +278,19 @@ type Todo = { key: string; label: string; to: string; tone: "warning" | "info" }
 // Things worth fixing, derived from the content itself
 const buildTodos = (data: DashboardData): Todo[] => {
   const todos: Todo[] = [];
+
+  const toConfirm = upcomingBookings(data.bookings).filter((b) => b.status === BookingStatus.PENDING);
+  if (toConfirm.length)
+    todos.push({
+      key: "bookings",
+      label: `${plural(toConfirm.length, "rendez-vous", "rendez-vous")} à confirmer`,
+      to: "/admin/bookings",
+      tone: "warning",
+    });
+
+  const unread = data.messages.filter((m) => !m.read);
+  if (unread.length)
+    todos.push({ key: "messages", label: plural(unread.length, "message non lu", "messages non lus"), to: "/admin/messages", tone: "warning" });
 
   const pending = data.reviews.filter((r) => r.status === ReviewStatus.PENDING);
   if (pending.length)
@@ -278,6 +328,10 @@ const buildTodos = (data: DashboardData): Todo[] => {
   if (!data.packages.some((p) => p.visible))
     todos.push({ key: "packages", label: "Aucun package visible sur le site", to: "/admin/packages", tone: "warning" });
   if (!data.contact) todos.push({ key: "contact", label: "Coordonnées non renseignées", to: "/admin/contact", tone: "warning" });
+  if (data.contact && (!data.contact.siret || !data.contact.legalAddress || !data.contact.hostName))
+    todos.push({ key: "legal", label: "Mentions légales incomplètes (SIRET, adresse, hébergeur)", to: "/admin/contact", tone: "warning" });
+  if (data.contact && !data.contact.whatsapp)
+    todos.push({ key: "whatsapp", label: "Numéro WhatsApp non renseigné", to: "/admin/contact", tone: "info" });
 
   return todos;
 };
@@ -293,6 +347,18 @@ export const AdminDashboard = () => {
   );
   const activity = useMemo(() => (data ? buildActivity(data) : []), [data]);
   const todos = useMemo(() => (data ? buildTodos(data) : []), [data]);
+
+  // One line summing up what's waiting on me, most urgent first
+  const waiting = useMemo(() => {
+    if (!data) return [];
+    const toConfirm = upcomingBookings(data.bookings).filter((b) => b.status === BookingStatus.PENDING).length;
+    const unread = data.messages.filter((m) => !m.read).length;
+    return [
+      toConfirm && `${plural(toConfirm, "rendez-vous", "rendez-vous")} à confirmer`,
+      unread && plural(unread, "message non lu", "messages non lus"),
+      pending.length && `${plural(pending.length, "avis", "avis")} à modérer`,
+    ].filter(Boolean) as string[];
+  }, [data, pending.length]);
 
   const moderate = async (review: Review, status: ReviewStatus) => {
     setBusyReview(review._id);
@@ -323,9 +389,7 @@ export const AdminDashboard = () => {
           <p className="eyebrow mb-3">Tableau de bord</p>
           <h1 className="text-3xl sm:text-4xl font-display font-bold tracking-tight">Bonjour {user?.username}</h1>
           <p className="mt-2 text-muted-foreground">
-            {pending.length
-              ? `${plural(pending.length, "avis", "avis")} ${pending.length > 1 ? "attendent" : "attend"} ta validation.`
-              : "Vue d'ensemble du contenu du portfolio."}
+            {waiting.length ? `${waiting.join(", ")}.` : "Rien en attente. Vue d'ensemble du portfolio."}
           </p>
         </div>
         <Button asChild variant="outline" size="lg" className="w-fit">
@@ -400,6 +464,9 @@ export const AdminDashboard = () => {
           </ul>
         </section>
       )}
+
+      {/* Requests from visitors */}
+      {data && <RequestCards data={data} />}
 
       {/* Collections */}
       <section className="space-y-3">
@@ -505,6 +572,91 @@ export const AdminDashboard = () => {
         </section>
       </div>
     </div>
+  );
+};
+
+const RequestCards = ({ data }: { data: DashboardData }) => {
+  const upcoming = upcomingBookings(data.bookings);
+  const next = upcoming[0];
+  const toConfirm = upcoming.filter((b) => b.status === BookingStatus.PENDING).length;
+  const unread = data.messages.filter((m) => !m.read).length;
+  const latestMessage = data.messages[0];
+
+  return (
+    <section className="space-y-3">
+      <h2 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">Demandes</h2>
+      <div className="grid md:grid-cols-2 gap-3 sm:gap-4">
+        <CollectionCard
+          className={cn(toConfirm > 0 && "border-accent/60")}
+          to="/admin/bookings"
+          label="Rendez-vous"
+          icon={CalendarClock}
+          count={upcoming.length}
+          meta={
+            next
+              ? `Prochain : ${formatDay(next.date)} à ${next.time}${toConfirm ? `, ${toConfirm} à confirmer` : ""}`
+              : "Aucun rendez-vous à venir"
+          }
+          actions={
+            <QuickAction to="/admin/bookings" icon={ArrowRight}>
+              Gérer les rendez-vous
+            </QuickAction>
+          }
+        >
+          {upcoming.length ? (
+            <ul className="space-y-2 text-sm">
+              {upcoming.slice(0, 4).map((b) => (
+                <li key={b._id} className="flex items-center gap-3 min-w-0">
+                  <span
+                    className={cn("h-2 w-2 flex-shrink-0 rounded-full", b.status === BookingStatus.PENDING ? "bg-amber-500" : "bg-emerald-500")}
+                    title={b.status === BookingStatus.PENDING ? "À confirmer" : "Confirmé"}
+                  />
+                  <span className="w-24 flex-shrink-0 capitalize text-muted-foreground">{formatDay(b.date)}</span>
+                  <span className="w-12 flex-shrink-0 font-semibold tabular-nums">{b.time}</span>
+                  <span className="truncate">{b.name}</span>
+                  {b.package && <span className="ml-auto truncate text-xs text-muted-foreground">{b.package}</span>}
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <Empty>Les appels réservés sur le site apparaîtront ici.</Empty>
+          )}
+        </CollectionCard>
+
+        <CollectionCard
+          className={cn(unread > 0 && "border-accent/60")}
+          to="/admin/messages"
+          label="Messages"
+          icon={Inbox}
+          count={unread}
+          meta={
+            latestMessage
+              ? `${unread ? `${plural(unread, "non lu", "non lus")} · ` : ""}dernier reçu ${timeAgo(latestMessage.createdAt)}`
+              : "Aucun message"
+          }
+          actions={
+            <QuickAction to="/admin/messages" icon={ArrowRight}>
+              Ouvrir la boîte de réception
+            </QuickAction>
+          }
+        >
+          {data.messages.length ? (
+            <ul className="space-y-2 text-sm">
+              {data.messages.slice(0, 4).map((m) => (
+                <li key={m._id} className="flex items-center gap-3 min-w-0">
+                  <span className={cn("h-2 w-2 flex-shrink-0 rounded-full", m.read ? "bg-border" : "bg-accent")} />
+                  <span className={cn("w-24 flex-shrink-0 truncate", !m.read && "font-semibold")}>{m.name}</span>
+                  <span className={cn("truncate", m.read ? "text-muted-foreground" : "font-medium")}>{m.subject}</span>
+                  <span className="ml-auto flex-shrink-0 text-xs text-muted-foreground">{timeAgo(m.createdAt)}</span>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <Empty>Les messages du formulaire de contact apparaîtront ici.</Empty>
+          )}
+        </CollectionCard>
+      </div>
+    </section>
   );
 };
 
