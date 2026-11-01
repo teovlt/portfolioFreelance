@@ -6,6 +6,8 @@ const contactInfoSchema = new Schema(
   {
     email: { type: String, required: true, trim: true },
     phone: { type: String, trim: true, default: "" },
+    // Number as typed (e.g. +33 6 12 34 56 78); turned into a wa.me link on the site
+    whatsapp: { type: String, trim: true, default: "" },
     location: bilingualText,
     locationUrl: { type: String, trim: true, default: "" },
     // Required by French law on a professional site (legal notice page)

@@ -3,7 +3,7 @@ import { Helmet } from "react-helmet";
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowUpRight, Plus } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import { scrollToSection } from "@/utils/scrollToSection";
+import { openContactTab } from "@/utils/contactTab";
 
 type Item = { q: string; a: string };
 
@@ -40,7 +40,7 @@ export const Faq = () => {
           <p className="text-muted-foreground max-w-sm mb-6">{t("faq.description")}</p>
           <a
             href="#contact-section"
-            onClick={(e) => scrollToSection("contact-section", e)}
+            onClick={(e) => openContactTab("message", e)}
             className="inline-flex items-center gap-1.5 text-sm font-semibold underline underline-offset-4 hover:text-accent-foreground transition-colors"
           >
             {t("faq.ask")}

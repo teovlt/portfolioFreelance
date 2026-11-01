@@ -14,11 +14,6 @@ export const Experiences = () => {
 
   const { data: timelineData } = usePublicContent<Experience[]>("/experiences", []);
 
-  const container = {
-    hidden: { opacity: 0 },
-    show: { opacity: 1, transition: { staggerChildren: 0.08 } },
-  };
-
   const item = {
     hidden: { opacity: 0, y: 16 },
     show: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" } },
@@ -52,11 +47,16 @@ export const Experiences = () => {
           </h1>
         </motion.div>
 
-        <motion.div variants={container} initial="hidden" whileInView="show" viewport={{ once: true }} className="space-y-6">
+        {/* Each entry reveals itself: they arrive after the fetch, and children
+            mounted under an already-revealed parent would stay invisible */}
+        <div className="space-y-6">
           {timelineData.map((entry) => (
             <motion.div
               key={entry._id}
               variants={item}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true }}
               className="flex flex-col sm:flex-row gap-6 rounded-2xl border border-border bg-card p-6 sm:p-8"
             >
               {/* Organization logo tile */}
@@ -96,7 +96,7 @@ export const Experiences = () => {
               </div>
             </motion.div>
           ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   );

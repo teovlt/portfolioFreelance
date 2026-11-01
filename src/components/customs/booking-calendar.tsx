@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import { useForm } from "react-hook-form";
@@ -11,12 +11,13 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { CalendarCheck, Check, ChevronLeft, ChevronRight, Clock } from "lucide-react";
-
-const ALL_SLOTS = ["09:00", "10:30", "12:00", "14:00", "15:30", "17:00"];
+import { apiRequest, ApiError } from "@/lib/api";
+import type { Availability } from "@/types/content";
 
 const bookingSchema = z.object({
   name: z.string().min(2),
   email: z.string().email(),
+  phone: z.string().regex(/\d(?:\D*\d){5,}/),
   details: z.string().optional(),
 });
 
@@ -24,14 +25,9 @@ interface BookingCalendarProps {
   packageName?: string | null;
 }
 
-function slotsForDate(date: Date) {
-  return ALL_SLOTS.filter((_, i) => (date.getDate() + i) % 4 !== 0);
-}
-
-function isPast(date: Date) {
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
-  return date < today;
+// Calendar cells are local dates; the server speaks in YYYY-MM-DD strings
+function toKey(date: Date) {
+  return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
 }
 
 function isWeekend(date: Date) {
@@ -49,10 +45,45 @@ export function BookingCalendar({ packageName }: BookingCalendarProps) {
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
 
+  const [availability, setAvailability] = useState<Availability | null>(null);
+
   const form = useForm<z.infer<typeof bookingSchema>>({
     resolver: zodResolver(bookingSchema),
-    defaultValues: { name: "", email: "", details: "" },
+    defaultValues: { name: "", email: "", phone: "", details: "" },
   });
+
+  const { errors } = form.formState;
+
+  const loadAvailability = useCallback(async () => {
+    const from = toKey(new Date(viewDate.getFullYear(), viewDate.getMonth(), 1));
+    const to = toKey(new Date(viewDate.getFullYear(), viewDate.getMonth() + 1, 0));
+    try {
+      setAvailability(await apiRequest<Availability>(`/bookings/availability?from=${from}&to=${to}`));
+    } catch {
+      setAvailability(null);
+    }
+  }, [viewDate]);
+
+  useEffect(() => {
+    loadAvailability();
+  }, [loadAvailability]);
+
+  // Open slots for a day: not booked, and not already past in Paris time
+  const openSlots = useCallback(
+    (date: Date) => {
+      if (!availability) return [];
+      const key = toKey(date);
+      const taken = availability.taken[key] ?? [];
+      return availability.slots.filter((slot) => !taken.includes(slot) && !(key === availability.now.date && slot <= availability.now.time));
+    },
+    [availability],
+  );
+
+  const isUnavailable = (date: Date) => {
+    const key = toKey(date);
+    if (!availability || isWeekend(date)) return true;
+    return key < availability.now.date || key > availability.maxDate || openSlots(date).length === 0;
+  };
 
   const weekdayLabels = useMemo(() => {
     const base = new Date(2024, 0, 1); // a Monday
@@ -91,32 +122,21 @@ export function BookingCalendar({ packageName }: BookingCalendarProps) {
   async function onSubmit(values: z.infer<typeof bookingSchema>) {
     if (!selectedDate || !selectedSlot) return;
     setSubmitting(true);
-    const dateLabel = new Intl.DateTimeFormat(lang, { weekday: "long", day: "numeric", month: "long" }).format(selectedDate);
-
-    const messageParts = [
-      `${values.name} — ${t("contact.booking.formMessage", { date: dateLabel, time: selectedSlot })}`,
-      values.details ? t("contact.booking.detailsSuffix", { details: values.details }) : null,
-    ].filter(Boolean);
-
     try {
-      const response = await fetch("https://formspree.io/f/mdkgvoeq", {
+      await apiRequest("/bookings", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          email: values.email,
-          subject: packageName ? `${t("contact.booking.formSubject")} — ${packageName}` : t("contact.booking.formSubject"),
-          message: messageParts.join(" "),
-        }),
+        body: { ...values, package: packageName ?? "", date: toKey(selectedDate), time: selectedSlot },
       });
-
-      if (response.ok) {
-        setSubmitted(true);
+      setSubmitted(true);
+      loadAvailability();
+    } catch (error) {
+      if (error instanceof ApiError && error.status === 409) {
+        toast.error(t("contact.booking.slotTaken"));
+        setSelectedSlot(null);
+        loadAvailability();
       } else {
         toast.error(t("contact.error"));
       }
-    } catch (error) {
-      toast.error(t("contact.failure"));
-      console.error(error);
     } finally {
       setSubmitting(false);
     }
@@ -187,7 +207,7 @@ export function BookingCalendar({ packageName }: BookingCalendarProps) {
             ))}
             {days.map((date, i) => {
               if (!date) return <div key={i} />;
-              const disabled = isPast(date) || isWeekend(date);
+              const disabled = isUnavailable(date);
               const isSelected = selectedDate?.toDateString() === date.toDateString();
               return (
                 <button
@@ -243,8 +263,11 @@ export function BookingCalendar({ packageName }: BookingCalendarProps) {
                 <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-3 capitalize">
                   {new Intl.DateTimeFormat(lang, { weekday: "long", day: "numeric", month: "long" }).format(selectedDate)}
                 </p>
+                {openSlots(selectedDate).length === 0 && (
+                  <p className="text-sm text-muted-foreground mb-6">{t("contact.booking.noSlots")}</p>
+                )}
                 <div className="grid grid-cols-2 gap-2 mb-6">
-                  {slotsForDate(selectedDate).map((slot) => (
+                  {openSlots(selectedDate).map((slot) => (
                     <button
                       key={slot}
                       onClick={() => setSelectedSlot(slot)}
@@ -270,8 +293,24 @@ export function BookingCalendar({ packageName }: BookingCalendarProps) {
                       onSubmit={form.handleSubmit(onSubmit)}
                       className="space-y-3 overflow-hidden"
                     >
-                      <Input placeholder={t("contact.form.name.placeholder")} {...form.register("name")} />
-                      <Input placeholder={t("contact.form.email.placeholder")} {...form.register("email")} />
+                      <Input
+                        placeholder={t("contact.form.name.placeholder")}
+                        aria-invalid={!!errors.name}
+                        className={errors.name ? "border-destructive/60" : undefined}
+                        {...form.register("name")}
+                      />
+                      <Input
+                        placeholder={t("contact.form.email.placeholder")}
+                        aria-invalid={!!errors.email}
+                        className={errors.email ? "border-destructive/60" : undefined}
+                        {...form.register("email")}
+                      />
+                      <Input
+                        type="tel" placeholder={t("contact.booking.phonePlaceholder")}
+                        aria-invalid={!!errors.phone}
+                        className={errors.phone ? "border-destructive/60" : undefined}
+                        {...form.register("phone")}
+                      />
                       <Textarea
                         placeholder={t("contact.booking.detailsPlaceholder")}
                         className="min-h-20 resize-none"

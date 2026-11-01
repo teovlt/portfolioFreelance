@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -13,15 +13,25 @@ import { BookingCalendar } from "@/components/customs/booking-calendar";
 import { Mail, MapPin, Phone, X } from "lucide-react";
 import { toast } from "sonner";
 import { contactSchema } from "@/lib/zod";
+import { apiRequest } from "@/lib/api";
 import { usePackage } from "@/providers/package-provider";
 import { useLocalize, usePublicContent } from "@/hooks/usePublicContent";
 import type { ContactInfo } from "@/types/content";
+import { WhatsAppIcon, whatsAppLink } from "@/components/WhatsApp";
+import { CONTACT_TAB_EVENT, type ContactTab } from "@/utils/contactTab";
 
 export const Contact = () => {
   const { t } = useTranslation();
   const { selectedPackage, setSelectedPackage } = usePackage();
   const localize = useLocalize();
   const { data: info } = usePublicContent<ContactInfo | null>("/contact", null);
+  const [tab, setTab] = useState<ContactTab>("booking");
+
+  useEffect(() => {
+    const onTab = (e: Event) => setTab((e as CustomEvent<ContactTab>).detail);
+    window.addEventListener(CONTACT_TAB_EVENT, onTab);
+    return () => window.removeEventListener(CONTACT_TAB_EVENT, onTab);
+  }, []);
   const form = useForm<z.infer<typeof contactSchema>>({
     resolver: zodResolver(contactSchema),
     defaultValues: {
@@ -41,26 +51,12 @@ export const Contact = () => {
 
   async function onSubmit(values: z.infer<typeof contactSchema>) {
     try {
-      const response = await fetch("https://formspree.io/f/mdkgvoeq", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          email: values.email,
-          subject: values.subject,
-          message: values.message,
-        }),
-      });
-
-      if (response.ok) {
-        toast.success(t("contact.success"));
-        form.reset();
-        setSelectedPackage(null);
-      } else {
-        toast.error(t("contact.error"));
-      }
-    } catch (error) {
-      toast.error(t("contact.failure"));
-      console.error(error);
+      await apiRequest("/messages", { method: "POST", body: values });
+      toast.success(t("contact.success"));
+      form.reset();
+      setSelectedPackage(null);
+    } catch {
+      toast.error(t("contact.error"));
     }
   }
 
@@ -106,7 +102,7 @@ export const Contact = () => {
               </motion.div>
             )}
 
-            <Tabs defaultValue="booking">
+            <Tabs value={tab} onValueChange={(value) => setTab(value as ContactTab)}>
               <TabsList className="mb-8">
                 <TabsTrigger value="booking">{t("contact.tabs.booking")}</TabsTrigger>
                 <TabsTrigger value="message">{t("contact.tabs.message")}</TabsTrigger>
@@ -206,6 +202,13 @@ export const Contact = () => {
                     label: t("contact.info.phone.label"),
                     value: info?.phone,
                     href: info?.phone && `tel:${info.phone.replace(/[^+\d]/g, "")}`,
+                  },
+                  {
+                    icon: WhatsAppIcon,
+                    label: t("contact.info.whatsapp.label"),
+                    value: info?.whatsapp,
+                    href: info?.whatsapp && whatsAppLink(info.whatsapp, t("whatsapp.message")),
+                    external: true,
                   },
                 ]
                   .filter((row) => row.value)

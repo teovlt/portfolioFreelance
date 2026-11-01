@@ -1,11 +1,13 @@
 import { Link, Navigate, NavLink, Outlet, useLocation } from "react-router-dom";
 import {
   ArrowUpRight,
+  CalendarClock,
   Contact,
   FolderKanban,
   Images,
   LayoutDashboard,
   LogOut,
+  Mail,
   MessageSquareQuote,
   Package,
   Route,
@@ -19,6 +21,8 @@ import { useStats } from "@/hooks/useStats";
 
 const navItems = [
   { to: "/admin", label: "Tableau de bord", icon: LayoutDashboard, end: true },
+  { to: "/admin/bookings", label: "Rendez-vous", icon: CalendarClock, end: false },
+  { to: "/admin/messages", label: "Messages", icon: Mail, end: false },
   { to: "/admin/projects", label: "Projets", icon: FolderKanban, end: false },
   { to: "/admin/reviews", label: "Avis", icon: MessageSquareQuote, end: false },
   { to: "/admin/packages", label: "Packages", icon: Package, end: false },
@@ -38,7 +42,12 @@ export const AdminLayout = () => {
   const { isAuthenticated, isLoading, user, logout } = useAuth();
   const location = useLocation();
   const { stats } = useStats(location.pathname);
-  const pendingReviews = stats?.reviews.pending ?? 0;
+  // What needs my attention, shown as a count next to the matching nav entry
+  const badges: Record<string, number> = {
+    "/admin/reviews": stats?.reviews.pending ?? 0,
+    "/admin/bookings": stats?.bookings?.pending ?? 0,
+    "/admin/messages": stats?.messages?.unread ?? 0,
+  };
 
   if (isLoading) return null;
 
@@ -69,9 +78,9 @@ export const AdminLayout = () => {
             <NavLink key={to} to={to} end={end} className={navLinkClass}>
               <Icon className="h-4 w-4" />
               {label}
-              {to === "/admin/reviews" && pendingReviews > 0 && (
+              {badges[to] > 0 && (
                 <span className="ml-auto rounded-full bg-accent px-2 py-0.5 text-[11px] font-bold tabular-nums text-accent-foreground">
-                  {pendingReviews}
+                  {badges[to]}
                 </span>
               )}
             </NavLink>
@@ -148,9 +157,9 @@ export const AdminLayout = () => {
               >
                 <Icon className="h-4 w-4" />
                 {label}
-                {to === "/admin/reviews" && pendingReviews > 0 && (
+                {badges[to] > 0 && (
                   <span className="rounded-full bg-accent px-1.5 text-[11px] font-bold tabular-nums text-accent-foreground">
-                    {pendingReviews}
+                    {badges[to]}
                   </span>
                 )}
               </NavLink>

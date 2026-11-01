@@ -6,10 +6,10 @@ export const getContactInfo = async (req: Request, res: Response) => {
 };
 
 export const updateContactInfo = async (req: Request, res: Response) => {
-  const { email, phone, location, locationUrl, siret, legalAddress, vatMention, hostName, hostAddress } = req.body ?? {};
+  const { email, phone, whatsapp, location, locationUrl, siret, legalAddress, vatMention, hostName, hostAddress } = req.body ?? {};
   const info = await ContactInfo.findOneAndUpdate(
     {},
-    { email, phone, location, locationUrl, siret, legalAddress, vatMention, hostName, hostAddress },
+    { email, phone, whatsapp, location, locationUrl, siret, legalAddress, vatMention, hostName, hostAddress },
     { new: true, upsert: true, runValidators: true, setDefaultsOnInsert: true },
   );
   res.json(info);

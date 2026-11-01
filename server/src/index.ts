@@ -4,6 +4,8 @@ import express from "express";
 import { connectDB } from "./config/db.js";
 import { errorHandler, notFoundHandler } from "./middleware/error.middleware.js";
 import { authRouter } from "./routes/auth.routes.js";
+import { bookingRouter } from "./routes/booking.routes.js";
+import { messageRouter } from "./routes/message.routes.js";
 import { contactRouter } from "./routes/contact.routes.js";
 import { experienceRouter, packageRouter, photoRouter, socialRouter } from "./routes/content.routes.js";
 import { projectRouter } from "./routes/project.routes.js";
@@ -32,6 +34,8 @@ app.use("/api/experiences", experienceRouter);
 app.use("/api/contact", contactRouter);
 app.use("/api/uploads", uploadRouter);
 app.use("/api/stats", statsRouter);
+app.use("/api/bookings", bookingRouter);
+app.use("/api/messages", messageRouter);
 app.use("/api/sitemap.xml", sitemapRouter);
 
 app.use(notFoundHandler);

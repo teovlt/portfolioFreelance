@@ -107,30 +107,30 @@
     "eyebrow": "Process",
     "titleStart": "How it",
     "titleHighlight": "works",
-    "description": "Four steps, no jargon. You always know where your site stands.",
+    "description": "From your first message to launch.",
     "steps": [
       {
-        "title": "Discovery call",
+        "title": "We talk",
         "duration": "30 min, free",
-        "text": "We talk about your business, your customers and what the site needs to do for you. You leave with ideas, even if we don't end up working together."
+        "text": "You tell me about your business and what you expect from the site."
       },
       {
-        "title": "Quote within 24 h",
-        "duration": "Fixed price",
-        "text": "A detailed, line-by-line quote. The price doesn't change once signed, and a deposit books your slot."
+        "title": "I send you a quote",
+        "duration": "Within 24 h",
+        "text": "Each item broken down, with the final price. Take your time to think it over."
       },
       {
-        "title": "Mockup and development",
+        "title": "I build the site",
         "duration": "1 to 8 weeks",
-        "text": "You approve the mockup before I write any code. Then a preview link lets you follow progress at any time."
+        "text": "You approve the mockup first. During development, you follow progress on a test link."
       },
       {
-        "title": "Launch and follow-up",
-        "duration": "Support included",
-        "text": "I put the site live and show you how to keep it up to date. I stay available for fixes and new features."
+        "title": "Launch",
+        "duration": "And after",
+        "text": "I put the site live and show you how to edit your content. I'm still reachable if you need me."
       }
     ],
-    "cta": "Book the discovery call"
+    "cta": "Book a call"
   },
   "faq": {
     "eyebrow": "FAQ",
@@ -247,13 +247,16 @@
       "confirm": "Confirm request",
       "sending": "Sending...",
       "successTitle": "Request sent!",
-      "successBody": "I'll confirm your slot by email within 24h.",
+      "successBody": "I'll confirm the slot by email or phone within 24 hours.",
       "another": "Pick another slot",
       "formSubject": "Call request",
       "formMessage": "would like a call on {{date}} at {{time}}.",
       "forLabel": "For:",
       "detailsPlaceholder": "Anything to add (optional)",
-      "detailsSuffix": "Details: {{details}}"
+      "detailsSuffix": "Details: {{details}}",
+      "phonePlaceholder": "Your phone, for the call",
+      "slotTaken": "That slot was just taken, please pick another.",
+      "noSlots": "No free slots left that day."
     },
     "form": {
       "name": {
@@ -288,6 +291,9 @@
       },
       "phone": {
         "label": "Phone"
+      },
+      "whatsapp": {
+        "label": "WhatsApp"
       }
     }
   },
@@ -317,5 +323,9 @@
       "process": "Process",
       "faq": "FAQ"
     }
+  },
+  "whatsapp": {
+    "label": "Message me on WhatsApp",
+    "message": "Hi Téo, I'm reaching out from your website."
   }
 }

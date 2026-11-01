@@ -9,6 +9,7 @@ import { Projects } from "@/pages/Projects";
 import { Contact } from "@/pages/Contact";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
+import { WhatsAppButton } from "@/components/WhatsApp";
 import { Experiences } from "@/pages/Experiences";
 import { Process } from "@/pages/Process";
 import { Faq } from "@/pages/Faq";
@@ -27,6 +28,8 @@ import { AdminSocials } from "@/pages/admin/AdminSocials";
 import { AdminPackages } from "@/pages/admin/AdminPackages";
 import { AdminExperiences } from "@/pages/admin/AdminExperiences";
 import { AdminContact } from "@/pages/admin/AdminContact";
+import { AdminBookings } from "@/pages/admin/AdminBookings";
+import { AdminMessages } from "@/pages/admin/AdminMessages";
 
 const ScrollToTop = () => {
   const { pathname, hash } = useLocation();
@@ -59,6 +62,7 @@ const RootLayout = () => (
     <Navbar />
     <Outlet />
     <Footer />
+    <WhatsAppButton />
   </PackageProvider>
 );
 
@@ -103,6 +107,8 @@ export const router = createBrowserRouter([
     element: <AdminLayout />,
     children: [
       { index: true, element: <AdminDashboard /> },
+      { path: "bookings", element: <AdminBookings /> },
+      { path: "messages", element: <AdminMessages /> },
       { path: "projects", element: <AdminProjects /> },
       { path: "projects/new", element: <AdminProjectForm /> },
       { path: "projects/:slug/edit", element: <AdminProjectForm /> },

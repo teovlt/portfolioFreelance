@@ -15,6 +15,7 @@ import type { ContactInfo } from "@/types/content";
 const schema = z.object({
   email: z.string().email("Email invalide"),
   phone: z.string(),
+  whatsapp: z.string(),
   location: z.object({ fr: z.string().min(1, "Requis"), en: z.string().min(1, "Requis") }),
   locationUrl: z.string().url("URL invalide").optional().or(z.literal("")),
   siret: z.string(),
@@ -29,6 +30,7 @@ type FormValues = z.infer<typeof schema>;
 const emptyValues: FormValues = {
   email: "",
   phone: "",
+  whatsapp: "",
   location: { fr: "", en: "" },
   locationUrl: "",
   siret: "",
@@ -41,6 +43,7 @@ const emptyValues: FormValues = {
 const toValues = (info: ContactInfo): FormValues => ({
   email: info.email,
   phone: info.phone,
+  whatsapp: info.whatsapp ?? "",
   location: info.location,
   locationUrl: info.locationUrl,
   siret: info.siret ?? "",
@@ -118,6 +121,9 @@ export const AdminContact = () => {
             </Field>
             <Field label="Téléphone" htmlFor="phone" optional hint="Format affiché tel quel, ex. +33 6 12 34 56 78.">
               <Input id="phone" type="tel" {...register("phone")} />
+            </Field>
+            <Field label="WhatsApp" htmlFor="whatsapp" optional hint="Ajoute un bouton WhatsApp flottant sur le site. Vide = pas de bouton.">
+              <Input id="whatsapp" type="tel" placeholder="+33 6 12 34 56 78" {...register("whatsapp")} />
             </Field>
           </div>
           <LocalizedField label="Localisation" fr={register("location.fr")} en={register("location.en")} errors={errors.location} />

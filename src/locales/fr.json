@@ -107,30 +107,30 @@
     "eyebrow": "Méthode",
     "titleStart": "Comment ça",
     "titleHighlight": "se passe",
-    "description": "Quatre étapes, sans jargon. Vous savez toujours où en est votre site.",
+    "description": "De votre premier message à la mise en ligne.",
     "steps": [
       {
-        "title": "Appel découverte",
+        "title": "On s'appelle",
         "duration": "30 min, gratuit",
-        "text": "On parle de votre activité, de vos clients et de ce que le site doit vous apporter. Vous repartez avec des idées, même si on ne travaille pas ensemble."
+        "text": "Vous me parlez de votre activité et de ce que vous attendez du site."
       },
       {
-        "title": "Devis sous 24 h",
-        "duration": "Prix fixe",
-        "text": "Un devis détaillé, ligne par ligne. Le prix ne bouge plus une fois signé, et un acompte réserve votre créneau."
+        "title": "Je vous envoie un devis",
+        "duration": "Sous 24 h",
+        "text": "Le détail de chaque poste et le prix final. Vous avez le temps d'y réfléchir."
       },
       {
-        "title": "Maquette et développement",
+        "title": "Je construis le site",
         "duration": "1 à 8 semaines",
-        "text": "Vous validez la maquette avant que je code. Ensuite, un lien de prévisualisation vous permet de suivre l'avancement à tout moment."
+        "text": "Vous validez d'abord la maquette. Pendant le développement, vous suivez l'avancement sur un lien de test."
       },
       {
-        "title": "Mise en ligne et suivi",
-        "duration": "Assistance incluse",
-        "text": "Je mets le site en ligne et je vous montre comment le faire vivre. Je reste disponible pour les corrections et les évolutions."
+        "title": "Mise en ligne",
+        "duration": "Et après",
+        "text": "Je publie le site et vous montre comment modifier vos contenus. Je reste joignable si besoin."
       }
     ],
-    "cta": "Réserver l'appel découverte"
+    "cta": "Réserver un appel"
   },
   "faq": {
     "eyebrow": "FAQ",
@@ -247,13 +247,16 @@
       "confirm": "Confirmer la demande",
       "sending": "Envoi en cours...",
       "successTitle": "Demande envoyée !",
-      "successBody": "Je confirme votre créneau par email sous 24h.",
+      "successBody": "Je vous confirme le créneau par email ou par téléphone sous 24 h.",
       "another": "Choisir un autre créneau",
       "formSubject": "Demande de rendez-vous",
       "formMessage": "souhaite un appel le {{date}} à {{time}}.",
       "forLabel": "Pour :",
       "detailsPlaceholder": "Détails à ajouter (optionnel)",
-      "detailsSuffix": "Détails : {{details}}"
+      "detailsSuffix": "Détails : {{details}}",
+      "phonePlaceholder": "Votre téléphone, pour l'appel",
+      "slotTaken": "Ce créneau vient d'être pris, choisissez-en un autre.",
+      "noSlots": "Plus de créneau libre ce jour-là."
     },
     "form": {
       "name": {
@@ -288,6 +291,9 @@
       },
       "phone": {
         "label": "Téléphone"
+      },
+      "whatsapp": {
+        "label": "WhatsApp"
       }
     }
   },
@@ -317,5 +323,9 @@
       "process": "Méthode",
       "faq": "FAQ"
     }
+  },
+  "whatsapp": {
+    "label": "Écrire sur WhatsApp",
+    "message": "Bonjour Téo, je vous contacte depuis votre site."
   }
 }

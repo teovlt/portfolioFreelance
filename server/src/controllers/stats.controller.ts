@@ -7,6 +7,8 @@ import { Project } from "../models/Project.js";
 import { Review, ReviewStatus } from "../models/Review.js";
 import { Social } from "../models/Social.js";
 import { ContactInfo } from "../models/ContactInfo.js";
+import { Booking, BookingStatus } from "../models/Booking.js";
+import { Message } from "../models/Message.js";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const summarize = async (model: Model<any>) => {
@@ -16,7 +18,7 @@ const summarize = async (model: Model<any>) => {
 
 // Counts and last-modified dates for the dashboard cards
 export const getStats = async (req: Request, res: Response) => {
-  const [projects, reviews, photos, socials, packages, experiences, contact, pendingReviews] = await Promise.all([
+  const [projects, reviews, photos, socials, packages, experiences, contact, pendingReviews, pendingBookings, unreadMessages] = await Promise.all([
     summarize(Project),
     summarize(Review),
     summarize(Photo),
@@ -25,7 +27,19 @@ export const getStats = async (req: Request, res: Response) => {
     summarize(Experience),
     summarize(ContactInfo),
     Review.countDocuments({ status: ReviewStatus.PENDING }),
+    Booking.countDocuments({ status: BookingStatus.PENDING }),
+    Message.countDocuments({ read: false }),
   ]);
 
-  res.json({ projects, reviews: { ...reviews, pending: pendingReviews }, photos, socials, packages, experiences, contact });
+  res.json({
+    projects,
+    reviews: { ...reviews, pending: pendingReviews },
+    photos,
+    socials,
+    packages,
+    experiences,
+    contact,
+    bookings: { pending: pendingBookings },
+    messages: { unread: unreadMessages },
+  });
 };

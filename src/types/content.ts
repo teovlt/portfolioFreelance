@@ -90,6 +90,7 @@ export type Experience = Document &
 export type ContactInfo = Document & {
   email: string;
   phone: string;
+  whatsapp: string;
   location: LocalizedText;
   locationUrl: string;
   siret: string;
@@ -109,4 +110,42 @@ export type Stats = {
   packages: CollectionStat;
   experiences: CollectionStat;
   contact: CollectionStat;
+  bookings: { pending: number };
+  messages: { unread: number };
+};
+
+export enum BookingStatus {
+  PENDING = "pending",
+  CONFIRMED = "confirmed",
+  DECLINED = "declined",
+}
+
+export type Booking = {
+  _id: string;
+  name: string;
+  email: string;
+  phone: string;
+  details: string;
+  package: string;
+  date: string;
+  time: string;
+  status: BookingStatus;
+  createdAt: string;
+};
+
+export type ContactMessage = {
+  _id: string;
+  name: string;
+  email: string;
+  subject: string;
+  message: string;
+  read: boolean;
+  createdAt: string;
+};
+
+export type Availability = {
+  slots: string[];
+  taken: Record<string, string[]>;
+  now: { date: string; time: string };
+  maxDate: string;
 };
