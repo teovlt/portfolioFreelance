@@ -17,14 +17,12 @@ const statusColors: Record<ProjectStatus, string> = {
   [ProjectStatus.DONE]: "bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border-emerald-500/30",
 };
 
-const container = {
-  hidden: { opacity: 0 },
-  show: { opacity: 1, transition: { staggerChildren: 0.06 } },
-};
-
+// Each row triggers its own reveal: rows arrive after the fetch, and children
+// mounted after a parent's whileInView already fired would stay hidden
+// (invisible but still clickable), e.g. when coming back from a case study.
 const item = {
   hidden: { opacity: 0, y: 16 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.35 } },
+  show: (index: number) => ({ opacity: 1, y: 0, transition: { duration: 0.35, delay: index * 0.06 } }),
 };
 
 export const Projects = () => {
@@ -51,9 +49,16 @@ export const Projects = () => {
           </div>
         </motion.div>
 
-        <motion.div variants={container} initial="hidden" whileInView="show" viewport={{ once: true }} className="mt-10">
+        <div className="mt-10">
           {projects.map((project, index) => (
-            <motion.div key={project._id} variants={item}>
+            <motion.div
+              key={project._id}
+              variants={item}
+              custom={index}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true }}
+            >
               <Link
                 to={`/projects/${project.slug}`}
                 className="group flex items-center gap-5 py-6 border-t border-border last:border-b hover:bg-muted/40 transition-colors px-2 -mx-2 rounded-lg"
@@ -96,7 +101,7 @@ export const Projects = () => {
               </Link>
             </motion.div>
           ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   );

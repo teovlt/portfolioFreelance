@@ -7,13 +7,9 @@ import { TypingAnimation } from "@/components/customs/typing-animations";
 import { Accent } from "@/components/customs/accent-text";
 import { HeroSocialProof } from "@/components/customs/hero-social-proof";
 import { motion } from "framer-motion";
-import { isExternalUrl, SocialIcon } from "@/components/SocialIcon";
-import { usePublicContent } from "@/hooks/usePublicContent";
-import type { Social } from "@/types/content";
 
 export const Home = () => {
   const { t } = useTranslation();
-  const { data: socials } = usePublicContent<Social[]>("/socials", []);
 
   const typingTexts = [t("home.typing1"), t("home.typing2"), t("home.typing3"), t("home.typing4"), t("home.typing5")];
 
@@ -87,21 +83,6 @@ export const Home = () => {
               <Button variant="outline" size="lg" onClick={(e) => scrollToSection("projects-section", e)}>
                 {t("home.action2")}
               </Button>
-
-              <div className="flex items-center gap-2 sm:ml-2">
-                {socials.map((social) => (
-                  <a
-                    key={social._id}
-                    href={social.url}
-                    {...(isExternalUrl(social.url) ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                    aria-label={social.label}
-                    title={social.label}
-                    className="w-11 h-11 rounded-full border border-border flex items-center justify-center hover:border-foreground hover:bg-accent hover:text-accent-foreground transition-colors"
-                  >
-                    <SocialIcon icon={social.icon} className="h-4 w-4" />
-                  </a>
-                ))}
-              </div>
             </motion.div>
 
             <motion.div
