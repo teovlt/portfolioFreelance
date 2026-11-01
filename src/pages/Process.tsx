@@ -36,11 +36,13 @@ export const Process = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: i * 0.08 }}
-              className="border-t border-foreground pt-5"
+              className="border-t-2 border-accent pt-5"
             >
-              <div className="flex items-baseline justify-between gap-4 mb-3">
-                <span className="font-serif text-2xl">{i + 1}.</span>
-                <span className="text-xs text-muted-foreground">{step.duration}</span>
+              <div className="flex items-center justify-between gap-4 mb-4">
+                <span className="flex h-10 w-10 items-center justify-center rounded-full bg-accent font-serif text-lg font-semibold text-accent-foreground">
+                  {i + 1}
+                </span>
+                <span className="rounded-full bg-accent/15 px-2.5 py-1 text-xs font-medium text-foreground/80">{step.duration}</span>
               </div>
               <h3 className="text-lg font-display font-bold mb-2">{step.title}</h3>
               <p className="text-sm text-muted-foreground leading-relaxed">{step.text}</p>
