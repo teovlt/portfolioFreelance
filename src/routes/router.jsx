@@ -11,7 +11,7 @@ import { Footer } from "@/components/Footer";
 import { Experiences } from "@/pages/Experiences";
 import { ProjectCaseStudy } from "@/pages/ProjectCaseStudy";
 import { PackageProvider } from "@/providers/package-provider";
-import { scrollToId } from "@/utils/scrollToSection";
+import { scrollToHash } from "@/utils/scrollToSection";
 import { AdminLogin } from "@/pages/admin/AdminLogin";
 import { AdminLayout } from "@/pages/admin/AdminLayout";
 import { AdminDashboard } from "@/pages/admin/AdminDashboard";
@@ -28,11 +28,8 @@ const ScrollToTop = () => {
   const { pathname, hash } = useLocation();
 
   useEffect(() => {
-    if (hash) {
-      scrollToId(hash.slice(1), "instant");
-    } else {
-      window.scrollTo({ top: 0, left: 0, behavior: "instant" });
-    }
+    if (hash) return scrollToHash(hash.slice(1));
+    window.scrollTo({ top: 0, left: 0, behavior: "instant" });
   }, [pathname, hash]);
 
   return null;
