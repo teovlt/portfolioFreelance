@@ -9,6 +9,7 @@ import { messageRouter } from "./routes/message.routes.js";
 import { contactRouter } from "./routes/contact.routes.js";
 import { experienceRouter, faqRouter, packageRouter, photoRouter, socialRouter } from "./routes/content.routes.js";
 import { projectRouter } from "./routes/project.routes.js";
+import { renderRouter } from "./routes/render.routes.js";
 import { reviewRouter } from "./routes/review.routes.js";
 import { sitemapRouter } from "./routes/sitemap.routes.js";
 import { statsRouter } from "./routes/stats.routes.js";
@@ -39,6 +40,7 @@ app.use("/api/stats", statsRouter);
 app.use("/api/bookings", bookingRouter);
 app.use("/api/messages", messageRouter);
 app.use("/api/sitemap.xml", sitemapRouter);
+app.use("/api/render", renderRouter);
 
 app.use(notFoundHandler);
 app.use(errorHandler);

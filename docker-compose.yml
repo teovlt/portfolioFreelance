@@ -19,6 +19,9 @@ services:
       # Traefik + nginx sit in front of the API
       TRUST_PROXY: 2
       UPLOAD_DIR: /app/uploads
+      # The site's index.html, which the API fills with each project's meta
+      # tags for link previews (served by the portfolio container)
+      SHELL_URL: http://portfolio/index.html
       # Formspree form that emails me when a review is submitted
       FORMSPREE_ENDPOINT: ${FORMSPREE_ENDPOINT:-https://formspree.io/f/mdkgvoeq}
     volumes:

@@ -35,7 +35,7 @@
     <meta property="og:title" content="Téo Villet - Développeur Freelance à Grenoble" />
     <meta
       property="og:description"
-      content="Téo Villet, développeur web fullstack freelance à Grenoble. Découvrez mes projets et contactez-moi !"
+      content="Développeur web freelance à Grenoble. Sites vitrines, applications et outils sur mesure. Devis gratuit sous 24 h."
     />
     <meta property="og:url" content="https://www.teovillet.fr/" />
     <meta property="og:image" content="https://www.teovillet.fr/og-image.jpg" />
@@ -47,24 +47,46 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Téo Villet - Développeur Freelance à Grenoble" />
-    <meta name="twitter:description" content="Développeur fullstack basé à Grenoble. Portfolio, projets & contact freelance." />
+    <meta name="twitter:description" content="Développeur web freelance à Grenoble. Sites vitrines, applications et outils sur mesure. Devis gratuit sous 24 h." />
     <meta name="twitter:image" content="https://www.teovillet.fr/og-image.jpg" />
 
-    <!-- Schema.org -->
+    <!-- Schema.org: who I am, and the freelance business Google can show
+         for local searches ("développeur web Grenoble") -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
-        "@type": "Person",
-        "name": "Téo Villet",
-        "url": "https://www.teovillet.fr",
-        "jobTitle": "Développeur Web Fullstack",
-        "address": {
-          "@type": "PostalAddress",
-          "addressLocality": "Grenoble",
-          "addressCountry": "FR"
-        },
-        "alumniOf": "IMT Nord Europe",
-        "sameAs": ["https://www.linkedin.com/in/teo-villet", "https://github.com/teovlt"]
+        "@graph": [
+          {
+            "@type": "Person",
+            "@id": "https://www.teovillet.fr/#person",
+            "name": "Téo Villet",
+            "url": "https://www.teovillet.fr",
+            "image": "https://www.teovillet.fr/images/about/me.jpg",
+            "jobTitle": "Développeur Web Fullstack",
+            "alumniOf": "IMT Nord Europe",
+            "sameAs": ["https://www.linkedin.com/in/teo-villet", "https://github.com/teovlt"]
+          },
+          {
+            "@type": "ProfessionalService",
+            "@id": "https://www.teovillet.fr/#business",
+            "name": "Téo Villet — Développeur web freelance",
+            "url": "https://www.teovillet.fr",
+            "image": "https://www.teovillet.fr/og-image.jpg",
+            "description": "Sites vitrines, applications et outils sur mesure pour restaurants, artisans et indépendants.",
+            "founder": { "@id": "https://www.teovillet.fr/#person" },
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Grenoble",
+              "addressRegion": "Auvergne-Rhône-Alpes",
+              "addressCountry": "FR"
+            },
+            "areaServed": [
+              { "@type": "City", "name": "Grenoble" },
+              { "@type": "Country", "name": "France" }
+            ],
+            "knowsLanguage": ["fr", "en"]
+          }
+        ]
       }
     </script>
   </head>

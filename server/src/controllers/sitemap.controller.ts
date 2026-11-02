@@ -1,7 +1,6 @@
 import { Request, Response } from "express";
 import { Project } from "../models/Project.js";
-
-const SITE_URL = "https://www.teovillet.fr";
+import { SITE_URL } from "../utils/site.js";
 
 // Pages that always exist; project case studies are added from the database
 // so a new or hidden project shows up (or disappears) without a redeploy

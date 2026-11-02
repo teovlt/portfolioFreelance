@@ -1,5 +1,3 @@
-# robots.txt pour Téo Villet 🚀
-
 User-agent: *
 Allow: /
 
