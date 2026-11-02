@@ -140,8 +140,8 @@ export const PrivacyPolicy = () => {
           <li>
             <strong>{fr ? "Formulaire de contact et réservation d'appel" : "Contact form and call booking"}</strong>
             {fr
-              ? " : nom, email, téléphone si vous le donnez, message et créneau choisi. Ces informations me sont transmises par email via le service Formspree."
-              : ": name, email, phone if you provide it, message and chosen slot. They are sent to me by email through the Formspree service."}
+              ? " : nom, email, téléphone si vous le donnez, message et créneau choisi. Ces informations sont enregistrées sur le serveur du site, et une copie m'est envoyée par email via le service Formspree pour que je puisse vous répondre."
+              : ": name, email, phone if you provide it, message and chosen slot. They are stored on the site's server, and a copy is emailed to me through the Formspree service so I can reply."}
           </li>
           <li>
             <strong>{fr ? "Avis clients" : "Client reviews"}</strong>
@@ -165,8 +165,8 @@ export const PrivacyPolicy = () => {
         <h2>{fr ? "Durée de conservation" : "Retention"}</h2>
         <p>
           {fr
-            ? "Les demandes de contact sont conservées 3 ans après notre dernier échange. Les avis restent en ligne jusqu'à ce que vous demandiez leur retrait."
-            : "Contact requests are kept for 3 years after our last exchange. Reviews stay online until you ask for their removal."}
+            ? "Les messages et demandes de rendez-vous sont supprimés automatiquement du serveur 3 ans après leur envoi. Les avis restent en ligne jusqu'à ce que vous demandiez leur retrait."
+            : "Messages and call requests are automatically deleted from the server 3 years after they were sent. Reviews stay online until you ask for their removal."}
         </p>
       </div>
 
@@ -174,8 +174,8 @@ export const PrivacyPolicy = () => {
         <h2>{fr ? "Cookies" : "Cookies"}</h2>
         <p>
           {fr
-            ? "Ce site n'utilise aucun cookie publicitaire ni outil de mesure d'audience. Seules vos préférences d'affichage (thème et langue) sont gardées dans votre navigateur."
-            : "This site uses no advertising cookies or analytics. Only your display preferences (theme and language) are kept in your browser."}
+            ? "Ce site n'utilise aucun cookie publicitaire ni outil de mesure d'audience, et ses polices sont hébergées sur le site plutôt que chez Google. Seules vos préférences d'affichage (thème et langue) sont gardées dans votre navigateur."
+            : "This site uses no advertising cookies or analytics, and its fonts are hosted on the site rather than by Google. Only your display preferences (theme and language) are kept in your browser."}
         </p>
       </div>
 

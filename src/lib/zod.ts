@@ -1,16 +1,27 @@
 import { z } from "zod";
+import type { TFunction } from "i18next";
 
-export const contactSchema = z.object({
-  name: z.string().min(2, {
-    message: "Name must be at least 2 characters.",
-  }),
-  email: z.string().email({
-    message: "Please enter a valid email address.",
-  }),
-  subject: z.string().min(2, {
-    message: "Subject must be at least 2 characters.",
-  }),
-  message: z.string().min(10, {
-    message: "Message must be at least 10 characters.",
-  }),
-});
+// Built from `t` so the error messages follow the site's language.
+// `website2` is the honeypot: hidden from visitors, filled in by bots, and
+// checked by the server.
+export const makeContactSchema = (t: TFunction) =>
+  z.object({
+    name: z.string().trim().min(2, { message: t("validation.name") }),
+    email: z.string().trim().email({ message: t("validation.email") }),
+    subject: z.string().trim().min(2, { message: t("validation.subject") }),
+    message: z.string().trim().min(10, { message: t("validation.message") }),
+    website2: z.string().optional(),
+  });
+
+export type ContactValues = z.infer<ReturnType<typeof makeContactSchema>>;
+
+export const makeBookingSchema = (t: TFunction) =>
+  z.object({
+    name: z.string().trim().min(2, { message: t("validation.name") }),
+    email: z.string().trim().email({ message: t("validation.email") }),
+    phone: z.string().regex(/\d(?:\D*\d){5,}/, { message: t("validation.phone") }),
+    details: z.string().optional(),
+    website2: z.string().optional(),
+  });
+
+export type BookingValues = z.infer<ReturnType<typeof makeBookingSchema>>;

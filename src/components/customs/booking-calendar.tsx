@@ -5,7 +5,6 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -13,13 +12,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { CalendarCheck, Check, ChevronLeft, ChevronRight, Clock } from "lucide-react";
 import { apiRequest, ApiError } from "@/lib/api";
 import type { Availability } from "@/types/content";
-
-const bookingSchema = z.object({
-  name: z.string().min(2),
-  email: z.string().email(),
-  phone: z.string().regex(/\d(?:\D*\d){5,}/),
-  details: z.string().optional(),
-});
+import { makeBookingSchema, type BookingValues } from "@/lib/zod";
 
 interface BookingCalendarProps {
   packageName?: string | null;
@@ -35,6 +28,9 @@ function isWeekend(date: Date) {
   return day === 0 || day === 6;
 }
 
+const FieldError = ({ message }: { message?: string }) =>
+  message ? <p className="text-xs font-medium text-destructive -mt-1.5">{message}</p> : null;
+
 export function BookingCalendar({ packageName }: BookingCalendarProps) {
   const { t, i18n } = useTranslation();
   const lang = i18n.language === "fr" ? "fr-FR" : "en-US";
@@ -47,9 +43,10 @@ export function BookingCalendar({ packageName }: BookingCalendarProps) {
 
   const [availability, setAvailability] = useState<Availability | null>(null);
 
-  const form = useForm<z.infer<typeof bookingSchema>>({
-    resolver: zodResolver(bookingSchema),
-    defaultValues: { name: "", email: "", phone: "", details: "" },
+  const schema = useMemo(() => makeBookingSchema(t), [t]);
+  const form = useForm<BookingValues>({
+    resolver: zodResolver(schema),
+    defaultValues: { name: "", email: "", phone: "", details: "", website2: "" },
   });
 
   const { errors } = form.formState;
@@ -119,7 +116,7 @@ export function BookingCalendar({ packageName }: BookingCalendarProps) {
     return viewDate.getFullYear() > today.getFullYear() || viewDate.getMonth() > today.getMonth();
   }, [viewDate]);
 
-  async function onSubmit(values: z.infer<typeof bookingSchema>) {
+  async function onSubmit(values: BookingValues) {
     if (!selectedDate || !selectedSlot) return;
     setSubmitting(true);
     try {
@@ -294,28 +291,47 @@ export function BookingCalendar({ packageName }: BookingCalendarProps) {
                       className="space-y-3 overflow-hidden"
                     >
                       <Input
+                        autoComplete="name"
                         placeholder={t("contact.form.name.placeholder")}
+                        aria-label={t("contact.form.name.label")}
                         aria-invalid={!!errors.name}
                         className={errors.name ? "border-destructive/60" : undefined}
                         {...form.register("name")}
                       />
+                      <FieldError message={errors.name?.message} />
                       <Input
+                        type="email"
+                        autoComplete="email"
                         placeholder={t("contact.form.email.placeholder")}
+                        aria-label={t("contact.form.email.label")}
                         aria-invalid={!!errors.email}
                         className={errors.email ? "border-destructive/60" : undefined}
                         {...form.register("email")}
                       />
+                      <FieldError message={errors.email?.message} />
                       <Input
-                        type="tel" placeholder={t("contact.booking.phonePlaceholder")}
+                        type="tel"
+                        autoComplete="tel"
+                        placeholder={t("contact.booking.phonePlaceholder")}
+                        aria-label={t("contact.booking.phonePlaceholder")}
                         aria-invalid={!!errors.phone}
                         className={errors.phone ? "border-destructive/60" : undefined}
                         {...form.register("phone")}
                       />
+                      <FieldError message={errors.phone?.message} />
                       <Textarea
                         placeholder={t("contact.booking.detailsPlaceholder")}
+                        aria-label={t("contact.booking.detailsPlaceholder")}
                         className="min-h-20 resize-none"
                         {...form.register("details")}
                       />
+                      {/* Honeypot, see lib/zod */}
+                      <div aria-hidden className="absolute -left-[9999px] h-px w-px overflow-hidden">
+                        <label>
+                          Leave empty
+                          <input tabIndex={-1} autoComplete="off" {...form.register("website2")} />
+                        </label>
+                      </div>
                       <Button type="submit" className="w-full" disabled={submitting}>
                         {submitting ? t("contact.booking.sending") : t("contact.booking.confirm")}
                       </Button>

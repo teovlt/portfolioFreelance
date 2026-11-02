@@ -11,7 +11,8 @@ const staticPages = [
 ];
 
 export const getSitemap = async (req: Request, res: Response) => {
-  const projects = await Project.find({ visible: true }).select("slug updatedAt").lean();
+  // Same filter as the public API: projects saved before `visible` existed are published
+  const projects = await Project.find({ visible: { $ne: false } }).select("slug updatedAt").lean();
 
   const urls = [
     ...staticPages.map(({ path, priority }) => `  <url>\n    <loc>${SITE_URL}${path}</loc>\n    <priority>${priority}</priority>\n  </url>`),

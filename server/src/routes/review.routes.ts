@@ -1,7 +1,7 @@
 import rateLimit from "express-rate-limit";
 import { submitReview } from "../controllers/review.controller.js";
 import { Review, ReviewStatus } from "../models/Review.js";
-import { imageUpload } from "./upload.routes.js";
+import { imageUpload, optimizeUpload } from "./upload.routes.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 import { createCrudRouter } from "../utils/crudRouter.js";
 
@@ -21,4 +21,4 @@ const submitLimiter = rateLimit({
 // Express matches routes in registration order; "/submit" is a POST path the
 // CRUD router doesn't define, so adding it afterwards is fine. The limiter runs
 // first so rejected requests never write their photo to disk.
-reviewRouter.post("/submit", submitLimiter, imageUpload.single("photo"), asyncHandler(submitReview));
+reviewRouter.post("/submit", submitLimiter, imageUpload.single("photo"), optimizeUpload, asyncHandler(submitReview));

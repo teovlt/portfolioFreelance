@@ -295,5 +295,12 @@
   },
   "whatsapp": {
     "message": "Hi Téo, I'm reaching out from your website."
+  },
+  "validation": {
+    "name": "Please enter your name (at least 2 characters).",
+    "email": "Please enter a valid email address.",
+    "subject": "Please enter a subject (at least 2 characters).",
+    "message": "Your message must be at least 10 characters long.",
+    "phone": "Please enter a valid phone number."
   }
 }

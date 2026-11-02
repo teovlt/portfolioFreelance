@@ -19,8 +19,8 @@ export const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("home-section");
   const [isScrolled, setIsScrolled] = useState(false);
-  const menuRef = useRef(null);
-  const toggleButtonRef = useRef(null);
+  const menuRef = useRef<HTMLDivElement>(null);
+  const toggleButtonRef = useRef<HTMLButtonElement>(null);
 
   const navItems = [
     { id: "home-section", label: t("navbar.home") },
@@ -31,13 +31,13 @@ export const Navbar = () => {
   ];
 
   useEffect(() => {
-    const handleClickOutside = (event) => {
+    const handleClickOutside = (event: MouseEvent) => {
       if (
         isOpen &&
         menuRef.current &&
-        !menuRef.current.contains(event.target) &&
+        !menuRef.current.contains(event.target as Node) &&
         toggleButtonRef.current &&
-        !toggleButtonRef.current.contains(event.target)
+        !toggleButtonRef.current.contains(event.target as Node)
       ) {
         setIsOpen(false);
       }

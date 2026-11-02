@@ -13,6 +13,7 @@ import { reviewRouter } from "./routes/review.routes.js";
 import { sitemapRouter } from "./routes/sitemap.routes.js";
 import { statsRouter } from "./routes/stats.routes.js";
 import { uploadRouter } from "./routes/upload.routes.js";
+import { scheduleRetention } from "./utils/retention.js";
 
 const app = express();
 
@@ -46,6 +47,7 @@ const port = process.env.PORT ? Number(process.env.PORT) : 4000;
 
 connectDB()
   .then(() => {
+    scheduleRetention();
     app.listen(port, () => {
       console.log(`Server listening on port ${port}`);
     });

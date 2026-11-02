@@ -62,7 +62,7 @@ export const Experiences = () => {
               {/* Organization logo tile */}
               <div className="flex-shrink-0 w-14 h-14 sm:w-16 sm:h-16 rounded-xl bg-white flex items-center justify-center p-2 border border-border">
                 {entry.logo ? (
-                  <img src={entry.logo} alt={localize(entry.org)} className="w-full h-full object-contain" />
+                  <img src={entry.logo} alt={localize(entry.org)} loading="lazy" decoding="async" className="w-full h-full object-contain" />
                 ) : entry.type === "formation" ? (
                   <GraduationCap className="w-6 h-6 text-neutral-400" />
                 ) : (

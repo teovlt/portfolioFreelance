@@ -16,7 +16,7 @@ function QuotePreview({ label }: { label: string }) {
   return (
     <div className="hidden sm:block absolute right-8 top-12 w-56 lg:w-64 rotate-3 rounded-xl overflow-hidden border border-background/15 bg-background shadow-2xl transition-transform duration-300 group-hover:rotate-1 group-hover:-translate-y-1">
       {!failed ? (
-        <img src="/images/services/devis-exemple.png" alt={label} onError={() => setFailed(true)} className="w-full h-auto" />
+        <img src="/images/services/devis-exemple.png" alt={label} loading="lazy" decoding="async" onError={() => setFailed(true)} className="w-full h-auto" />
       ) : (
         <div className="aspect-square flex flex-col items-center justify-center gap-3 p-6 text-center">
           <FileText className="h-8 w-8 text-muted-foreground/40" />

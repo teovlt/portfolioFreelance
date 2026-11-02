@@ -1,8 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
 import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
@@ -12,7 +11,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { BookingCalendar } from "@/components/customs/booking-calendar";
 import { Mail, MapPin, Phone, X } from "lucide-react";
 import { toast } from "sonner";
-import { contactSchema } from "@/lib/zod";
+import { makeContactSchema, type ContactValues } from "@/lib/zod";
 import { apiRequest } from "@/lib/api";
 import { usePackage } from "@/providers/package-provider";
 import { useLocalize, usePublicContent } from "@/hooks/usePublicContent";
@@ -32,13 +31,16 @@ export const Contact = () => {
     window.addEventListener(CONTACT_TAB_EVENT, onTab);
     return () => window.removeEventListener(CONTACT_TAB_EVENT, onTab);
   }, []);
-  const form = useForm<z.infer<typeof contactSchema>>({
-    resolver: zodResolver(contactSchema),
+  // `t` changes with the language, so the messages follow it
+  const schema = useMemo(() => makeContactSchema(t), [t]);
+  const form = useForm<ContactValues>({
+    resolver: zodResolver(schema),
     defaultValues: {
       name: "",
       email: "",
       subject: "",
       message: "",
+      website2: "",
     },
   });
 
@@ -49,7 +51,7 @@ export const Contact = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedPackage]);
 
-  async function onSubmit(values: z.infer<typeof contactSchema>) {
+  async function onSubmit(values: ContactValues) {
     try {
       await apiRequest("/messages", { method: "POST", body: values });
       toast.success(t("contact.success"));
@@ -77,7 +79,7 @@ export const Contact = () => {
           <p className="text-muted-foreground max-w-2xl mx-auto mt-4">{t("contact.description")}</p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-[2fr_1fr] gap-24">
+        <div className="grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-16 lg:gap-24">
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -123,7 +125,7 @@ export const Contact = () => {
                           <FormItem>
                             <FormLabel>{t("contact.form.name.label")}</FormLabel>
                             <FormControl>
-                              <Input placeholder={t("contact.form.name.placeholder")} {...field} />
+                              <Input autoComplete="name" placeholder={t("contact.form.name.placeholder")} {...field} />
                             </FormControl>
                             <FormMessage />
                           </FormItem>
@@ -136,7 +138,7 @@ export const Contact = () => {
                           <FormItem>
                             <FormLabel>{t("contact.form.email.label")}</FormLabel>
                             <FormControl>
-                              <Input placeholder={t("contact.form.email.placeholder")} {...field} />
+                              <Input type="email" autoComplete="email" placeholder={t("contact.form.email.placeholder")} {...field} />
                             </FormControl>
                             <FormMessage />
                           </FormItem>
@@ -169,8 +171,15 @@ export const Contact = () => {
                         </FormItem>
                       )}
                     />
-                    <Button type="submit" size="lg" className="w-full sm:w-auto">
-                      {t("contact.form.submit")}
+                    {/* Honeypot, see lib/zod */}
+                    <div aria-hidden className="absolute -left-[9999px] h-px w-px overflow-hidden">
+                      <label>
+                        Leave empty
+                        <input tabIndex={-1} autoComplete="off" {...form.register("website2")} />
+                      </label>
+                    </div>
+                    <Button type="submit" size="lg" className="w-full sm:w-auto" disabled={form.formState.isSubmitting}>
+                      {form.formState.isSubmitting ? t("contact.booking.sending") : t("contact.form.submit")}
                     </Button>
                   </form>
                 </Form>
@@ -183,9 +192,9 @@ export const Contact = () => {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="hidden lg:flex flex-col justify-center items-center"
+            className="flex flex-col lg:justify-center lg:items-center"
           >
-            <div className="space-y-8 flex-col justify-center items-center">
+            <div className="space-y-8">
               <h3 className="eyebrow mb-4">{t("contact.info.title")}</h3>
               <div className="space-y-6">
                 {[

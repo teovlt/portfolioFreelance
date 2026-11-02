@@ -8,6 +8,8 @@ import { Accent } from "@/components/customs/accent-text";
 import { HeroSocialProof } from "@/components/customs/hero-social-proof";
 import { motion } from "framer-motion";
 import { usePackagePricing } from "@/hooks/usePackagePricing";
+import { usePublicContent } from "@/hooks/usePublicContent";
+import type { Review } from "@/types/content";
 
 export const Home = () => {
   const { t } = useTranslation();
@@ -15,8 +17,13 @@ export const Home = () => {
 
   const typingTexts = [t("home.typing1"), t("home.typing2"), t("home.typing3"), t("home.typing4"), t("home.typing5")];
 
+  // The rating is the average of the published reviews, the same ones the
+  // card next to it shows, rather than a number written in the copy
+  const { data: reviews } = usePublicContent<Review[]>("/reviews", []);
+  const average = reviews.length ? reviews.reduce((sum, r) => sum + r.rating, 0) / reviews.length : null;
+
   const stats = [
-    { value: "5.0", label: t("home.rating") },
+    ...(average !== null ? [{ value: average.toFixed(1), label: t("home.rating"), star: true }] : []),
     { value: "20+", label: t("home.clients") },
     { value: "4+", label: t("home.experience") },
   ];
@@ -104,7 +111,7 @@ export const Home = () => {
                 <div key={i} className="flex flex-col sm:flex-row sm:items-baseline gap-0.5 sm:gap-2">
                   <span className="flex items-baseline gap-1">
                     <span className="text-3xl sm:text-4xl font-display font-bold tracking-tight">{stat.value}</span>
-                    {i === 0 && <Star className="h-4 w-4 fill-accent text-accent" />}
+                    {"star" in stat && <Star className="h-4 w-4 fill-accent text-accent" />}
                   </span>
                   <span className="text-xs sm:text-sm text-muted-foreground">{stat.label}</span>
                 </div>

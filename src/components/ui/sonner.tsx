@@ -1,4 +1,4 @@
-import { useTheme } from "next-themes";
+import { useTheme } from "@/providers/theme-provider";
 import { Toaster as Sonner } from "sonner";
 import { AlertTriangle, CheckCircle, Info, Loader, XCircle } from "lucide-react";
 

@@ -295,5 +295,12 @@
   },
   "whatsapp": {
     "message": "Bonjour Téo, je vous contacte depuis votre site."
+  },
+  "validation": {
+    "name": "Indiquez votre nom (2 caractères minimum).",
+    "email": "Indiquez une adresse email valide.",
+    "subject": "Indiquez un sujet (2 caractères minimum).",
+    "message": "Votre message doit faire au moins 10 caractères.",
+    "phone": "Indiquez un numéro de téléphone valide."
   }
 }

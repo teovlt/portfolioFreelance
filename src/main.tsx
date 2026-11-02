@@ -1,5 +1,10 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
+// Served from our own domain rather than Google Fonts, which would hand every
+// visitor's IP address to Google
+import "@fontsource-variable/inter";
+import "@fontsource-variable/fraunces/opsz.css";
+import "@fontsource-variable/fraunces/opsz-italic.css";
 import "./styles/index.css";
 import { RouterProvider } from "react-router-dom";
 import { router } from "./routes/router";

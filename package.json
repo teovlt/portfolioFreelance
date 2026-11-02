@@ -7,13 +7,16 @@
   "homepage": "https://teovlt.github.io/portfolioFreelance/",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "tsc && vite build",
+    "typecheck": "tsc",
     "preview": "vite preview",
     "format": "prettier --write .",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist"
   },
   "dependencies": {
+    "@fontsource-variable/fraunces": "5.1.0",
+    "@fontsource-variable/inter": "5.1.0",
     "@hookform/resolvers": "^5.0.1",
     "@radix-ui/react-avatar": "^1.1.10",
     "@radix-ui/react-dialog": "^1.1.14",
@@ -30,7 +33,6 @@
     "framer-motion": "^12.10.0",
     "i18next": "^23.16.4",
     "lucide-react": "^0.454.0",
-    "next-themes": "^0.4.6",
     "ogl": "^1.0.11",
     "prettier": "^3.5.3",
     "prop-types": "^15.8.1",
@@ -51,6 +53,7 @@
     "@types/node": "^22.9.0",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
+    "@types/react-helmet": "6.1.11",
     "@vitejs/plugin-react": "^4.3.3",
     "autoprefixer": "^10.4.20",
     "postcss": "^8.4.47",

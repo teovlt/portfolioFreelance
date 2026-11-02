@@ -14,9 +14,24 @@ export const ProjectCaseStudy = () => {
   const { slug } = useParams();
   const { t, i18n } = useTranslation();
   const lang = i18n.language === "fr" ? "fr" : "en";
-  const { projects, isLoading } = useProjects();
+  const { projects, isLoading, error, refresh } = useProjects();
 
-  if (isLoading) return null;
+  // Keeps the page's height while loading so the footer doesn't jump up
+  if (isLoading) return <section className="min-h-screen" aria-busy="true" />;
+
+  // The API being down isn't a missing project: offer a retry, not a 404
+  if (error) {
+    return (
+      <section className="min-h-screen pt-32 pb-24 px-4 flex flex-col items-center justify-center text-center gap-5">
+        <p className="text-muted-foreground">
+          {lang === "fr" ? "Impossible de charger ce projet pour le moment." : "This project couldn't be loaded right now."}
+        </p>
+        <Button variant="outline" onClick={refresh}>
+          {lang === "fr" ? "Réessayer" : "Try again"}
+        </Button>
+      </section>
+    );
+  }
 
   const study = projects.find((p) => p.slug === slug);
   // A not-found page rather than a redirect to the list, so a deleted or
