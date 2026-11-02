@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
 import { Button } from "./ui/button";
 import { useState } from "react";
-import { FR, GB, US } from "country-flag-icons/react/3x2";
+import { FlagFR, FlagGB } from "./Flags";
 import { toast } from "sonner";
 
 export const LanguageChanger = () => {
@@ -21,13 +21,18 @@ export const LanguageChanger = () => {
   };
 
   return (
-    <Button variant="outline" size="sm" onClick={handleChangeLanguage}>
-      <FR
+    <Button
+      variant="outline"
+      size="sm"
+      onClick={handleChangeLanguage}
+      aria-label={currentLanguage === "fr" ? "Switch to English" : "Passer en français"}
+    >
+      <FlagFR
         className={`h-[1.2rem] w-[1.2rem] transition-all duration-300 ${
           currentLanguage === "fr" ? "rotate-0 scale-100" : "rotate-90 scale-0"
         }`}
       />
-      <GB
+      <FlagGB
         className={`absolute h-[1.2rem] w-[1.2rem] transition-all duration-300 ${
           currentLanguage === "en" ? "rotate-0 scale-100" : "rotate-90 scale-0"
         }`}

@@ -41,9 +41,6 @@ importers:
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
-      country-flag-icons:
-        specifier: ^1.5.13
-        version: 1.5.19
       framer-motion:
         specifier: ^12.10.0
         version: 12.10.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -60,7 +57,7 @@ importers:
         specifier: ^18.3.1
         version: 18.3.1(react@18.3.1)
       react-helmet-async:
-        specifier: 2.0.5
+        specifier: ^2.0.5
         version: 2.0.5(react@18.3.1)
       react-hook-form:
         specifier: ^7.56.4
@@ -103,7 +100,7 @@ importers:
         specifier: ^8.4.47
         version: 8.5.3
       prettier:
-        specifier: 3.5.3
+        specifier: ^3.5.3
         version: 3.5.3
       tailwindcss:
         specifier: ^3.4.14
@@ -913,9 +910,6 @@ packages:
 
   convert-source-map@2.0.0:
     resolution: {integrity: sha512-Kvp459HrV2FEJ1CAsi1Ku+MY3kasH19TFykTz2xWmMeq6bk2NU3XXvfJ+Q61m0xktWwt+1HSYf3JZsTms3aRJg==}
-
-  country-flag-icons@1.5.19:
-    resolution: {integrity: sha512-D/ZkRyj+ywJC6b2IrAN3/tpbReMUqmuRLlcKFoY/o0+EPQN9Ev/e8tV+D3+9scvu/tarxwLErNwS73C3yzxs/g==}
 
   cross-spawn@7.0.6:
     resolution: {integrity: sha512-uV2QOWP2nWzsy2aMp8aRibhi9dlzF5Hgh5SHaB9OiTGEyDTiJJyx0uy51QXdyWbtAHNua4XJzUKca3OzKUd3vA==}
@@ -2226,8 +2220,6 @@ snapshots:
   commander@4.1.1: {}
 
   convert-source-map@2.0.0: {}
-
-  country-flag-icons@1.5.19: {}
 
   cross-spawn@7.0.6:
     dependencies:
