@@ -1,44 +1,12 @@
-"use client";
-
-import { LanguageChanger } from "@/components/LanguageChanger";
-import { ThemeChanger } from "@/components/ThemeChanger";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { Home, ArrowLeft, Search, Mail, Code2 } from "lucide-react";
+import { Home } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 
 export default function NotFound() {
   const { i18n } = useTranslation();
   const language = i18n.language;
-
-  const suggestions = [
-    {
-      title: language === "fr" ? "Accueil" : "Home",
-      description: language === "fr" ? "Retourner à la page d'accueil" : "Return to homepage",
-      href: "/",
-      icon: Home,
-    },
-    {
-      title: language === "fr" ? "À propos" : "About",
-      description: language === "fr" ? "En savoir plus sur moi" : "Learn more about me",
-      href: "/#about-section",
-      icon: Code2,
-    },
-    {
-      title: language === "fr" ? "Projets" : "Projects",
-      description: language === "fr" ? "Voir mes réalisations" : "View my work",
-      href: "/#projects-section",
-      icon: Search,
-    },
-    {
-      title: language === "fr" ? "Contact" : "Contact",
-      description: language === "fr" ? "Me contacter" : "Get in touch",
-      href: "/#contact-section",
-      icon: Mail,
-    },
-  ];
 
   return (
     <div className="min-h-screen flex flex-col">

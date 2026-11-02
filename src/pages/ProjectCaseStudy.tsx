@@ -1,6 +1,4 @@
-"use client";
-
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 import { Link, useParams } from "react-router-dom";
 import NotFound from "@/pages/ErrorPage";
 import { useTranslation } from "react-i18next";

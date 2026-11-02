@@ -5,7 +5,6 @@
     "projects": "Projets",
     "services": "Services",
     "contact": "Contact",
-    "experiences": "Parcours",
     "contactCta": "Me contacter",
     "languageChanged": "Langue changée"
   },
@@ -41,7 +40,6 @@
     "quick": {
       "experience": "ans d'expérience",
       "projects": "projets livrés",
-      "satisfaction": "satisfaction client",
       "response": "délai de réponse",
       "delivery": "pour un site vitrine",
       "deliveryValue": "2 sem."
@@ -50,7 +48,6 @@
     "location": "Basé à Grenoble, France",
     "availability": "Disponible pour de nouveaux projets",
     "quote": "Je réponds sous 24 h, et c'est toujours moi qui décroche.",
-    "cta": "Travaillons ensemble",
     "backgroundLink": "Voir mon parcours complet"
   },
   "experiences": {
@@ -67,42 +64,6 @@
     "pageTitle": "Parcours",
     "pageDescription": "Formation et expériences de Téo Villet, développeur web freelance à Grenoble.",
     "back": "Retour à l'accueil"
-  },
-  "services": {
-    "titleStart": "Construisons",
-    "titleHighlight": "ensemble",
-    "cards": [
-      {
-        "title": "Développement Web",
-        "description": "Création de sites web sur mesure avec un accent sur la performance, le SEO et le design responsive. De la landing page simple aux applications complexes.",
-        "points": [
-          "Design Responsive",
-          "Solutions E-commerce",
-          "Intégration CMS",
-          "Développement d'API"
-        ]
-      },
-      {
-        "title": "Développement Mobile",
-        "description": "Développement d'applications mobiles natives et multiplateformes pour iOS et Android, avec un souci constant de l'expérience utilisateur et de la performance.",
-        "points": [
-          "iOS/Android natif",
-          "Solutions multiplateformes",
-          "Optimisation pour les stores",
-          "Maintenance et support"
-        ]
-      },
-      {
-        "title": "Conception UI/UX",
-        "description": "Conception centrée utilisateur visant à améliorer la satisfaction et la fidélisation grâce à des interfaces intuitives et engageantes.",
-        "points": [
-          "Recherche utilisateur",
-          "Wireframing & Prototypage",
-          "Design Visuel",
-          "Tests d'utilisabilité"
-        ]
-      }
-    ]
   },
   "process": {
     "eyebrow": "Méthode",
@@ -218,11 +179,8 @@
       "successTitle": "Demande envoyée !",
       "successBody": "Je vous confirme le créneau par email ou par téléphone sous 24 h.",
       "another": "Choisir un autre créneau",
-      "formSubject": "Demande de rendez-vous",
-      "formMessage": "souhaite un appel le {{date}} à {{time}}.",
       "forLabel": "Pour :",
       "detailsPlaceholder": "Détails à ajouter (optionnel)",
-      "detailsSuffix": "Détails : {{details}}",
       "phonePlaceholder": "Votre téléphone, pour l'appel",
       "slotTaken": "Ce créneau vient d'être pris, choisissez-en un autre.",
       "noSlots": "Plus de créneau libre ce jour-là."
@@ -248,12 +206,10 @@
     },
     "success": "Merci ! Je reviendrai vers vous rapidement.",
     "error": "Une erreur est survenue. Veuillez réessayer.",
-    "failure": "Échec de l'envoi du message.",
     "info": {
       "title": "Coordonnées",
       "location": {
-        "label": "Localisation",
-        "value": "Grenoble, FR"
+        "label": "Localisation"
       },
       "email": {
         "label": "Email"

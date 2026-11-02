@@ -1,71 +1,58 @@
-# 🌐 Téo Villet — Web Developer Portfolio
+# Téo Villet — site freelance
 
-Welcome to my personal portfolio! This project is the digital reflection of my work, my creativity, and my dedication to clean and accessible web development. It's built with love using modern technologies and focuses on performance, accessibility, and developer experience.
+Site de [teovillet.fr](https://www.teovillet.fr) : présentation, tarifs, projets, avis clients, prise de rendez-vous et formulaire de contact, avec un back-office (`/admin`) pour gérer tout le contenu.
 
-[🖥️ Visit Portfolio](https://teovillet.fr)
+## Stack
 
-## ✨ Features
+- **Front** (`/`) : React 18, Vite, TypeScript, Tailwind CSS, shadcn/ui, Framer Motion, i18next (FR / EN)
+- **API** (`/server`) : Express, MongoDB (Mongoose), JWT pour l'admin, Multer + sharp pour les images
+- **Prod** : Docker Compose déployé avec Dokploy. Le conteneur `portfolio` (nginx) sert le front et relaie `/api` vers le conteneur `api`.
 
-- ⚛️ **React** — Modern JavaScript library for building interactive UIs
-- 🎨 **Tailwind CSS** — Utility-first CSS for fast styling
-- 💅 **shadcn/ui** — Beautiful components with built-in accessibility and theme support
-- 🌙 **Dark & Light mode** — Smooth and elegant theming switch
-- 🌍 **i18n** — Full translation support (🇫🇷 / 🇬🇧)
-- 📱 **Responsive** — Mobile-first design for all devices
-- ⚡ **Fast & Optimized** — Lazy loading, optimized images, and best practices everywhere
-- 🧠 **Minimal & Clean UI** — Less clutter, more content
+## Lancer en local
 
-## 🚀 Getting Started
-
-Clone the repo and run it locally:
+Prérequis : Node 20, pnpm 10 et une base MongoDB.
 
 ```bash
-git clone https://github.com/teovlt/portfolioFreelance.git
-cd portfolio
-npm install
-npm run dev
+# API
+cd server
+cp .env.example .env   # renseigner MONGODB_URI et JWT_SECRET
+pnpm install
+pnpm seed:user         # crée le compte admin (interactif)
+pnpm seed:content      # optionnel : contenu de départ
+pnpm seed:projects     # optionnel : projets de départ
+pnpm dev               # http://localhost:4000
+
+# Front, dans un autre terminal
+cp .env.example .env   # VITE_API_URL=http://localhost:4000/api
+pnpm install
+pnpm dev               # http://localhost:5173
 ```
 
-## 📁 Folder Structure
+## Scripts du front
 
-```bash
+| Script           | Rôle                                         |
+| ---------------- | -------------------------------------------- |
+| `pnpm dev`       | serveur de développement                     |
+| `pnpm build`     | type-check (`tsc`) puis build dans `dist/`   |
+| `pnpm typecheck` | type-check seul                              |
+| `pnpm format`    | Prettier sur tout le projet                  |
+
+## Structure
+
+```
 src/
-├── components/    # Reusable UI components
-├── pages/         # App routes
-├── locales/       # Language files
-└── styles/        # Global styles
+├── components/   # composants partagés, ui/ (shadcn), admin/, customs/
+├── hooks/        # accès à l'API (contenu public, collections admin)
+├── locales/      # traductions fr.json / en.json
+├── pages/        # sections de l'accueil, pages, admin/
+├── providers/    # thème, auth admin, forfait choisi
+└── routes/       # routeur (garder nginx.conf en phase avec ses routes)
+server/src/
+├── models/       # schémas Mongoose
+├── routes/       # endpoints, dont un CRUD générique (utils/crudRouter.ts)
+└── seed/         # scripts d'initialisation
 ```
 
-## 🌍 Translations
+## Déploiement
 
-Multilingual support is built-in with JSON files (`fr.json`, `en.json`).  
-Switch language using the toggle in the header.
-
-## 🌗 Dark & Light Theme
-
-Uses system preference by default, with a toggle for manual override. Powered by `shadcn/ui` and Tailwind CSS classes.
-
-## 👨‍💻 About Me
-
-I’m Téo Villet, a fullstack web developer with a passion for clean code and impactful design.  
-I specialize in building web apps that are beautiful, performant, and user-focused.
-
-- 📍 Grenoble, France
-- 📧 [teo.villet2@gmail.com](mailto:teo.villet2@gmail.com)
-- 🌐 [teovillet.fr](https://teovillet.fr)
-- 🧑‍💼 [LinkedIn](https://linkedin.com/in/teo-villet)
-- 💾 [GitHub](https://github.com/teovlt)
-
-## 🤝 Contributors
-
-Thanks to all contributors who make this project better! (me, myself, and I)
-
-<a href="https://github.com/teovlt">
-  <img src="https://avatars.githubusercontent.com/u/97348025?s=96&v=4" width="60" alt="teovlt" />
-</a>
-
----
-
-Feel free to fork, star, or contribute to this project!
-
----
+`docker-compose.yml` lit `MONGODB_URI`, `JWT_SECRET` et, en option, `FRONTEND_URL` et `FORMSPREE_ENDPOINT` (notifications par email des messages, rendez-vous et avis). Les images envoyées depuis l'admin sont stockées dans le volume `uploads`.

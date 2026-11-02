@@ -1,4 +1,4 @@
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import { ArrowLeft, GraduationCap, Briefcase, Check } from "lucide-react";
 import { motion } from "framer-motion";

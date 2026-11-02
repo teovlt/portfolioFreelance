@@ -1,7 +1,7 @@
 import NotFound from "../pages/ErrorPage";
 import { createBrowserRouter, Navigate, Outlet, useLocation } from "react-router-dom";
 import { useEffect } from "react";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 import { Home } from "@/pages/Home";
 import { About } from "@/pages/About";
 import { Services } from "@/pages/Services";

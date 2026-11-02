@@ -1,5 +1,3 @@
-"use client";
-
 import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 import { ArrowUpRight, PenLine } from "lucide-react";
@@ -8,6 +6,7 @@ import { useSectionNav } from "@/hooks/useSectionNav";
 import { useTranslation } from "react-i18next";
 import { isExternalUrl, SocialIcon } from "@/components/SocialIcon";
 import { ReviewDialog } from "@/components/customs/review-dialog";
+import { OPEN_REVIEW_EVENT } from "@/utils/reviewDialog";
 import { usePublicContent } from "@/hooks/usePublicContent";
 import type { ContactInfo, Social } from "@/types/content";
 import { WhatsAppIcon, whatsAppLink } from "@/components/WhatsApp";
@@ -19,6 +18,12 @@ export function Footer() {
   const { data: info } = usePublicContent<ContactInfo | null>("/contact", null);
   const [isReviewOpen, setIsReviewOpen] = useState(false);
   const [params, setParams] = useSearchParams();
+
+  useEffect(() => {
+    const open = () => setIsReviewOpen(true);
+    window.addEventListener(OPEN_REVIEW_EVENT, open);
+    return () => window.removeEventListener(OPEN_REVIEW_EVENT, open);
+  }, []);
 
   // `/?avis` is the link I send clients: it opens the review form directly
   useEffect(() => {

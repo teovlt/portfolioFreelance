@@ -5,7 +5,6 @@
     "projects": "Projects",
     "services": "Services",
     "contact": "Contact",
-    "experiences": "Background",
     "contactCta": "Get in touch",
     "languageChanged": "Language changed"
   },
@@ -41,7 +40,6 @@
     "quick": {
       "experience": "years experience",
       "projects": "projects delivered",
-      "satisfaction": "client satisfaction",
       "response": "response time",
       "delivery": "for a showcase site",
       "deliveryValue": "2 wks"
@@ -50,7 +48,6 @@
     "location": "Based in Grenoble, France",
     "availability": "Available for new projects",
     "quote": "I reply within 24 hours, and it's always me who picks up.",
-    "cta": "Let's work together",
     "backgroundLink": "See my full background"
   },
   "experiences": {
@@ -67,42 +64,6 @@
     "pageTitle": "Background",
     "pageDescription": "Education and experience of Téo Villet, freelance web developer in Grenoble.",
     "back": "Back to home"
-  },
-  "services": {
-    "titleStart": "Let's build",
-    "titleHighlight": "together",
-    "cards": [
-      {
-        "title": "Web Development",
-        "description": "Custom website development with focus on performance, SEO, and responsive design. From simple landing pages to complex web applications.",
-        "points": [
-          "Responsive Design",
-          "E-commerce Solutions",
-          "CMS Integration",
-          "API Development"
-        ]
-      },
-      {
-        "title": "Mobile App Development",
-        "description": "Native and cross-platform mobile app development for iOS and Android with focus on user experience and performance.",
-        "points": [
-          "Native iOS/Android",
-          "Cross-platform Solutions",
-          "App Store Optimization",
-          "Maintenance & Support"
-        ]
-      },
-      {
-        "title": "UI/UX Design",
-        "description": "User-centered design solutions that enhance customer satisfaction and retention through intuitive and engaging interfaces.",
-        "points": [
-          "User Research",
-          "Wireframing & Prototyping",
-          "Visual Design",
-          "Usability Testing"
-        ]
-      }
-    ]
   },
   "process": {
     "eyebrow": "Process",
@@ -218,11 +179,8 @@
       "successTitle": "Request sent!",
       "successBody": "I'll confirm the slot by email or phone within 24 hours.",
       "another": "Pick another slot",
-      "formSubject": "Call request",
-      "formMessage": "would like a call on {{date}} at {{time}}.",
       "forLabel": "For:",
       "detailsPlaceholder": "Anything to add (optional)",
-      "detailsSuffix": "Details: {{details}}",
       "phonePlaceholder": "Your phone, for the call",
       "slotTaken": "That slot was just taken, please pick another.",
       "noSlots": "No free slots left that day."
@@ -248,12 +206,10 @@
     },
     "success": "Thank you! I will get back to you shortly.",
     "error": "An error occurred. Please try again.",
-    "failure": "Failed to send message.",
     "info": {
       "title": "Contact Information",
       "location": {
-        "label": "Location",
-        "value": "Grenoble, FR"
+        "label": "Location"
       },
       "email": {
         "label": "Email"

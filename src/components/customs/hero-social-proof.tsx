@@ -1,11 +1,9 @@
-"use client";
-
 import { useCallback, useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { ChevronLeft, ChevronRight, PenLine, Star } from "lucide-react";
-import { ReviewDialog } from "@/components/customs/review-dialog";
+import { openReviewDialog } from "@/utils/reviewDialog";
 import { useLocalize, usePublicContent } from "@/hooks/usePublicContent";
 import type { Review } from "@/types/content";
 
@@ -23,7 +21,6 @@ export function HeroSocialProof() {
   const { data: reviews } = usePublicContent<Review[]>("/reviews", []);
   const [index, setIndex] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
-  const [isReviewOpen, setIsReviewOpen] = useState(false);
 
   const next = useCallback(() => setIndex((i) => (i + 1) % reviews.length), [reviews.length]);
   const prev = useCallback(() => setIndex((i) => (i - 1 + reviews.length) % reviews.length), [reviews.length]);
@@ -128,14 +125,13 @@ export function HeroSocialProof() {
         </div>
 
         <button
-          onClick={() => setIsReviewOpen(true)}
+          onClick={openReviewDialog}
           className="mt-5 inline-flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
         >
           <PenLine className="h-3.5 w-3.5" />
           {t("reviews.leave")}
         </button>
       </div>
-      <ReviewDialog open={isReviewOpen} onOpenChange={setIsReviewOpen} />
     </motion.div>
   );
 }

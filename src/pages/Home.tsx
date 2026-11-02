@@ -1,4 +1,4 @@
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 import { Button } from "@/components/ui/button";
 import { ArrowDown, ArrowRight, Star } from "lucide-react";
 import { scrollToSection } from "@/utils/scrollToSection";

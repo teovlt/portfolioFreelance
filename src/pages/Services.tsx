@@ -1,5 +1,3 @@
-"use client";
-
 import { useState } from "react";
 import { Check, ArrowUpRight, Clock, FileText, Handshake, KeyRound, PenTool, RefreshCw, Repeat } from "lucide-react";
 import { useTranslation } from "react-i18next";
