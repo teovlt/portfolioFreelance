@@ -23,12 +23,13 @@ export const Home = () => {
 
   const containerVariants = {
     hidden: { opacity: 0 },
-    visible: { opacity: 1, transition: { staggerChildren: 0.12 } },
+    visible: { opacity: 1, transition: { delayChildren: 0.15, staggerChildren: 0.1 } },
   };
 
+  // Soft rise from a slight blur: the page settles into place on load
   const itemVariants = {
-    hidden: { opacity: 0, y: 16 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
+    hidden: { opacity: 0, y: 20, filter: "blur(6px)" },
+    visible: { opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] } },
   };
 
   return (
@@ -41,10 +42,17 @@ export const Home = () => {
         />
       </Helmet>
 
-      <div
-        className="absolute top-0 right-0 w-[640px] h-[640px] rounded-full pointer-events-none -z-10 opacity-60 dark:opacity-30"
-        style={{ background: "radial-gradient(circle, hsl(var(--accent) / 0.25), transparent 70%)" }}
-      />
+      <motion.div
+        initial={{ opacity: 0, scale: 0.85 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 1.6, ease: "easeOut" }}
+        className="absolute top-0 right-0 w-[640px] h-[640px] rounded-full pointer-events-none -z-10"
+      >
+        <div
+          className="w-full h-full rounded-full opacity-60 dark:opacity-30"
+          style={{ background: "radial-gradient(circle, hsl(var(--accent) / 0.25), transparent 70%)" }}
+        />
+      </motion.div>
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="xl:grid xl:grid-cols-[1.15fr_0.85fr] xl:gap-12 xl:items-center">
@@ -108,13 +116,18 @@ export const Home = () => {
         </div>
       </div>
 
-      <div className="hidden sm:flex absolute bottom-8 left-1/2 -translate-x-1/2 z-10">
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.8, delay: 1.1 }}
+        className="hidden sm:flex absolute bottom-8 left-1/2 -translate-x-1/2 z-10"
+      >
         <Button variant="ghost" size="icon" aria-label="Voir la section Services" onClick={(e) => scrollToSection("services-section", e)}>
           <motion.div animate={{ y: [0, 8, 0] }} transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}>
             <ArrowDown className="h-5 w-5" />
           </motion.div>
         </Button>
-      </div>
+      </motion.div>
     </section>
   );
 };

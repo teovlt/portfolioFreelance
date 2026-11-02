@@ -79,7 +79,12 @@ export const Navbar = () => {
 
   return (
     <>
-      <header className="fixed top-0 w-full z-50 transition-all duration-200 py-4 sm:py-5">
+      <motion.header
+        initial={{ opacity: 0, y: -24 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+        className="fixed top-0 w-full z-50 py-4 sm:py-5"
+      >
         <div className="container mx-auto px-4">
           {/* Desktop */}
           <div
@@ -239,7 +244,7 @@ export const Navbar = () => {
             </motion.div>
           )}
         </AnimatePresence>
-      </header>
+      </motion.header>
     </>
   );
 };

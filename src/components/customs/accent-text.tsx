@@ -24,7 +24,7 @@ export function Accent({ children, className = "" }: AccentProps) {
         }}
         initial={{ scaleX: 0 }}
         animate={{ scaleX: 1 }}
-        transition={{ duration: 0.6, ease: "easeInOut", delay: 0.4 }}
+        transition={{ duration: 0.6, ease: "easeInOut", delay: 0.65 }}
       />
       <span className="relative">{children}</span>
     </span>

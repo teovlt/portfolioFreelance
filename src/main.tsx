@@ -8,7 +8,7 @@ import { AuthProvider } from "./providers/auth-provider";
 import "./lib/i18n";
 import { Toaster } from "./components/ui/sonner";
 import { Helmet } from "react-helmet";
-import { Preloader } from "./components/Preloader";
+import { MotionConfig } from "framer-motion";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
@@ -18,9 +18,10 @@ createRoot(document.getElementById("root")!).render(
           <title>Téo Villet</title>
           <meta name="description" content="Portfolio Téo Villet" />
         </Helmet>
-        {/* Intro for visitors only; it just gets in the way of the dashboard */}
-        {!window.location.pathname.startsWith("/admin") && <Preloader />}
-        <RouterProvider router={router} />
+        {/* Entrance animations fall back to plain fades for reduced-motion users */}
+        <MotionConfig reducedMotion="user">
+          <RouterProvider router={router} />
+        </MotionConfig>
         <Toaster />
       </AuthProvider>
     </ThemeProvider>
