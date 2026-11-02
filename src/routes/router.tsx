@@ -2,6 +2,7 @@ import NotFound from "../pages/ErrorPage";
 import { createBrowserRouter, Navigate, Outlet, useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import { Helmet } from "react-helmet-async";
+import { useTranslation } from "react-i18next";
 import { Home } from "@/pages/Home";
 import { About } from "@/pages/About";
 import { Services } from "@/pages/Services";
@@ -106,15 +107,27 @@ const Canonical = () => {
   );
 };
 
-const RootLayout = () => (
-  <PackageProvider>
-    <Canonical />
-    <ScrollToTop />
-    <Navbar />
-    <Outlet />
-    <Footer />
-  </PackageProvider>
-);
+const RootLayout = () => {
+  const { t } = useTranslation();
+  return (
+    <PackageProvider>
+      <Canonical />
+      <ScrollToTop />
+      {/* First thing a keyboard user reaches: jumps past the navbar */}
+      <a
+        href="#main"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:rounded-full focus:bg-foreground focus:px-5 focus:py-2.5 focus:text-sm focus:font-semibold focus:text-background"
+      >
+        {t("a11y.skipToContent")}
+      </a>
+      <Navbar />
+      <main id="main" tabIndex={-1} className="outline-none">
+        <Outlet />
+      </main>
+      <Footer />
+    </PackageProvider>
+  );
+};
 
 export const router = createBrowserRouter([
   {

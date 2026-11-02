@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useReducedMotion } from "framer-motion";
 
 interface TypingAnimationProps {
   texts: string[];
@@ -10,8 +11,10 @@ export function TypingAnimation({ texts, className = "" }: TypingAnimationProps)
   const [currentText, setCurrentText] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
+  const prefersReducedMotion = useReducedMotion();
 
   useEffect(() => {
+    if (prefersReducedMotion) return;
     const targetText = texts[currentTextIndex];
 
     if (isPaused) {
@@ -47,12 +50,19 @@ export function TypingAnimation({ texts, className = "" }: TypingAnimationProps)
     );
 
     return () => clearTimeout(timeout);
-  }, [currentText, currentTextIndex, isDeleting, isPaused, texts]);
+  }, [currentText, currentTextIndex, isDeleting, isPaused, texts, prefersReducedMotion]);
+
+  // Screen readers get every phrase once instead of a word spelled out
+  // letter by letter; reduced-motion visitors see the first one, still
+  if (prefersReducedMotion) return <span className={className}>{texts[0]}</span>;
 
   return (
     <span className={className}>
-      {currentText}
-      <span className="animate-pulse">|</span>
+      <span className="sr-only">{texts.join(", ")}</span>
+      <span aria-hidden="true">
+        {currentText}
+        <span className="animate-pulse">|</span>
+      </span>
     </span>
   );
 }

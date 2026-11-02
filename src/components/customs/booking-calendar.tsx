@@ -90,6 +90,8 @@ export function BookingCalendar({ packageName }: BookingCalendarProps) {
   }, [lang]);
 
   const monthLabel = new Intl.DateTimeFormat(lang, { month: "long", year: "numeric" }).format(viewDate);
+  // Day buttons only show a number; screen readers get the whole date
+  const fullDate = useMemo(() => new Intl.DateTimeFormat(lang, { weekday: "long", day: "numeric", month: "long" }), [lang]);
 
   const days = useMemo(() => {
     const year = viewDate.getFullYear();
@@ -174,10 +176,12 @@ export function BookingCalendar({ packageName }: BookingCalendarProps) {
         {/* Calendar */}
         <div className="p-6 sm:p-8 border-b md:border-b-0 md:border-r border-border">
           <div className="flex items-center justify-between mb-6">
-            <h3 className="font-display font-bold capitalize">{monthLabel}</h3>
+            <h3 className="font-display font-bold capitalize" aria-live="polite">
+              {monthLabel}
+            </h3>
             <div className="flex gap-1.5">
               <button
-                aria-label="Previous month"
+                aria-label={t("a11y.prevMonth")}
                 disabled={!canGoBack}
                 onClick={() => changeMonth(-1)}
                 className="w-8 h-8 rounded-full border border-border flex items-center justify-center hover:border-foreground transition-colors disabled:opacity-30 disabled:pointer-events-none"
@@ -185,7 +189,7 @@ export function BookingCalendar({ packageName }: BookingCalendarProps) {
                 <ChevronLeft className="h-3.5 w-3.5" />
               </button>
               <button
-                aria-label="Next month"
+                aria-label={t("a11y.nextMonth")}
                 onClick={() => changeMonth(1)}
                 className="w-8 h-8 rounded-full border border-border flex items-center justify-center hover:border-foreground transition-colors"
               >
@@ -196,7 +200,7 @@ export function BookingCalendar({ packageName }: BookingCalendarProps) {
 
           <div className="grid grid-cols-7 gap-y-1.5 text-center">
             {weekdayLabels.map((label, i) => (
-              <div key={i} className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground pb-2">
+              <div key={i} aria-hidden="true" className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground pb-2">
                 {label}
               </div>
             ))}
@@ -204,10 +208,14 @@ export function BookingCalendar({ packageName }: BookingCalendarProps) {
               if (!date) return <div key={i} />;
               const disabled = isUnavailable(date);
               const isSelected = selectedDate?.toDateString() === date.toDateString();
+              const dayLabel = fullDate.format(date);
               return (
                 <button
                   key={i}
+                  type="button"
                   disabled={disabled}
+                  aria-label={disabled ? `${dayLabel}, ${t("a11y.unavailable")}` : dayLabel}
+                  aria-pressed={isSelected}
                   onClick={() => {
                     setSelectedDate(date);
                     setSelectedSlot(null);
@@ -265,6 +273,8 @@ export function BookingCalendar({ packageName }: BookingCalendarProps) {
                   {openSlots(selectedDate).map((slot) => (
                     <button
                       key={slot}
+                      type="button"
+                      aria-pressed={selectedSlot === slot}
                       onClick={() => setSelectedSlot(slot)}
                       className={`h-10 rounded-full border text-sm flex items-center justify-center gap-1.5 transition-colors ${
                         selectedSlot === slot

@@ -258,5 +258,24 @@
     "subject": "Please enter a subject (at least 2 characters).",
     "message": "Your message must be at least 10 characters long.",
     "phone": "Please enter a valid phone number."
+  },
+  "a11y": {
+    "skipToContent": "Skip to content",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "mainMenu": "Main menu",
+    "themeToDark": "Switch to dark mode",
+    "themeToLight": "Switch to light mode",
+    "scrollToServices": "See pricing",
+    "prevMonth": "Previous month",
+    "nextMonth": "Next month",
+    "pauseSlides": "Pause slideshow",
+    "playSlides": "Resume slideshow",
+    "reviewN": "Review {{n}} of {{total}}",
+    "averageRating": "Average rating: {{rating}} out of 5",
+    "photoN": "Photo {{n}} of {{total}}",
+    "prevPhoto": "Previous photo",
+    "nextPhoto": "Next photo",
+    "unavailable": "unavailable"
   }
 }

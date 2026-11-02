@@ -258,5 +258,24 @@
     "subject": "Indiquez un sujet (2 caractères minimum).",
     "message": "Votre message doit faire au moins 10 caractères.",
     "phone": "Indiquez un numéro de téléphone valide."
+  },
+  "a11y": {
+    "skipToContent": "Aller au contenu",
+    "openMenu": "Ouvrir le menu",
+    "closeMenu": "Fermer le menu",
+    "mainMenu": "Menu principal",
+    "themeToDark": "Passer en mode sombre",
+    "themeToLight": "Passer en mode clair",
+    "scrollToServices": "Voir les tarifs",
+    "prevMonth": "Mois précédent",
+    "nextMonth": "Mois suivant",
+    "pauseSlides": "Mettre en pause le défilement",
+    "playSlides": "Reprendre le défilement",
+    "reviewN": "Avis {{n}} sur {{total}}",
+    "averageRating": "Note moyenne : {{rating}} sur 5",
+    "photoN": "Photo {{n}} sur {{total}}",
+    "prevPhoto": "Photo précédente",
+    "nextPhoto": "Photo suivante",
+    "unavailable": "indisponible"
   }
 }

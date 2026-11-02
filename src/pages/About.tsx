@@ -1,9 +1,10 @@
 import { motion, AnimatePresence, type PanInfo } from "framer-motion";
 import { Link } from "react-router-dom";
-import { ArrowRight, MapPin, Calendar } from "lucide-react";
+import { ArrowRight, MapPin, Calendar, ChevronLeft, ChevronRight, Pause, Play } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { Badge } from "@/components/ui/badge";
-import { useEffect, useState } from "react";
+import { useCallback, useState } from "react";
+import { useAutoplay } from "@/hooks/useAutoplay";
 import { useLocalize, usePublicContent } from "@/hooks/usePublicContent";
 import type { Photo } from "@/types/content";
 
@@ -27,12 +28,9 @@ export const About = () => {
   const paginate = (newDirection: number) => {
     setPage(([prevPage]) => [prevPage + newDirection, newDirection]);
   };
-
-  useEffect(() => {
-    if (aboutPhotos.length < 2) return;
-    const interval = setInterval(() => paginate(1), 4000);
-    return () => clearInterval(interval);
-  }, [aboutPhotos.length]);
+  const advance = useCallback(() => paginate(1), []);
+  const hasSeveral = aboutPhotos.length > 1;
+  const { isPaused, liveMode, togglePause, holdProps } = useAutoplay(advance, 4000, hasSeveral);
 
   const handleDragEnd = (_event: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
     const swipe = swipePower(info.offset.x, info.velocity.x);
@@ -73,7 +71,6 @@ export const About = () => {
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div>
-
           <motion.p variants={itemVariants} className="eyebrow mb-4">
             {t("about.eyebrow")}
           </motion.p>
@@ -85,11 +82,18 @@ export const About = () => {
           <div className="grid lg:grid-cols-[minmax(0,380px)_1fr] gap-16 items-start">
             {/* Photo et infos */}
             <motion.div variants={itemVariants}>
-              <div className="relative w-full max-w-sm mx-auto lg:mx-0">
+              <div
+                {...holdProps}
+                role="region"
+                aria-roledescription="carousel"
+                aria-label={t("about.eyebrow")}
+                className="relative w-full max-w-sm mx-auto lg:mx-0"
+              >
                 <div className="absolute -bottom-5 -right-5 w-full h-full rounded-2xl bg-accent -z-10" />
                 <motion.div
                   whileHover={{ y: -4 }}
                   transition={{ type: "spring", stiffness: 300 }}
+                  aria-live={liveMode}
                   className="relative aspect-[4/5] w-full overflow-hidden rounded-2xl border border-border bg-muted shadow-sm"
                 >
                   <AnimatePresence initial={false} custom={direction} mode="popLayout">
@@ -98,6 +102,8 @@ export const About = () => {
                         key={page}
                         src={photo.src}
                         alt={localize(photo.alt)}
+                        aria-roledescription="slide"
+                        aria-label={`${t("a11y.photoN", { n: photoIndex + 1, total: aboutPhotos.length })} : ${localize(photo.alt)}`}
                         custom={direction}
                         variants={slideVariants}
                         initial="enter"
@@ -113,6 +119,30 @@ export const About = () => {
                       />
                     )}
                   </AnimatePresence>
+                  {/* Swiping isn't possible from a keyboard or screen reader */}
+                  {hasSeveral && (
+                    <div className="absolute bottom-3 right-3 z-10 flex gap-1.5">
+                      {[
+                        { label: t("a11y.prevPhoto"), icon: ChevronLeft, onClick: () => paginate(-1) },
+                        {
+                          label: t(isPaused ? "a11y.playSlides" : "a11y.pauseSlides"),
+                          icon: isPaused ? Play : Pause,
+                          onClick: togglePause,
+                        },
+                        { label: t("a11y.nextPhoto"), icon: ChevronRight, onClick: () => paginate(1) },
+                      ].map(({ label, icon: Icon, onClick }) => (
+                        <button
+                          key={label}
+                          type="button"
+                          aria-label={label}
+                          onClick={onClick}
+                          className="w-8 h-8 rounded-full bg-background/80 backdrop-blur-sm text-foreground flex items-center justify-center shadow-sm hover:bg-background transition-colors"
+                        >
+                          <Icon className="h-3.5 w-3.5" />
+                        </button>
+                      ))}
+                    </div>
+                  )}
                 </motion.div>
               </div>
 

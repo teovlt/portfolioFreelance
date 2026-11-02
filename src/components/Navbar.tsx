@@ -47,6 +47,38 @@ export const Navbar = () => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [isOpen]);
 
+  // While the full-screen menu is open: Escape closes it, and Tab cycles
+  // between the toggle and the menu instead of reaching the page behind
+  useEffect(() => {
+    if (!isOpen) return;
+    const focusables = () => [
+      toggleButtonRef.current,
+      ...(menuRef.current?.querySelectorAll<HTMLElement>("a[href], button:not([disabled])") ?? []),
+    ].filter((el): el is HTMLElement => !!el);
+
+    // After the reveal has started, so the links exist
+    const timeout = setTimeout(() => focusables()[1]?.focus(), 100);
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setIsOpen(false);
+        toggleButtonRef.current?.focus();
+        return;
+      }
+      if (event.key !== "Tab") return;
+      const items = focusables();
+      const index = items.indexOf(document.activeElement as HTMLElement);
+      const next = event.shiftKey ? (index <= 0 ? items.length - 1 : index - 1) : index === items.length - 1 ? 0 : index + 1;
+      event.preventDefault();
+      items[next]?.focus();
+    };
+    document.addEventListener("keydown", onKeyDown);
+    return () => {
+      clearTimeout(timeout);
+      document.removeEventListener("keydown", onKeyDown);
+    };
+  }, [isOpen]);
+
   useEffect(() => {
     document.body.style.overflow = isOpen ? "hidden" : "";
     return () => {
@@ -73,7 +105,7 @@ export const Navbar = () => {
       setActiveSection(currentSection);
     };
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -101,12 +133,13 @@ export const Navbar = () => {
               Téo Villet
             </Link>
             <div className="flex gap-5 items-center">
-              <div className="flex gap-6 text-sm font-medium">
+              <nav aria-label={t("a11y.mainMenu")} className="flex gap-6 text-sm font-medium">
                 {navItems.map((item) => (
                   <Link
                     key={item.id}
                     to={`/#${item.id}`}
                     onClick={(e) => handleNavLinkClick(item.id, e)}
+                    aria-current={activeSection === item.id ? "true" : undefined}
                     className={cn(
                       "relative py-1 transition-colors",
                       activeSection === item.id ? "text-foreground" : "text-muted-foreground hover:text-foreground",
@@ -116,7 +149,7 @@ export const Navbar = () => {
                     {activeSection === item.id && <span className="absolute -bottom-0.5 left-0 right-0 h-[2px] bg-accent rounded-full" />}
                   </Link>
                 ))}
-              </div>
+              </nav>
               <Separator orientation="vertical" className="h-5" />
               <div className="flex gap-1.5 items-center">
                 <LanguageChanger />
@@ -137,7 +170,9 @@ export const Navbar = () => {
               ref={toggleButtonRef}
               whileTap={{ scale: 0.9 }}
               onClick={() => setIsOpen(!isOpen)}
-              aria-label={isOpen ? "Fermer le menu" : "Ouvrir le menu"}
+              aria-label={isOpen ? t("a11y.closeMenu") : t("a11y.openMenu")}
+              aria-expanded={isOpen}
+              aria-controls="mobile-menu"
               className="w-9 h-9 flex items-center justify-center"
             >
               <AnimatePresence mode="wait" initial={false}>
@@ -170,6 +205,7 @@ export const Navbar = () => {
           {isOpen && (
             <motion.div
               ref={menuRef}
+              id="mobile-menu"
               initial={{ clipPath: "circle(2% at calc(100% - 2.75rem) 2.25rem)" }}
               animate={{ clipPath: "circle(150% at calc(100% - 2.75rem) 2.25rem)" }}
               exit={{ clipPath: "circle(2% at calc(100% - 2.75rem) 2.25rem)" }}
@@ -177,7 +213,7 @@ export const Navbar = () => {
               className="fixed inset-0 z-40 bg-ink text-ink-foreground grain lg:hidden"
             >
               <div className="h-full flex flex-col px-6 pt-24 pb-10">
-                <nav className="flex-1 flex flex-col justify-center gap-0.5">
+                <nav aria-label={t("a11y.mainMenu")} className="flex-1 flex flex-col justify-center gap-0.5">
                   {navItems.map((item, i) => (
                     <motion.div
                       key={item.id}
