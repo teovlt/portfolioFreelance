@@ -7,6 +7,7 @@ import { useCallback, useState } from "react";
 import { useAutoplay } from "@/hooks/useAutoplay";
 import { useLocalize, usePublicContent } from "@/hooks/usePublicContent";
 import type { Photo } from "@/types/content";
+import type { Project } from "@/types/project";
 
 const swipeConfidenceThreshold = 10000;
 const swipePower = (offset: number, velocity: number) => Math.abs(offset) * velocity;
@@ -21,6 +22,8 @@ export const About = () => {
   const { t } = useTranslation();
   const localize = useLocalize();
   const { data: aboutPhotos } = usePublicContent<Photo[]>("/photos", []);
+  // The projects published in the admin, the ones listed in the section above
+  const { data: projects, isLoading: projectsLoading } = usePublicContent<Project[]>("/projects", []);
   const [[page, direction], setPage] = useState([0, 0]);
   const photoIndex = aboutPhotos.length ? ((page % aboutPhotos.length) + aboutPhotos.length) % aboutPhotos.length : 0;
   const photo = aboutPhotos[photoIndex];
@@ -45,7 +48,9 @@ export const About = () => {
 
   const quickFacts = [
     { value: "4+", label: t("about.quick.experience") },
-    { value: "20+", label: t("about.quick.projects") },
+    ...(projectsLoading || projects.length
+      ? [{ value: projectsLoading ? "–" : String(projects.length), label: t("about.quick.projects", { count: projects.length }) }]
+      : []),
     { value: t("about.quick.deliveryValue"), label: t("about.quick.delivery") },
     { value: "24h", label: t("about.quick.response") },
   ];

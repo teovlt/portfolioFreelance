@@ -18,7 +18,8 @@
     "action1": "Me contacter",
     "action2": "Voir mes projets",
     "rating": "note moyenne",
-    "clients": "clients satisfaits",
+    "reviews_one": "avis client",
+    "reviews_other": "avis clients",
     "experience": "ans d'expérience",
     "typing1": "restaurants",
     "typing2": "artisans",
@@ -39,7 +40,8 @@
     "description": "Je suis Téo, développeur web freelance à Grenoble. Depuis 4 ans, je crée des sites et des outils pour des indépendants, des petites entreprises et des laboratoires de recherche. Vous parlez directement à la personne qui construit votre site : pas d'agence, pas de sous-traitance. Je vous livre un site rapide et propre, que vous pouvez faire évoluer avec ou sans moi. En parallèle, je termine un diplôme d'ingénieur en informatique à l'IMT Nord Europe.",
     "quick": {
       "experience": "ans d'expérience",
-      "projects": "projets livrés",
+      "projects_one": "réalisation",
+      "projects_other": "réalisations",
       "response": "délai de réponse",
       "delivery": "pour un site vitrine",
       "deliveryValue": "2 sem."

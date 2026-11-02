@@ -17,14 +17,19 @@ export const Home = () => {
 
   const typingTexts = [t("home.typing1"), t("home.typing2"), t("home.typing3"), t("home.typing4"), t("home.typing5")];
 
-  // The rating is the average of the published reviews, the same ones the
-  // card next to it shows, rather than a number written in the copy
-  const { data: reviews } = usePublicContent<Review[]>("/reviews", []);
-  const average = reviews.length ? reviews.reduce((sum, r) => sum + r.rating, 0) / reviews.length : null;
+  // Rating and count come from the reviews published in the admin, the same
+  // ones the card next to them shows, rather than numbers written in the copy.
+  // A dash holds their place while loading so the row doesn't jump.
+  const { data: reviews, isLoading } = usePublicContent<Review[]>("/reviews", []);
+  const average = reviews.length ? reviews.reduce((sum, r) => sum + r.rating, 0) / reviews.length : 0;
 
   const stats = [
-    ...(average !== null ? [{ value: average.toFixed(1), label: t("home.rating"), star: true }] : []),
-    { value: "20+", label: t("home.clients") },
+    ...(isLoading || reviews.length
+      ? [
+          { value: isLoading ? "–" : average.toFixed(1), label: t("home.rating"), star: true },
+          { value: isLoading ? "–" : String(reviews.length), label: t("home.reviews", { count: reviews.length }) },
+        ]
+      : []),
     { value: "4+", label: t("home.experience") },
   ];
 

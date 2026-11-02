@@ -18,7 +18,8 @@
     "action1": "Get in Touch",
     "action2": "View My Work",
     "rating": "average rating",
-    "clients": "happy clients",
+    "reviews_one": "client review",
+    "reviews_other": "client reviews",
     "experience": "years experience",
     "typing1": "restaurants",
     "typing2": "tradespeople",
@@ -39,7 +40,8 @@
     "description": "I'm Téo, a freelance web developer in Grenoble. For 4 years I've been building websites and tools for independents, small businesses and research labs. You talk directly to the person building your site: no agency, no subcontracting. I deliver a fast, clean site that you can keep growing, with or without me. Alongside that, I'm finishing a computer science engineering degree at IMT Nord Europe.",
     "quick": {
       "experience": "years experience",
-      "projects": "projects delivered",
+      "projects_one": "project",
+      "projects_other": "projects",
       "response": "response time",
       "delivery": "for a showcase site",
       "deliveryValue": "2 wks"
