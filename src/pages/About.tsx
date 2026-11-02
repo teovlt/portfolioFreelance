@@ -89,7 +89,7 @@ export const About = () => {
                 aria-label={t("about.eyebrow")}
                 className="relative w-full max-w-sm mx-auto lg:mx-0"
               >
-                <div className="absolute -bottom-5 -right-5 w-full h-full rounded-2xl bg-accent -z-10" />
+                <div className="absolute -bottom-3 -right-3 sm:-bottom-5 sm:-right-5 w-full h-full rounded-2xl bg-accent -z-10" />
                 <motion.div
                   whileHover={{ y: -4 }}
                   transition={{ type: "spring", stiffness: 300 }}

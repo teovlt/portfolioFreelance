@@ -79,6 +79,14 @@
   body {
     @apply bg-background text-foreground font-sans;
   }
+  /* Safety net: an element poking past the right edge (a decoration, an
+     element sliding in) would otherwise widen the page on phones, and the
+     fixed navbar and centered dialogs would line up with that wider page.
+     clip, unlike hidden, keeps position: sticky working. */
+  html,
+  body {
+    overflow-x: clip;
+  }
   /* Keyboard focus indicator for the many hand-styled buttons and links
      (FAQ, calendar, carousels...). Components with their own ring, like
      shadcn's Button, set outline-none and keep theirs. */

@@ -59,10 +59,10 @@ export const Projects = () => {
             >
               <Link
                 to={`/projects/${project.slug}`}
-                className="group flex items-center gap-5 py-6 border-t border-border last:border-b hover:bg-muted/40 transition-colors px-2 -mx-2 rounded-lg"
+                className="group flex items-center gap-3 sm:gap-5 py-6 border-t border-border last:border-b hover:bg-muted/40 transition-colors px-2 -mx-2 rounded-lg"
               >
-                <span className="font-serif text-xl text-border w-9 flex-shrink-0 select-none">{String(index + 1).padStart(2, "0")}</span>
-                <div className="flex-1 min-w-[200px]">
+                <span className="font-serif text-xl text-border w-7 sm:w-9 flex-shrink-0 select-none">{String(index + 1).padStart(2, "0")}</span>
+                <div className="flex-1 min-w-0">
                   <h3 className="text-xl sm:text-2xl font-display font-bold transition-colors">{project.title}</h3>
                   <p className="text-sm text-muted-foreground mt-1.5 line-clamp-1">{project.tagline[lang] || project.stack.join(", ")}</p>
                 </div>
@@ -99,7 +99,7 @@ export const Projects = () => {
                   </AnimatePresence>
                 </div>
 
-                <span className="w-9 h-9 rounded-full border border-border flex items-center justify-center flex-shrink-0 group-hover:bg-accent group-hover:border-accent group-hover:text-accent-foreground transition-colors">
+                <span className="hidden sm:flex w-9 h-9 rounded-full border border-border items-center justify-center flex-shrink-0 group-hover:bg-accent group-hover:border-accent group-hover:text-accent-foreground transition-colors">
                   <ArrowRight className="w-4 h-4" />
                 </span>
               </Link>
