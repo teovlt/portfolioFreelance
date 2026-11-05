@@ -16,6 +16,8 @@ const projectSchema = new Schema(
     slug: { type: String, required: true, unique: true, lowercase: true, trim: true },
     title: { type: String, required: true, trim: true },
     image: { type: String, required: true },
+    // Extra screenshots shown after the cover in the case study carousel
+    gallery: { type: [String], default: [] },
     stack: { type: [String], default: [] },
     status: { type: String, enum: Object.values(ProjectStatus), default: ProjectStatus.STARTED },
     order: { type: Number, required: true, default: 0 },

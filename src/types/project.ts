@@ -14,6 +14,7 @@ export type Project = {
   slug: string;
   title: string;
   image: string;
+  gallery?: string[];
   stack: string[];
   status: ProjectStatus;
   order: number;

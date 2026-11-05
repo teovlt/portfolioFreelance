@@ -7,6 +7,7 @@ import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { useProjects } from "@/hooks/useProjects";
+import { ProjectGallery } from "@/components/customs/project-gallery";
 
 export const ProjectCaseStudy = () => {
   const { slug } = useParams();
@@ -110,14 +111,7 @@ export const ProjectCaseStudy = () => {
             )}
           </div>
 
-          <div className="rounded-2xl overflow-hidden border border-border shadow-sm mb-16">
-            <div className="h-9 bg-muted flex items-center gap-1.5 px-4 border-b border-border">
-              <span className="w-2.5 h-2.5 rounded-full bg-red-400" />
-              <span className="w-2.5 h-2.5 rounded-full bg-yellow-400" />
-              <span className="w-2.5 h-2.5 rounded-full bg-green-400" />
-            </div>
-            <img src={study.image} alt={study.title} className="w-full object-cover max-h-[560px]" />
-          </div>
+          <ProjectGallery images={[study.image, ...(study.gallery ?? [])].filter(Boolean)} title={study.title} />
 
           <div className="grid sm:grid-cols-2 gap-12 mb-16">
             <div>

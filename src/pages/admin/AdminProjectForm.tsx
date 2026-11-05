@@ -17,6 +17,7 @@ import { apiRequest, ApiError } from "@/lib/api";
 import { ProjectStatus, type Project, type ProjectInput } from "@/types/project";
 import { ProjectStatusBadge } from "./ProjectStatusBadge";
 import { ImageUpload } from "@/components/admin/ImageUpload";
+import { GalleryUpload } from "@/components/admin/GalleryUpload";
 
 const localizedText = z.object({ fr: z.string().min(1, "Requis"), en: z.string().min(1, "Requis") });
 
@@ -27,6 +28,7 @@ const schema = z.object({
     .regex(/^[a-z0-9-]+$/, "Lettres minuscules, chiffres et tirets uniquement"),
   title: z.string().min(1, "Requis"),
   image: z.string().min(1, "Requis"),
+  gallery: z.array(z.string()),
   stack: z.string().min(1, "Requis"),
   status: z.nativeEnum(ProjectStatus),
   order: z.coerce.number().int(),
@@ -48,6 +50,7 @@ const emptyValues: FormValues = {
   slug: "",
   title: "",
   image: "",
+  gallery: [],
   stack: "",
   status: ProjectStatus.STARTED,
   order: 0,
@@ -69,6 +72,7 @@ const toFormValues = (project: Project): FormValues => ({
   slug: project.slug,
   title: project.title,
   image: project.image,
+  gallery: project.gallery ?? [],
   stack: project.stack.join(", "),
   status: project.status,
   order: project.order,
@@ -104,7 +108,7 @@ export const AdminProjectForm = () => {
 
   const { fields, append, remove } = useFieldArray({ control, name: "features" });
 
-  const [title, image, stack, status, visible] = watch(["title", "image", "stack", "status", "visible"]);
+  const [title, image, gallery, stack, status, visible] = watch(["title", "image", "gallery", "stack", "status", "visible"]);
   const stackItems = (stack ?? "")
     .split(",")
     .map((s) => s.trim())
@@ -266,11 +270,11 @@ export const AdminProjectForm = () => {
       <FormSection
         icon={ImageIcon}
         title="Visuel & liens"
-        description="L'image de couverture et les liens externes affichés sur l'étude de cas."
+        description="L'image de couverture, les captures du carrousel et les liens externes affichés sur l'étude de cas."
       >
         <div className="grid sm:grid-cols-[240px_1fr] gap-5">
           <div className="space-y-2">
-            <Label htmlFor="image">Image</Label>
+            <Label htmlFor="image">Image de couverture</Label>
             <ImageUpload id="image" value={image} onChange={(url) => setValue("image", url, { shouldDirty: true, shouldValidate: true })} />
             {fieldError(errors.image?.message)}
           </div>
@@ -289,6 +293,15 @@ export const AdminProjectForm = () => {
                 <Input id="githubLink" placeholder="https://github.com/..." {...register("githubLink")} />
               </div>
             </div>
+          </div>
+          <div className="space-y-2 sm:col-span-2">
+            <Label>
+              Galerie <span className="font-normal text-muted-foreground">(optionnel)</span>
+            </Label>
+            <GalleryUpload value={gallery ?? []} onChange={(urls) => setValue("gallery", urls, { shouldDirty: true })} />
+            <p className="text-xs text-muted-foreground">
+              Affichées après la couverture dans le carrousel de la page projet. Plusieurs fichiers à la fois, glisser-déposer accepté.
+            </p>
           </div>
         </div>
       </FormSection>
@@ -395,8 +408,10 @@ export const AdminProjectForm = () => {
         <p className="hidden sm:block text-sm text-muted-foreground">
           {Object.keys(errors).length > 0 ? (
             <span className="font-medium text-destructive">Certains champs sont incomplets.</span>
+          ) : visible ? (
+            "Les modifications sont publiées dès l'enregistrement."
           ) : (
-            visible ? "Les modifications sont publiées dès l'enregistrement." : "Ce projet est masqué du site."
+            "Ce projet est masqué du site."
           )}
         </p>
         <div className="ml-auto flex items-center gap-2">
