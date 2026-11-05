@@ -122,7 +122,7 @@ export const ProjectCaseStudy = () => {
           <div className="grid sm:grid-cols-2 gap-12 mb-16">
             <div>
               <h2 className="text-xl font-bold mb-3">{lang === "fr" ? "Aperçu" : "Overview"}</h2>
-              <p className="text-muted-foreground leading-relaxed">{study.overview[lang]}</p>
+              <p className="text-muted-foreground leading-relaxed text-justify hyphens-auto">{study.overview[lang]}</p>
             </div>
             <div>
               <h2 className="text-xl font-bold mb-3">{lang === "fr" ? "Stack technique" : "Stack"}</h2>
@@ -139,11 +139,11 @@ export const ProjectCaseStudy = () => {
           <div className="grid sm:grid-cols-2 gap-12 mb-16">
             <div>
               <h2 className="text-lg font-bold mb-3">{lang === "fr" ? "Le défi" : "The Challenge"}</h2>
-              <p className="text-sm text-muted-foreground leading-relaxed">{study.challenge[lang]}</p>
+              <p className="text-sm text-muted-foreground leading-relaxed text-justify hyphens-auto">{study.challenge[lang]}</p>
             </div>
             <div>
               <h2 className="text-lg font-bold mb-3">{lang === "fr" ? "L'approche" : "The Approach"}</h2>
-              <p className="text-sm text-muted-foreground leading-relaxed">{study.approach[lang]}</p>
+              <p className="text-sm text-muted-foreground leading-relaxed text-justify hyphens-auto">{study.approach[lang]}</p>
             </div>
           </div>
 
