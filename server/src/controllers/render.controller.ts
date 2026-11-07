@@ -1,24 +1,26 @@
 import { Request, Response } from "express";
-import { Project } from "../models/Project.js";
 import { SITE_URL } from "../utils/site.js";
+import { escapeHtml, experiencesSnapshot, homeSnapshot, loadProject, projectSnapshot } from "../utils/snapshot.js";
 
 // Link previews (LinkedIn, WhatsApp, X, Slack...) don't run JavaScript: they
 // only see the meta tags of the HTML they download. The site is a single
 // page whose index.html carries the home page's tags, so every shared case
 // study looked like the home page. nginx sends those URLs here instead; we
 // take the site's index.html (served by the front container, SHELL_URL) and
-// fill in the page's own title, description, image and canonical URL.
+// fill in the page's own title, description, image and canonical URL, plus
+// an HTML copy of its content for crawlers that don't run JavaScript (see
+// utils/snapshot.ts).
 
 type PageMeta = { title: string; description: string; image?: string; imageAlt?: string; type?: string };
-
-const escapeHtml = (value: string) =>
-  value.replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+type Page = { meta?: PageMeta; snapshot: string };
 
 const absoluteUrl = (value: string) => (value.startsWith("/") ? `${SITE_URL}${value}` : value);
 
 // Tags the shell sets for the home page and that we replace
 const REPLACED_META =
   /<meta\b[^>]*\b(?:name="description"|property="og:(?:type|title|description|url|image[^"]*)"|name="twitter:(?:title|description|image)")[^>]*>\s*/g;
+
+const withSnapshot = (shell: string, snapshot: string) => shell.replace('<div id="root"></div>', `<div id="root">${snapshot}</div>`);
 
 const fillShell = (shell: string, path: string, meta: PageMeta) => {
   const title = escapeHtml(meta.title);
@@ -55,27 +57,33 @@ const getShell = async () => {
   return res.ok ? res.text() : null;
 };
 
-// Pages whose meta don't come from the database
-const staticPages: Record<string, PageMeta> = {
-  "/parcours": {
-    title: "Parcours — Téo Villet",
-    description: "Formation et expériences de Téo Villet, développeur web freelance à Grenoble.",
-  },
-};
-
-const metaFor = async (path: string): Promise<PageMeta | null | undefined> => {
-  if (staticPages[path]) return staticPages[path];
+// null: unknown project. undefined: a path this renderer doesn't handle.
+// The home page keeps the meta written in index.html.
+const pageFor = async (path: string): Promise<Page | null | undefined> => {
+  if (path === "/") return { snapshot: await homeSnapshot() };
+  if (path === "/parcours") {
+    return {
+      meta: {
+        title: "Parcours — Téo Villet",
+        description: "Formation et expériences de Téo Villet, développeur web freelance à Grenoble.",
+      },
+      snapshot: await experiencesSnapshot(),
+    };
+  }
 
   const slug = path.match(/^\/projects\/([^/]+)$/)?.[1];
   if (!slug) return undefined;
-  const project = await Project.findOne({ slug: decodeURIComponent(slug).toLowerCase(), visible: { $ne: false } }).lean();
+  const project = await loadProject(decodeURIComponent(slug).toLowerCase());
   if (!project) return null;
   return {
-    title: `${project.title} — Téo Villet`,
-    description: project.tagline?.fr ?? "",
-    image: project.image,
-    imageAlt: project.title,
-    type: "article",
+    meta: {
+      title: `${project.title} — Téo Villet`,
+      description: project.tagline?.fr ?? "",
+      image: project.image,
+      imageAlt: project.title,
+      type: "article",
+    },
+    snapshot: projectSnapshot(project),
   };
 };
 
@@ -85,10 +93,12 @@ export const renderPage = async (req: Request, res: Response) => {
   if (!shell) return res.status(503).json({ message: "Shell unavailable" });
 
   const path = req.path.replace(/\/$/, "") || "/";
-  const meta = await metaFor(path);
+  const page = await pageFor(path);
 
   res.type("html").set("Cache-Control", "no-cache");
   // Unknown project: the app shows its not-found page, crawlers get a real 404
-  if (meta === null) return res.status(404).send(shell);
-  res.send(meta ? fillShell(shell, path, meta) : shell);
+  if (page === null) return res.status(404).send(shell);
+  if (!page) return res.send(shell);
+  const filled = page.meta ? fillShell(shell, path, page.meta) : shell;
+  res.send(withSnapshot(filled, page.snapshot));
 };
