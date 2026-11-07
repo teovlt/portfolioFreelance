@@ -12,6 +12,7 @@ import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { Process } from "@/pages/Process";
 import { Faq } from "@/pages/Faq";
+import { BusinessSchema } from "@/components/BusinessSchema";
 import { PackageProvider } from "@/providers/package-provider";
 import { scrollToHash } from "@/utils/scrollToSection";
 
@@ -138,6 +139,7 @@ export const router = createBrowserRouter([
         path: "/",
         element: (
           <>
+            <BusinessSchema />
             <Home />
             <Services />
             <Process />

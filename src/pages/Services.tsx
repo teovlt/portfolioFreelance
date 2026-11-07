@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { usePackage } from "@/providers/package-provider";
 import { useLocalize, usePublicContent } from "@/hooks/usePublicContent";
 import type { Package } from "@/types/content";
+import { track } from "@/lib/analytics";
 
 function QuotePreview({ label }: { label: string }) {
   const [failed, setFailed] = useState(false);
@@ -115,6 +116,7 @@ function PackageCard({ service, variants }: { service: Package; variants: Varian
         className="w-full mt-auto"
         onClick={(e) => {
           const title = localize(service.title);
+          track("Plan chosen", { plan: service.title.fr || title });
           setSelectedPackage(isMonthly ? `${title} (${fr ? "abonnement" : "subscription"})` : title);
           scrollToSection("contact-section", e);
         }}

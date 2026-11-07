@@ -11,9 +11,12 @@ import { router } from "./routes/router";
 import { ThemeProvider } from "./providers/theme-provider";
 import { AuthProvider } from "./providers/auth-provider";
 import "./lib/i18n";
+import { initAnalytics } from "./lib/analytics";
 import { Toaster } from "./components/ui/sonner";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import { MotionConfig } from "framer-motion";
+
+initAnalytics();
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
@@ -21,7 +24,7 @@ createRoot(document.getElementById("root")!).render(
       <AuthProvider>
         <HelmetProvider>
           {/* Title of pages that don't set their own (e.g. the admin) */}
-          <Helmet defaultTitle="Téo Villet - Développeur Fullstack Freelance à Grenoble" />
+          <Helmet defaultTitle="Création de site internet à Grenoble | Téo Villet" />
           {/* Entrance animations fall back to plain fades for reduced-motion users */}
           <MotionConfig reducedMotion="user">
             <RouterProvider router={router} />

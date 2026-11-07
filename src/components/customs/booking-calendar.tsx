@@ -9,6 +9,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { CalendarCheck, Check, ChevronLeft, ChevronRight, Clock } from "lucide-react";
 import { apiRequest, ApiError } from "@/lib/api";
+import { track } from "@/lib/analytics";
 import type { Availability } from "@/types/content";
 import { makeBookingSchema, type BookingValues } from "@/lib/zod";
 
@@ -124,6 +125,7 @@ export function BookingCalendar({ packageName }: BookingCalendarProps) {
         method: "POST",
         body: { ...values, package: packageName ?? "", date: toKey(selectedDate), time: selectedSlot },
       });
+      track("Booking", packageName ? { plan: packageName } : undefined);
       setSubmitted(true);
       loadAvailability();
     } catch (error) {

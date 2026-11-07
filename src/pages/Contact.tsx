@@ -13,6 +13,7 @@ import { Mail, MapPin, Phone, X } from "lucide-react";
 import { toast } from "sonner";
 import { makeContactSchema, type ContactValues } from "@/lib/zod";
 import { apiRequest } from "@/lib/api";
+import { track } from "@/lib/analytics";
 import { usePackage } from "@/providers/package-provider";
 import { useLocalize, usePublicContent } from "@/hooks/usePublicContent";
 import type { ContactInfo } from "@/types/content";
@@ -54,6 +55,7 @@ export const Contact = () => {
   async function onSubmit(values: ContactValues) {
     try {
       await apiRequest("/messages", { method: "POST", body: values });
+      track("Message");
       toast.success(t("contact.success"));
       form.reset();
       setSelectedPackage(null);

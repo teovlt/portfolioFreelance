@@ -1,6 +1,10 @@
 services:
   portfolio:
-    build: .
+    build:
+      context: .
+      args:
+        # Visitor stats (Plausible), off while empty. Read at build time
+        VITE_PLAUSIBLE_DOMAIN: ${VITE_PLAUSIBLE_DOMAIN:-}
     # Traefik (Dokploy) owns ports 80/443 — attach the domain to this service on port 80
     expose:
       - "80"

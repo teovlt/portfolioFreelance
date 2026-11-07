@@ -18,6 +18,10 @@ COPY . .
 # Same-origin API in prod — nginx proxies /api to the backend container
 ENV VITE_API_URL=/api
 
+# Domain registered in Plausible; empty leaves visitor stats off
+ARG VITE_PLAUSIBLE_DOMAIN=
+ENV VITE_PLAUSIBLE_DOMAIN=$VITE_PLAUSIBLE_DOMAIN
+
 # Build the application
 RUN pnpm run build
 

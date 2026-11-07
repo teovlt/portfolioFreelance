@@ -47,10 +47,10 @@ export const Home = () => {
   return (
     <section id="home-section" className="relative min-h-screen pt-28 pb-10 flex items-center overflow-hidden">
       <Helmet>
-        <title>Téo Villet - Développeur Fullstack Freelance à Grenoble</title>
+        <title>Création de site internet à Grenoble | Téo Villet</title>
         <meta
           name="description"
-          content="Développeur web freelance à Grenoble. Sites vitrines, applications et outils sur mesure pour restaurants, artisans et indépendants. Devis gratuit sous 24 h."
+          content="Création de site internet sur mesure à Grenoble pour restaurants, artisans et indépendants. Un seul interlocuteur, site vitrine en ligne en 2 semaines, devis gratuit sous 24 h."
         />
       </Helmet>
 

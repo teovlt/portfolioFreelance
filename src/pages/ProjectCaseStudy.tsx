@@ -46,6 +46,18 @@ export const ProjectCaseStudy = () => {
       <Helmet>
         <title>{`${study.title} — Téo Villet`}</title>
         <meta name="description" content={study.tagline[lang]} />
+        {/* Lets Google show "teovillet.fr › <title>" instead of the raw URL */}
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              // No "Projects" level: the list is a section of the home page, not a page of its own
+              { "@type": "ListItem", position: 1, name: lang === "fr" ? "Accueil" : "Home", item: "https://www.teovillet.fr/" },
+              { "@type": "ListItem", position: 2, name: study.title },
+            ],
+          })}
+        </script>
       </Helmet>
 
       <div className="container max-w-4xl mx-auto">

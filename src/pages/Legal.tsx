@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { ArrowLeft } from "lucide-react";
 import { usePublicContent } from "@/hooks/usePublicContent";
 import type { ContactInfo } from "@/types/content";
+import { analyticsEnabled } from "@/lib/analytics";
 
 const OWNER = "Téo Villet";
 
@@ -173,9 +174,13 @@ export const PrivacyPolicy = () => {
       <div>
         <h2>{fr ? "Cookies" : "Cookies"}</h2>
         <p>
-          {fr
-            ? "Ce site n'utilise aucun cookie publicitaire ni outil de mesure d'audience, et ses polices sont hébergées sur le site plutôt que chez Google. Seules vos préférences d'affichage (thème et langue) sont gardées dans votre navigateur."
-            : "This site uses no advertising cookies or analytics, and its fonts are hosted on the site rather than by Google. Only your display preferences (theme and language) are kept in your browser."}
+          {analyticsEnabled
+            ? fr
+              ? "Ce site n'utilise aucun cookie, et ses polices sont hébergées sur le site plutôt que chez Google. La fréquentation est mesurée avec Plausible Analytics, un outil européen qui ne dépose pas de cookie et ne collecte aucune donnée personnelle (pas d'adresse IP conservée, pas de suivi d'un site à l'autre). Seules vos préférences d'affichage (thème et langue) sont gardées dans votre navigateur."
+              : "This site uses no cookies, and its fonts are hosted on the site rather than by Google. Visits are counted with Plausible Analytics, a European tool that sets no cookies and collects no personal data (no IP address stored, no cross-site tracking). Only your display preferences (theme and language) are kept in your browser."
+            : fr
+              ? "Ce site n'utilise aucun cookie publicitaire ni outil de mesure d'audience, et ses polices sont hébergées sur le site plutôt que chez Google. Seules vos préférences d'affichage (thème et langue) sont gardées dans votre navigateur."
+              : "This site uses no advertising cookies or analytics, and its fonts are hosted on the site rather than by Google. Only your display preferences (theme and language) are kept in your browser."}
         </p>
       </div>
 
