@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { SITE_URL } from "../utils/site.js";
-import { escapeHtml, experiencesSnapshot, homeSnapshot, loadProject, projectSnapshot } from "../utils/snapshot.js";
+import { findLanding, landingStructuredData } from "../content/landings.js";
+import { escapeHtml, experiencesSnapshot, homeSnapshot, landingSnapshot, loadProject, projectSnapshot } from "../utils/snapshot.js";
 
 // Link previews (LinkedIn, WhatsApp, X, Slack...) don't run JavaScript: they
 // only see the meta tags of the HTML they download. The site is a single
@@ -12,7 +13,16 @@ import { escapeHtml, experiencesSnapshot, homeSnapshot, loadProject, projectSnap
 // utils/snapshot.ts).
 
 type PageMeta = { title: string; description: string; image?: string; imageAlt?: string; type?: string };
-type Page = { meta?: PageMeta; snapshot: string };
+type Page = { meta?: PageMeta; snapshot: string; structuredData?: object };
+
+// data-rh: the page's own Helmet script replaces it once the app runs, so
+// Google doesn't read the same FAQ twice. "<" escaped so the text can't
+// close the script tag
+const withStructuredData = (shell: string, data: object) =>
+  shell.replace(
+    "</head>",
+    `    <script data-rh="true" type="application/ld+json">${JSON.stringify(data).replace(/</g, "\\u003c")}</script>\n  </head>`,
+  );
 
 const absoluteUrl = (value: string) => (value.startsWith("/") ? `${SITE_URL}${value}` : value);
 
@@ -71,6 +81,16 @@ const pageFor = async (path: string): Promise<Page | null | undefined> => {
     };
   }
 
+  const landing = findLanding(path.slice(1));
+  if (landing) {
+    return {
+      meta: { title: landing.metaTitle, description: landing.metaDescription },
+      snapshot: await landingSnapshot(landing),
+      structuredData: landingStructuredData(landing),
+    };
+  }
+  if (path.startsWith("/site-internet-")) return null;
+
   const slug = path.match(/^\/projects\/([^/]+)$/)?.[1];
   if (!slug) return undefined;
   const project = await loadProject(decodeURIComponent(slug).toLowerCase());
@@ -99,6 +119,7 @@ export const renderPage = async (req: Request, res: Response) => {
   // Unknown project: the app shows its not-found page, crawlers get a real 404
   if (page === null) return res.status(404).send(shell);
   if (!page) return res.send(shell);
-  const filled = page.meta ? fillShell(shell, path, page.meta) : shell;
+  let filled = page.meta ? fillShell(shell, path, page.meta) : shell;
+  if (page.structuredData) filled = withStructuredData(filled, page.structuredData);
   res.send(withSnapshot(filled, page.snapshot));
 };

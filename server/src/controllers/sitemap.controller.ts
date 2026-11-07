@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { Project } from "../models/Project.js";
+import { landings } from "../content/landings.js";
 import { SITE_URL } from "../utils/site.js";
 
 // Pages that always exist; project case studies are added from the database
@@ -7,6 +8,8 @@ import { SITE_URL } from "../utils/site.js";
 const staticPages = [
   { path: "/", priority: "1.0" },
   { path: "/parcours", priority: "0.5" },
+  // One page per kind of client, aimed at local searches
+  ...landings.map(({ slug }) => ({ path: `/${slug}`, priority: "0.8" })),
 ];
 
 export const getSitemap = async (req: Request, res: Response) => {

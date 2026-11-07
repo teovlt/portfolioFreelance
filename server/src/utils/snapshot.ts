@@ -1,3 +1,4 @@
+import { areaText, type Landing, landings } from "../content/landings.js";
 import { ContactInfo } from "../models/ContactInfo.js";
 import { Experience } from "../models/Experience.js";
 import { Faq } from "../models/Faq.js";
@@ -54,6 +55,7 @@ const nav = html`<nav>
 
 const footer = html`<footer>
   <p>Téo Villet, développeur web freelance à Grenoble. Sites vitrines, applications et outils sur mesure.</p>
+  <p>Sites internet pour : ${list(landings, (l) => html`<a href="/${l.slug}">${l.trade}</a> `)}</p>
   <a href="/mentions-legales">Mentions légales</a> <a href="/confidentialite">Confidentialité</a>
 </footer>`;
 
@@ -194,6 +196,43 @@ export const experiencesSnapshot = async () => {
       ${e.highlights.length > 0 && html`<ul>${list(e.highlights, (h) => html`<li>${fr(h)}</li>`)}</ul>`}
     </article>`,
   )}
+</main>
+${footer}`);
+};
+
+export const landingSnapshot = async (l: Landing) => {
+  const packages = await Package.find({ visible: true }).sort({ order: 1 }).lean();
+  return wrap(html`${nav}
+<main>
+  <section>
+    <p>${l.eyebrow}</p>
+    <h1>${l.titleStart} ${l.titleHighlight}</h1>
+    <p>${l.intro}</p>
+    <a href="#contact-section">Réserver un appel gratuit</a>
+  </section>
+  <section>
+    <h2>Ce qui vous freine aujourd'hui</h2>
+    ${list(l.pains, (p) => html`<article><h3>${p.title}</h3><p>${p.text}</p></article>`)}
+  </section>
+  <section>
+    <h2>Ce que contient votre site</h2>
+    <ul>${list(l.features, (f) => html`<li>${f}</li>`)}</ul>
+    <p>${areaText(l.audience)}</p>
+  </section>
+  ${packages.length > 0 &&
+  html`<section>
+    <h2>Tarifs</h2>
+    <ul>${list(packages, (p) => html`<li>${fr(p.title)}${priceOf(p) && html` : à partir de ${priceOf(p)}`}${fr(p.duration) && html`, ${fr(p.duration)}`}</li>`)}</ul>
+  </section>`}
+  <section>
+    <h2>Questions fréquentes</h2>
+    <dl>${list(l.faqs, (f) => html`<dt>${f.q}</dt><dd>${f.a}</dd>`)}</dl>
+  </section>
+  <section id="contact-section">
+    <h2>Parlons de votre projet</h2>
+    <p>Un appel de 30 minutes, gratuit et sans engagement, puis un devis détaillé sous 24 h.</p>
+    <a href="/#contact-section">Réserver un appel</a>
+  </section>
 </main>
 ${footer}`);
 };

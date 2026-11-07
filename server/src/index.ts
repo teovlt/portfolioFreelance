@@ -5,6 +5,7 @@ import { connectDB } from "./config/db.js";
 import { errorHandler, notFoundHandler } from "./middleware/error.middleware.js";
 import { authRouter } from "./routes/auth.routes.js";
 import { bookingRouter } from "./routes/booking.routes.js";
+import { landingRouter } from "./routes/landing.routes.js";
 import { messageRouter } from "./routes/message.routes.js";
 import { contactRouter } from "./routes/contact.routes.js";
 import { experienceRouter, faqRouter, packageRouter, photoRouter, socialRouter } from "./routes/content.routes.js";
@@ -39,6 +40,7 @@ app.use("/api/uploads", uploadRouter);
 app.use("/api/stats", statsRouter);
 app.use("/api/bookings", bookingRouter);
 app.use("/api/messages", messageRouter);
+app.use("/api/landings", landingRouter);
 app.use("/api/sitemap.xml", sitemapRouter);
 app.use("/api/render", renderRouter);
 

@@ -16,6 +16,7 @@ export function Footer() {
   const { handleNavLinkClick, handleSectionButtonClick } = useSectionNav();
   const { data: socials } = usePublicContent<Social[]>("/socials", []);
   const { data: info } = usePublicContent<ContactInfo | null>("/contact", null);
+  const { data: trades } = usePublicContent<{ slug: string; trade: string }[]>("/landings", []);
   const [isReviewOpen, setIsReviewOpen] = useState(false);
   const [params, setParams] = useSearchParams();
 
@@ -72,7 +73,7 @@ export function Footer() {
         </div>
 
         {/* Columns */}
-        <div className="grid sm:grid-cols-3 gap-10 py-16 border-b border-ink-foreground/15">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-10 py-16 border-b border-ink-foreground/15">
           <div>
             <p className="font-serif italic text-2xl text-ink-foreground mb-3">Téo Villet</p>
             <p className="text-sm text-ink-foreground/60 max-w-xs leading-relaxed">{t("footer.brand.tagline")}</p>
@@ -94,6 +95,19 @@ export function Footer() {
               ))}
             </nav>
           </div>
+
+          {trades.length > 0 && (
+            <div>
+              <p className="eyebrow text-ink-foreground/50 mb-4">{t("footer.columns.tradesTitle")}</p>
+              <nav className="flex flex-col gap-2.5 text-sm">
+                {trades.map(({ slug, trade }) => (
+                  <Link key={slug} to={`/${slug}`} className="text-ink-foreground/70 hover:text-ink-foreground transition-colors w-fit">
+                    {trade}
+                  </Link>
+                ))}
+              </nav>
+            </div>
+          )}
 
           <div>
             <p className="eyebrow text-ink-foreground/50 mb-4">{t("footer.columns.contactTitle")}</p>

@@ -178,6 +178,15 @@ export const router = createBrowserRouter([
           (m) => m.PrivacyPolicy,
         ),
       },
+      // Trade pages (/site-internet-restaurant-grenoble...). Any other
+      // single-segment path also lands here and gets the not-found page
+      {
+        path: "/:landingSlug",
+        lazy: page(
+          () => import("@/pages/Landing"),
+          (m) => m.Landing,
+        ),
+      },
       {
         path: "/*",
         element: <NotFound />,
