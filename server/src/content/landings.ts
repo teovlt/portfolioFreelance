@@ -7,6 +7,11 @@ export type Landing = {
   slug: string;
   // Footer and cross-links ("Sites internet pour : Restaurants")
   trade: string;
+  // Colors and touches of the page (see .trade-* in the front's index.css),
+  // so each trade gets an art direction close to the sites it would get
+  theme: "restaurant" | "gite" | "artisan" | "commerce" | "independant" | "association";
+  // A live site of this kind I made, shown as an example
+  example?: { name: string; url: string; text: string };
   // Who the page talks to, in a sentence ("des restaurants")
   audience: string;
   metaTitle: string;
@@ -45,6 +50,7 @@ export const landings: Landing[] = [
   {
     slug: "site-internet-restaurant-grenoble",
     trade: "Restaurants",
+    theme: "restaurant",
     audience: "des restaurants, bars et cafés",
     metaTitle: "Création de site internet pour restaurant à Grenoble | Téo Villet",
     metaDescription:
@@ -106,6 +112,12 @@ export const landings: Landing[] = [
   {
     slug: "site-internet-gite-grenoble",
     trade: "Gîtes",
+    theme: "gite",
+    example: {
+      name: "Manoir de la Champagne",
+      url: "https://manoir-champagne.teovillet.fr",
+      text: "Gîte de charme pour 12 à 14 personnes en Normandie : grandes photos, l'essentiel du séjour en un coup d'œil, tarifs par saison et vérification des disponibilités dès l'arrivée sur le site.",
+    },
     audience: "des gîtes, chambres d'hôtes et locations saisonnières",
     area: "Grenoble, du Vercors à la Chartreuse, de Belledonne à l'Oisans et au Trièves",
     metaTitle: "Création de site internet pour gîte et chambre d'hôtes en Isère | Téo Villet",
@@ -169,6 +181,7 @@ export const landings: Landing[] = [
   {
     slug: "site-internet-artisan-grenoble",
     trade: "Artisans",
+    theme: "artisan",
     audience: "des artisans",
     metaTitle: "Création de site internet pour artisan à Grenoble | Téo Villet",
     metaDescription:
@@ -230,6 +243,7 @@ export const landings: Landing[] = [
   {
     slug: "site-internet-commerce-grenoble",
     trade: "Commerces",
+    theme: "commerce",
     audience: "des commerces de proximité",
     metaTitle: "Création de site internet pour commerce à Grenoble | Téo Villet",
     metaDescription:
@@ -291,6 +305,7 @@ export const landings: Landing[] = [
   {
     slug: "site-internet-independant-grenoble",
     trade: "Indépendants",
+    theme: "independant",
     audience: "des indépendants et professions libérales",
     metaTitle: "Création de site internet pour indépendant à Grenoble | Téo Villet",
     metaDescription:
@@ -351,6 +366,7 @@ export const landings: Landing[] = [
   {
     slug: "site-internet-association-grenoble",
     trade: "Associations",
+    theme: "association",
     audience: "des associations, clubs et collectifs",
     metaTitle: "Création de site internet pour association à Grenoble | Téo Villet",
     metaDescription:

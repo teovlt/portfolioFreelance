@@ -15,9 +15,13 @@ import type { ContactInfo } from "@/types/content";
 export const Navbar = () => {
   const { t } = useTranslation();
   const { data: contactInfo } = usePublicContent<ContactInfo | null>("/contact", null);
-  const { handleNavLinkClick, handleSectionButtonClick } = useSectionNav();
+  const { isHome, handleNavLinkClick, handleSectionButtonClick } = useSectionNav();
   const [isOpen, setIsOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState("home-section");
+  const [activeSection, setActiveSection] = useState(isHome ? "home-section" : "");
+
+  // The navbar stays mounted between pages: going to a trade page must not
+  // leave "Accueil" marked as current
+  useEffect(() => setActiveSection(isHome ? "home-section" : ""), [isHome]);
   const [isScrolled, setIsScrolled] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
   const toggleButtonRef = useRef<HTMLButtonElement>(null);
@@ -91,7 +95,9 @@ export const Navbar = () => {
       setIsScrolled(window.scrollY > 50);
 
       const sections = navItems.map((item) => item.id);
-      let currentSection = "home-section";
+      // Off the home page, no section of the menu is the current one until
+      // one of them (pricing, contact...) is scrolled to
+      let currentSection = document.getElementById("home-section") ? "home-section" : "";
 
       // Last nav section scrolled past, so sections that aren't in the menu
       // (process, FAQ) keep the one just above them highlighted
@@ -137,7 +143,7 @@ export const Navbar = () => {
                 {navItems.map((item) => (
                   <Link
                     key={item.id}
-                    to={`/#${item.id}`}
+                    to={item.id === "home-section" ? "/" : `/#${item.id}`}
                     onClick={(e) => handleNavLinkClick(item.id, e)}
                     aria-current={activeSection === item.id ? "true" : undefined}
                     className={cn(
@@ -223,7 +229,7 @@ export const Navbar = () => {
                       transition={{ delay: 0.15 + i * 0.06, duration: 0.4, ease: "easeOut" }}
                     >
                       <Link
-                        to={`/#${item.id}`}
+                        to={item.id === "home-section" ? "/" : `/#${item.id}`}
                         onClick={(e) => {
                           handleNavLinkClick(item.id, e);
                           setIsOpen(false);

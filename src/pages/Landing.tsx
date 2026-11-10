@@ -1,8 +1,24 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { Link, useParams } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
-import { ArrowRight, Check, ChevronRight, MapPin, MessageSquare, Rocket, UserRound } from "lucide-react";
+import {
+  ArrowRight,
+  ArrowUpRight,
+  Briefcase,
+  Check,
+  ChevronRight,
+  Hammer,
+  House,
+  MapPin,
+  MessageSquare,
+  Rocket,
+  Store,
+  UserRound,
+  Users,
+  UtensilsCrossed,
+  type LucideIcon,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Accent } from "@/components/customs/accent-text";
 import { HeroSocialProof } from "@/components/customs/hero-social-proof";
@@ -20,6 +36,8 @@ import NotFound from "@/pages/ErrorPage";
 type LandingContent = {
   slug: string;
   trade: string;
+  theme: Theme;
+  example?: { name: string; url: string; text: string };
   metaTitle: string;
   metaDescription: string;
   eyebrow: string;
@@ -34,6 +52,23 @@ type LandingContent = {
   structuredData: object;
   others: { slug: string; trade: string }[];
 };
+
+type Theme = "restaurant" | "gite" | "artisan" | "commerce" | "independant" | "association";
+
+// What changes with the trade besides the colors (.trade-* in index.css): its
+// icon, and the made-up address shown in the site mock-up
+const themes: Record<Theme, { icon: LucideIcon; domain: string }> = {
+  restaurant: { icon: UtensilsCrossed, domain: "le-petit-bistrot.fr" },
+  gite: { icon: House, domain: "gite-du-vercors.fr" },
+  artisan: { icon: Hammer, domain: "martin-menuiserie.fr" },
+  commerce: { icon: Store, domain: "la-boutique-du-coin.fr" },
+  independant: { icon: Briefcase, domain: "votre-nom.fr" },
+  association: { icon: Users, domain: "club-du-quartier.fr" },
+};
+
+// The API's answer is cached for an hour: one from before themes existed (or
+// a theme the front doesn't know yet) falls back to the site's own look
+const lookOf = (theme?: Theme) => themes[theme as Theme] ?? { icon: Briefcase, domain: "votre-site.fr" };
 
 const reveal = {
   initial: { opacity: 0, y: 20 },
@@ -51,7 +86,8 @@ const reassurances = [
 
 // A browser frame whose tabs are the pages of a typical site for the trade:
 // shows what the client gets, page by page, rather than listing it
-const SiteMockup = ({ pages }: { pages: LandingContent["pages"] }) => {
+const SiteMockup = ({ pages, theme }: { pages: LandingContent["pages"]; theme: Theme }) => {
+  const { icon: Icon, domain } = lookOf(theme);
   const [active, setActive] = useState(0);
   const page = pages[active];
   if (!page) return null;
@@ -67,7 +103,7 @@ const SiteMockup = ({ pages }: { pages: LandingContent["pages"] }) => {
             aria-selected={i === active}
             aria-controls="site-panel"
             onClick={() => setActive(i)}
-            className={`group flex items-center justify-between gap-3 rounded-xl border px-4 py-3 text-left text-sm font-semibold whitespace-nowrap transition-colors ${
+            className={`group flex items-center justify-between gap-3 rounded-lg border px-4 py-3 text-left text-sm font-semibold whitespace-nowrap transition-colors ${
               i === active ? "border-foreground bg-foreground text-background" : "border-border hover:bg-muted"
             }`}
           >
@@ -80,15 +116,18 @@ const SiteMockup = ({ pages }: { pages: LandingContent["pages"] }) => {
         ))}
       </div>
 
-      <div className="rounded-2xl border border-border bg-card shadow-sm overflow-hidden">
+      <div className="rounded-[calc(var(--radius)+0.5rem)] border border-border bg-card shadow-sm overflow-hidden">
         <div className="flex items-center gap-3 border-b border-border px-4 py-3 bg-muted/50">
           <span aria-hidden="true" className="flex gap-1.5">
             <span className="w-2.5 h-2.5 rounded-full bg-border" />
             <span className="w-2.5 h-2.5 rounded-full bg-border" />
             <span className="w-2.5 h-2.5 rounded-full bg-border" />
           </span>
-          <span className="flex-1 min-w-0 truncate rounded-md bg-background border border-border px-3 py-1 text-xs text-muted-foreground font-mono">
-            votre-site.fr/{page.path}
+          <span className="flex flex-1 min-w-0 items-center gap-2 rounded-md bg-background border border-border px-3 py-1 text-xs text-muted-foreground font-mono">
+            <Icon className="h-3 w-3 flex-shrink-0 text-primary" />
+            <span className="truncate">
+              {domain}/{page.path}
+            </span>
           </span>
         </div>
         <div id="site-panel" role="tabpanel" aria-labelledby={`site-tab-${active}`} className="p-6 sm:p-10 min-h-[18rem]">
@@ -110,13 +149,22 @@ const SiteMockup = ({ pages }: { pages: LandingContent["pages"] }) => {
                 <div className="h-3 rounded-full bg-muted" />
                 <div className="h-3 rounded-full bg-muted" />
                 <div className="h-3 rounded-full bg-muted col-span-2" />
-                <div className="h-9 w-32 rounded-full bg-foreground/80 mt-2" />
+                <div className="h-9 w-32 rounded-full bg-primary mt-2" />
               </div>
             </motion.div>
           </AnimatePresence>
         </div>
       </div>
     </div>
+  );
+};
+
+const TradeIcon = ({ theme }: { theme: Theme }) => {
+  const Icon = lookOf(theme).icon;
+  return (
+    <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary text-primary-foreground">
+      <Icon className="h-4 w-4" />
+    </span>
   );
 };
 
@@ -130,6 +178,14 @@ export const Landing = () => {
 
 const LandingPage = ({ slug }: { slug: string }) => {
   const { data: page, isLoading } = usePublicContent<LandingContent | null>(`/landings/${slug}`, null);
+  const theme = page?.theme;
+
+  useEffect(() => {
+    if (!theme || !themes[theme]) return;
+    const className = `trade-${theme}`;
+    document.documentElement.classList.add(className);
+    return () => document.documentElement.classList.remove(className);
+  }, [theme]);
 
   // Keeps the page's height while loading so the footer doesn't jump up
   if (isLoading) return <section className="min-h-screen" aria-busy="true" />;
@@ -143,7 +199,7 @@ const LandingPage = ({ slug }: { slug: string }) => {
         <script type="application/ld+json">{JSON.stringify(page.structuredData)}</script>
       </Helmet>
 
-      <section id="home-section" className="relative pt-32 pb-20 sm:pb-24 overflow-hidden">
+      <section id="landing-hero" className="relative pt-32 pb-20 sm:pb-24 overflow-hidden">
         <div
           aria-hidden="true"
           className="absolute top-0 right-0 w-[640px] h-[640px] rounded-full pointer-events-none -z-10 opacity-60 dark:opacity-30"
@@ -158,7 +214,10 @@ const LandingPage = ({ slug }: { slug: string }) => {
               <ChevronRight className="h-3 w-3" />
               <span aria-current="page">Sites internet pour {page.trade.toLowerCase()}</span>
             </nav>
-            <p className="eyebrow mb-5">{page.eyebrow}</p>
+            <p className="flex items-center gap-3 mb-5">
+              <TradeIcon theme={page.theme} />
+              <span className="eyebrow">{page.eyebrow}</span>
+            </p>
             <h1 className="text-5xl sm:text-6xl lg:text-7xl font-display font-bold leading-[1.05] tracking-tight mb-6 text-balance">
               {page.titleStart} <Accent className="font-serif italic font-medium">{page.titleHighlight}</Accent>
             </h1>
@@ -199,7 +258,7 @@ const LandingPage = ({ slug }: { slug: string }) => {
                 key={pain.title}
                 {...reveal}
                 transition={{ duration: 0.5, delay: i * 0.08 }}
-                className="rounded-2xl border border-border bg-card p-6 sm:p-8"
+                className="rounded-[calc(var(--radius)+0.5rem)] border border-border bg-card p-6 sm:p-8"
               >
                 <span className="font-serif italic text-3xl text-accent-foreground">0{i + 1}</span>
                 <h3 className="text-xl font-display font-bold mt-3 mb-3">{pain.title}</h3>
@@ -224,7 +283,7 @@ const LandingPage = ({ slug }: { slug: string }) => {
           </motion.div>
           <motion.ul {...reveal} className="grid gap-4 sm:grid-cols-2">
             {page.features.map((feature) => (
-              <li key={feature} className="flex items-start gap-3 rounded-xl border border-border p-4 text-sm leading-relaxed">
+              <li key={feature} className="flex items-start gap-3 rounded-lg border border-border bg-card p-4 text-sm leading-relaxed">
                 <Check className="h-4 w-4 mt-0.5 text-accent-foreground flex-shrink-0" />
                 {feature}
               </li>
@@ -248,8 +307,32 @@ const LandingPage = ({ slug }: { slug: string }) => {
               </p>
             </motion.div>
             <motion.div {...reveal}>
-              <SiteMockup pages={page.pages} />
+              <SiteMockup pages={page.pages} theme={page.theme} />
             </motion.div>
+          </div>
+        </section>
+      )}
+
+      {page.example && (
+        <section className="pb-20 sm:pb-24">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <motion.a
+              {...reveal}
+              href={page.example.url}
+              target="_blank"
+              rel="noopener"
+              className="group relative grid gap-6 md:grid-cols-[1fr_auto] md:items-center overflow-hidden rounded-[calc(var(--radius)+0.5rem)] bg-primary text-primary-foreground p-8 sm:p-12"
+            >
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-[0.2em] opacity-70 mb-4">Un exemple en ligne</p>
+                <h2 className="text-3xl md:text-4xl mb-4">{page.example.name}</h2>
+                <p className="max-w-2xl opacity-85 leading-relaxed">{page.example.text}</p>
+              </div>
+              <span className="inline-flex items-center gap-2 rounded-full bg-primary-foreground text-primary px-6 py-3 text-sm font-semibold w-fit">
+                Voir le site
+                <ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+              </span>
+            </motion.a>
           </div>
         </section>
       )}

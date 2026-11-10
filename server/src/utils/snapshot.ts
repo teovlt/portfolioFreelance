@@ -223,6 +223,12 @@ export const landingSnapshot = async (l: Landing) => {
     <h2>Les pages d'un site type</h2>
     <dl>${list(l.pages, (p) => html`<dt>${p.name}</dt><dd>${p.text}</dd>`)}</dl>
   </section>
+  ${l.example &&
+  html`<section>
+    <h2>Un exemple en ligne : ${l.example.name}</h2>
+    <p>${l.example.text}</p>
+    <a href="${l.example.url}">Voir le site</a>
+  </section>`}
   ${packages.length > 0 &&
   html`<section>
     <h2>Tarifs</h2>

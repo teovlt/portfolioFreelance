@@ -86,7 +86,7 @@ export function Footer() {
               {navItems.map(({ label, sectionId, to }) => (
                 <Link
                   key={label}
-                  to={to ?? `/#${sectionId}`}
+                  to={to ?? (sectionId === "home-section" ? "/" : `/#${sectionId}`)}
                   className="text-ink-foreground/70 hover:text-ink-foreground transition-colors w-fit"
                   onClick={sectionId ? (e) => handleNavLinkClick(sectionId, e) : undefined}
                 >
