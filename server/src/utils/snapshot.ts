@@ -1,4 +1,4 @@
-import { areaText, type Landing, landings } from "../content/landings.js";
+import { areaText, faqsOf, type Landing, landings } from "../content/landings.js";
 import { ContactInfo } from "../models/ContactInfo.js";
 import { Experience } from "../models/Experience.js";
 import { Faq } from "../models/Faq.js";
@@ -217,7 +217,11 @@ export const landingSnapshot = async (l: Landing) => {
   <section>
     <h2>Ce que contient votre site</h2>
     <ul>${list(l.features, (f) => html`<li>${f}</li>`)}</ul>
-    <p>${areaText(l.audience)}</p>
+    <p>${areaText(l)}</p>
+  </section>
+  <section>
+    <h2>Les pages d'un site type</h2>
+    <dl>${list(l.pages, (p) => html`<dt>${p.name}</dt><dd>${p.text}</dd>`)}</dl>
   </section>
   ${packages.length > 0 &&
   html`<section>
@@ -226,7 +230,7 @@ export const landingSnapshot = async (l: Landing) => {
   </section>`}
   <section>
     <h2>Questions fréquentes</h2>
-    <dl>${list(l.faqs, (f) => html`<dt>${f.q}</dt><dd>${f.a}</dd>`)}</dl>
+    <dl>${list(faqsOf(l), (f) => html`<dt>${f.q}</dt><dd>${f.a}</dd>`)}</dl>
   </section>
   <section id="contact-section">
     <h2>Parlons de votre projet</h2>

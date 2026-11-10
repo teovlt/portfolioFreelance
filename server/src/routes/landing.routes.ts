@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { areaText, findLanding, landingStructuredData, landings } from "../content/landings.js";
+import { areaText, faqsOf, findLanding, landingStructuredData, landings } from "../content/landings.js";
 
 // Pages per kind of client (see content/landings.ts). Static content: no
 // database, cached by browsers for an hour
@@ -14,7 +14,8 @@ landingRouter.get("/:slug", (req, res) => {
   if (!landing) return res.status(404).json({ message: "Not found" });
   res.set("Cache-Control", "public, max-age=3600").json({
     ...landing,
-    area: areaText(landing.audience),
+    faqs: faqsOf(landing),
+    area: areaText(landing),
     structuredData: landingStructuredData(landing),
     others: landings.filter((l) => l.slug !== landing.slug).map(({ slug, trade }) => ({ slug, trade })),
   });

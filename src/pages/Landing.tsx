@@ -1,9 +1,11 @@
+import { useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { Link, useParams } from "react-router-dom";
-import { motion } from "framer-motion";
-import { ArrowRight, Check, MapPin } from "lucide-react";
+import { AnimatePresence, motion } from "framer-motion";
+import { ArrowRight, Check, ChevronRight, MapPin, MessageSquare, Rocket, UserRound } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Accent } from "@/components/customs/accent-text";
+import { HeroSocialProof } from "@/components/customs/hero-social-proof";
 import { usePublicContent } from "@/hooks/usePublicContent";
 import { openContactTab } from "@/utils/contactTab";
 import { scrollToSection } from "@/utils/scrollToSection";
@@ -26,6 +28,7 @@ type LandingContent = {
   intro: string;
   pains: { title: string; text: string }[];
   features: string[];
+  pages: { name: string; path: string; text: string }[];
   faqs: { q: string; a: string }[];
   area: string;
   structuredData: object;
@@ -37,6 +40,84 @@ const reveal = {
   whileInView: { opacity: 1, y: 0 },
   viewport: { once: true },
   transition: { duration: 0.5 },
+};
+
+// The same promises as the home page, repeated where the visitor decides
+const reassurances = [
+  { icon: MessageSquare, text: "Devis gratuit sous 24 h" },
+  { icon: Rocket, text: "En ligne en 2 semaines" },
+  { icon: UserRound, text: "Un seul interlocuteur" },
+];
+
+// A browser frame whose tabs are the pages of a typical site for the trade:
+// shows what the client gets, page by page, rather than listing it
+const SiteMockup = ({ pages }: { pages: LandingContent["pages"] }) => {
+  const [active, setActive] = useState(0);
+  const page = pages[active];
+  if (!page) return null;
+
+  return (
+    <div className="grid gap-6 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
+      <div role="tablist" aria-label="Pages du site" className="flex lg:flex-col gap-2 overflow-x-auto [scrollbar-width:none] -mx-4 px-4 lg:mx-0 lg:px-0 pb-1">
+        {pages.map((p, i) => (
+          <button
+            key={p.name}
+            role="tab"
+            id={`site-tab-${i}`}
+            aria-selected={i === active}
+            aria-controls="site-panel"
+            onClick={() => setActive(i)}
+            className={`group flex items-center justify-between gap-3 rounded-xl border px-4 py-3 text-left text-sm font-semibold whitespace-nowrap transition-colors ${
+              i === active ? "border-foreground bg-foreground text-background" : "border-border hover:bg-muted"
+            }`}
+          >
+            <span className="flex items-center gap-3">
+              <span className={`font-serif italic ${i === active ? "opacity-70" : "text-muted-foreground"}`}>0{i + 1}</span>
+              {p.name}
+            </span>
+            <ChevronRight className={`hidden lg:block h-4 w-4 transition-transform ${i === active ? "translate-x-0.5" : "opacity-40"}`} />
+          </button>
+        ))}
+      </div>
+
+      <div className="rounded-2xl border border-border bg-card shadow-sm overflow-hidden">
+        <div className="flex items-center gap-3 border-b border-border px-4 py-3 bg-muted/50">
+          <span aria-hidden="true" className="flex gap-1.5">
+            <span className="w-2.5 h-2.5 rounded-full bg-border" />
+            <span className="w-2.5 h-2.5 rounded-full bg-border" />
+            <span className="w-2.5 h-2.5 rounded-full bg-border" />
+          </span>
+          <span className="flex-1 min-w-0 truncate rounded-md bg-background border border-border px-3 py-1 text-xs text-muted-foreground font-mono">
+            votre-site.fr/{page.path}
+          </span>
+        </div>
+        <div id="site-panel" role="tabpanel" aria-labelledby={`site-tab-${active}`} className="p-6 sm:p-10 min-h-[18rem]">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={page.name}
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.25 }}
+            >
+              <p className="eyebrow mb-3">{page.name}</p>
+              <p className="text-xl sm:text-2xl font-display font-bold leading-snug mb-8 max-w-lg text-balance">{page.text}</p>
+              {/* Wireframe of the page: suggests a layout without pretending to be a real site */}
+              <div aria-hidden="true" className="grid grid-cols-3 gap-3">
+                <div className="col-span-3 sm:col-span-2 h-24 rounded-lg bg-accent/40" />
+                <div className="hidden sm:block h-24 rounded-lg bg-muted" />
+                <div className="h-3 rounded-full bg-muted col-span-2" />
+                <div className="h-3 rounded-full bg-muted" />
+                <div className="h-3 rounded-full bg-muted" />
+                <div className="h-3 rounded-full bg-muted col-span-2" />
+                <div className="h-9 w-32 rounded-full bg-foreground/80 mt-2" />
+              </div>
+            </motion.div>
+          </AnimatePresence>
+        </div>
+      </div>
+    </div>
+  );
 };
 
 // Only paths shaped like the trade pages reach the API; anything else is a
@@ -68,8 +149,15 @@ const LandingPage = ({ slug }: { slug: string }) => {
           className="absolute top-0 right-0 w-[640px] h-[640px] rounded-full pointer-events-none -z-10 opacity-60 dark:opacity-30"
           style={{ background: "radial-gradient(circle, hsl(var(--accent) / 0.25), transparent 70%)" }}
         />
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 xl:grid xl:grid-cols-[1.15fr_0.85fr] xl:gap-12 xl:items-center">
           <motion.div className="max-w-4xl" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
+            <nav aria-label="Fil d'Ariane" className="flex items-center gap-1.5 text-xs text-muted-foreground mb-6">
+              <Link to="/" className="hover:text-foreground transition-colors">
+                Accueil
+              </Link>
+              <ChevronRight className="h-3 w-3" />
+              <span aria-current="page">Sites internet pour {page.trade.toLowerCase()}</span>
+            </nav>
             <p className="eyebrow mb-5">{page.eyebrow}</p>
             <h1 className="text-5xl sm:text-6xl lg:text-7xl font-display font-bold leading-[1.05] tracking-tight mb-6 text-balance">
               {page.titleStart} <Accent className="font-serif italic font-medium">{page.titleHighlight}</Accent>
@@ -84,7 +172,16 @@ const LandingPage = ({ slug }: { slug: string }) => {
                 Voir les tarifs
               </Button>
             </div>
+            <ul className="flex flex-wrap gap-x-6 gap-y-2 mt-8 pt-6 border-t border-border text-sm text-muted-foreground">
+              {reassurances.map(({ icon: Icon, text }) => (
+                <li key={text} className="flex items-center gap-2">
+                  <Icon className="h-4 w-4 text-foreground" />
+                  {text}
+                </li>
+              ))}
+            </ul>
           </motion.div>
+          <HeroSocialProof />
         </div>
       </section>
 
@@ -135,6 +232,27 @@ const LandingPage = ({ slug }: { slug: string }) => {
           </motion.ul>
         </div>
       </section>
+
+      {page.pages.length > 0 && (
+        <section className="py-20 sm:py-24">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <motion.div {...reveal} className="mb-12 flex flex-wrap items-end justify-between gap-6">
+              <div>
+                <p className="eyebrow mb-4">Un site type</p>
+                <h2 className="text-4xl md:text-5xl max-w-2xl">
+                  Page par <span className="font-serif italic font-medium">page</span>
+                </h2>
+              </div>
+              <p className="text-sm text-muted-foreground max-w-xs">
+                Un point de départ : on l'adapte ensemble à votre activité.
+              </p>
+            </motion.div>
+            <motion.div {...reveal}>
+              <SiteMockup pages={page.pages} />
+            </motion.div>
+          </div>
+        </section>
+      )}
 
       <Services />
       <Projects />

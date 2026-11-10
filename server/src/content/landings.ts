@@ -17,14 +17,29 @@ export type Landing = {
   intro: string;
   pains: { title: string; text: string }[];
   features: string[];
+  // The pages a typical site for this trade has, shown as a browsable mock-up
+  pages: { name: string; path: string; text: string }[];
   faqs: { q: string; a: string }[];
+  // Where these clients are, when it isn't the agglomeration (gîtes are in
+  // the mountains around it)
+  area?: string;
 };
 
-const area =
+const defaultArea =
   "Grenoble et toute l'agglomération (Meylan, Échirolles, Saint-Martin-d'Hères, Fontaine, Seyssinet-Pariset), du Grésivaudan au Voironnais";
 
-export const areaText = (audience: string) =>
-  `Basé à Grenoble, je travaille avec ${audience} de ${area}, et à distance partout en France.`;
+export const areaText = (l: Landing) =>
+  `Basé à Grenoble, je travaille avec ${l.audience} de ${l.area ?? defaultArea}, et à distance partout en France.`;
+
+// Asked whatever the trade, so written once and added after each page's own
+const commonFaqs = [
+  {
+    q: "Que se passe-t-il après la mise en ligne ?",
+    a: "L'hébergement et l'assistance sont inclus pendant 30 jours (60 pour un site complet). Ensuite, une maintenance mensuelle couvre l'hébergement, les mises à jour, les sauvegardes et les petites modifications.",
+  },
+];
+
+export const faqsOf = (l: Landing) => [...l.faqs, ...commonFaqs];
 
 export const landings: Landing[] = [
   {
@@ -62,6 +77,13 @@ export const landings: Landing[] = [
       "Pages rapides, même en 4G au coin de la rue",
       "Bases du référencement local : titres, descriptions et informations structurées pour Google",
     ],
+    pages: [
+      { name: "Accueil", path: "", text: "L'ambiance de la salle en une photo, vos horaires du jour et un bouton « Réserver » visible tout de suite." },
+      { name: "La carte", path: "la-carte", text: "Entrées, plats, desserts et boissons, avec les prix et les allergènes. Une vraie page lisible sur téléphone, pas un PDF." },
+      { name: "Réserver", path: "reserver", text: "Le client choisit le jour, l'heure et le nombre de couverts. Vous recevez la demande par e-mail, même en plein service." },
+      { name: "Événements", path: "evenements", text: "Soirées à thème, privatisation de la salle, menus de groupe ou traiteur : de quoi décrocher les demandes plus importantes." },
+      { name: "Accès", path: "acces", text: "Adresse, plan, stationnement et tramway le plus proche, avec l'appel en un geste depuis le téléphone." },
+    ],
     faqs: [
       {
         q: "Puis-je modifier ma carte moi-même ?",
@@ -78,6 +100,69 @@ export const landings: Landing[] = [
       {
         q: "Combien de temps pour être en ligne ?",
         a: "Pour un site de restaurant classique, comptez environ deux semaines entre la validation de la maquette et la mise en ligne. Le délai exact figure dans le devis.",
+      },
+    ],
+  },
+  {
+    slug: "site-internet-gite-grenoble",
+    trade: "Gîtes",
+    audience: "des gîtes, chambres d'hôtes et locations saisonnières",
+    area: "Grenoble, du Vercors à la Chartreuse, de Belledonne à l'Oisans et au Trièves",
+    metaTitle: "Création de site internet pour gîte et chambre d'hôtes en Isère | Téo Villet",
+    metaDescription:
+      "Site internet pour gîte, chambre d'hôtes ou location saisonnière autour de Grenoble : photos qui donnent envie, disponibilités à jour et réservations en direct, sans commission. Devis gratuit sous 24 h.",
+    eyebrow: "Gîtes · Chambres d'hôtes · Locations saisonnières",
+    titleStart: "Plus de réservations en direct,",
+    titleHighlight: "moins de commissions.",
+    intro:
+      "Vos voyageurs vous découvrent souvent sur une plateforme, puis cherchent votre nom sur Google avant de réserver. S'ils tombent sur votre propre site, avec vos photos, vos disponibilités et un moyen simple de vous écrire, ils réservent chez vous, et la commission reste dans votre poche.",
+    pains: [
+      {
+        title: "Les plateformes prennent leur part",
+        text: "Chaque nuit réservée par une plateforme vous coûte une commission, et ce sont elles qui fixent les règles. Votre site vous permet d'accueillir en direct les habitués, les recommandations et ceux qui vous ont trouvés sur Google.",
+      },
+      {
+        title: "On ne sait pas si c'est libre",
+        text: "« C'est disponible la deuxième semaine d'août ? » : sans calendrier, chaque question est un échange de messages, et le voyageur réserve ailleurs en attendant. Vos disponibilités sont affichées, à jour.",
+      },
+      {
+        title: "Votre lieu mérite mieux qu'une annonce",
+        text: "Une annonce ressemble à toutes les autres. Votre site raconte la maison, le jardin, la vue sur le massif, les randonnées au départ du gîte : tout ce qui fait qu'on choisit chez vous.",
+      },
+    ],
+    features: [
+      "Grandes photos du gîte, des chambres et des alentours",
+      "Calendrier des disponibilités, à jour",
+      "Demande de réservation en direct, ou réservation avec acompte selon la formule",
+      "Tarifs par saison, durée minimale et conditions claires",
+      "Page sur la région : randonnées, stations, lacs et bonnes adresses",
+      "Version anglaise pour les voyageurs étrangers, selon la formule",
+      "Avis de vos anciens voyageurs",
+      "Référencement local sur « gîte + votre massif ou votre village »",
+    ],
+    pages: [
+      { name: "Accueil", path: "", text: "Une grande photo qui donne envie de partir, la capacité du gîte et un bouton pour vérifier les disponibilités." },
+      { name: "Le gîte", path: "le-gite", text: "Chaque chambre, les équipements, le linge, le jardin, l'accès : toutes les réponses avant même qu'on vous les demande." },
+      { name: "Tarifs", path: "disponibilites-tarifs", text: "Le calendrier des disponibilités et les prix par saison, pour réserver sans attendre votre réponse." },
+      { name: "La région", path: "la-region", text: "Randonnées, ski, lacs, marchés et restaurants du coin : ce qui donne envie de venir, et que Google aime trouver." },
+      { name: "Réserver", path: "reserver", text: "Dates, nombre de voyageurs, message : la demande arrive chez vous, sans intermédiaire ni commission." },
+    ],
+    faqs: [
+      {
+        q: "Puis-je garder mes annonces sur les plateformes ?",
+        a: "Oui, et c'est souvent le plus malin : les plateformes vous font découvrir, votre site transforme les voyageurs qui vous cherchent en réservations directes. Les deux se complètent.",
+      },
+      {
+        q: "Le calendrier peut-il se synchroniser avec mes plateformes ?",
+        a: "C'est possible dans la plupart des cas, grâce aux calendriers que proposent les plateformes de location. On regarde ensemble lesquelles vous utilisez pour choisir la solution la plus simple, et éviter les doubles réservations.",
+      },
+      {
+        q: "Les voyageurs peuvent-ils payer en ligne ?",
+        a: "Selon la formule : soit une demande de réservation que vous confirmez vous-même, soit une réservation avec paiement d'un acompte en ligne. On choisit selon votre façon de travailler.",
+      },
+      {
+        q: "Mon gîte est isolé en montagne. Est-ce que ça change quelque chose ?",
+        a: "Non, tout se fait à distance : un appel, puis vos photos et vos textes par e-mail. Et votre situation devient un atout sur le site : le massif, les activités au départ du gîte, le calme.",
       },
     ],
   },
@@ -115,6 +200,13 @@ export const landings: Landing[] = [
       "Bouton d'appel direct sur mobile",
       "Mise en avant de vos qualifications, de vos garanties et des avis clients",
       "Référencement local sur « votre métier + votre ville »",
+    ],
+    pages: [
+      { name: "Accueil", path: "", text: "Votre métier, vos communes et votre numéro en grand : le visiteur sait en trois secondes s'il est au bon endroit." },
+      { name: "Prestations", path: "prestations", text: "Une page par type de travaux, avec ce qui est compris, les délais habituels et des photos de chantiers similaires." },
+      { name: "Réalisations", path: "realisations", text: "Vos chantiers en avant/après, classés par type de travaux. La preuve de votre savoir-faire, mieux qu'un long discours." },
+      { name: "Zones", path: "zones-intervention", text: "Les communes où vous intervenez, pour que les clients d'à côté sachent que vous venez chez eux." },
+      { name: "Devis", path: "demande-de-devis", text: "Type de travaux, commune, photos, délai souhaité : vous recevez une demande complète, prête à chiffrer." },
     ],
     faqs: [
       {
@@ -170,6 +262,13 @@ export const landings: Landing[] = [
       "Pensé d'abord pour le téléphone",
       "Référencement local sur votre quartier et votre ville",
     ],
+    pages: [
+      { name: "Accueil", path: "", text: "L'univers de la boutique en photos, ouvert ou fermé en ce moment, et la nouveauté de la semaine." },
+      { name: "Produits", path: "produits", text: "Vos rayons, vos marques et vos produits phares, pour qu'on sache avant de venir que vous avez ce qu'on cherche." },
+      { name: "Actualités", path: "actualites", text: "Arrivages, dégustations, soldes, fermeture exceptionnelle : vous publiez en deux clics depuis votre téléphone." },
+      { name: "La boutique", path: "la-boutique", text: "Votre histoire, l'équipe et ce qui vous rend différent des grandes surfaces et des sites en ligne." },
+      { name: "Accès", path: "acces", text: "Horaires, plan, stationnement et bouton d'appel, toujours à jour." },
+    ],
     faqs: [
       {
         q: "Ai-je besoin d'une boutique en ligne ?",
@@ -223,6 +322,13 @@ export const landings: Landing[] = [
       "Articles pour partager votre expertise, selon la formule",
       "Référencement local et sur votre spécialité",
     ],
+    pages: [
+      { name: "Accueil", path: "", text: "Ce que vous faites et pour qui, en une phrase claire, avec votre photo et un bouton pour prendre rendez-vous." },
+      { name: "À propos", path: "a-propos", text: "Votre parcours, vos formations et votre approche : ce qui fait qu'on a envie de travailler avec vous plutôt qu'avec un autre." },
+      { name: "Prestations", path: "prestations", text: "Chaque accompagnement avec son déroulé, sa durée et son tarif. Fini les « c'est combien ? » par message." },
+      { name: "Témoignages", path: "temoignages", text: "Les mots de vos clients, avec leur accord. Rien ne rassure davantage un futur client." },
+      { name: "Rendez-vous", path: "rendez-vous", text: "Un agenda avec vos créneaux libres, ou un formulaire simple : le premier contact se fait en une minute." },
+    ],
     faqs: [
       {
         q: "Je n'ai ni logo ni identité visuelle. Est-ce bloquant ?",
@@ -239,6 +345,68 @@ export const landings: Landing[] = [
       {
         q: "Qui écrit les textes ?",
         a: "Vous me donnez la matière (votre parcours, vos prestations, vos mots), je vous aide à la structurer et à l'adapter au web. Vous relisez et validez tout avant la mise en ligne.",
+      },
+    ],
+  },
+  {
+    slug: "site-internet-association-grenoble",
+    trade: "Associations",
+    audience: "des associations, clubs et collectifs",
+    metaTitle: "Création de site internet pour association à Grenoble | Téo Villet",
+    metaDescription:
+      "Site internet pour association ou club à Grenoble : activités, agenda, adhésions en ligne et actualités que vos bénévoles mettent à jour sans effort. Devis gratuit sous 24 h.",
+    eyebrow: "Associations · Clubs · Collectifs",
+    titleStart: "Faites connaître votre association,",
+    titleHighlight: "simplifiez la vie des bénévoles.",
+    intro:
+      "Club sportif, association culturelle, comité des fêtes, collectif de quartier… Futurs adhérents, partenaires et mairie veulent savoir ce que vous faites, quand et comment vous rejoindre. Un site clair répond à leur place et fait gagner du temps à toute l'équipe.",
+    pains: [
+      {
+        title: "Les infos sont éparpillées",
+        text: "Une page Facebook, un groupe WhatsApp, des affiches et des e-mails : les nouveaux ne savent pas où regarder. Le site devient l'adresse unique, celle qu'on donne à tout le monde.",
+      },
+      {
+        title: "Les inscriptions passent par le papier",
+        text: "Fiches d'adhésion, chèques et relances prennent des soirées entières aux bénévoles. Une inscription en ligne, ou un lien vers votre outil d'adhésion, fait le travail à leur place.",
+      },
+      {
+        title: "Mettre à jour dépend d'une seule personne",
+        text: "Quand le seul bénévole qui sait modifier le site s'en va, tout se fige. Un espace d'administration simple permet à plusieurs membres de publier une actualité ou un événement.",
+      },
+    ],
+    features: [
+      "Présentation de l'association, de ses valeurs et de son équipe",
+      "Pages d'activités, avec horaires, lieux et tarifs",
+      "Agenda des événements et des matchs",
+      "Adhésion ou inscription en ligne, ou lien vers votre outil d'adhésion",
+      "Actualités publiées par plusieurs bénévoles",
+      "Mise en avant de vos partenaires et de vos financeurs",
+      "Page de dons ou de soutien",
+      "Référencement local sur votre activité et votre commune",
+    ],
+    pages: [
+      { name: "Accueil", path: "", text: "Ce que fait l'association en une phrase, le prochain événement et un bouton pour la rejoindre." },
+      { name: "Activités", path: "activites", text: "Chaque activité avec ses horaires, son lieu, son public et son tarif. Fini les mêmes questions en début de saison." },
+      { name: "Agenda", path: "agenda", text: "Événements, matchs, assemblées générales : les dates à venir, mises à jour par les bénévoles eux-mêmes." },
+      { name: "Adhérer", path: "adherer", text: "Les formules d'adhésion et une inscription en ligne : moins de papier, moins de relances." },
+      { name: "Partenaires", path: "partenaires", text: "Vos partenaires et financeurs mis en valeur, et une page pour ceux qui veulent vous soutenir." },
+    ],
+    faqs: [
+      {
+        q: "Notre budget est limité. Est-ce adapté à une association ?",
+        a: "Le prix de départ de chaque formule est affiché dans la section Tarifs de cette page. On ajuste ensemble le périmètre à votre budget : un site simple et clair vaut mieux qu'un site complet que personne ne met à jour.",
+      },
+      {
+        q: "Plusieurs bénévoles peuvent-ils modifier le site ?",
+        a: "Oui. L'espace d'administration peut avoir plusieurs accès, pour que chacun publie une actualité ou un événement sans toucher au code et sans dépendre d'une seule personne.",
+      },
+      {
+        q: "Peut-on gérer les adhésions et les paiements en ligne ?",
+        a: "Oui : soit un formulaire d'inscription intégré au site, soit un lien vers l'outil d'adhésion que vous utilisez déjà. On choisit la solution la plus simple pour votre trésorier.",
+      },
+      {
+        q: "Le site sera-t-il au nom de l'association ?",
+        a: "Oui. Le site, son code, vos contenus et le nom de domaine sont au nom de l'association, pas à celui d'un bénévole : dès le dernier règlement en paiement unique, à la fin de l'engagement en abonnement.",
       },
     ],
   },
@@ -265,7 +433,7 @@ export const landingStructuredData = (l: Landing) => ({
     },
     {
       "@type": "FAQPage",
-      mainEntity: l.faqs.map(({ q, a }) => ({ "@type": "Question", name: q, acceptedAnswer: { "@type": "Answer", text: a } })),
+      mainEntity: faqsOf(l).map(({ q, a }) => ({ "@type": "Question", name: q, acceptedAnswer: { "@type": "Answer", text: a } })),
     },
     {
       "@type": "BreadcrumbList",
