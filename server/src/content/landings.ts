@@ -9,7 +9,7 @@ export type Landing = {
   trade: string;
   // Colors and touches of the page (see .trade-* in the front's index.css),
   // so each trade gets an art direction close to the sites it would get
-  theme: "restaurant" | "gite" | "artisan" | "commerce" | "independant" | "association";
+  theme: "restaurant" | "gite" | "artisan" | "commerce" | "independant";
   // A live site of this kind I made, shown as an example
   example?: { name: string; url: string; text: string };
   // Who the page talks to, in a sentence ("des restaurants")
@@ -360,69 +360,6 @@ export const landings: Landing[] = [
       {
         q: "Qui écrit les textes ?",
         a: "Vous me donnez la matière (votre parcours, vos prestations, vos mots), je vous aide à la structurer et à l'adapter au web. Vous relisez et validez tout avant la mise en ligne.",
-      },
-    ],
-  },
-  {
-    slug: "site-internet-association-grenoble",
-    trade: "Associations",
-    theme: "association",
-    audience: "des associations, clubs et collectifs",
-    metaTitle: "Création de site internet pour association à Grenoble | Téo Villet",
-    metaDescription:
-      "Site internet pour association ou club à Grenoble : activités, agenda, adhésions en ligne et actualités que vos bénévoles mettent à jour sans effort. Devis gratuit sous 24 h.",
-    eyebrow: "Associations · Clubs · Collectifs",
-    titleStart: "Faites connaître votre association,",
-    titleHighlight: "simplifiez la vie des bénévoles.",
-    intro:
-      "Club sportif, association culturelle, comité des fêtes, collectif de quartier… Futurs adhérents, partenaires et mairie veulent savoir ce que vous faites, quand et comment vous rejoindre. Un site clair répond à leur place et fait gagner du temps à toute l'équipe.",
-    pains: [
-      {
-        title: "Les infos sont éparpillées",
-        text: "Une page Facebook, un groupe WhatsApp, des affiches et des e-mails : les nouveaux ne savent pas où regarder. Le site devient l'adresse unique, celle qu'on donne à tout le monde.",
-      },
-      {
-        title: "Les inscriptions passent par le papier",
-        text: "Fiches d'adhésion, chèques et relances prennent des soirées entières aux bénévoles. Une inscription en ligne, ou un lien vers votre outil d'adhésion, fait le travail à leur place.",
-      },
-      {
-        title: "Mettre à jour dépend d'une seule personne",
-        text: "Quand le seul bénévole qui sait modifier le site s'en va, tout se fige. Un espace d'administration simple permet à plusieurs membres de publier une actualité ou un événement.",
-      },
-    ],
-    features: [
-      "Présentation de l'association, de ses valeurs et de son équipe",
-      "Pages d'activités, avec horaires, lieux et tarifs",
-      "Agenda des événements et des matchs",
-      "Adhésion ou inscription en ligne, ou lien vers votre outil d'adhésion",
-      "Actualités publiées par plusieurs bénévoles",
-      "Mise en avant de vos partenaires et de vos financeurs",
-      "Page de dons ou de soutien",
-      "Référencement local sur votre activité et votre commune",
-    ],
-    pages: [
-      { name: "Accueil", path: "", text: "Ce que fait l'association en une phrase, le prochain événement et un bouton pour la rejoindre." },
-      { name: "Activités", path: "activites", text: "Chaque activité avec ses horaires, son lieu, son public et son tarif. Fini les mêmes questions en début de saison." },
-      { name: "Agenda", path: "agenda", text: "Événements, matchs, assemblées générales : les dates à venir, mises à jour par les bénévoles eux-mêmes." },
-      { name: "Adhérer", path: "adherer", text: "Les formules d'adhésion et une inscription en ligne : moins de papier, moins de relances." },
-      { name: "Partenaires", path: "partenaires", text: "Vos partenaires et financeurs mis en valeur, et une page pour ceux qui veulent vous soutenir." },
-    ],
-    faqs: [
-      {
-        q: "Notre budget est limité. Est-ce adapté à une association ?",
-        a: "Le prix de départ de chaque formule est affiché dans la section Tarifs de cette page. On ajuste ensemble le périmètre à votre budget : un site simple et clair vaut mieux qu'un site complet que personne ne met à jour.",
-      },
-      {
-        q: "Plusieurs bénévoles peuvent-ils modifier le site ?",
-        a: "Oui. L'espace d'administration peut avoir plusieurs accès, pour que chacun publie une actualité ou un événement sans toucher au code et sans dépendre d'une seule personne.",
-      },
-      {
-        q: "Peut-on gérer les adhésions et les paiements en ligne ?",
-        a: "Oui : soit un formulaire d'inscription intégré au site, soit un lien vers l'outil d'adhésion que vous utilisez déjà. On choisit la solution la plus simple pour votre trésorier.",
-      },
-      {
-        q: "Le site sera-t-il au nom de l'association ?",
-        a: "Oui. Le site, son code, vos contenus et le nom de domaine sont au nom de l'association, pas à celui d'un bénévole : dès le dernier règlement en paiement unique, à la fin de l'engagement en abonnement.",
       },
     ],
   },

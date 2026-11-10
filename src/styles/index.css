@@ -292,49 +292,6 @@
 .trade-independant {
   --ink: 270 25% 8%;
 }
-/* Sky blue and sun yellow: open and friendly */
-.trade-association {
-  --background: 205 35% 97%;
-  --foreground: 215 40% 12%;
-  --card: 0 0% 100%;
-  --primary: 208 80% 40%;
-  --primary-foreground: 0 0% 100%;
-  --accent: 46 96% 60%;
-  --accent-foreground: 40 80% 16%;
-  --muted: 205 25% 93%;
-  --muted-foreground: 210 10% 42%;
-  --border: 205 20% 87%;
-  --radius: 1.1rem;
-  --card-foreground: 215 40% 12%;
-  --popover: 0 0% 100%;
-  --popover-foreground: 215 40% 12%;
-  --secondary: 205 25% 93%;
-  --secondary-foreground: 215 40% 12%;
-  --input: 205 20% 87%;
-  --ring: 208 80% 40%;
-}
-.dark.trade-association {
-  --background: 215 40% 7%;
-  --foreground: 205 25% 94%;
-  --card: 215 35% 10%;
-  --primary: 205 85% 62%;
-  --primary-foreground: 215 40% 7%;
-  --accent: 46 92% 58%;
-  --accent-foreground: 40 80% 12%;
-  --muted: 215 25% 15%;
-  --muted-foreground: 205 10% 65%;
-  --border: 215 20% 19%;
-  --card-foreground: 205 25% 94%;
-  --popover: 215 35% 10%;
-  --popover-foreground: 205 25% 94%;
-  --secondary: 215 25% 15%;
-  --secondary-foreground: 205 25% 94%;
-  --input: 215 20% 19%;
-  --ring: 205 85% 62%;
-}
-.trade-association {
-  --ink: 215 40% 7%;
-}
 
 @layer base {
   * {
