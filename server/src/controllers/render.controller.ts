@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { SITE_URL } from "../utils/site.js";
+import { ContactInfo } from "../models/ContactInfo.js";
 import { findLanding, landingStructuredData } from "../content/landings.js";
 import { escapeHtml, experiencesSnapshot, homeSnapshot, landingSnapshot, loadProject, projectSnapshot } from "../utils/snapshot.js";
 
@@ -70,7 +71,20 @@ const getShell = async () => {
 // null: unknown project. undefined: a path this renderer doesn't handle.
 // The home page keeps the meta written in index.html.
 const pageFor = async (path: string): Promise<Page | null | undefined> => {
-  if (path === "/") return { snapshot: await homeSnapshot() };
+  if (path === "/") {
+    // Phone and email complete the business described in index.html (same
+    // @id), in the HTML itself rather than only once the app's
+    // BusinessSchema has run
+    const [snapshot, contact] = await Promise.all([homeSnapshot(), ContactInfo.findOne().lean()]);
+    const business = {
+      "@context": "https://schema.org",
+      "@type": "ProfessionalService",
+      "@id": `${SITE_URL}/#business`,
+      ...(contact?.phone && { telephone: contact.phone }),
+      ...(contact?.email && { email: contact.email }),
+    };
+    return { snapshot, structuredData: contact?.phone || contact?.email ? business : undefined };
+  }
   if (path === "/parcours") {
     return {
       meta: {
@@ -119,7 +133,15 @@ export const renderPage = async (req: Request, res: Response) => {
   // Unknown project: the app shows its not-found page, crawlers get a real 404
   if (page === null) return res.status(404).send(shell);
   if (!page) return res.send(shell);
-  let filled = page.meta ? fillShell(shell, path, page.meta) : shell;
+  // The home page keeps index.html's meta, but its canonical was only added
+  // by the app once its JavaScript ran
+  let filled = page.meta
+    ? fillShell(shell, path, page.meta)
+    : shell.replace(
+        "</head>",
+        `    <link data-rh="true" rel="canonical" href="${SITE_URL}/" />
+  </head>`,
+      );
   if (page.structuredData) filled = withStructuredData(filled, page.structuredData);
   res.send(withSnapshot(filled, page.snapshot));
 };

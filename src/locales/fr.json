@@ -9,12 +9,13 @@
     "languageChanged": "Langue changée"
   },
   "home": {
+    "kicker": "Création de site internet à Grenoble",
     "badge": "Disponible pour de nouveaux projets",
     "titleStart": "Des sites qui vous",
     "titleHighlight": "ramènent",
     "titleEnd": "des clients.",
     "icreate": "Pour les",
-    "subtitle": "Développeur web freelance à Grenoble. Je crée votre site sur mesure, du premier appel à la mise en ligne.",
+    "subtitle": "Développeur web freelance à Grenoble. Je crée votre site web sur mesure, du premier appel à la mise en ligne.",
     "action1": "Me contacter",
     "action2": "Voir mes projets",
     "rating": "note moyenne",
@@ -231,7 +232,7 @@
       "eyebrow": "On travaille ensemble ?",
       "titleStart": "Parlons de",
       "titleHighlight": "votre projet.",
-      "tagline": "Développeur web freelance à Grenoble. Sites vitrines, applications et outils sur mesure."
+      "tagline": "Développeur web freelance à Grenoble. Création de sites web, vitrines et outils sur mesure à Grenoble, Meylan, Échirolles, Saint-Martin-d'Hères, Voiron et dans toute l'Isère."
     },
     "cta": "Me contacter",
     "rights": "Tous droits réservés.",

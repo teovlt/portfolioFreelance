@@ -9,6 +9,7 @@
     "languageChanged": "Language changed"
   },
   "home": {
+    "kicker": "Website design in Grenoble",
     "badge": "Available for new projects",
     "titleStart": "Websites that",
     "titleHighlight": "bring you",
@@ -231,7 +232,7 @@
       "eyebrow": "Let's work together",
       "titleStart": "Let's talk about",
       "titleHighlight": "your project.",
-      "tagline": "Freelance web developer in Grenoble. Showcase sites, web apps and custom tools."
+      "tagline": "Freelance web developer in Grenoble. Websites, showcase sites and custom tools in Grenoble, Meylan, Échirolles, Saint-Martin-d'Hères, Voiron and across Isère."
     },
     "cta": "Get in touch",
     "rights": "All rights reserved.",

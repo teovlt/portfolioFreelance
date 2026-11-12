@@ -54,7 +54,7 @@ const nav = html`<nav>
 </nav>`;
 
 const footer = html`<footer>
-  <p>Téo Villet, développeur web freelance à Grenoble. Sites vitrines, applications et outils sur mesure.</p>
+  <p>Téo Villet, développeur web freelance à Grenoble. Création de sites web, vitrines et outils sur mesure à Grenoble, Meylan, Échirolles, Saint-Martin-d'Hères, Voiron et dans toute l'Isère.</p>
   <p>Sites internet pour : ${list(landings, (l) => html`<a href="/${l.slug}">${l.trade}</a> `)}</p>
   <a href="/mentions-legales">Mentions légales</a> <a href="/confidentialite">Confidentialité</a>
 </footer>`;
@@ -85,8 +85,8 @@ export const homeSnapshot = async () => {
   return wrap(html`${nav}
 <main>
   <section>
-    <h1>Des sites qui vous ramènent des clients.</h1>
-    <p>Développeur web freelance à Grenoble. Je crée votre site sur mesure, du premier appel à la mise en ligne, pour les restaurants, artisans, commerçants, indépendants et associations.</p>
+    <h1>Création de site internet à Grenoble : des sites qui vous ramènent des clients.</h1>
+    <p>Développeur web freelance à Grenoble. Je crée votre site web sur mesure, du premier appel à la mise en ligne, pour les restaurants, artisans, commerçants, indépendants et associations.</p>
     <a href="/#contact-section">Réserver un appel gratuit</a>
   </section>
 

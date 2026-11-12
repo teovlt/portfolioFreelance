@@ -81,6 +81,10 @@ export const Home = () => {
               variants={itemVariants}
               className="text-5xl sm:text-6xl lg:text-7xl xl:text-[4.25rem] font-display font-bold leading-[1.05] tracking-tight mb-3 text-balance"
             >
+              {/* The search the page is aimed at, inside the H1 where Google weighs it most */}
+              <span className="block text-sm sm:text-base font-sans font-semibold uppercase tracking-[0.18em] text-muted-foreground mb-3">
+                {t("home.kicker")}
+              </span>
               {t("home.titleStart")} <Accent className="font-serif italic font-medium">{t("home.titleHighlight")}</Accent>{" "}
               {t("home.titleEnd")}
             </motion.h1>
