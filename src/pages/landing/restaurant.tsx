@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import { Accent } from "@/components/customs/accent-text";
 import { Breadcrumb, Container, CtaButtons, MockupSection, Reassurances, SectionHeading, iconAt, reveal, type TradeProps } from "./shared";
+import { restaurantScreens } from "./restaurant-sites";
 
 // A bistro's site: a centered, menu-like layout. The hero shows the evening's
 // slate, the features read like a menu, the problems like a service going wrong
@@ -172,23 +173,6 @@ const Features = ({ page }: TradeProps) => (
   </section>
 );
 
-const Wireframe = () => (
-  <div className="grid gap-3 sm:grid-cols-2">
-    {[0, 1].map((col) => (
-      <div key={col} className="space-y-3">
-        <div className="h-3 w-16 rounded-full bg-primary/60" />
-        {[0, 1, 2].map((row) => (
-          <div key={row} className="flex items-center gap-2">
-            <div className="h-3 w-28 rounded-full bg-muted" />
-            <div className="flex-1 border-b border-dotted border-border" />
-            <div className="h-3 w-8 rounded-full bg-accent/60" />
-          </div>
-        ))}
-      </div>
-    ))}
-  </div>
-);
-
 export const Restaurant = ({ page }: TradeProps) => (
   <>
     <Hero page={page} />
@@ -198,7 +182,7 @@ export const Restaurant = ({ page }: TradeProps) => (
       pages={page.pages}
       domain="le-petit-bistrot.fr"
       icon={UtensilsCrossed}
-      wireframe={<Wireframe />}
+      screens={restaurantScreens}
       headingClassName="font-serif font-medium"
       eyebrow="Le site du restaurant"
       title={

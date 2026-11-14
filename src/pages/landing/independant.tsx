@@ -12,6 +12,7 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import { Breadcrumb, Container, CtaButtons, MockupSection, Reassurances, iconAt, reveal, type TradeProps } from "./shared";
+import { Portrait, independantScreens } from "./independant-sites";
 
 // A freelancer's site: editorial and personal, light serif headings, lots of
 // air. The hero is a profile with open slots, the problems are what a
@@ -48,11 +49,11 @@ const Hero = ({ page }: TradeProps) => (
         className="rounded-[calc(var(--radius)+1rem)] bg-card border border-border p-7 shadow-lg"
       >
         <div className="flex items-center gap-4 mb-6">
-          <span className="flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-accent to-primary/60 text-primary-foreground">
-            <UserRound className="h-7 w-7" />
+          <span className="h-16 w-16 overflow-hidden rounded-full">
+            <Portrait bg="hsl(var(--accent) / 0.4)" />
           </span>
           <div>
-            <p className="font-serif text-xl">Votre nom</p>
+            <p className="font-serif text-xl">Camille Roux</p>
             <p className="text-sm text-muted-foreground">Coach · Grenoble</p>
           </div>
         </div>
@@ -131,21 +132,6 @@ const Features = ({ page }: TradeProps) => (
   </section>
 );
 
-const Wireframe = () => (
-  <div className="grid gap-5 sm:grid-cols-[auto_1fr] sm:items-center">
-    <div className="h-20 w-20 rounded-full bg-accent/60" />
-    <div className="space-y-2.5">
-      <div className="h-3 w-3/4 rounded-full bg-muted" />
-      <div className="h-3 w-1/2 rounded-full bg-muted" />
-      <div className="flex gap-2 pt-2">
-        {[0, 1, 2].map((i) => (
-          <div key={i} className={`h-8 w-16 rounded-[var(--radius)] ${i === 1 ? "bg-primary" : "border border-border"}`} />
-        ))}
-      </div>
-    </div>
-  </div>
-);
-
 export const Independant = ({ page }: TradeProps) => (
   <>
     <Hero page={page} />
@@ -153,9 +139,9 @@ export const Independant = ({ page }: TradeProps) => (
     <Features page={page} />
     <MockupSection
       pages={page.pages}
-      domain="votre-nom.fr"
+      domain="camille-roux.fr"
       icon={Briefcase}
-      wireframe={<Wireframe />}
+      screens={independantScreens}
       headingClassName="font-serif font-light"
       eyebrow="Votre site"
       title={<>Une présentation qui vous ressemble</>}

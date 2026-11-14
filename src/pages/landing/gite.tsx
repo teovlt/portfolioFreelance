@@ -16,6 +16,7 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import { Breadcrumb, Container, CtaButtons, ExampleCard, MockupSection, Reassurances, iconAt, reveal, type TradeProps } from "./shared";
+import { giteScreens } from "./gite-sites";
 
 // After the gîte sites I make (manoir-champagne): a calm, roomy page on
 // cream, a landscape with the booking bar sitting on its edge, and the
@@ -149,17 +150,6 @@ const Features = ({ page }: TradeProps) => (
   </section>
 );
 
-const Wireframe = () => (
-  <div className="grid gap-4 sm:grid-cols-[1.4fr_1fr]">
-    <div className="h-32 rounded-lg bg-accent/45" />
-    <div className="grid grid-cols-7 gap-1 content-start">
-      {Array.from({ length: 21 }, (_, i) => (
-        <div key={i} className={`aspect-square rounded-sm ${[3, 4, 5, 11, 12, 17].includes(i) ? "bg-primary/70" : "bg-muted"}`} />
-      ))}
-    </div>
-  </div>
-);
-
 export const Gite = ({ page }: TradeProps) => (
   <>
     <Hero page={page} />
@@ -174,9 +164,9 @@ export const Gite = ({ page }: TradeProps) => (
     )}
     <MockupSection
       pages={page.pages}
-      domain="gite-du-vercors.fr"
+      domain="gite-les-clarines.fr"
       icon={House}
-      wireframe={<Wireframe />}
+      screens={giteScreens}
       headingClassName="font-serif font-medium"
       eyebrow="Le site du gîte"
       title={<>De la première photo à la réservation</>}

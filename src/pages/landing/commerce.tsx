@@ -16,6 +16,7 @@ import {
 import { Accent } from "@/components/customs/accent-text";
 import { cn } from "@/lib/utils";
 import { Breadcrumb, Container, CtaButtons, MockupSection, Reassurances, iconAt, reveal, type TradeProps } from "./shared";
+import { Product, commerceScreens, type ProductKind } from "./commerce-sites";
 
 // A local shop's site: round, cheerful, a shopfront with its striped awning
 // in the hero, problems on price tags, features on shelves of uneven sizes
@@ -40,11 +41,11 @@ const Awning = () => (
   </div>
 );
 
-const products = [
-  { name: "Nouveautés", tone: "bg-accent/70", sticker: true },
-  { name: "Coups de cœur", tone: "bg-primary/20" },
-  { name: "Idées cadeaux", tone: "bg-muted" },
-  { name: "Le local", tone: "bg-accent/35" },
+const products: { name: string; kind: ProductKind; sticker?: boolean }[] = [
+  { name: "Nouveautés", kind: "cheese", sticker: true },
+  { name: "Coups de cœur", kind: "honey" },
+  { name: "Idées cadeaux", kind: "chocolate" },
+  { name: "Le local", kind: "wine" },
 ];
 
 const Hero = ({ page }: TradeProps) => (
@@ -82,9 +83,12 @@ const Hero = ({ page }: TradeProps) => (
             </span>
           </div>
           <div className="grid grid-cols-2 gap-3">
-            {products.map(({ name, tone, sticker }) => (
-              <div key={name} className={cn("relative aspect-[4/3] rounded-[var(--radius)] p-3 flex items-end", tone)}>
-                <span className="text-sm font-semibold">{name}</span>
+            {products.map(({ name, kind, sticker }) => (
+              <div key={name} className="relative aspect-[4/3] rounded-[var(--radius)]">
+                <div className="absolute inset-0 overflow-hidden rounded-[var(--radius)]">
+                  <Product kind={kind} />
+                </div>
+                <span className="absolute left-2 bottom-2 rounded-full bg-card/90 px-2.5 py-1 text-xs font-semibold">{name}</span>
                 {sticker && (
                   <span className="absolute -top-2 -right-2 rotate-12 rounded-full bg-primary text-primary-foreground px-2.5 py-1 text-[10px] font-bold uppercase">
                     Arrivage
@@ -181,17 +185,6 @@ const Features = ({ page }: TradeProps) => (
   </section>
 );
 
-const Wireframe = () => (
-  <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-    {["bg-accent/60", "bg-muted", "bg-primary/20", "bg-muted"].map((c, i) => (
-      <div key={i} className="space-y-2">
-        <div className={`aspect-square rounded-[var(--radius)] ${c}`} />
-        <div className="h-2.5 w-3/4 rounded-full bg-muted" />
-      </div>
-    ))}
-  </div>
-);
-
 export const Commerce = ({ page }: TradeProps) => (
   <>
     <Hero page={page} />
@@ -201,7 +194,7 @@ export const Commerce = ({ page }: TradeProps) => (
       pages={page.pages}
       domain="la-boutique-du-coin.fr"
       icon={Store}
-      wireframe={<Wireframe />}
+      screens={commerceScreens}
       headingClassName="font-extrabold"
       eyebrow="Le site de la boutique"
       title={<>Une vitrine ouverte 24 h/24</>}
