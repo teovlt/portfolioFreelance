@@ -1,4 +1,4 @@
-import { useState, type ReactNode } from "react";
+import { useLayoutEffect, useRef, useState, type ReactNode } from "react";
 import { Link } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowRight, ArrowUpRight, ChevronRight, MessageSquare, Rocket, UserRound, type LucideIcon } from "lucide-react";
@@ -118,6 +118,42 @@ export const SectionHeading = ({
   </motion.div>
 );
 
+// Lays out its children at a fixed desktop size and scales them down to the
+// available width, so a mock site reads like a screenshot of the real thing
+export const ScaledFrame = ({
+  width = 1024,
+  height = 640,
+  children,
+  className,
+}: {
+  width?: number;
+  height?: number;
+  children: ReactNode;
+  className?: string;
+}) => {
+  const ref = useRef<HTMLDivElement>(null);
+  const [scale, setScale] = useState(0);
+  useLayoutEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const measure = () => setScale(el.clientWidth / width);
+    measure();
+    const observer = new ResizeObserver(measure);
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [width]);
+  return (
+    <div ref={ref} className={cn("relative w-full overflow-hidden", className)} style={{ aspectRatio: `${width} / ${height}` }}>
+      <div
+        className="absolute left-0 top-0 origin-top-left"
+        style={{ width, height, transform: `scale(${scale})`, visibility: scale ? "visible" : "hidden" }}
+      >
+        {children}
+      </div>
+    </div>
+  );
+};
+
 // A browser frame whose tabs are the pages of a typical site for the trade:
 // shows what the client gets, page by page, rather than listing it
 export const SiteMockup = ({
@@ -125,19 +161,23 @@ export const SiteMockup = ({
   domain,
   icon: Icon,
   wireframe,
+  screens,
 }: {
   pages: LandingContent["pages"];
   domain: string;
   icon: LucideIcon;
   // The trade's own sketch of a page, so the mock-up looks like its sites
   wireframe?: ReactNode;
+  // Or, better, the pages themselves, drawn at desktop size, by position
+  screens?: ReactNode[];
 }) => {
   const [active, setActive] = useState(0);
   const page = pages[active];
   if (!page) return null;
+  const screen = screens?.[active];
 
   return (
-    <div className="grid gap-6 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
+    <div className={cn("grid gap-6 lg:items-start", screen ? "lg:grid-cols-[0.5fr_1.5fr]" : "lg:grid-cols-[0.75fr_1.25fr]")}>
       <div
         role="tablist"
         aria-label="Pages du site"
@@ -179,22 +219,43 @@ export const SiteMockup = ({
             </span>
           </span>
         </div>
-        <div id="site-panel" role="tabpanel" aria-labelledby={`site-tab-${active}`} className="p-6 sm:p-10 min-h-[18rem]">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={page.name}
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -8 }}
-              transition={{ duration: 0.25 }}
-            >
-              <p className="eyebrow mb-3">{page.name}</p>
-              <p className="text-xl sm:text-2xl font-display font-bold leading-snug mb-8 max-w-lg text-balance">{page.text}</p>
-              {/* Sketch of the page: suggests a layout without pretending to be a real site */}
-              <div aria-hidden="true">{wireframe ?? <DefaultWireframe />}</div>
-            </motion.div>
-          </AnimatePresence>
-        </div>
+        {screen ? (
+          <div id="site-panel" role="tabpanel" aria-labelledby={`site-tab-${active}`}>
+            <AnimatePresence mode="wait" initial={false}>
+              <motion.div
+                key={page.name}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.2 }}
+              >
+                <div aria-hidden="true">
+                  <ScaledFrame width={1024} height={640}>
+                    {screen}
+                  </ScaledFrame>
+                </div>
+                <p className="border-t border-border px-5 py-4 text-sm text-muted-foreground leading-relaxed">{page.text}</p>
+              </motion.div>
+            </AnimatePresence>
+          </div>
+        ) : (
+          <div id="site-panel" role="tabpanel" aria-labelledby={`site-tab-${active}`} className="p-6 sm:p-10 min-h-[18rem]">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={page.name}
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -8 }}
+                transition={{ duration: 0.25 }}
+              >
+                <p className="eyebrow mb-3">{page.name}</p>
+                <p className="text-xl sm:text-2xl font-display font-bold leading-snug mb-8 max-w-lg text-balance">{page.text}</p>
+                {/* Sketch of the page: suggests a layout without pretending to be a real site */}
+                <div aria-hidden="true">{wireframe ?? <DefaultWireframe />}</div>
+              </motion.div>
+            </AnimatePresence>
+          </div>
+        )}
       </div>
     </div>
   );

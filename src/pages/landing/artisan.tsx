@@ -15,7 +15,8 @@ import {
   UsersRound,
   type LucideIcon,
 } from "lucide-react";
-import { Breadcrumb, Container, CtaButtons, MockupSection, Reassurances, iconAt, reveal, type TradeProps } from "./shared";
+import { Breadcrumb, Container, CtaButtons, MockupSection, Reassurances, ScaledFrame, iconAt, reveal, type TradeProps } from "./shared";
+import { NewHome, OldSite, Scene, artisanScreens } from "./artisan-sites";
 
 // A tradesperson's site: squared, sturdy, work-site stripes, heavy capitals.
 // The hero holds the quote request the craftsman receives, the problems read
@@ -62,7 +63,7 @@ const Hero = ({ page }: TradeProps) => (
           </div>
           <dl className="space-y-4 text-sm">
             {[
-              ["Travaux", "Rénovation salle de bain"],
+              ["Travaux", "Escalier et portes en chêne"],
               ["Commune", "Meylan (38240)"],
               ["Délai souhaité", "Sous 1 mois"],
             ].map(([label, value]) => (
@@ -74,8 +75,10 @@ const Hero = ({ page }: TradeProps) => (
           </dl>
           <p className="font-mono text-xs uppercase text-muted-foreground mt-5 mb-3">Photos jointes</p>
           <div className="grid grid-cols-3 gap-2">
-            {["bg-muted", "bg-accent/50", "bg-primary/25"].map((c) => (
-              <div key={c} className={`aspect-square ${c}`} />
+            {(["stairs", "door", "window"] as const).map((kind) => (
+              <div key={kind} className="aspect-square overflow-hidden border border-border">
+                <Scene kind={kind} />
+              </div>
             ))}
           </div>
           <span className="mt-6 flex items-center justify-center gap-2 bg-primary text-primary-foreground py-3 text-sm font-bold uppercase tracking-wider">
@@ -119,45 +122,77 @@ const Pains = ({ page }: TradeProps) => (
   </section>
 );
 
-// Drag to compare: the same room before and after, as flat shapes
+// Drag to compare: the site many craftsmen still have, and the same
+// business redone, both drawn at desktop size
+const differences = [
+  "Le numéro et le bouton devis toujours visibles",
+  "De vraies photos de chantiers, pas une image cassée",
+  "Lisible sur téléphone, là où vos clients vous cherchent",
+  "Avis Google, garanties et communes mis en avant",
+];
+
 const BeforeAfter = () => {
   const [split, setSplit] = useState(50);
   return (
     <section className="py-20 sm:py-24">
-      <Container className="grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:items-center">
+      <Container className="grid gap-12 lg:grid-cols-[0.65fr_1.35fr] lg:items-center">
         <motion.div {...reveal}>
-          <p className="font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground mb-4">Galerie de réalisations</p>
-          <h2 className="font-sans text-4xl md:text-5xl font-black uppercase tracking-tight mb-6">Avant / après</h2>
-          <p className="text-muted-foreground leading-relaxed max-w-md">
-            Vos chantiers, classés par type de travaux, avec un curseur avant/après comme celui-ci. Faites-le glisser.
+          <p className="font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground mb-4">Avant / après</p>
+          <h2 className="font-sans text-4xl md:text-5xl font-black uppercase tracking-tight mb-6">Votre site, refait à neuf</h2>
+          <p className="text-muted-foreground leading-relaxed max-w-md mb-8">
+            À gauche, le site qu'on croise encore chez beaucoup d'artisans. À droite, la même menuiserie, refaite comme je le ferais. Faites
+            glisser le curseur.
           </p>
+          <ul className="space-y-3">
+            {differences.map((d) => (
+              <li key={d} className="flex items-start gap-3 text-sm font-semibold">
+                <span className="mt-1.5 h-2 w-2 flex-shrink-0 bg-accent" />
+                {d}
+              </li>
+            ))}
+          </ul>
         </motion.div>
-        <motion.div {...reveal} className="relative aspect-[4/3] border-2 border-foreground overflow-hidden select-none">
-          {/* After: clean tiling and fittings */}
-          <div className="absolute inset-0 bg-card">
-            <div className="absolute inset-x-0 bottom-0 h-1/3 bg-[repeating-linear-gradient(90deg,hsl(var(--primary)/0.15)_0_40px,hsl(var(--primary)/0.25)_40px_80px)]" />
-            <div className="absolute left-[12%] bottom-1/3 h-1/3 w-[30%] bg-primary/80" />
-            <div className="absolute right-[14%] top-[18%] h-[28%] w-[22%] border-4 border-accent bg-accent/20" />
-            <span className="absolute right-3 top-3 bg-primary text-primary-foreground px-2 py-1 font-mono text-xs uppercase">Après</span>
+        <motion.div {...reveal} className="border-2 border-foreground bg-card shadow-[8px_8px_0_0_hsl(var(--foreground))]">
+          <div className="flex items-center gap-3 border-b-2 border-foreground px-3 py-2">
+            <span aria-hidden="true" className="flex gap-1.5">
+              <span className="h-2.5 w-2.5 rounded-full bg-border" />
+              <span className="h-2.5 w-2.5 rounded-full bg-border" />
+              <span className="h-2.5 w-2.5 rounded-full bg-border" />
+            </span>
+            <span className="flex-1 truncate bg-muted px-3 py-1 font-mono text-xs text-muted-foreground">martin-menuiserie.fr</span>
           </div>
-          {/* Before: tired walls, uneven floor */}
-          <div className="absolute inset-0 bg-muted" style={{ clipPath: `inset(0 ${100 - split}% 0 0)` }}>
-            <div className="absolute inset-x-0 bottom-0 h-1/3 bg-[repeating-linear-gradient(45deg,hsl(var(--muted-foreground)/0.2)_0_12px,transparent_12px_24px)]" />
-            <div className="absolute left-[12%] bottom-1/3 h-1/4 w-[30%] bg-muted-foreground/30" />
-            <span className="absolute left-3 top-3 bg-foreground text-background px-2 py-1 font-mono text-xs uppercase">Avant</span>
+          <div className="relative select-none overflow-hidden">
+            <div aria-hidden="true">
+              <ScaledFrame>
+                <NewHome />
+              </ScaledFrame>
+            </div>
+            <div aria-hidden="true" className="absolute inset-0" style={{ clipPath: `inset(0 ${100 - split}% 0 0)` }}>
+              <ScaledFrame>
+                <OldSite />
+              </ScaledFrame>
+            </div>
+            <span className="absolute left-3 bottom-3 bg-foreground text-background px-2 py-1 font-mono text-xs uppercase pointer-events-none">
+              Avant
+            </span>
+            <span className="absolute right-3 bottom-3 bg-accent text-accent-foreground px-2 py-1 font-mono text-xs uppercase pointer-events-none">
+              Après
+            </span>
+            <div className="absolute inset-y-0 w-1 bg-accent pointer-events-none" style={{ left: `calc(${split}% - 2px)` }}>
+              <span className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex h-10 w-10 items-center justify-center bg-accent border-2 border-foreground font-bold text-accent-foreground">
+                ⇆
+              </span>
+            </div>
+            <input
+              type="range"
+              min={0}
+              max={100}
+              value={split}
+              onChange={(e) => setSplit(Number(e.target.value))}
+              aria-label="Comparer l'ancien et le nouveau site"
+              className="absolute inset-0 h-full w-full cursor-ew-resize opacity-0"
+            />
           </div>
-          <div className="absolute inset-y-0 w-1 bg-accent pointer-events-none" style={{ left: `calc(${split}% - 2px)` }}>
-            <span className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-10 w-10 bg-accent border-2 border-foreground" />
-          </div>
-          <input
-            type="range"
-            min={0}
-            max={100}
-            value={split}
-            onChange={(e) => setSplit(Number(e.target.value))}
-            aria-label="Comparer avant et après"
-            className="absolute inset-0 h-full w-full cursor-ew-resize opacity-0"
-          />
         </motion.div>
       </Container>
     </section>
@@ -195,21 +230,6 @@ const Features = ({ page }: TradeProps) => (
   </section>
 );
 
-const Wireframe = () => (
-  <div className="grid gap-4 sm:grid-cols-[1.2fr_1fr]">
-    <div className="grid grid-cols-2 gap-2">
-      <div className="aspect-square bg-muted" />
-      <div className="aspect-square bg-accent/50" />
-    </div>
-    <div className="space-y-2">
-      {[0, 1, 2].map((i) => (
-        <div key={i} className="h-8 border-2 border-border" />
-      ))}
-      <div className="h-9 bg-primary" />
-    </div>
-  </div>
-);
-
 export const Artisan = ({ page }: TradeProps) => (
   <>
     <Hero page={page} />
@@ -220,7 +240,7 @@ export const Artisan = ({ page }: TradeProps) => (
       pages={page.pages}
       domain="martin-menuiserie.fr"
       icon={Hammer}
-      wireframe={<Wireframe />}
+      screens={artisanScreens}
       headingClassName="font-sans font-black uppercase tracking-tight"
       eyebrow="Le site de l'artisan"
       title={<>Du premier coup d'œil au devis</>}
