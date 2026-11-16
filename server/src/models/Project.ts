@@ -6,6 +6,13 @@ export enum ProjectStatus {
   DONE = "done",
 }
 
+// Drives which section of the public projects list a project appears in
+export enum ProjectCategory {
+  CLIENT = "client",
+  DEMO = "demo",
+  PERSONAL = "personal",
+}
+
 const bilingualText = {
   fr: { type: String, required: true },
   en: { type: String, required: true },
@@ -20,6 +27,7 @@ const projectSchema = new Schema(
     gallery: { type: [String], default: [] },
     stack: { type: [String], default: [] },
     status: { type: String, enum: Object.values(ProjectStatus), default: ProjectStatus.STARTED },
+    category: { type: String, enum: Object.values(ProjectCategory), default: ProjectCategory.PERSONAL },
     order: { type: Number, required: true, default: 0 },
     visible: { type: Boolean, default: true },
     liveLink: { type: String },

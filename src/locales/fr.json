@@ -115,7 +115,23 @@
       "ongoing": "En cours",
       "done": "Terminé",
       "started": "Démarré"
-    }
+    },
+    "categories": {
+      "client": {
+        "title": "Projets clients",
+        "description": "Des sites en ligne, réalisés pour de vrais clients."
+      },
+      "demo": {
+        "title": "Sites de démonstration",
+        "description": "Des commerces fictifs, pour montrer ce que je peux faire pour le vôtre."
+      },
+      "personal": {
+        "title": "Produits & projets perso",
+        "description": "Mes propres outils et applications."
+      }
+    },
+    "demoBadge": "Démo",
+    "demoNotice": "Site de démonstration : ce commerce est fictif. Les noms, prix, avis et coordonnées sont inventés."
   },
   "reviews": {
     "leave": "Laisser un avis",

@@ -4,6 +4,13 @@ export enum ProjectStatus {
   DONE = "done",
 }
 
+// Drives which section of the public projects list a project appears in
+export enum ProjectCategory {
+  CLIENT = "client",
+  DEMO = "demo",
+  PERSONAL = "personal",
+}
+
 export type LocalizedText = {
   fr: string;
   en: string;
@@ -17,6 +24,7 @@ export type Project = {
   gallery?: string[];
   stack: string[];
   status: ProjectStatus;
+  category: ProjectCategory;
   order: number;
   visible: boolean;
   liveLink?: string;

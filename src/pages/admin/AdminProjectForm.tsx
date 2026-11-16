@@ -14,7 +14,7 @@ import { Switch } from "@/components/ui/switch";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { useAuth } from "@/providers/auth-provider";
 import { apiRequest, ApiError } from "@/lib/api";
-import { ProjectStatus, type Project, type ProjectInput } from "@/types/project";
+import { ProjectCategory, ProjectStatus, type Project, type ProjectInput } from "@/types/project";
 import { ProjectStatusBadge } from "./ProjectStatusBadge";
 import { ImageUpload } from "@/components/admin/ImageUpload";
 import { GalleryUpload } from "@/components/admin/GalleryUpload";
@@ -31,6 +31,7 @@ const schema = z.object({
   gallery: z.array(z.string()),
   stack: z.string().min(1, "Requis"),
   status: z.nativeEnum(ProjectStatus),
+  category: z.nativeEnum(ProjectCategory),
   order: z.coerce.number().int(),
   visible: z.boolean(),
   liveLink: z.string().optional().or(z.literal("")),
@@ -53,6 +54,7 @@ const emptyValues: FormValues = {
   gallery: [],
   stack: "",
   status: ProjectStatus.STARTED,
+  category: ProjectCategory.PERSONAL,
   order: 0,
   visible: true,
   liveLink: "",
@@ -75,6 +77,7 @@ const toFormValues = (project: Project): FormValues => ({
   gallery: project.gallery ?? [],
   stack: project.stack.join(", "),
   status: project.status,
+  category: project.category ?? ProjectCategory.PERSONAL,
   order: project.order,
   visible: project.visible ?? true,
   liveLink: project.liveLink ?? "",
@@ -248,6 +251,15 @@ export const AdminProjectForm = () => {
               <option value={ProjectStatus.DONE}>Terminé</option>
             </Select>
             {status && <ProjectStatusBadge status={status} className="mt-1" />}
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="category">Catégorie</Label>
+            <Select id="category" {...register("category")}>
+              <option value={ProjectCategory.CLIENT}>Réalisation client</option>
+              <option value={ProjectCategory.DEMO}>Site de démonstration</option>
+              <option value={ProjectCategory.PERSONAL}>Produit / projet perso</option>
+            </Select>
+            <p className="text-xs text-muted-foreground">Section dans laquelle le projet apparaît sur le site.</p>
           </div>
           <div className="space-y-2">
             <Label htmlFor="order">Ordre d'affichage</Label>

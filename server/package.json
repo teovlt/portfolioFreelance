@@ -9,7 +9,8 @@
     "start": "node dist/index.js",
     "seed:user": "tsx src/seed/seedUser.ts",
     "seed:projects": "tsx src/seed/seedProjects.ts",
-    "seed:content": "tsx src/seed/seedContent.ts"
+    "seed:content": "tsx src/seed/seedContent.ts",
+    "seed:categories": "tsx src/seed/seedCategories.ts"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",

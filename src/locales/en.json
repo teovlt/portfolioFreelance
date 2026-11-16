@@ -115,7 +115,23 @@
       "ongoing": "Ongoing",
       "done": "Done",
       "started": "Started"
-    }
+    },
+    "categories": {
+      "client": {
+        "title": "Client work",
+        "description": "Live websites built for real clients."
+      },
+      "demo": {
+        "title": "Demo websites",
+        "description": "Fictional businesses, to show what I can build for yours."
+      },
+      "personal": {
+        "title": "Products & side projects",
+        "description": "My own tools and apps."
+      }
+    },
+    "demoBadge": "Demo",
+    "demoNotice": "Demo website: this business is fictional. Names, prices, reviews and contact details are made up."
   },
   "reviews": {
     "leave": "Leave a review",

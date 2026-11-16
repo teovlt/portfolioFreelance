@@ -7,6 +7,8 @@ import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { useProjects } from "@/hooks/useProjects";
+import { ProjectCategory } from "@/types/project";
+import { projectCategory, sortProjects } from "@/utils/projects";
 import { ProjectGallery } from "@/components/customs/project-gallery";
 
 export const ProjectCaseStudy = () => {
@@ -37,7 +39,8 @@ export const ProjectCaseStudy = () => {
   // mistyped project isn't indexed as a copy of the home page
   if (!study) return <NotFound />;
 
-  const sorted = [...projects].sort((a, b) => a.order - b.order);
+  const sorted = sortProjects(projects);
+  const isDemo = projectCategory(study) === ProjectCategory.DEMO;
   const currentIndex = sorted.findIndex((p) => p.slug === slug);
   const next = sorted[(currentIndex + 1) % sorted.length];
 
@@ -71,10 +74,15 @@ export const ProjectCaseStudy = () => {
 
         <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
           <p className="eyebrow mb-3">
-            {lang === "fr" ? "Étude de cas" : "Case study"} · {t(`projects.status.${study.status}`)}
+            {lang === "fr" ? "Étude de cas" : "Case study"} · {isDemo ? t("projects.demoBadge") : t(`projects.status.${study.status}`)}
           </p>
           <h1 className="text-5xl md:text-7xl mb-5">{study.title}</h1>
           <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mb-10">{study.tagline[lang]}</p>
+          {isDemo && (
+            <p className="text-sm text-muted-foreground border border-border rounded-lg bg-muted/40 px-4 py-3 mb-10">
+              {t("projects.demoNotice")}
+            </p>
+          )}
 
           <div className="flex flex-wrap gap-x-10 gap-y-4 py-7 border-y border-border mb-12">
             <div>
