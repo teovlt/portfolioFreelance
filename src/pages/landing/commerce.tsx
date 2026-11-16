@@ -1,5 +1,9 @@
-import { motion } from "framer-motion";
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import { AnimatePresence, motion } from "framer-motion";
 import {
+  ArrowRight,
+  ArrowUpRight,
   CalendarClock,
   Clock,
   EyeOff,
@@ -185,11 +189,147 @@ const Features = ({ page }: TradeProps) => (
   </section>
 );
 
+// The demo shop, browsable screen by screen. It is a fictional business, and
+// the banner says so up front: an example of the work, not a client reference
+const demoScreens = [
+  {
+    name: "Accueil",
+    path: "",
+    src: "/images/projects/col-et-cadre.webp",
+    text: "Ouvert ou fermé en direct, le téléphone en haut et les deux raisons de venir.",
+  },
+  {
+    name: "Rayons",
+    path: "#occasions",
+    src: "/images/projects/col-et-cadre-categories.webp",
+    text: "Vélos, skis, trottinettes : le stock suit les saisons.",
+  },
+  {
+    name: "Boutique",
+    path: "boutique",
+    src: "/images/projects/col-et-cadre-boutique.webp",
+    text: "Chaque article avec son prix, sa taille et son état, filtrable et trié.",
+  },
+  {
+    name: "Atelier",
+    path: "atelier",
+    src: "/images/projects/col-et-cadre-atelier.webp",
+    text: "Comment se passe une réparation, étape par étape.",
+  },
+  {
+    name: "Tarifs",
+    path: "atelier#tarifs",
+    src: "/images/projects/col-et-cadre-tarifs.webp",
+    text: "Les prix de l'atelier affichés, sans surprise au comptoir.",
+  },
+];
+
+const DemoShowcase = ({ example }: { example: NonNullable<TradeProps["page"]["example"]> }) => {
+  const [active, setActive] = useState(0);
+  const screen = demoScreens[active];
+  const host = example.url.replace(/^https?:\/\/(www\.)?/, "");
+
+  return (
+    <section className="py-20 sm:py-24">
+      <Container>
+        <motion.div
+          {...reveal}
+          className="grid gap-10 overflow-hidden rounded-[calc(var(--radius)+1rem)] border border-ink-foreground/10 bg-ink p-6 text-ink-foreground sm:p-10 lg:grid-cols-[0.8fr_1.2fr] lg:items-center lg:gap-14 lg:p-14"
+        >
+          <div>
+            <p className="mb-5 inline-flex items-center gap-2 rounded-full bg-ink-foreground/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.15em]">
+              <Sparkles className="h-3.5 w-3.5 text-accent" />
+              {example.demo ? "Exemple de démonstration" : "Un exemple en ligne"}
+            </p>
+            <h2 className="mb-4 text-4xl font-display font-extrabold md:text-5xl">
+              {example.name}
+              {example.demo && (
+                <span className="mt-2 block font-serif text-2xl font-medium italic opacity-70 md:text-3xl">
+                  un commerce imaginé, un vrai site
+                </span>
+              )}
+            </h2>
+            <p className="mb-8 leading-relaxed text-ink-foreground/75">{example.text}</p>
+            <div className="flex flex-wrap gap-3">
+              <a
+                href={example.url}
+                target="_blank"
+                rel="noopener"
+                className="group inline-flex items-center gap-2 rounded-full bg-ink-foreground px-6 py-3 text-sm font-semibold text-ink transition-opacity hover:opacity-90"
+              >
+                {example.demo ? "Visiter la démo" : "Voir le site"}
+                <ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+              </a>
+              {example.caseStudy && (
+                <Link
+                  to={example.caseStudy}
+                  className="group inline-flex items-center gap-2 rounded-full border border-ink-foreground/25 px-6 py-3 text-sm font-semibold transition-colors hover:bg-ink-foreground/10"
+                >
+                  Comment je l'ai conçu
+                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                </Link>
+              )}
+            </div>
+          </div>
+
+          <div className="min-w-0">
+            <div className="overflow-hidden rounded-[var(--radius)] bg-card text-foreground shadow-2xl ring-1 ring-ink-foreground/10">
+              <div className="flex items-center gap-3 border-b border-border bg-muted/50 px-3 py-2">
+                <span aria-hidden="true" className="flex gap-1.5">
+                  <span className="h-2.5 w-2.5 rounded-full bg-border" />
+                  <span className="h-2.5 w-2.5 rounded-full bg-border" />
+                  <span className="h-2.5 w-2.5 rounded-full bg-border" />
+                </span>
+                <span className="min-w-0 flex-1 truncate rounded-md border border-border bg-background px-3 py-1 font-mono text-xs text-muted-foreground">
+                  {host.replace(/\/$/, "")}/{screen.path}
+                </span>
+              </div>
+              <div className="relative aspect-[16/10] bg-muted">
+                <AnimatePresence initial={false}>
+                  <motion.img
+                    key={screen.src}
+                    src={screen.src}
+                    alt={`${example.name}, page ${screen.name.toLowerCase()}`}
+                    loading="lazy"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.25 }}
+                    className="absolute inset-0 h-full w-full object-cover object-top"
+                  />
+                </AnimatePresence>
+              </div>
+            </div>
+            <div role="tablist" aria-label={`Pages de ${example.name}`} className="mt-4 flex flex-wrap gap-2">
+              {demoScreens.map((s, i) => (
+                <button
+                  key={s.name}
+                  role="tab"
+                  aria-selected={i === active}
+                  onClick={() => setActive(i)}
+                  className={cn(
+                    "rounded-full px-4 py-2 text-sm font-semibold transition-colors",
+                    i === active ? "bg-accent text-accent-foreground" : "bg-ink-foreground/10 hover:bg-ink-foreground/20",
+                  )}
+                >
+                  {s.name}
+                </button>
+              ))}
+            </div>
+            <p className="mt-3 min-h-[2.5rem] text-sm text-ink-foreground/65">{screen.text}</p>
+          </div>
+        </motion.div>
+      </Container>
+    </section>
+  );
+};
+
 export const Commerce = ({ page }: TradeProps) => (
   <>
     <Hero page={page} />
     <Features page={page} />
     <Pains page={page} />
+    {page.example && <DemoShowcase example={page.example} />}
     <MockupSection
       pages={page.pages}
       domain="la-boutique-du-coin.fr"

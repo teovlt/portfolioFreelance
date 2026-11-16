@@ -18,7 +18,7 @@ export type LandingContent = {
   slug: string;
   trade: string;
   theme: Theme;
-  example?: { name: string; url: string; text: string };
+  example?: { name: string; url: string; text: string; demo?: boolean; caseStudy?: string };
   metaTitle: string;
   metaDescription: string;
   eyebrow: string;

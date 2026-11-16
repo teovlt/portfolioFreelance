@@ -225,9 +225,10 @@ export const landingSnapshot = async (l: Landing) => {
   </section>
   ${l.example &&
   html`<section>
-    <h2>Un exemple en ligne : ${l.example.name}</h2>
+    <h2>${l.example.demo ? "Un exemple de démonstration" : "Un exemple en ligne"} : ${l.example.name}</h2>
     <p>${l.example.text}</p>
-    <a href="${l.example.url}">Voir le site</a>
+    <a href="${l.example.url}">${l.example.demo ? "Voir le site de démonstration" : "Voir le site"}</a>
+    ${l.example.caseStudy && html`<a href="${l.example.caseStudy}">Voir l'étude de cas</a>`}
   </section>`}
   ${packages.length > 0 &&
   html`<section>

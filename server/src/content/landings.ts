@@ -10,8 +10,9 @@ export type Landing = {
   // Colors and touches of the page (see .trade-* in the front's index.css),
   // so each trade gets an art direction close to the sites it would get
   theme: "restaurant" | "gite" | "artisan" | "commerce" | "independant";
-  // A live site of this kind I made, shown as an example
-  example?: { name: string; url: string; text: string };
+  // A live site of this kind I made, shown as an example. A demo is a
+  // fictional business I built to show the kind, and is labelled as such
+  example?: { name: string; url: string; text: string; demo?: boolean; caseStudy?: string };
   // Who the page talks to, in a sentence ("des restaurants")
   audience: string;
   metaTitle: string;
@@ -244,6 +245,13 @@ export const landings: Landing[] = [
     slug: "site-internet-commerce-grenoble",
     trade: "Commerces",
     theme: "commerce",
+    example: {
+      name: "Col & Cadre",
+      url: "https://www.col-et-cadre.teovillet.fr",
+      text: "Un atelier de réparation et une boutique de vélos, skis et trottinettes d'occasion, imaginés à Grenoble pour montrer ce qu'un commerce de quartier peut avoir en ligne : le stock filtrable, les tarifs de l'atelier, l'indicateur ouvert ou fermé et la prise de rendez-vous, le tout géré par le commerçant.",
+      demo: true,
+      caseStudy: "/projects/col-et-cadre",
+    },
     audience: "des commerces de proximité",
     metaTitle: "Création de site internet pour commerce à Grenoble | Téo Villet",
     metaDescription:
