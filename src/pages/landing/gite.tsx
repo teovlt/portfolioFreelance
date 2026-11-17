@@ -29,12 +29,12 @@ const featureIcons: LucideIcon[] = [Camera, CalendarCheck, KeyRound, Tag, Mounta
 const Landscape = () => (
   <svg viewBox="0 0 1200 420" preserveAspectRatio="xMidYMax slice" className="absolute inset-0 h-full w-full" aria-hidden="true">
     <rect width="1200" height="420" fill="hsl(var(--muted))" />
-    <circle cx="930" cy="120" r="56" fill="hsl(var(--primary) / 0.35)" />
+    <circle cx="490" cy="110" r="48" fill="hsl(var(--primary) / 0.35)" />
     <path d="M0 260 L160 150 L290 230 L430 110 L600 240 L760 130 L900 220 L1060 120 L1200 200 V420 H0 Z" fill="hsl(var(--accent) / 0.45)" />
     <path d="M0 310 L140 230 L300 300 L470 200 L640 300 L820 210 L990 290 L1200 230 V420 H0 Z" fill="hsl(var(--accent) / 0.75)" />
     <path d="M0 360 C200 320 380 350 600 330 C820 310 1000 350 1200 320 V420 H0 Z" fill="hsl(var(--accent-foreground) / 0.55)" />
     {/* The gîte itself, small on the hillside */}
-    <g transform="translate(760 290)" fill="hsl(var(--card))">
+    <g transform="translate(650 290)" fill="hsl(var(--card))">
       <rect x="0" y="18" width="60" height="34" />
       <path d="M-6 20 L30 -6 L66 20 Z" fill="hsl(var(--primary))" />
       <rect x="24" y="32" width="12" height="20" fill="hsl(var(--primary) / 0.6)" />
@@ -44,51 +44,46 @@ const Landscape = () => (
 
 const Hero = ({ page }: TradeProps) => (
   <section id="landing-hero" className="relative pt-32 pb-16 sm:pb-20">
-    <Container>
+    <Container className="grid gap-14 lg:grid-cols-2 lg:items-center lg:gap-16">
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="max-w-3xl">
         <Breadcrumb trade={page.trade} className="mb-8" />
         <p className="text-xs font-semibold uppercase tracking-[0.25em] text-muted-foreground mb-5">{page.eyebrow}</p>
-        <h1 className="text-5xl sm:text-6xl lg:text-7xl font-serif font-medium leading-[1.05] tracking-tight mb-6 text-balance">
+        <h1 className="text-5xl sm:text-6xl xl:text-7xl font-serif font-medium leading-[1.05] tracking-tight mb-6 text-balance">
           {page.titleStart} <span className="text-primary">{page.titleHighlight}</span>
         </h1>
         <p className="text-lg sm:text-xl text-muted-foreground max-w-2xl mb-8 leading-relaxed">{page.intro}</p>
         <CtaButtons />
+        <Reassurances className="mt-10" />
       </motion.div>
 
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.9, delay: 0.25 }}
-        className="relative mt-14"
-      >
-        <div className="relative h-64 sm:h-80 lg:h-[26rem] overflow-hidden rounded-[calc(var(--radius)+0.75rem)]">
+      <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.9, delay: 0.25 }} className="relative">
+        <div className="relative h-64 sm:h-80 lg:h-[30rem] overflow-hidden rounded-[calc(var(--radius)+0.75rem)]">
           <Landscape />
-          <span className="absolute left-5 top-5 rounded-full bg-card/90 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.2em] backdrop-blur">
+          <span className="absolute left-4 top-4 sm:left-5 sm:top-5 whitespace-nowrap rounded-full bg-card/90 px-3 sm:px-4 py-1.5 text-[11px] sm:text-xs font-semibold uppercase tracking-[0.12em] sm:tracking-[0.2em] backdrop-blur">
             Vercors · Chartreuse · Belledonne
           </span>
         </div>
         {/* The bar the gîte's own site opens on, as an illustration */}
         <div
           aria-hidden="true"
-          className="relative -mt-12 mx-4 sm:mx-10 rounded-[calc(var(--radius)+0.25rem)] border border-border bg-card p-4 sm:p-5 shadow-xl grid gap-3 grid-cols-2 lg:grid-cols-[1fr_1fr_1fr_auto] lg:items-end"
+          className="relative -mt-12 mx-4 sm:mx-8 rounded-[calc(var(--radius)+0.25rem)] border border-border bg-card p-4 sm:p-5 shadow-xl grid gap-3 grid-cols-2 sm:grid-cols-3"
         >
           {[
             ["Arrivée", "Ven. 14 août"],
             ["Départ", "Dim. 16 août"],
             ["Voyageurs", "6 adultes"],
-          ].map(([label, value]) => (
-            <div key={label} className="rounded-lg bg-muted px-4 py-2.5">
+          ].map(([label, value], i) => (
+            <div key={label} className={`rounded-lg bg-muted px-4 py-2.5 ${i === 2 ? "col-span-2 sm:col-span-1" : ""}`}>
               <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-muted-foreground">{label}</p>
-              <p className="text-sm font-semibold">{value}</p>
+              <p className="text-sm font-semibold whitespace-nowrap">{value}</p>
             </div>
           ))}
-          <span className="col-span-2 lg:col-span-1 rounded-lg bg-primary text-primary-foreground px-6 py-3.5 text-center text-sm font-semibold uppercase tracking-wider">
+          <span className="col-span-2 sm:col-span-3 rounded-lg bg-primary text-primary-foreground px-6 py-3.5 text-center text-sm font-semibold uppercase tracking-wider">
             Vérifier les disponibilités
           </span>
         </div>
         <p className="mt-4 text-center text-xs text-muted-foreground">Aperçu : ce que vos voyageurs voient en arrivant sur votre site</p>
       </motion.div>
-      <Reassurances className="justify-center mt-10" />
     </Container>
   </section>
 );
