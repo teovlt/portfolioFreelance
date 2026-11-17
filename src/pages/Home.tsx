@@ -47,7 +47,7 @@ export const Home = () => {
   return (
     <section id="home-section" className="relative min-h-screen pt-28 pb-10 flex items-center overflow-hidden">
       <Helmet>
-        <title>Création de site internet à Grenoble | Téo Villet</title>
+        <title>Création de sites web à Grenoble | Téo Villet, développeur freelance</title>
         <meta
           name="description"
           content="Création de site internet sur mesure à Grenoble pour restaurants, artisans et indépendants. Un seul interlocuteur, site vitrine en ligne en 2 semaines, devis gratuit sous 24 h."

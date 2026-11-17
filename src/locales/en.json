@@ -9,7 +9,7 @@
     "languageChanged": "Language changed"
   },
   "home": {
-    "kicker": "Website design in Grenoble",
+    "kicker": "Website creation in Grenoble",
     "badge": "Available for new projects",
     "titleStart": "Websites that",
     "titleHighlight": "bring you",
@@ -52,6 +52,68 @@
     "availability": "Available for new projects",
     "quote": "My goal: a website that brings you customers, not one that sleeps on the internet.",
     "backgroundLink": "See my full background"
+  },
+  "localSeo": {
+    "colon": ": ",
+    "eyebrow": "Grenoble and Isère",
+    "titleStart": "Website creation",
+    "titleHighlight": "in Grenoble",
+    "intro": "I'm a freelance web developer in Grenoble and I build websites for small businesses in the city and across Isère. No template bought and filled in a hurry: each site is designed and coded for your business, made for phones first, and built so that people looking for what you offer near them find you on Google.",
+    "whoTitle": "Who it's for",
+    "whoIntro": "Most of my clients are businesses of one to ten people who have neither the time nor the wish to become web experts. What a site has to do for them changes from one trade to the next:",
+    "trades": [
+      {
+        "slug": "site-internet-restaurant-grenoble",
+        "link": "website for a restaurant in Grenoble",
+        "text": "a menu that reads well on a phone and is easy to update, opening hours, directions and a simple way to book a table."
+      },
+      {
+        "slug": "site-internet-gite-grenoble",
+        "link": "website for a holiday cottage near Grenoble",
+        "text": "photos that make people want to stay, an availability calendar and direct booking, to rely less on platforms and their fees."
+      },
+      {
+        "slug": "site-internet-artisan-grenoble",
+        "link": "website for a tradesperson in Grenoble",
+        "text": "your work in photos, the area you cover and quote requests that land straight in your inbox."
+      },
+      {
+        "slug": "site-internet-commerce-grenoble",
+        "link": "website for a shop in Grenoble",
+        "text": "your products, opening hours and address in plain sight, with a catalogue or in-store pickup if you need it."
+      },
+      {
+        "slug": "site-internet-independant-grenoble",
+        "link": "website for a freelancer in Grenoble",
+        "text": "consultants, therapists, coaches or other professionals: a clear presentation of your approach and online appointment booking."
+      }
+    ],
+    "includedTitle": "What a delivered site includes",
+    "included": [
+      "A custom design in your colours, adapted to phones, tablets and computers.",
+      "Text structured for local search: titles, descriptions and the details Google shows in its results.",
+      "Fast pages: optimised images and lightweight code, because a visitor on a phone won't wait.",
+      "A contact, quote or booking form that emails you every request.",
+      "Launch with domain name and HTTPS, with hosting and support included for 30 days.",
+      "If you'd like, an admin area to change your text, photos and prices yourself."
+    ],
+    "stepsTitle": "How it goes, in 4 steps",
+    "steps": [
+      "A free 30-minute call to understand your business, your clients and what the site should get them to do.",
+      "A detailed quote within 24 hours, item by item, with a fixed price: no surprises on the invoice.",
+      "The mockup, which you approve before I write a line of code, then development, which you follow on a test link.",
+      "Launch, a walkthrough so you can edit your content, then ongoing support if you want it."
+    ],
+    "areaTitle": "Grenoble and all of Isère",
+    "area": "I work with clients in Grenoble, Meylan, Échirolles, Saint-Martin-d'Hères, Voiron and throughout Isère, from the Grésivaudan to the Vercors. For a first meeting we can meet in the Grenoble area or talk by video call, whichever you prefer. The rest works very well remotely, which is also how I work with clients elsewhere in France.",
+    "freelanceTitle": "Why a freelancer rather than an agency",
+    "freelance": "At an agency, the person who sells you the project isn't the one who builds it, and every middleman ends up in the price. With me, you talk directly to the developer: your requests don't get lost along the way, decisions are made quickly and you always know where your site stands. I only take on a few projects at a time, which lets me keep to the deadlines I give. And the site is yours: code, domain name and content are in your name, and you can keep growing it with me or with someone else.",
+    "priceTitle": "Prices and timelines",
+    "priceFeatured": "To give you an idea, the {{title}} plan starts at {{price}}, live in {{duration}}.",
+    "priceShowcase": "A showcase site is usually live in 2 weeks, once your text and photos are ready.",
+    "priceFallback": "Each plan shows its starting price in the Pricing section.",
+    "priceMore": "A site with booking, a client area or a shop takes more work: the price and timeline then depend on the features, and are spelled out in the quote, free and sent within 24 hours.",
+    "cta": "Ask for a free quote"
   },
   "experiences": {
     "eyebrow": "Background",

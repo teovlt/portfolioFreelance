@@ -9,7 +9,7 @@
     "languageChanged": "Langue changée"
   },
   "home": {
-    "kicker": "Création de site internet à Grenoble",
+    "kicker": "Création de sites web à Grenoble",
     "badge": "Disponible pour de nouveaux projets",
     "titleStart": "Des sites qui vous",
     "titleHighlight": "ramènent",
@@ -52,6 +52,68 @@
     "availability": "Disponible pour de nouveaux projets",
     "quote": "Mon objectif : que votre site vous ramène des clients, pas qu’il dorme sur internet.",
     "backgroundLink": "Voir mon parcours complet"
+  },
+  "localSeo": {
+    "colon": " : ",
+    "eyebrow": "Grenoble et Isère",
+    "titleStart": "Création de sites web",
+    "titleHighlight": "à Grenoble",
+    "intro": "Je suis développeur web freelance à Grenoble et je crée des sites internet pour les petites entreprises de la ville et du reste de l'Isère. Pas de modèle acheté puis rempli à la hâte : chaque site est dessiné et codé pour votre activité, pensé d'abord pour le téléphone, et construit pour que les personnes qui cherchent ce que vous proposez, près de chez elles, vous trouvent sur Google.",
+    "whoTitle": "Pour qui",
+    "whoIntro": "La plupart de mes clients sont des entreprises d'une à dix personnes, qui n'ont ni le temps ni l'envie de devenir experts du web. Ce qu'un site doit faire pour elles change d'un métier à l'autre :",
+    "trades": [
+      {
+        "slug": "site-internet-restaurant-grenoble",
+        "link": "site internet pour restaurant à Grenoble",
+        "text": "une carte lisible sur mobile et facile à mettre à jour, les horaires, l'accès et un moyen simple de réserver une table."
+      },
+      {
+        "slug": "site-internet-gite-grenoble",
+        "link": "site internet pour gîte autour de Grenoble",
+        "text": "des photos qui donnent envie, un calendrier des disponibilités et la réservation en direct, pour moins dépendre des plateformes et de leurs commissions."
+      },
+      {
+        "slug": "site-internet-artisan-grenoble",
+        "link": "site internet pour artisan à Grenoble",
+        "text": "vos chantiers en photos, votre zone d'intervention et une demande de devis qui arrive directement dans votre boîte mail."
+      },
+      {
+        "slug": "site-internet-commerce-grenoble",
+        "link": "site internet pour commerce à Grenoble",
+        "text": "vos produits, vos horaires et votre adresse bien visibles, avec si besoin un catalogue ou du retrait en boutique."
+      },
+      {
+        "slug": "site-internet-independant-grenoble",
+        "link": "site internet pour indépendant à Grenoble",
+        "text": "consultants, thérapeutes, coachs ou professions libérales : une présentation claire de votre approche et la prise de rendez-vous en ligne."
+      }
+    ],
+    "includedTitle": "Ce que comprend un site livré",
+    "included": [
+      "Un design sur mesure, à vos couleurs, qui s'adapte au téléphone, à la tablette et à l'ordinateur.",
+      "Des textes structurés pour le référencement local : titres, descriptions et informations que Google affiche dans ses résultats.",
+      "Des pages rapides : images optimisées et code léger, parce qu'un visiteur sur mobile n'attend pas.",
+      "Un formulaire de contact, de devis ou de réservation qui vous envoie chaque demande par e-mail.",
+      "La mise en ligne avec nom de domaine et HTTPS, l'hébergement et l'assistance inclus pendant 30 jours.",
+      "Si vous le souhaitez, un espace pour modifier vous-même vos textes, vos photos et vos prix."
+    ],
+    "stepsTitle": "Le déroulé en 4 étapes",
+    "steps": [
+      "Un appel de 30 minutes, gratuit, pour comprendre votre activité, vos clients et ce que le site doit leur faire faire.",
+      "Un devis détaillé sous 24 h, poste par poste, avec un prix ferme : pas de surprise sur la facture.",
+      "La maquette, que vous validez avant que j'écrive une ligne de code, puis le développement, que vous suivez sur un lien de test.",
+      "La mise en ligne, une prise en main pour modifier vos contenus, puis un suivi si vous le souhaitez."
+    ],
+    "areaTitle": "Grenoble et toute l'Isère",
+    "area": "Je travaille avec des clients à Grenoble, Meylan, Échirolles, Saint-Martin-d'Hères, Voiron et partout en Isère, du Grésivaudan au Vercors. Pour un premier rendez-vous, on peut se voir dans l'agglomération ou s'appeler en visio, comme vous préférez. Le reste se fait très bien à distance, et c'est aussi comme ça que je travaille avec des clients ailleurs en France.",
+    "freelanceTitle": "Pourquoi un freelance plutôt qu'une agence",
+    "freelance": "Dans une agence, la personne qui vous vend le projet n'est pas celle qui le construit, et chaque intermédiaire se retrouve dans le prix. Avec moi, vous parlez directement au développeur : vos demandes ne se perdent pas en route, les décisions se prennent vite et vous savez toujours où en est votre site. Je ne prends que quelques projets à la fois, ce qui me permet de tenir les délais annoncés. Enfin, le site vous appartient : code, nom de domaine et contenus sont à votre nom, et vous pouvez le faire évoluer avec moi ou avec quelqu'un d'autre.",
+    "priceTitle": "Prix et délais",
+    "priceFeatured": "Pour donner un ordre d'idée, la formule {{title}} démarre à {{price}}, pour une mise en ligne en {{duration}}.",
+    "priceShowcase": "Un site vitrine est en général en ligne en 2 semaines, une fois vos textes et vos photos réunis.",
+    "priceFallback": "Chaque formule affiche son prix de départ dans la section Tarifs.",
+    "priceMore": "Un site avec réservation, espace client ou boutique demande plus de travail : le prix et le délai dépendent alors des fonctionnalités, et figurent noir sur blanc dans le devis, gratuit et envoyé sous 24 h.",
+    "cta": "Demander un devis gratuit"
   },
   "experiences": {
     "eyebrow": "Parcours",

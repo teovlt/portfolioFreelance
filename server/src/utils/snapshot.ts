@@ -80,12 +80,16 @@ export const homeSnapshot = async () => {
     .filter((p) => fr(p.duration))
     .map((p) => `${fr(p.title)} : ${fr(p.duration)}.`)
     .join(" ");
+  // Package quoted in the local text, as on the site: the highlighted one, else the first with a price
+  const featured = packages.find((p) => p.popular && priceOf(p)) ?? packages.find((p) => priceOf(p));
   const answer = (text: string) => text.replace(/{{\s*tarifs\s*}}/g, prices).replace(/{{\s*delais\s*}}/g, durations).trim();
 
+  // The "Création de sites web à Grenoble" section repeats localSeo from the
+  // front's fr.json (src/pages/LocalSeo.tsx): keep both in sync
   return wrap(html`${nav}
 <main>
   <section>
-    <h1>Création de site internet à Grenoble : des sites qui vous ramènent des clients.</h1>
+    <h1>Création de sites web à Grenoble : des sites qui vous ramènent des clients.</h1>
     <p>Développeur web freelance à Grenoble. Je crée votre site web sur mesure, du premier appel à la mise en ligne, pour les restaurants, artisans, commerçants, indépendants et associations.</p>
     <a href="/#contact-section">Réserver un appel gratuit</a>
   </section>
@@ -139,6 +143,43 @@ export const homeSnapshot = async () => {
     <h2>À propos</h2>
     <p>Je suis Téo, développeur web freelance à Grenoble. Depuis 4 ans, je crée des sites et des outils pour des indépendants, des petites entreprises et des laboratoires de recherche. Vous parlez directement à la personne qui construit votre site : pas d'agence, pas de sous-traitance.</p>
     <a href="/parcours">Voir mon parcours complet</a>
+  </section>
+
+  <section>
+    <h2>Création de sites web à Grenoble</h2>
+    <p>Je suis développeur web freelance à Grenoble et je crée des sites internet pour les petites entreprises de la ville et du reste de l'Isère. Pas de modèle acheté puis rempli à la hâte : chaque site est dessiné et codé pour votre activité, pensé d'abord pour le téléphone, et construit pour que les personnes qui cherchent ce que vous proposez, près de chez elles, vous trouvent sur Google.</p>
+    <h3>Pour qui</h3>
+    <p>La plupart de mes clients sont des entreprises d'une à dix personnes, qui n'ont ni le temps ni l'envie de devenir experts du web. Ce qu'un site doit faire pour elles change d'un métier à l'autre :</p>
+    <ul>
+      <li><a href="/site-internet-restaurant-grenoble">Site internet pour restaurant à Grenoble</a> : une carte lisible sur mobile et facile à mettre à jour, les horaires, l'accès et un moyen simple de réserver une table.</li>
+      <li><a href="/site-internet-gite-grenoble">Site internet pour gîte autour de Grenoble</a> : des photos qui donnent envie, un calendrier des disponibilités et la réservation en direct, pour moins dépendre des plateformes et de leurs commissions.</li>
+      <li><a href="/site-internet-artisan-grenoble">Site internet pour artisan à Grenoble</a> : vos chantiers en photos, votre zone d'intervention et une demande de devis qui arrive directement dans votre boîte mail.</li>
+      <li><a href="/site-internet-commerce-grenoble">Site internet pour commerce à Grenoble</a> : vos produits, vos horaires et votre adresse bien visibles, avec si besoin un catalogue ou du retrait en boutique.</li>
+      <li><a href="/site-internet-independant-grenoble">Site internet pour indépendant à Grenoble</a> : consultants, thérapeutes, coachs ou professions libérales : une présentation claire de votre approche et la prise de rendez-vous en ligne.</li>
+    </ul>
+    <h3>Ce que comprend un site livré</h3>
+    <ul>
+      <li>Un design sur mesure, à vos couleurs, qui s'adapte au téléphone, à la tablette et à l'ordinateur.</li>
+      <li>Des textes structurés pour le référencement local : titres, descriptions et informations que Google affiche dans ses résultats.</li>
+      <li>Des pages rapides : images optimisées et code léger, parce qu'un visiteur sur mobile n'attend pas.</li>
+      <li>Un formulaire de contact, de devis ou de réservation qui vous envoie chaque demande par e-mail.</li>
+      <li>La mise en ligne avec nom de domaine et HTTPS, l'hébergement et l'assistance inclus pendant 30 jours.</li>
+      <li>Si vous le souhaitez, un espace pour modifier vous-même vos textes, vos photos et vos prix.</li>
+    </ul>
+    <h3>Le déroulé en 4 étapes</h3>
+    <ol>
+      <li>Un appel de 30 minutes, gratuit, pour comprendre votre activité, vos clients et ce que le site doit leur faire faire.</li>
+      <li>Un devis détaillé sous 24 h, poste par poste, avec un prix ferme : pas de surprise sur la facture.</li>
+      <li>La maquette, que vous validez avant que j'écrive une ligne de code, puis le développement, que vous suivez sur un lien de test.</li>
+      <li>La mise en ligne, une prise en main pour modifier vos contenus, puis un suivi si vous le souhaitez.</li>
+    </ol>
+    <h3>Grenoble et toute l'Isère</h3>
+    <p>Je travaille avec des clients à Grenoble, Meylan, Échirolles, Saint-Martin-d'Hères, Voiron et partout en Isère, du Grésivaudan au Vercors. Pour un premier rendez-vous, on peut se voir dans l'agglomération ou s'appeler en visio, comme vous préférez. Le reste se fait très bien à distance, et c'est aussi comme ça que je travaille avec des clients ailleurs en France.</p>
+    <h3>Pourquoi un freelance plutôt qu'une agence</h3>
+    <p>Dans une agence, la personne qui vous vend le projet n'est pas celle qui le construit, et chaque intermédiaire se retrouve dans le prix. Avec moi, vous parlez directement au développeur : vos demandes ne se perdent pas en route, les décisions se prennent vite et vous savez toujours où en est votre site. Je ne prends que quelques projets à la fois, ce qui me permet de tenir les délais annoncés. Enfin, le site vous appartient : code, nom de domaine et contenus sont à votre nom, et vous pouvez le faire évoluer avec moi ou avec quelqu'un d'autre.</p>
+    <h3>Prix et délais</h3>
+    <p>${featured ? `Pour donner un ordre d'idée, la formule ${fr(featured.title)} démarre à ${priceOf(featured)}${fr(featured.duration) ? `, pour une mise en ligne en ${fr(featured.duration)}` : ""}.` : "Chaque formule affiche son prix de départ dans la section Tarifs."} Un site vitrine est en général en ligne en 2 semaines, une fois vos textes et vos photos réunis. Un site avec réservation, espace client ou boutique demande plus de travail : le prix et le délai dépendent alors des fonctionnalités, et figurent noir sur blanc dans le devis, gratuit et envoyé sous 24 h.</p>
+    <a href="/#contact-section">Demander un devis gratuit</a>
   </section>
 
   ${faqs.length > 0 &&
