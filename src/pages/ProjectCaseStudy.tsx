@@ -137,11 +137,21 @@ export const ProjectCaseStudy = () => {
             )}
           </div>
 
-          <ProjectGallery images={[study.image, ...(study.gallery ?? [])].filter(Boolean)} title={study.title} />
-
-          {projectReviews.map((review) => (
-            <ProjectReview key={review._id} review={review} className="mb-16" />
-          ))}
+          <ProjectGallery
+            images={[study.image, ...(study.gallery ?? [])].filter(Boolean)}
+            title={study.title}
+            overlay={
+              projectReviews.length > 0 && projectReviews.map((review) => <ProjectReview key={review._id} review={review} floating />)
+            }
+          />
+          {/* Phones: the screenshot is too small to lay the review over it */}
+          {projectReviews.length > 0 && (
+            <div className="-mt-10 mb-14 space-y-3 sm:hidden">
+              {projectReviews.map((review) => (
+                <ProjectReview key={review._id} review={review} className="bg-card" />
+              ))}
+            </div>
+          )}
 
           <div className="grid sm:grid-cols-2 gap-12 mb-16">
             <div>

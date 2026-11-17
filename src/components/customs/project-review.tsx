@@ -1,6 +1,6 @@
-import { motion } from "framer-motion";
-import { Quote, Star } from "lucide-react";
+import { Star } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useLocalize } from "@/hooks/usePublicContent";
 import { cn } from "@/lib/utils";
 import type { Review } from "@/types/content";
@@ -13,81 +13,61 @@ const initials = (name: string) =>
     .slice(0, 2)
     .toUpperCase();
 
-// The client's review on their project's case study: their photo large, the
-// rating pinned on it and the quote given room to breathe
-export const ProjectReview = ({ review, className }: { review: Review; className?: string }) => {
+// The client's review on their project's case study, as a small card. Set on
+// the screenshot (`floating`), it shows two lines of the quote and unfolds on
+// hover or keyboard focus; below the gallery on phones it's simply shown whole.
+export const ProjectReview = ({ review, floating = false, className }: { review: Review; floating?: boolean; className?: string }) => {
   const { t } = useTranslation();
   const localize = useLocalize();
   const company = localize(review.company);
 
   return (
-    <motion.figure
-      initial={{ opacity: 0, y: 24 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-80px" }}
-      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+    <figure
+      tabIndex={floating ? 0 : undefined}
+      aria-label={t("reviews.projectTitle")}
       className={cn(
-        "relative grid gap-10 overflow-hidden rounded-3xl border border-border bg-card p-6 pb-8 sm:p-10 md:grid-cols-[minmax(0,15rem)_1fr] md:items-center md:gap-14",
+        "group/review rounded-2xl border border-border bg-background/90 p-3.5 shadow-xl backdrop-blur-md outline-none transition-[width,box-shadow] duration-300 ease-out",
+        floating && "w-72 cursor-default hover:w-[25rem] focus-visible:w-[25rem] focus-visible:ring-2 focus-visible:ring-ring",
         className,
       )}
     >
-      <Quote aria-hidden className="pointer-events-none absolute -right-4 -top-6 h-40 w-40 rotate-180 text-accent/15" />
-
-      <div className="relative mx-auto w-44 sm:w-52 md:w-full">
-        <div className="absolute inset-0 translate-x-3 translate-y-3 rotate-3 rounded-[2rem] bg-accent/70" />
-        {review.image ? (
-          <img
-            src={review.image}
-            alt={review.name}
-            loading="lazy"
-            decoding="async"
-            className="relative aspect-square w-full rounded-[2rem] object-cover shadow-xl"
-          />
-        ) : (
-          <div className="relative flex aspect-square w-full items-center justify-center rounded-[2rem] bg-muted font-display text-6xl font-bold text-muted-foreground shadow-xl">
-            {initials(review.name)}
-          </div>
-        )}
-        <div
-          role="img"
-          aria-label={t("a11y.rating", { rating: review.rating })}
-          className="absolute -bottom-4 left-1/2 flex -translate-x-1/2 items-center gap-1.5 whitespace-nowrap rounded-full bg-foreground px-4 py-2 text-background shadow-lg"
-        >
-          <Star className="h-4 w-4 fill-accent text-accent" />
-          <span className="font-display text-lg font-bold leading-none">{review.rating}</span>
-          <span className="text-sm leading-none opacity-60">/ 5</span>
-        </div>
-      </div>
-
-      <div className="relative">
-        <p className="eyebrow mb-4">{t("reviews.projectTitle")}</p>
-        <div className="mb-5 flex gap-1" aria-hidden>
-          {Array.from({ length: 5 }, (_, i) => (
-            <Star key={i} className={cn("h-5 w-5", i < review.rating ? "fill-accent text-accent" : "text-border")} />
-          ))}
-        </div>
-        <blockquote className="font-serif text-2xl italic leading-snug text-foreground sm:text-3xl">
-          “{localize(review.comment)}”
-        </blockquote>
-        <figcaption className="mt-6 flex items-center gap-3 text-sm">
-          <span className="h-px w-8 bg-foreground/40" />
-          <span>
+      <figcaption className="flex items-center gap-3">
+        <Avatar className="h-10 w-10 flex-shrink-0 ring-2 ring-accent ring-offset-2 ring-offset-background">
+          {review.image && <AvatarImage src={review.image} alt={review.name} className="object-cover" />}
+          <AvatarFallback className="text-xs">{initials(review.name)}</AvatarFallback>
+        </Avatar>
+        <div className="min-w-0 flex-1">
+          <p className="truncate text-sm font-semibold">
             {review.website ? (
-              <a
-                href={review.website}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="font-semibold text-foreground underline-offset-4 hover:underline"
-              >
+              <a href={review.website} target="_blank" rel="noopener noreferrer" className="underline-offset-4 hover:underline">
                 {review.name}
               </a>
             ) : (
-              <span className="font-semibold text-foreground">{review.name}</span>
+              review.name
             )}
-            {company && <span className="text-muted-foreground"> · {company}</span>}
-          </span>
-        </figcaption>
-      </div>
-    </motion.figure>
+          </p>
+          {company && <p className="truncate text-xs text-muted-foreground">{company}</p>}
+        </div>
+        <span
+          role="img"
+          aria-label={t("a11y.rating", { rating: review.rating })}
+          className="flex flex-shrink-0 items-center gap-1 rounded-full bg-foreground px-2 py-1 text-xs font-bold text-background"
+        >
+          <Star className="h-3 w-3 fill-accent text-accent" />
+          {review.rating}
+          <span className="font-normal opacity-60">/5</span>
+        </span>
+      </figcaption>
+      {/* Clamped by height rather than line-clamp so unfolding can animate */}
+      <blockquote
+        className={cn(
+          "mt-3 font-serif text-sm italic leading-snug text-foreground",
+          floating &&
+            "max-h-[2.6em] overflow-hidden transition-[max-height] duration-500 ease-out [mask-image:linear-gradient(to_bottom,black_45%,transparent)] group-hover/review:max-h-64 group-hover/review:[mask-image:none] group-focus-visible/review:max-h-64 group-focus-visible/review:[mask-image:none]",
+        )}
+      >
+        “{localize(review.comment)}”
+      </blockquote>
+    </figure>
   );
 };

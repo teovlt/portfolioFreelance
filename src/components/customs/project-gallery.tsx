@@ -1,4 +1,4 @@
-import { useCallback, useState, type KeyboardEvent } from "react";
+import { useCallback, useState, type KeyboardEvent, type ReactNode } from "react";
 import { useTranslation } from "react-i18next";
 import { AnimatePresence, motion, type PanInfo } from "framer-motion";
 import { ChevronLeft, ChevronRight, Pause, Play } from "lucide-react";
@@ -15,8 +15,10 @@ const slideVariants = {
 };
 
 // The case study's screenshots in a browser frame: a plain image when there's
-// one, a swipeable carousel with thumbnails when there are several
-export const ProjectGallery = ({ images, title }: { images: string[]; title: string }) => {
+// one, a swipeable carousel with thumbnails when there are several. `overlay`
+// is laid over the bottom-left of the screenshot from small screens up (the
+// client's review); the page shows it elsewhere on phones.
+export const ProjectGallery = ({ images, title, overlay }: { images: string[]; title: string; overlay?: ReactNode }) => {
   const { t } = useTranslation();
   const [[page, direction], setPage] = useState([0, 0]);
   const count = images.length;
@@ -54,11 +56,16 @@ export const ProjectGallery = ({ images, title }: { images: string[]; title: str
     </div>
   );
 
+  const overlaySlot = overlay && <div className="absolute bottom-3 left-3 z-20 hidden sm:flex flex-col items-start gap-2">{overlay}</div>;
+
   if (!hasSeveral) {
     return (
       <div className="rounded-2xl overflow-hidden border border-border shadow-sm mb-16">
         {frame}
-        <img src={images[0]} alt={title} className="w-full object-cover max-h-[560px]" />
+        <div className="relative">
+          <img src={images[0]} alt={title} className="w-full object-cover max-h-[560px]" />
+          {overlaySlot}
+        </div>
       </div>
     );
   }
@@ -106,6 +113,7 @@ export const ProjectGallery = ({ images, title }: { images: string[]; title: str
           >
             {isPaused ? <Play className="h-3.5 w-3.5" /> : <Pause className="h-3.5 w-3.5" />}
           </button>
+          {overlaySlot}
         </div>
       </div>
 
