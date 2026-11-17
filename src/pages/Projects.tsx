@@ -1,41 +1,114 @@
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { Badge } from "@/components/ui/badge";
-import { ArrowRight } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useProjects } from "@/hooks/useProjects";
-import { ProjectCategory, ProjectStatus } from "@/types/project";
+import { cn } from "@/lib/utils";
+import { ProjectCategory, ProjectStatus, type Project } from "@/types/project";
 import { projectCategory, projectCategoryOrder, sortProjects } from "@/utils/projects";
 
-// Status badge colors
-const statusColors: Record<ProjectStatus, string> = {
-  [ProjectStatus.STARTED]: "bg-amber-500/15 text-amber-600 dark:text-amber-400 border-amber-500/30",
-  [ProjectStatus.ONGOING]: "bg-primary/15 text-primary border-primary/30",
-  [ProjectStatus.DONE]: "bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border-emerald-500/30",
+type Filter = "all" | ProjectCategory;
+
+// Client work and demos get a big tile, personal products a small one
+const isFeatured = (project: Project) => projectCategory(project) !== ProjectCategory.PERSONAL;
+
+// Big tiles take 2×2 cells, small ones 1×1. Laid out big, small, small, big…
+// the dense grid packs them into a checkerboard instead of all the big tiles
+// first and a block of small ones at the end.
+const interleave = (projects: Project[]) => {
+  const big = projects.filter(isFeatured);
+  const small = projects.filter((project) => !isFeatured(project));
+  const out: Project[] = [];
+  while (big.length || small.length) {
+    if (big.length) out.push(big.shift()!);
+    out.push(...small.splice(0, 2));
+  }
+  return out;
 };
 
-const demoBadgeColor = "bg-muted text-muted-foreground border-border";
+// "Demo" and "in progress" markers set on the screenshot; "done" is the
+// default state of a portfolio piece, so it isn't flagged
+const Pills = ({ project }: { project: Project }) => {
+  const { t } = useTranslation();
+  const isDemo = projectCategory(project) === ProjectCategory.DEMO;
+  const showStatus = project.status !== ProjectStatus.DONE;
+  if (!isDemo && !showStatus) return null;
+  const pill =
+    "inline-flex items-center gap-1.5 rounded-full border border-white/25 bg-black/40 px-2.5 py-0.5 text-xs font-medium text-white backdrop-blur";
+  return (
+    <div className="absolute left-3 top-3 flex flex-wrap gap-2 sm:left-4 sm:top-4">
+      {isDemo && <span className={pill}>{t("projects.demoBadge")}</span>}
+      {showStatus && (
+        <span className={pill}>
+          <span className="size-1.5 animate-pulse rounded-full bg-current" />
+          {t(`projects.status.${project.status}`)}
+        </span>
+      )}
+    </div>
+  );
+};
 
-// Each row triggers its own reveal: rows arrive after the fetch, and children
-// mounted after a parent's whileInView already fired would stay hidden
-// (invisible but still clickable), e.g. when coming back from a case study.
-const item = {
-  hidden: { opacity: 0, y: 16 },
-  show: (index: number) => ({ opacity: 1, y: 0, transition: { duration: 0.35, delay: index * 0.06 } }),
+const Tile = ({ project }: { project: Project }) => {
+  const { i18n } = useTranslation();
+  const lang = i18n.language === "en" ? "en" : "fr";
+  const big = isFeatured(project);
+  return (
+    <Link
+      to={`/projects/${project.slug}`}
+      className="group relative block size-full overflow-hidden rounded-2xl border border-border bg-muted sm:rounded-3xl"
+    >
+      <img
+        src={project.image}
+        alt={project.title}
+        loading="lazy"
+        decoding="async"
+        className="absolute inset-0 size-full object-cover object-left-top transition-transform duration-700 ease-out group-hover:scale-105"
+      />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent transition-opacity duration-500 group-hover:from-black/90" />
+      <Pills project={project} />
+      <div className={cn("absolute inset-x-0 bottom-0 flex items-end justify-between gap-4 text-white", big ? "p-5 sm:p-7" : "p-3 sm:p-5")}>
+        <div className="min-w-0">
+          <h3 className={cn("font-display font-bold leading-tight", big ? "text-2xl sm:text-3xl" : "text-sm sm:text-lg")}>
+            {project.title}
+          </h3>
+          {big ? (
+            <p className="mt-1.5 line-clamp-2 max-w-md text-sm text-white/75">{project.tagline[lang]}</p>
+          ) : (
+            // Small tiles only reveal their tagline on hover, on large screens
+            <p className="mt-1 hidden max-h-0 overflow-hidden text-sm text-white/75 opacity-0 transition-all duration-300 group-hover:max-h-12 group-hover:opacity-100 lg:line-clamp-2">
+              {project.tagline[lang]}
+            </p>
+          )}
+        </div>
+        <span
+          className={cn(
+            "flex flex-shrink-0 items-center justify-center rounded-full bg-white/15 backdrop-blur transition-colors group-hover:bg-white group-hover:text-black",
+            big ? "size-11" : "size-8 max-sm:hidden",
+          )}
+        >
+          <ArrowUpRight className="size-4" />
+        </span>
+      </div>
+    </Link>
+  );
 };
 
 export const Projects = () => {
-  const { t, i18n } = useTranslation();
-  const lang = i18n.language === "en" ? "en" : "fr";
+  const { t } = useTranslation();
   const { projects } = useProjects();
-  const [hoveredId, setHoveredId] = useState<string | null>(null);
+  const [filter, setFilter] = useState<Filter>("all");
 
   const sorted = sortProjects(projects);
-  const numbering = new Map(sorted.map((project, index) => [project._id, index]));
-  const groups = projectCategoryOrder
-    .map((category) => ({ category, items: sorted.filter((project) => projectCategory(project) === category) }))
-    .filter((group) => group.items.length > 0);
+  const filters = [
+    { value: "all" as Filter, label: t("projects.filterAll"), count: sorted.length },
+    ...projectCategoryOrder.map((category) => ({
+      value: category as Filter,
+      label: t(`projects.categories.${category}.title`),
+      count: sorted.filter((project) => projectCategory(project) === category).length,
+    })),
+  ].filter((entry) => entry.count > 0);
+  const visible = interleave(filter === "all" ? sorted : sorted.filter((project) => projectCategory(project) === filter));
 
   return (
     <section className="py-20" id="projects-section">
@@ -45,7 +118,7 @@ export const Projects = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="mb-4"
+          className="mb-12"
         >
           <p className="eyebrow mb-4">{t("projects.eyebrow")}</p>
           <div className="flex flex-wrap items-end justify-between gap-6">
@@ -56,71 +129,44 @@ export const Projects = () => {
           </div>
         </motion.div>
 
-        {groups.map(({ category, items }) => (
-          <div key={category} className="mt-12">
-            <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1 mb-2">
-              <h3 className="text-2xl font-display font-bold">{t(`projects.categories.${category}.title`)}</h3>
-              <p className="text-sm text-muted-foreground">{t(`projects.categories.${category}.description`)}</p>
-            </div>
-            {items.map((project, index) => (
+        <div className="-mx-4 mb-8 flex gap-2 overflow-x-auto px-4 pb-1 [scrollbar-width:none] sm:mx-0 sm:flex-wrap sm:px-0">
+          {filters.map(({ value, label, count }) => (
+            <button
+              key={value}
+              type="button"
+              aria-pressed={filter === value}
+              onClick={() => setFilter(value)}
+              className={cn(
+                "flex flex-shrink-0 items-center gap-2 rounded-full border px-4 py-2 text-sm font-medium transition-colors",
+                filter === value ? "border-foreground bg-foreground text-background" : "border-border hover:border-foreground/40",
+              )}
+            >
+              {label}
+              <span className={cn("text-xs", filter === value ? "text-background/60" : "text-muted-foreground")}>{count}</span>
+            </button>
+          ))}
+        </div>
+
+        <motion.div
+          layout
+          className="grid grid-flow-dense auto-rows-[140px] grid-cols-2 gap-3 sm:auto-rows-[200px] sm:gap-4 lg:auto-rows-[220px] lg:grid-cols-4"
+        >
+          <AnimatePresence mode="popLayout" initial={false}>
+            {visible.map((project) => (
               <motion.div
                 key={project._id}
-                variants={item}
-                custom={index}
-                initial="hidden"
-                whileInView="show"
-                viewport={{ once: true }}
+                layout
+                initial={{ opacity: 0, scale: 0.94 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.94 }}
+                transition={{ duration: 0.35, ease: "easeOut" }}
+                className={isFeatured(project) ? "col-span-2 row-span-2" : "col-span-1 row-span-1"}
               >
-                <Link
-                  to={`/projects/${project.slug}`}
-                  className="group flex items-center gap-3 sm:gap-5 py-6 border-t border-border last:border-b hover:bg-muted/40 transition-colors px-2 -mx-2 rounded-lg"
-                >
-                  <span className="font-serif text-xl text-border w-7 sm:w-9 flex-shrink-0 select-none">{String(numbering.get(project._id)! + 1).padStart(2, "0")}</span>
-                  <div className="flex-1 min-w-0">
-                    <h4 className="text-xl sm:text-2xl font-display font-bold transition-colors">{project.title}</h4>
-                    <p className="text-sm text-muted-foreground mt-1.5 line-clamp-1">{project.tagline[lang] || project.stack.join(", ")}</p>
-                  </div>
-                  <Badge className={`${statusColors[project.status]} text-xs font-medium flex-shrink-0 hidden sm:inline-flex`}>
-                    {t(`projects.status.${project.status}`)}
-                  </Badge>
-
-                  <div
-                    className="relative w-20 h-14 sm:w-32 sm:h-20 lg:w-44 lg:h-28 flex-shrink-0"
-                    onMouseEnter={() => setHoveredId(project._id)}
-                    onMouseLeave={() => setHoveredId(null)}
-                  >
-                    <div className="w-full h-full rounded-lg overflow-hidden border border-border shadow-md">
-                      <img
-                        src={project.image}
-                        alt={project.title}
-                        loading="lazy"
-                        decoding="async"
-                        className="w-full h-full object-cover object-top transition-transform duration-300 group-hover:scale-105"
-                      />
-                    </div>
-                    <AnimatePresence>
-                      {hoveredId === project._id && (
-                        <motion.div
-                          initial={{ opacity: 0, scale: 0.85, y: 8 }}
-                          animate={{ opacity: 1, scale: 1, y: 0 }}
-                          exit={{ opacity: 0, scale: 0.85, y: 8 }}
-                          transition={{ duration: 0.2, ease: "easeOut" }}
-                          className="hidden lg:block absolute bottom-full right-0 mb-3 w-96 h-60 rounded-xl overflow-hidden border border-border shadow-2xl z-30 pointer-events-none origin-bottom-right"
-                        >
-                          <img src={project.image} alt={project.title} className="w-full h-full object-cover object-top" />
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
-                  </div>
-
-                  <span className="hidden sm:flex w-9 h-9 rounded-full border border-border items-center justify-center flex-shrink-0 group-hover:bg-accent group-hover:border-accent group-hover:text-accent-foreground transition-colors">
-                    <ArrowRight className="w-4 h-4" />
-                  </span>
-                </Link>
+                <Tile project={project} />
               </motion.div>
             ))}
-          </div>
-        ))}
+          </AnimatePresence>
+        </motion.div>
       </div>
     </section>
   );
