@@ -40,12 +40,17 @@ export enum PhotoSource {
   LINKEDIN = "linkedin",
 }
 
+// The public listing resolves a review's project to what links to it; the
+// dashboard listing keeps the bare id
+export type ReviewProjectRef = { _id: string; slug: string; title: string; image: string };
+
 export type Review = Document & {
   name: string;
   email?: string;
   company: LocalizedText;
   comment: LocalizedText;
   project: LocalizedText;
+  linkedProject?: string | ReviewProjectRef | null;
   rating: number;
   image?: string;
   website?: string;

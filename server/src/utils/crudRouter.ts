@@ -1,5 +1,5 @@
 import { Request, Response, Router } from "express";
-import { FilterQuery, Model, isValidObjectId } from "mongoose";
+import { FilterQuery, Model, PopulateOptions, isValidObjectId } from "mongoose";
 import { requireAuth } from "../middleware/auth.middleware.js";
 import { HttpError } from "../middleware/error.middleware.js";
 import { asyncHandler } from "./asyncHandler.js";
@@ -9,6 +9,8 @@ type CrudOptions = {
   publicFilter?: FilterQuery<unknown>;
   // Fields never sent to the public listing
   publicExclude?: string;
+  // References resolved in the public listing, e.g. a review's project
+  publicPopulate?: PopulateOptions;
   sort?: Record<string, 1 | -1>;
 };
 
@@ -29,7 +31,7 @@ const assertId = (id: string) => {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const createCrudRouter = (
   model: Model<any>,
-  { publicFilter = {}, publicExclude, sort = { order: 1, createdAt: -1 } }: CrudOptions = {},
+  { publicFilter = {}, publicExclude, publicPopulate, sort = { order: 1, createdAt: -1 } }: CrudOptions = {},
 ) => {
   const router = Router();
 
@@ -44,6 +46,7 @@ export const createCrudRouter = (
             .map((field) => `-${field}`)
             .join(" "),
         );
+      if (publicPopulate) query.populate(publicPopulate);
       res.json(await query);
     }),
   );

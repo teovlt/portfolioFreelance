@@ -200,6 +200,8 @@
   },
   "reviews": {
     "leave": "Laisser un avis",
+    "viewProject": "Voir le projet",
+    "projectTitle": "L'avis du client",
     "form": {
       "title": "Laisser un avis",
       "description": "On a travaillé ensemble ? Votre retour compte beaucoup. Il sera publié après relecture.",
@@ -358,6 +360,7 @@
     "playSlides": "Reprendre le défilement",
     "reviewN": "Avis {{n}} sur {{total}}",
     "averageRating": "Note moyenne : {{rating}} sur 5",
+    "rating": "Note : {{rating}} sur 5",
     "photoN": "Photo {{n}} sur {{total}}",
     "prevPhoto": "Photo précédente",
     "nextPhoto": "Photo suivante",

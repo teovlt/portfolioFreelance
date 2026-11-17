@@ -2,7 +2,15 @@ import { Request, Response } from "express";
 import { SITE_URL } from "../utils/site.js";
 import { ContactInfo } from "../models/ContactInfo.js";
 import { findLanding, landingStructuredData } from "../content/landings.js";
-import { escapeHtml, experiencesSnapshot, homeSnapshot, landingSnapshot, loadProject, projectSnapshot } from "../utils/snapshot.js";
+import {
+  escapeHtml,
+  experiencesSnapshot,
+  homeSnapshot,
+  landingSnapshot,
+  loadProject,
+  loadProjectReviews,
+  projectSnapshot,
+} from "../utils/snapshot.js";
 
 // Link previews (LinkedIn, WhatsApp, X, Slack...) don't run JavaScript: they
 // only see the meta tags of the HTML they download. The site is a single
@@ -117,7 +125,7 @@ const pageFor = async (path: string): Promise<Page | null | undefined> => {
       imageAlt: project.title,
       type: "article",
     },
-    snapshot: projectSnapshot(project),
+    snapshot: projectSnapshot(project, await loadProjectReviews(project._id)),
   };
 };
 

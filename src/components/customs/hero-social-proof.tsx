@@ -2,7 +2,8 @@ import { useCallback, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { ChevronLeft, ChevronRight, Pause, PenLine, Play, Star } from "lucide-react";
+import { ArrowUpRight, ChevronLeft, ChevronRight, Pause, PenLine, Play, Star } from "lucide-react";
+import { Link } from "react-router-dom";
 import { useAutoplay } from "@/hooks/useAutoplay";
 import { openReviewDialog } from "@/utils/reviewDialog";
 import { useLocalize, usePublicContent } from "@/hooks/usePublicContent";
@@ -28,10 +29,14 @@ export function HeroSocialProof() {
   const { isPaused, liveMode, togglePause, holdProps } = useAutoplay(next, 4200, reviews.length > 1);
 
   const active = reviews[index];
+  // Only the public listing resolves the project; a hidden one comes back null
+  const linkedProject = typeof active?.linkedProject === "object" ? active.linkedProject : null;
 
   if (!active) return null;
 
   const average = reviews.reduce((sum, r) => sum + r.rating, 0) / reviews.length;
+  // Room for the project link on every slide, so the card doesn't jump between reviews
+  const anyLinked = reviews.some((r) => r.linkedProject && typeof r.linkedProject === "object");
 
   return (
     <motion.div
@@ -78,7 +83,7 @@ export function HeroSocialProof() {
               role="group"
               aria-roledescription="slide"
               aria-label={t("a11y.reviewN", { n: index + 1, total: reviews.length })}
-              className="min-h-[9.5rem]"
+              className={anyLinked ? "min-h-[12rem]" : "min-h-[9.5rem]"}
             >
               <p className="font-serif italic text-xl sm:text-2xl leading-snug text-foreground line-clamp-4 mb-5">
                 "{localize(active.comment)}"
@@ -98,6 +103,16 @@ export function HeroSocialProof() {
                 )}{" "}
                 {localize(active.company) && <> · {localize(active.company)}</>}
               </p>
+              {linkedProject && (
+                <Link
+                  to={`/projects/${linkedProject.slug}`}
+                  className="group/link mt-3 inline-flex items-center gap-2 rounded-full border border-border py-1 pl-1 pr-3 text-xs font-semibold transition-colors hover:border-foreground"
+                >
+                  <img src={linkedProject.image} alt="" className="h-6 w-9 rounded-full object-cover object-left-top" />
+                  {t("reviews.viewProject")} · {linkedProject.title}
+                  <ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover/link:-translate-y-0.5 group-hover/link:translate-x-0.5" />
+                </Link>
+              )}
             </motion.div>
           </AnimatePresence>
         </div>

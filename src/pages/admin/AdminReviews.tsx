@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { toast } from "sonner";
-import { Check, EyeOff, Linkedin, Mail, MessageSquareQuote, Star } from "lucide-react";
+import { Check, EyeOff, FolderKanban, Linkedin, Mail, MessageSquareQuote, Star } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -14,9 +14,12 @@ import { Field, LocalizedField } from "@/components/admin/fields";
 import { ImageUpload } from "@/components/admin/ImageUpload";
 import { useEditor } from "@/components/admin/useEditor";
 import { useAdminCollection } from "@/hooks/useAdminCollection";
+import { useProjects } from "@/hooks/useProjects";
 import { ApiError } from "@/lib/api";
 import { cn } from "@/lib/utils";
 import { PhotoSource, ReviewStatus, type Review } from "@/types/content";
+import type { Project } from "@/types/project";
+import { sortProjects } from "@/utils/projects";
 
 export const reviewStatusMeta: Record<ReviewStatus, { label: string; dot: string; badge: string }> = {
   [ReviewStatus.PENDING]: {
@@ -57,6 +60,7 @@ const schema = z.object({
   status: z.nativeEnum(ReviewStatus),
   company: optionalText,
   project: optionalText,
+  linkedProject: z.string(),
   comment: optionalText.refine((value) => value.fr.trim() || value.en.trim(), { message: "Requis dans au moins une langue", path: ["fr"] }),
 });
 
@@ -78,7 +82,11 @@ const Stars = ({ rating, className }: { rating: number; className?: string }) =>
   </span>
 );
 
-const ReviewForm = ({ item, onSubmit }: { item?: Review; onSubmit: (values: FormValues) => void }) => {
+// The dashboard listing returns the bare id, the public one the populated project
+const linkedProjectId = (review?: Review) =>
+  typeof review?.linkedProject === "string" ? review.linkedProject : (review?.linkedProject?._id ?? "");
+
+const ReviewForm = ({ item, projects, onSubmit }: { item?: Review; projects: Project[]; onSubmit: (values: FormValues) => void }) => {
   const {
     register,
     handleSubmit,
@@ -96,9 +104,18 @@ const ReviewForm = ({ item, onSubmit }: { item?: Review; onSubmit: (values: Form
       status: item?.status ?? ReviewStatus.PUBLISHED,
       company: item?.company ?? { fr: "", en: "" },
       project: item?.project ?? { fr: "", en: "" },
+      linkedProject: linkedProjectId(item),
       comment: item?.comment ?? { fr: "", en: "" },
     },
   });
+
+  // The form can open before the projects are loaded: the select then has no
+  // matching option and falls back to "none", which saving would write back.
+  // Re-apply the review's project once its option exists.
+  const hasProjects = projects.length > 0;
+  useEffect(() => {
+    if (hasProjects) setValue("linkedProject", linkedProjectId(item));
+  }, [hasProjects, item, setValue]);
   const [image, rating] = watch(["image", "rating"]);
 
   return (
@@ -184,6 +201,22 @@ const ReviewForm = ({ item, onSubmit }: { item?: Review; onSubmit: (values: Form
       <LocalizedField label="Avis" multiline rows={5} fr={register("comment.fr")} en={register("comment.en")} errors={errors.comment} />
       <LocalizedField label="Poste / entreprise" optional fr={register("company.fr")} en={register("company.en")} />
       <LocalizedField label="Projet concerné" optional fr={register("project.fr")} en={register("project.en")} />
+      <Field
+        label="Projet du portfolio"
+        htmlFor="linkedProject"
+        optional
+        hint="Ajoute un lien « Voir le projet » sur l'avis et affiche l'avis, avec la photo et la note, sur la page du projet."
+      >
+        <Select id="linkedProject" {...register("linkedProject")}>
+          <option value="">Aucun</option>
+          {projects.map((project) => (
+            <option key={project._id} value={project._id}>
+              {project.title}
+              {project.visible ? "" : " (masqué)"}
+            </option>
+          ))}
+        </Select>
+      </Field>
     </form>
   );
 };
@@ -193,6 +226,9 @@ type Filter = "all" | ReviewStatus;
 export const AdminReviews = () => {
   const { items, isLoading, error, save, remove, move } = useAdminCollection<Review>("reviews");
   const editor = useEditor(save, items);
+  const { projects } = useProjects({ admin: true });
+  const sortedProjects = useMemo(() => sortProjects(projects), [projects]);
+  const projectTitle = (review: Review) => projects.find((project) => project._id === linkedProjectId(review))?.title;
   const [filter, setFilter] = useState<Filter>("all");
   const [initialFilterSet, setInitialFilterSet] = useState(false);
 
@@ -309,6 +345,12 @@ export const AdminReviews = () => {
                 )}
               </div>
               {(r.company.fr || r.company.en) && <p className="truncate text-xs text-muted-foreground">{r.company.fr || r.company.en}</p>}
+              {projectTitle(r) && (
+                <p className="mt-1 inline-flex items-center gap-1.5 text-xs font-medium text-primary">
+                  <FolderKanban className="h-3 w-3" />
+                  {projectTitle(r)}
+                </p>
+              )}
               <p className="mt-1.5 line-clamp-2 text-sm text-foreground/80">"{r.comment.fr || r.comment.en}"</p>
               {r.email && (
                 <a
@@ -329,7 +371,7 @@ export const AdminReviews = () => {
         title={editor.item ? `Avis de ${editor.item.name}` : "Nouvel avis"}
         isSubmitting={editor.isSubmitting}
       >
-        <ReviewForm item={editor.item} onSubmit={editor.submit} />
+        <ReviewForm item={editor.item} projects={sortedProjects} onSubmit={editor.submit} />
       </EditorDialog>
     </>
   );

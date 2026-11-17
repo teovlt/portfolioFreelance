@@ -22,7 +22,12 @@ const reviewSchema = new Schema(
     email: { type: String, trim: true, lowercase: true },
     company: optionalBilingualText,
     comment: optionalBilingualText,
+    // What the author wrote about the project (free text from the public form)
     project: optionalBilingualText,
+    // The portfolio project this review is about, set from the dashboard: adds
+    // a "see the project" link to the review and shows it on the case study.
+    // The dashboard sends "" for "none".
+    linkedProject: { type: Schema.Types.ObjectId, ref: "Project", default: null, set: (value: unknown) => value || null },
     rating: { type: Number, min: 1, max: 5, default: 5 },
     image: { type: String },
     website: { type: String, trim: true },

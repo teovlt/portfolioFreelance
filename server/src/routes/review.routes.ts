@@ -8,6 +8,9 @@ import { createCrudRouter } from "../utils/crudRouter.js";
 export const reviewRouter = createCrudRouter(Review, {
   publicFilter: { status: ReviewStatus.PUBLISHED },
   publicExclude: "email submitted status photoSource",
+  // Just what the "see the project" link and the case study need; a hidden
+  // project comes back as null so the site never links to it
+  publicPopulate: { path: "linkedProject", select: "slug title image", match: { visible: { $ne: false } } },
 });
 
 const submitLimiter = rateLimit({

@@ -10,12 +10,17 @@ import { useProjects } from "@/hooks/useProjects";
 import { ProjectCategory } from "@/types/project";
 import { projectCategory, sortProjects } from "@/utils/projects";
 import { ProjectGallery } from "@/components/customs/project-gallery";
+import { ProjectReview } from "@/components/customs/project-review";
+import { usePublicContent } from "@/hooks/usePublicContent";
+import type { Review } from "@/types/content";
 
 export const ProjectCaseStudy = () => {
   const { slug } = useParams();
   const { t, i18n } = useTranslation();
   const lang = i18n.language === "fr" ? "fr" : "en";
   const { projects, isLoading, error, refresh } = useProjects();
+  // Shares the request the home page's review card already made
+  const { data: reviews } = usePublicContent<Review[]>("/reviews", []);
 
   // Keeps the page's height while loading so the footer doesn't jump up
   if (isLoading) return <section className="min-h-screen" aria-busy="true" />;
@@ -43,6 +48,7 @@ export const ProjectCaseStudy = () => {
   const isDemo = projectCategory(study) === ProjectCategory.DEMO;
   const currentIndex = sorted.findIndex((p) => p.slug === slug);
   const next = sorted[(currentIndex + 1) % sorted.length];
+  const projectReviews = reviews.filter((review) => typeof review.linkedProject === "object" && review.linkedProject?.slug === study.slug);
 
   return (
     <section className="pt-32 pb-24 px-4">
@@ -132,6 +138,10 @@ export const ProjectCaseStudy = () => {
           </div>
 
           <ProjectGallery images={[study.image, ...(study.gallery ?? [])].filter(Boolean)} title={study.title} />
+
+          {projectReviews.map((review) => (
+            <ProjectReview key={review._id} review={review} className="mb-16" />
+          ))}
 
           <div className="grid sm:grid-cols-2 gap-12 mb-16">
             <div>

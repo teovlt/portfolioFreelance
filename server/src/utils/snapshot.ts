@@ -202,7 +202,12 @@ ${footer}`);
 type ProjectDoc = NonNullable<Awaited<ReturnType<typeof loadProject>>>;
 export const loadProject = (slug: string) => Project.findOne({ slug, visible: { $ne: false } }).lean();
 
-export const projectSnapshot = (p: ProjectDoc) =>
+// Published reviews linked to a project, shown on its case study
+export const loadProjectReviews = (projectId: unknown) =>
+  Review.find({ status: ReviewStatus.PUBLISHED, linkedProject: projectId }).sort({ order: 1 }).lean();
+type ReviewDoc = Awaited<ReturnType<typeof loadProjectReviews>>[number];
+
+export const projectSnapshot = (p: ProjectDoc, reviews: ReviewDoc[] = []) =>
   wrap(html`${nav}
 <main>
   <article>
@@ -218,6 +223,15 @@ export const projectSnapshot = (p: ProjectDoc) =>
     <p>${fr(p.approach)}</p>
     ${p.features.length > 0 && html`<h2>Fonctionnalités</h2><ul>${list(p.features, (f) => html`<li>${fr(f)}</li>`)}</ul>`}
     ${p.stack.length > 0 && html`<p>Technologies : ${p.stack.join(", ")}</p>`}
+    ${reviews.length > 0 &&
+    html`<h2>L'avis du client</h2>
+    ${list(
+      reviews,
+      (r) => html`<blockquote>
+        <p>${fr(r.comment)}</p>
+        <footer>${r.name}${fr(r.company) && html`, ${fr(r.company)}`} (${r.rating}/5)</footer>
+      </blockquote>`,
+    )}`}
   </article>
   <p><a href="/#contact-section">Un projet similaire ? Réservez un appel gratuit</a></p>
 </main>

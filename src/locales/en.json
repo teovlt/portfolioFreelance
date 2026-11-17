@@ -200,6 +200,8 @@
   },
   "reviews": {
     "leave": "Leave a review",
+    "viewProject": "See the project",
+    "projectTitle": "What the client says",
     "form": {
       "title": "Leave a review",
       "description": "Did we work together? Your feedback means a lot. It will be published after review.",
@@ -358,6 +360,7 @@
     "playSlides": "Resume slideshow",
     "reviewN": "Review {{n}} of {{total}}",
     "averageRating": "Average rating: {{rating}} out of 5",
+    "rating": "Rating: {{rating}} out of 5",
     "photoN": "Photo {{n}} of {{total}}",
     "prevPhoto": "Previous photo",
     "nextPhoto": "Next photo",
