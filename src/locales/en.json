@@ -113,7 +113,9 @@
     "priceShowcase": "A showcase site is usually live in 2 weeks, once your text and photos are ready.",
     "priceFallback": "Each plan shows its starting price in the Pricing section.",
     "priceMore": "A site with booking, a client area or a shop takes more work: the price and timeline then depend on the features, and are spelled out in the quote, free and sent within 24 hours.",
-    "cta": "Ask for a free quote"
+    "cta": "Ask for a free quote",
+    "more": "Read more",
+    "less": "Show less"
   },
   "experiences": {
     "eyebrow": "Background",

@@ -113,7 +113,9 @@
     "priceShowcase": "Un site vitrine est en général en ligne en 2 semaines, une fois vos textes et vos photos réunis.",
     "priceFallback": "Chaque formule affiche son prix de départ dans la section Tarifs.",
     "priceMore": "Un site avec réservation, espace client ou boutique demande plus de travail : le prix et le délai dépendent alors des fonctionnalités, et figurent noir sur blanc dans le devis, gratuit et envoyé sous 24 h.",
-    "cta": "Demander un devis gratuit"
+    "cta": "Demander un devis gratuit",
+    "more": "Lire la suite",
+    "less": "Réduire"
   },
   "experiences": {
     "eyebrow": "Parcours",
