@@ -24,7 +24,7 @@ createRoot(document.getElementById("root")!).render(
       <AuthProvider>
         <HelmetProvider>
           {/* Title of pages that don't set their own (e.g. the admin) */}
-          <Helmet defaultTitle="Création de site internet à Grenoble | Téo Villet" />
+          <Helmet defaultTitle="Création de sites web à Grenoble | Téo Villet, développeur freelance" />
           {/* Entrance animations fall back to plain fades for reduced-motion users */}
           <MotionConfig reducedMotion="user">
             <RouterProvider router={router} />
