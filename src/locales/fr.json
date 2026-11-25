@@ -196,7 +196,19 @@
     },
     "demoBadge": "Démo",
     "filterAll": "Tous",
-    "demoNotice": "Site de démonstration : ce commerce est fictif. Les noms, prix, avis et coordonnées sont inventés."
+    "demoNotice": "Site de démonstration : ce commerce est fictif. Les noms, prix, avis et coordonnées sont inventés.",
+    "kind": {
+      "client": "Projet client",
+      "demo": "Site de démo",
+      "personal": "Projet perso"
+    },
+    "meta": {
+      "year": "Année",
+      "role": "Rôle",
+      "stack": "Stack"
+    },
+    "previous": "Projet précédent",
+    "next": "Projet suivant"
   },
   "reviews": {
     "leave": "Laisser un avis",

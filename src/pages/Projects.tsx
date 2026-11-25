@@ -1,6 +1,16 @@
-import { useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
-import { ArrowUpRight } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import {
+  AnimatePresence,
+  motion,
+  useMotionTemplate,
+  useMotionValueEvent,
+  useReducedMotion,
+  useScroll,
+  useSpring,
+  useTransform,
+  type MotionValue,
+} from "framer-motion";
+import { ArrowLeft, ArrowRight, ArrowUpRight, Briefcase, FlaskConical, Sparkles, type LucideIcon } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useProjects } from "@/hooks/useProjects";
@@ -10,87 +20,270 @@ import { projectCategory, projectCategoryOrder, sortProjects } from "@/utils/pro
 
 type Filter = "all" | ProjectCategory;
 
-// Client work and demos get a big tile, personal products a small one
-const isFeatured = (project: Project) => projectCategory(project) !== ProjectCategory.PERSONAL;
+const ease = [0.22, 1, 0.36, 1] as const;
+const pad = (n: number) => String(n).padStart(2, "0");
 
-// Big tiles take 2×2 cells, small ones 1×1. Laid out big, small, small, big…
-// the dense grid packs them into a checkerboard instead of all the big tiles
-// first and a block of small ones at the end.
-const interleave = (projects: Project[]) => {
-  const big = projects.filter(isFeatured);
-  const small = projects.filter((project) => !isFeatured(project));
-  const out: Project[] = [];
-  while (big.length || small.length) {
-    if (big.length) out.push(big.shift()!);
-    out.push(...small.splice(0, 2));
-  }
-  return out;
+// Each kind of project gets its own colour and icon, so a visitor tells a
+// real client site from a demo or a side project at a glance
+const kinds: Record<ProjectCategory, { icon: LucideIcon; badge: string; dot: string }> = {
+  // Taken from the site's palette (theme tokens), so trade pages recolour
+  // them along with the rest of the page
+  [ProjectCategory.CLIENT]: { icon: Briefcase, badge: "bg-primary text-primary-foreground", dot: "bg-primary" },
+  [ProjectCategory.DEMO]: { icon: FlaskConical, badge: "bg-accent text-accent-foreground", dot: "bg-accent" },
+  [ProjectCategory.PERSONAL]: { icon: Sparkles, badge: "bg-foreground text-background", dot: "bg-foreground" },
 };
 
-// "Demo" and "in progress" markers set on the screenshot; "done" is the
-// default state of a portfolio piece, so it isn't flagged
-const Pills = ({ project }: { project: Project }) => {
+const KindBadge = ({ project, size = "lg" }: { project: Project; size?: "sm" | "lg" }) => {
   const { t } = useTranslation();
-  const isDemo = projectCategory(project) === ProjectCategory.DEMO;
-  const showStatus = project.status !== ProjectStatus.DONE;
-  if (!isDemo && !showStatus) return null;
-  const pill =
-    "inline-flex items-center gap-1.5 rounded-full border border-white/25 bg-black/40 px-2.5 py-0.5 text-xs font-medium text-white backdrop-blur";
+  const category = projectCategory(project);
+  const { icon: Icon, badge } = kinds[category];
   return (
-    <div className="absolute left-3 top-3 flex flex-wrap gap-2 sm:left-4 sm:top-4">
-      {isDemo && <span className={pill}>{t("projects.demoBadge")}</span>}
-      {showStatus && (
-        <span className={pill}>
-          <span className="size-1.5 animate-pulse rounded-full bg-current" />
-          {t(`projects.status.${project.status}`)}
-        </span>
+    <span
+      className={cn(
+        "inline-flex items-center gap-1.5 rounded-full font-bold uppercase tracking-[0.12em] shadow-sm",
+        size === "lg" ? "px-3.5 py-1.5 text-xs sm:text-sm" : "px-3 py-1 text-[11px]",
+        badge,
       )}
-    </div>
+    >
+      <Icon className={size === "lg" ? "size-4" : "size-3.5"} />
+      {t(`projects.kind.${category}`)}
+    </span>
   );
 };
 
-const Tile = ({ project }: { project: Project }) => {
-  const { i18n } = useTranslation();
-  const lang = i18n.language === "en" ? "en" : "fr";
-  const big = isFeatured(project);
-  return (
-    <Link
-      to={`/projects/${project.slug}`}
-      className="group relative block size-full overflow-hidden rounded-2xl border border-border bg-muted sm:rounded-3xl"
-    >
-      <img
-        src={project.image}
-        alt={project.title}
-        loading="lazy"
-        decoding="async"
-        className="absolute inset-0 size-full object-cover object-left-top transition-transform duration-700 ease-out group-hover:scale-105"
-      />
-      <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent transition-opacity duration-500 group-hover:from-black/90" />
-      <Pills project={project} />
-      <div className={cn("absolute inset-x-0 bottom-0 flex items-end justify-between gap-4 text-white", big ? "p-5 sm:p-7" : "p-3 sm:p-5")}>
-        <div className="min-w-0">
-          <h3 className={cn("font-display font-bold leading-tight", big ? "text-2xl sm:text-3xl" : "text-sm sm:text-lg")}>
-            {project.title}
-          </h3>
-          {big ? (
-            <p className="mt-1.5 line-clamp-2 max-w-md text-sm text-white/75">{project.tagline[lang]}</p>
-          ) : (
-            // Small tiles only reveal their tagline on hover, on large screens
-            <p className="mt-1 hidden max-h-0 overflow-hidden text-sm text-white/75 opacity-0 transition-all duration-300 group-hover:max-h-12 group-hover:opacity-100 lg:line-clamp-2">
-              {project.tagline[lang]}
-            </p>
-          )}
-        </div>
-        <span
-          className={cn(
-            "flex flex-shrink-0 items-center justify-center rounded-full bg-white/15 backdrop-blur transition-colors group-hover:bg-white group-hover:text-black",
-            big ? "size-11" : "size-8 max-sm:hidden",
-          )}
+// Scrolling through the tall wrapper moves a 0→1 progress while the stage
+// stays pinned to the screen
+const useRail = (count: number) => {
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end end"] });
+  const progress = useSpring(scrollYProgress, { stiffness: 110, damping: 28, mass: 0.5 });
+  const [active, setActive] = useState(0);
+  useMotionValueEvent(progress, "change", (v) => setActive(Math.min(count - 1, Math.max(0, Math.round(v * (count - 1))))));
+  return { ref, progress, active };
+};
+
+// Horizontal offset of the track: first card centred at 0, last one at 1
+const useTrackX = (progress: MotionValue<number>, count: number) => {
+  const track = useRef<HTMLDivElement>(null);
+  const [bounds, setBounds] = useState({ from: 0, to: 0 });
+  useEffect(() => {
+    const measure = () => {
+      const el = track.current;
+      const card = el?.firstElementChild as HTMLElement | null;
+      if (!el || !card) return;
+      const vw = document.documentElement.clientWidth;
+      setBounds({ from: vw / 2 - card.offsetWidth / 2, to: vw / 2 - (el.scrollWidth - card.offsetWidth / 2) });
+    };
+    measure();
+    window.addEventListener("resize", measure);
+    return () => window.removeEventListener("resize", measure);
+  }, [count]);
+  return { track, x: useTransform(progress, [0, 1], [bounds.from, bounds.to]) };
+};
+
+// Words slide up from behind a mask, one after the other
+const RevealText = ({ text }: { text: string }) => (
+  <span className="inline-flex flex-wrap gap-x-[0.25em]">
+    {text.split(" ").map((word, i) => (
+      <span key={i} className="overflow-hidden pb-[0.08em]">
+        <motion.span
+          className="inline-block"
+          initial={{ y: "110%", rotate: 4 }}
+          animate={{ y: "0%", rotate: 0 }}
+          transition={{ duration: 0.7, ease, delay: 0.05 + i * 0.05 }}
         >
-          <ArrowUpRight className="size-4" />
+          {word}
+        </motion.span>
+      </span>
+    ))}
+  </span>
+);
+
+// Number that rolls vertically when it changes
+const Rolling = ({ value, className }: { value: string; className?: string }) => (
+  <span className={cn("relative inline-flex overflow-hidden", className)}>
+    <AnimatePresence mode="popLayout" initial={false}>
+      <motion.span
+        key={value}
+        initial={{ y: "100%" }}
+        animate={{ y: "0%" }}
+        exit={{ y: "-100%" }}
+        transition={{ duration: 0.5, ease }}
+        className="inline-block"
+      >
+        {value}
+      </motion.span>
+    </AnimatePresence>
+  </span>
+);
+
+const Card = ({ project, index, count, progress }: { project: Project; index: number; count: number; progress: MotionValue<number> }) => {
+  const reduce = useReducedMotion();
+  // 0 when this card is centred, ±1 one card away
+  const d = useTransform(progress, (v) => v * (count - 1) - index);
+  const rotateY = useTransform(d, [-1, 0, 1], reduce ? [0, 0, 0] : [35, 0, -35]);
+  const scale = useTransform(d, [-1, 0, 1], [0.8, 1, 0.8]);
+  const opacity = useTransform(d, [-2, 0, 2], [0.25, 1, 0.25]);
+  // Stays sharp until a card is well on its way out, and only softens lightly
+  const blur = useTransform(d, [-2, -0.6, 0.6, 2], reduce ? [0, 0, 0, 0] : [3, 0, 0, 3]);
+  const filter = useMotionTemplate`blur(${blur}px)`;
+  // Small sideways drift; the image is only scaled enough to hide its edges
+  const imgX = useTransform(d, [-1, 1], reduce ? ["0%", "0%"] : ["3%", "-3%"]);
+
+  return (
+    <motion.div style={{ rotateY, scale, opacity, filter }} className="w-[78vw] flex-shrink-0 sm:w-[54vw] lg:w-[42vw]">
+      <Link
+        to={`/projects/${project.slug}`}
+        className="group relative block aspect-[16/10] overflow-hidden rounded-3xl border border-border bg-muted shadow-2xl"
+      >
+        <motion.img
+          style={{ x: imgX, scale: 1.07 }}
+          src={project.image}
+          alt={project.title}
+          loading="lazy"
+          decoding="async"
+          className="absolute inset-0 size-full object-cover object-top"
+        />
+        <span className="absolute right-4 top-4 flex size-11 scale-75 items-center justify-center rounded-full bg-white text-black opacity-0 transition-all duration-300 group-hover:scale-100 group-hover:opacity-100">
+          <ArrowUpRight className="size-5" />
         </span>
+      </Link>
+    </motion.div>
+  );
+};
+
+const Rail = ({ projects }: { projects: Project[] }) => {
+  const { t, i18n } = useTranslation();
+  const lang = i18n.language === "en" ? "en" : "fr";
+  const { ref, progress, active } = useRail(projects.length);
+  const { track, x } = useTrackX(progress, projects.length);
+  const project = projects[active];
+  const category = projectCategory(project);
+
+  // The rail is driven by the page scroll, so moving to a project means
+  // scrolling to the matching point of the tall wrapper
+  const goTo = (index: number) => {
+    const el = ref.current;
+    if (!el || index < 0 || index >= projects.length) return;
+    const top = el.getBoundingClientRect().top + window.scrollY;
+    const length = el.offsetHeight - window.innerHeight;
+    window.scrollTo({ top: top + (length * index) / Math.max(projects.length - 1, 1), behavior: "smooth" });
+  };
+
+  return (
+    <div ref={ref} style={{ height: `${Math.max(projects.length, 2) * 75}vh` }} className="relative">
+      <div className="sticky top-0 flex h-screen flex-col justify-center overflow-hidden pt-20" style={{ perspective: 1600 }}>
+        <motion.div ref={track} style={{ x }} className="flex w-max items-center gap-[5vw]">
+          {projects.map((p, i) => (
+            <Card key={p._id} project={p} index={i} count={projects.length} progress={progress} />
+          ))}
+        </motion.div>
+
+        <div className="container mx-auto mt-8 grid gap-5 px-4 sm:px-6 md:grid-cols-[auto_1fr_auto] md:items-start lg:px-8">
+          <Rolling value={pad(active + 1)} className="hidden font-display text-5xl font-bold leading-none text-muted-foreground/40 md:inline-flex" />
+
+          <div key={project._id} className="min-w-0">
+            <motion.div
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, ease }}
+              className="mb-3 flex flex-wrap items-center gap-x-3 gap-y-1.5"
+            >
+              <KindBadge project={project} />
+              {project.status !== ProjectStatus.DONE && (
+                <span className="inline-flex items-center gap-1.5 text-xs font-medium text-muted-foreground">
+                  <span className="size-1.5 animate-pulse rounded-full bg-current" />
+                  {t(`projects.status.${project.status}`)}
+                </span>
+              )}
+              <span className="hidden text-sm text-muted-foreground sm:inline">{t(`projects.categories.${category}.description`)}</span>
+            </motion.div>
+            <h3 className="font-display text-3xl font-bold leading-tight sm:text-4xl">
+              <Link to={`/projects/${project.slug}`} className="hover:underline hover:decoration-2 hover:underline-offset-4">
+                <RevealText text={project.title} />
+              </Link>
+            </h3>
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.2 }}
+              className="mt-2 line-clamp-2 max-w-xl text-muted-foreground"
+            >
+              {project.tagline[lang]}
+            </motion.p>
+          </div>
+
+          <dl key={`${project._id}-meta`} className="hidden gap-x-8 gap-y-3 text-sm sm:grid sm:grid-cols-[auto_1fr] md:w-[24rem]">
+            <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1, ease }}>
+              <dt className="text-xs uppercase tracking-[0.18em] text-muted-foreground">{t("projects.meta.year")}</dt>
+              <dd className="mt-0.5 whitespace-nowrap font-medium">{project.timeline[lang]}</dd>
+            </motion.div>
+            <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.16, ease }}>
+              <dt className="text-xs uppercase tracking-[0.18em] text-muted-foreground">{t("projects.meta.role")}</dt>
+              <dd className="mt-0.5 font-medium">{project.role[lang]}</dd>
+            </motion.div>
+            <div className="col-span-2">
+              <dt className="mb-1.5 text-xs uppercase tracking-[0.18em] text-muted-foreground">{t("projects.meta.stack")}</dt>
+              <dd className="flex flex-wrap gap-1.5">
+                {project.stack.map((s, i) => (
+                  <motion.span
+                    key={s}
+                    initial={{ opacity: 0, y: 8, scale: 0.9 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    transition={{ duration: 0.4, ease, delay: 0.15 + i * 0.04 }}
+                    className="rounded-full border border-border bg-background px-2.5 py-0.5 text-xs font-medium text-foreground/80"
+                  >
+                    {s}
+                  </motion.span>
+                ))}
+              </dd>
+            </div>
+          </dl>
+        </div>
+
+        <div className="container mx-auto mt-8 flex items-center gap-4 px-4 sm:px-6 lg:px-8">
+          {/* One segment per project, tinted with its kind's colour; each one jumps to its project */}
+          <div className="flex flex-1 items-center gap-1.5">
+            {projects.map((p, i) => (
+              <button
+                key={p._id}
+                type="button"
+                onClick={() => goTo(i)}
+                aria-label={p.title}
+                aria-current={i === active}
+                className="group flex-1 py-2"
+              >
+                <span className="block h-1 overflow-hidden rounded-full bg-border transition-colors group-hover:bg-muted-foreground/40">
+                  <motion.span
+                    className={cn("block h-full origin-left", kinds[projectCategory(p)].dot)}
+                    animate={{ scaleX: i <= active ? 1 : 0 }}
+                    transition={{ duration: 0.5, ease }}
+                  />
+                </span>
+              </button>
+            ))}
+          </div>
+          {/* For visitors who'd rather click than scroll sideways */}
+          <div className="flex gap-2">
+            {[
+              { to: active - 1, icon: ArrowLeft, label: t("projects.previous") },
+              { to: active + 1, icon: ArrowRight, label: t("projects.next") },
+            ].map(({ to, icon: Icon, label }) => (
+              <button
+                key={label}
+                type="button"
+                onClick={() => goTo(to)}
+                disabled={to < 0 || to >= projects.length}
+                aria-label={label}
+                className="flex size-10 items-center justify-center rounded-full border border-border text-muted-foreground transition-all hover:border-foreground hover:text-foreground active:scale-90 disabled:pointer-events-none disabled:opacity-30"
+              >
+                <Icon className="size-4" />
+              </button>
+            ))}
+          </div>
+        </div>
       </div>
-    </Link>
+    </div>
   );
 };
 
@@ -98,6 +291,7 @@ export const Projects = () => {
   const { t } = useTranslation();
   const { projects } = useProjects();
   const [filter, setFilter] = useState<Filter>("all");
+  const railStart = useRef<HTMLDivElement>(null);
 
   const sorted = sortProjects(projects);
   const filters = [
@@ -108,17 +302,24 @@ export const Projects = () => {
       count: sorted.filter((project) => projectCategory(project) === category).length,
     })),
   ].filter((entry) => entry.count > 0);
-  const visible = interleave(filter === "all" ? sorted : sorted.filter((project) => projectCategory(project) === filter));
+  const visible = filter === "all" ? sorted : sorted.filter((project) => projectCategory(project) === filter);
+
+  const pick = (value: Filter) => {
+    setFilter(value);
+    // A new list starts back on its first project
+    const top = railStart.current?.getBoundingClientRect().top;
+    if (top !== undefined && top < 0) window.scrollBy({ top, behavior: "instant" });
+  };
 
   return (
-    <section className="py-20" id="projects-section">
+    <section className="pt-20" id="projects-section">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="mb-12"
+          className="mb-10"
         >
           <p className="eyebrow mb-4">{t("projects.eyebrow")}</p>
           <div className="flex flex-wrap items-end justify-between gap-6">
@@ -129,45 +330,31 @@ export const Projects = () => {
           </div>
         </motion.div>
 
-        <div className="-mx-4 mb-8 flex gap-2 overflow-x-auto px-4 pb-1 [scrollbar-width:none] sm:mx-0 sm:flex-wrap sm:px-0">
-          {filters.map(({ value, label, count }) => (
-            <button
-              key={value}
-              type="button"
-              aria-pressed={filter === value}
-              onClick={() => setFilter(value)}
-              className={cn(
-                "flex flex-shrink-0 items-center gap-2 rounded-full border px-4 py-2 text-sm font-medium transition-colors",
-                filter === value ? "border-foreground bg-foreground text-background" : "border-border hover:border-foreground/40",
-              )}
-            >
-              {label}
-              <span className={cn("text-xs", filter === value ? "text-background/60" : "text-muted-foreground")}>{count}</span>
-            </button>
-          ))}
-        </div>
-
-        <motion.div
-          layout
-          className="grid grid-flow-dense auto-rows-[140px] grid-cols-2 gap-3 sm:auto-rows-[200px] sm:gap-4 lg:auto-rows-[220px] lg:grid-cols-4"
-        >
-          <AnimatePresence mode="popLayout" initial={false}>
-            {visible.map((project) => (
-              <motion.div
-                key={project._id}
-                layout
-                initial={{ opacity: 0, scale: 0.94 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.94 }}
-                transition={{ duration: 0.35, ease: "easeOut" }}
-                className={isFeatured(project) ? "col-span-2 row-span-2" : "col-span-1 row-span-1"}
+        <div className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-1 [scrollbar-width:none] sm:mx-0 sm:flex-wrap sm:px-0">
+          {filters.map(({ value, label, count }) => {
+            const Icon = value === "all" ? null : kinds[value].icon;
+            return (
+              <button
+                key={value}
+                type="button"
+                aria-pressed={filter === value}
+                onClick={() => pick(value)}
+                className={cn(
+                  "flex flex-shrink-0 items-center gap-2 rounded-full border px-4 py-2 text-sm font-medium transition-colors",
+                  filter === value ? "border-foreground bg-foreground text-background" : "border-border hover:border-foreground/40",
+                )}
               >
-                <Tile project={project} />
-              </motion.div>
-            ))}
-          </AnimatePresence>
-        </motion.div>
+                {Icon && <Icon className="size-4" />}
+                {label}
+                <span className={cn("text-xs", filter === value ? "text-background/60" : "text-muted-foreground")}>{count}</span>
+              </button>
+            );
+          })}
+        </div>
       </div>
+
+      <div ref={railStart} />
+      {visible.length > 0 && <Rail key={filter} projects={visible} />}
     </section>
   );
 };

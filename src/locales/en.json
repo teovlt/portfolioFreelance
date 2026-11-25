@@ -196,7 +196,19 @@
     },
     "demoBadge": "Demo",
     "filterAll": "All",
-    "demoNotice": "Demo website: this business is fictional. Names, prices, reviews and contact details are made up."
+    "demoNotice": "Demo website: this business is fictional. Names, prices, reviews and contact details are made up.",
+    "kind": {
+      "client": "Client project",
+      "demo": "Demo site",
+      "personal": "Side project"
+    },
+    "meta": {
+      "year": "Year",
+      "role": "Role",
+      "stack": "Stack"
+    },
+    "previous": "Previous project",
+    "next": "Next project"
   },
   "reviews": {
     "leave": "Leave a review",
