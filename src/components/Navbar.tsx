@@ -8,6 +8,7 @@ import { useState, useEffect, useRef } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { Button } from "./ui/button";
+import { Logo } from "./Logo";
 import { useSectionNav } from "@/hooks/useSectionNav";
 import { usePublicContent } from "@/hooks/usePublicContent";
 import type { ContactInfo } from "@/types/content";
@@ -136,6 +137,7 @@ export const Navbar = () => {
               onClick={(e) => handleNavLinkClick("home-section", e)}
               className="flex items-center gap-2 font-display font-bold text-base tracking-tight"
             >
+              <Logo className="h-6 w-6 text-primary" />
               Téo Villet
             </Link>
             <div className="flex gap-5 items-center">
@@ -170,6 +172,7 @@ export const Navbar = () => {
           {/* Mobile */}
           <div className="flex lg:hidden justify-between items-center p-2 rounded-full bg-card border border-border shadow-sm px-5 relative z-50">
             <Link to="/" className="flex items-center gap-2 font-display font-bold text-lg tracking-tight">
+              <Logo className="h-6 w-6 text-primary" />
               Téo Villet
             </Link>
             <motion.button
