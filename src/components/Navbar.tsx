@@ -135,10 +135,15 @@ export const Navbar = () => {
             <Link
               to="/"
               onClick={(e) => handleNavLinkClick("home-section", e)}
-              className="flex items-center gap-2 font-display font-bold text-base tracking-tight"
+              className="flex items-center gap-2.5 font-display font-bold text-base tracking-tight"
             >
-              <Logo className="h-6 w-6 text-primary" />
-              Téo Villet
+              <span className="grid place-items-center h-[34px] w-[34px] rounded-[10px] bg-primary text-primary-foreground">
+                <Logo className="h-[22px] w-[22px]" />
+              </span>
+              <span className="grid leading-tight">
+                Téo Villet
+                <small className="font-sans font-medium text-[11px] text-muted-foreground tracking-normal">{t("navbar.tagline")}</small>
+              </span>
             </Link>
             <div className="flex gap-5 items-center">
               <nav aria-label={t("a11y.mainMenu")} className="flex gap-6 text-sm font-medium">
@@ -171,9 +176,14 @@ export const Navbar = () => {
 
           {/* Mobile */}
           <div className="flex lg:hidden justify-between items-center p-2 rounded-full bg-card border border-border shadow-sm px-5 relative z-50">
-            <Link to="/" className="flex items-center gap-2 font-display font-bold text-lg tracking-tight">
-              <Logo className="h-6 w-6 text-primary" />
-              Téo Villet
+            <Link to="/" className="flex items-center gap-2.5 font-display font-bold text-lg tracking-tight">
+              <span className="grid place-items-center h-[34px] w-[34px] rounded-[10px] bg-primary text-primary-foreground">
+                <Logo className="h-[22px] w-[22px]" />
+              </span>
+              <span className="grid leading-tight">
+                Téo Villet
+                <small className="font-sans font-medium text-[11px] text-muted-foreground tracking-normal">{t("navbar.tagline")}</small>
+              </span>
             </Link>
             <motion.button
               ref={toggleButtonRef}
